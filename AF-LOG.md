@@ -2,6 +2,7 @@
 
 - Talked to SF and then published to Github
 - Renamed LOG.MD to AF-LOG.md
+- Created Dev branch
 
 ### 6/27/2024
 
