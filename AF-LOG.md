@@ -11,6 +11,22 @@
     - Added .gitignore for the log files outputed by the web api
     - Tested api.http works
 
+- Caught up on several techniques for testing.
+
+    - Added https://github.com/martincostello/xunit-logging to integration tests
+
+    - Created a temporary connects-to-db test to show I can create a service provider easily in the test 
+
+        - I can get output from ILogger and the test itself.
+
+- Article.Tags seem to work but I don't think I am getting the right SQL. I see OPENJSON used. 
+    - SELECT TOP(1) [a].[Id], [a].[Tags], [a].[Title]
+      FROM [Articles] AS [a]
+      WHERE N'TAG2' IN (
+          SELECT [t].[value]
+          FROM OPENJSON([a].[Tags]) WITH ([value] nvarchar(max) '$') AS [t]
+      )
+
 ### 6/28/2024
 
 - Talked to SF and then published to Github

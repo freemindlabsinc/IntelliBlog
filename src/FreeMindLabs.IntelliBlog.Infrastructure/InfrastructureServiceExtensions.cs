@@ -16,8 +16,7 @@ public static class InfrastructureServiceExtensions
 {
   public static IServiceCollection AddInfrastructureServices(
     this IServiceCollection services,
-    IConfiguration config,
-    ILogger logger)
+    IConfiguration config)
   {        
     string? connectionString = config.GetConnectionString($"DbConnection");
     Guard.Against.Null(connectionString);    
@@ -30,9 +29,7 @@ public static class InfrastructureServiceExtensions
     services.AddScoped<IDeleteContributorService, DeleteContributorService>();
 
     services.Configure<MailserverConfiguration>(config.GetSection("Mailserver"));
-
-    logger.LogInformation("{Project} services registered", "Infrastructure");
-
+    
     return services;
   }
 }

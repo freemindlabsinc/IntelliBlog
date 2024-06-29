@@ -40,16 +40,17 @@ public abstract class BaseEfRepoTestFixture
         Guard.Against.NullOrEmpty(connString, "DbConnection");
 
         var serviceProvider = new ServiceCollection()
+            .AddInfrastructureServices(config)
             //.AddEntityFrameworkSqlServerDatabase()
-            .AddEntityFrameworkInMemoryDatabase()            
-            .AddInfrastructureServices(config, logger)
+            //.AddEntityFrameworkInMemoryDatabase()            
+            //.AddInfrastructureServices(config, logger)
             .BuildServiceProvider();
 
     // Create a new options instance telling the context to use an
     // InMemory database and the new service provider.
     var builder = new DbContextOptionsBuilder<AppDbContext>();
-    builder.UseSqlServer(connString)
-           .UseInternalServiceProvider(serviceProvider);
+        builder.UseSqlServer(connString)
+               .UseInternalServiceProvider(serviceProvider);
 
     return builder.Options;
   }
