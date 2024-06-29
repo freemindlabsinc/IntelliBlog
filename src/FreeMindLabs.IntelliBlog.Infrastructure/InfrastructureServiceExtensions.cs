@@ -19,11 +19,11 @@ public static class InfrastructureServiceExtensions
     ConfigurationManager config,
     ILogger logger)
   {
-    string? connectionString = config.GetConnectionString("SqliteConnection");
-    Guard.Against.Null(connectionString);
-    services.AddDbContext<AppDbContext>(options =>
-     options.UseSqlite(connectionString));
+    string? connectionString = config.GetConnectionString($"DbConnection");
+    Guard.Against.Null(connectionString);    
 
+    services.AddApplicationDbContext(connectionString);
+    
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
     services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();

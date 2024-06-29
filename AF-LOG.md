@@ -1,3 +1,16 @@
+### 6/29/2024
+
+- Struggled a bit to make migrations work with the subfolder structure \Data\migrations
+    - Created Notes.txt file which contains the right dotnet ef database commands
+    - I had a SqlServer (Linux) listening on 127.0.0.1 while localhost was being used by SqlLocalDb.
+
+- Switched from sqllite to sql server
+    - Renamed main connection string 'DbConnection' and added secrets
+    - Generated first migration
+    - Upgraded packages
+    - Added .gitignore for the log files outputed by the web api
+    - Tested api.http works
+
 ### 6/28/2024
 
 - Talked to SF and then published to Github
