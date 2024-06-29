@@ -10,7 +10,7 @@ public class EfRepositoryUpdate : BaseEfRepoTestFixture
   public async Task UpdatesItemAfterAddingIt()
   {
     // add a Contributor
-    var repository = GetRepository();
+    var repository = GetContributorRepository();
     var initialName = Guid.NewGuid().ToString();
     var Contributor = new Contributor(initialName);
 

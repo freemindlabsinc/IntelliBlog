@@ -1,8 +1,14 @@
-﻿using Ardalis.SharedKernel;
+﻿using System.Configuration;
+using Ardalis.GuardClauses;
+using Ardalis.SharedKernel;
+using FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
 using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
+using FreeMindLabs.IntelliBlog.Infrastructure;
 using FreeMindLabs.IntelliBlog.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NSubstitute;
 
 namespace FreeMindLabs.IntelliBlog.IntegrationTests.Data;
@@ -21,23 +27,40 @@ public abstract class BaseEfRepoTestFixture
 
   protected static DbContextOptions<AppDbContext> CreateNewContextOptions()
   {
-    // Create a fresh service provider, and therefore a fresh
-    // InMemory database instance.
-    var serviceProvider = new ServiceCollection()
-        .AddEntityFrameworkInMemoryDatabase()
-        .BuildServiceProvider();
+        // Create a fresh service provider        
+        var config = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.testing.json")
+            .AddUserSecrets<BaseEfRepoTestFixture>()
+            .Build();
+
+        var logger = new LoggerFactory()
+            .CreateLogger<BaseEfRepoTestFixture>();
+
+        var connString = config.GetConnectionString("DbConnection");    
+        Guard.Against.NullOrEmpty(connString, "DbConnection");
+
+        var serviceProvider = new ServiceCollection()
+            //.AddEntityFrameworkSqlServerDatabase()
+            .AddEntityFrameworkInMemoryDatabase()            
+            .AddInfrastructureServices(config, logger)
+            .BuildServiceProvider();
 
     // Create a new options instance telling the context to use an
     // InMemory database and the new service provider.
     var builder = new DbContextOptionsBuilder<AppDbContext>();
-    builder.UseInMemoryDatabase("cleanarchitecture")
+    builder.UseSqlServer(connString)
            .UseInternalServiceProvider(serviceProvider);
 
     return builder.Options;
   }
 
-  protected EfRepository<Contributor> GetRepository()
-  {
-    return new EfRepository<Contributor>(_dbContext);
-  }
+    protected EfRepository<Contributor> GetContributorRepository()
+    {
+        return new EfRepository<Contributor>(_dbContext);
+    }
+
+    protected EfRepository<Article> GetArticlesRepository()
+    {
+        return new EfRepository<Article>(_dbContext);
+    }
 }

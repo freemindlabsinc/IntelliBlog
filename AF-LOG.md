@@ -4,7 +4,7 @@
     - Created Notes.txt file which contains the right dotnet ef database commands
     - I had a SqlServer (Linux) listening on 127.0.0.1 while localhost was being used by SqlLocalDb.
 
-- Switched from sqllite to sql server
+- Switched from sqlite to sql server
     - Renamed main connection string 'DbConnection' and added secrets
     - Generated first migration
     - Upgraded packages

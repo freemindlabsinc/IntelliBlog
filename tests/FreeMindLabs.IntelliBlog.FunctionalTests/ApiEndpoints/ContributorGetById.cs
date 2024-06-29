@@ -6,7 +6,8 @@ using Xunit;
 namespace FreeMindLabs.IntelliBlog.FunctionalTests.ApiEndpoints;
 
 [Collection("Sequential")]
-public class ContributorGetById(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
+public class ContributorGetById(CustomWebApplicationFactory<Program> factory) 
+    : IClassFixture<CustomWebApplicationFactory<Program>>
 {
   private readonly HttpClient _client = factory.CreateClient();
 
