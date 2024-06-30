@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
-using IntelliBlog.UseCases.Contributors.Delete;
 using FastEndpoints;
+using IntelliBlog.Application.UseCases.Contributors.Delete;
 using MediatR;
 
 namespace IntelliBlog.Web.Contributors;

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
-using IntelliBlog.Core.Domain.Article;
-using IntelliBlog.Core.Domain.Contributor;
+using IntelliBlog.Domain.Article;
+using IntelliBlog.Domain.Contributor;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntelliBlog.Infrastructure.Data;

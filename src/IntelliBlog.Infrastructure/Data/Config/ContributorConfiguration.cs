@@ -1,4 +1,4 @@
-﻿using IntelliBlog.Core.Domain.Contributor;
+﻿using IntelliBlog.Domain.Contributor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

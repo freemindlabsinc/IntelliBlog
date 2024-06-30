@@ -1,15 +1,14 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using IntelliBlog.Core.Interfaces;
-using IntelliBlog.Core.Services;
+using IntelliBlog.Application.Interfaces;
+using IntelliBlog.Application.Services;
+using IntelliBlog.Application.UseCases.Contributors.List;
 using IntelliBlog.Infrastructure.Data;
 using IntelliBlog.Infrastructure.Data.Queries;
 using IntelliBlog.Infrastructure.Email;
-using IntelliBlog.UseCases.Contributors.List;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace IntelliBlog.Infrastructure;
 public static class InfrastructureServiceExtensions

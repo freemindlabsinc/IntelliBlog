@@ -1,17 +1,17 @@
 ﻿using System.Reflection;
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
-using IntelliBlog.Core.Interfaces;
 using IntelliBlog.Infrastructure;
 using IntelliBlog.Infrastructure.Data;
 using IntelliBlog.Infrastructure.Email;
-using IntelliBlog.UseCases.Contributors.Create;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using MediatR;
 using Serilog;
 using Serilog.Extensions.Logging;
-using IntelliBlog.Core.Domain.Contributor;
+using IntelliBlog.Domain.Contributor;
+using IntelliBlog.Application.UseCases.Contributors.Create;
+using IntelliBlog.Application.Interfaces;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()

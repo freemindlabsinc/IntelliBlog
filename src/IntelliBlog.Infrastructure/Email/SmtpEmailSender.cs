@@ -1,5 +1,5 @@
 ﻿using System.Net.Mail;
-using IntelliBlog.Core.Interfaces;
+using IntelliBlog.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

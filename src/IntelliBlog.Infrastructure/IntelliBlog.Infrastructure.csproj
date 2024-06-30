@@ -16,7 +16,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\IntelliBlog.Core\IntelliBlog.Core.csproj" />
-    <ProjectReference Include="..\IntelliBlog.UseCases\IntelliBlog.UseCases.csproj" />
+    <ProjectReference Include="..\IntelliBlog.Domain\IntelliBlog.Domain.csproj" />
+    <ProjectReference Include="..\IntelliBlog.Application\IntelliBlog.Application.csproj" />
   </ItemGroup>
 </Project>

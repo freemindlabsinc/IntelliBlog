@@ -1,5 +1,5 @@
-﻿using IntelliBlog.UseCases.Contributors;
-using IntelliBlog.UseCases.Contributors.List;
+﻿using IntelliBlog.Application.UseCases.Contributors;
+using IntelliBlog.Application.UseCases.Contributors.List;
 
 namespace IntelliBlog.Infrastructure.Data.Queries;
 

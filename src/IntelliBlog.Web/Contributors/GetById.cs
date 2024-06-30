@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
-using IntelliBlog.UseCases.Contributors.Get;
 using FastEndpoints;
+using IntelliBlog.Application.UseCases.Contributors.Get;
 using MediatR;
 
 namespace IntelliBlog.Web.Contributors;

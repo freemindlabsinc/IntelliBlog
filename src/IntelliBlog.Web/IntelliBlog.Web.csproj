@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IntelliBlog.Infrastructure\IntelliBlog.Infrastructure.csproj" />
-    <ProjectReference Include="..\IntelliBlog.UseCases\IntelliBlog.UseCases.csproj" />
+    <ProjectReference Include="..\IntelliBlog.Application\IntelliBlog.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using Ardalis.SharedKernel;
-using IntelliBlog.Core.Domain.Contributor;
-using IntelliBlog.Core.Services;
+using IntelliBlog.Application.Services;
+using IntelliBlog.Domain.Contributor;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using NSubstitute;

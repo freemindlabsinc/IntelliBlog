@@ -1,4 +1,4 @@
-﻿using IntelliBlog.Core.Domain.Contributor;
+﻿using IntelliBlog.Domain.Contributor;
 using Xunit;
 
 namespace IntelliBlog.IntegrationTests.Data;

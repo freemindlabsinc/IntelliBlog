@@ -1,4 +1,4 @@
-﻿using IntelliBlog.Core.Interfaces;
+﻿using IntelliBlog.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace IntelliBlog.Infrastructure.Email;

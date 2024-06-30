@@ -1,8 +1,8 @@
 ﻿using System.Configuration;
 using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using IntelliBlog.Core.Domain.Article;
-using IntelliBlog.Core.Domain.Contributor;
+using IntelliBlog.Domain.Article;
+using IntelliBlog.Domain.Contributor;
 using IntelliBlog.Infrastructure;
 using IntelliBlog.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

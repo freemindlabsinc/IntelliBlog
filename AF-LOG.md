@@ -10,6 +10,27 @@
         - https://www.youtube.com/watch?v=X7guekGZM20
         - Not sure I'll use it given Aspire, but it seems related to Testcontainers (at least in principle).    
 
+- Cleaned up a lot
+    - Simplified the names of projects and folders. It is now much more readable
+        
+        - Intelliblog.Domain, Intelliblog.Application, Intelliblog.Infrastructure, Intelliblog.WebApi, Intelliblog.FunctionalTests, Intelliblog.UnitTests and Intelliblog.IntegrationTests
+        
+    - I think Ardalis project structure could be improved
+
+        - I linked my .Domain to MediatR.Contracts. No need for the full mediator in .Core/.Domain
+        - IMPORTANT: In his Core example he has IArticleDeleteService and ArticleDeletedEvent so that handlers can subscribe 
+        to these Domain Events and react. While I agree Domain Events are indeed part of the Domain, I think both the 
+        events-handlers AND event-raisers belong to Application. In Domain we should only list them, and that implies the 
+        Application has to honor them.
+            - Having some implementers like IArticleDeleteService/ArticleDeleteService in Domain is a mistake imo.
+
+    - 
+         
+    - IMPORTANT: I guess what I am doing is mixing the best of what I learned in my career, plus Ardalis and Jason Taylor.
+        - Ardalis: the project structure and initial template
+        - Jason Taylor: the DDD focus with Domain & Application
+            - I like his Domain much better than Ardfalis Core. JT is cleaner imho
+
 ### 6/29/2024
 
 - Struggled a bit to make migrations work with the subfolder structure \Data\migrations

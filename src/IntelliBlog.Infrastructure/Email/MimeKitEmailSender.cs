@@ -1,4 +1,4 @@
-﻿using IntelliBlog.Core.Interfaces;
+﻿using IntelliBlog.Application.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

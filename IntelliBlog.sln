@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B31B4797
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.Web", "src\IntelliBlog.Web\IntelliBlog.Web.csproj", "{C9751CB7-4CD6-4633-A99A-4F6ADD525437}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.Core", "src\IntelliBlog.Core\IntelliBlog.Core.csproj", "{4548EB20-1D1B-477B-AF6E-DD55653A6583}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.Domain", "src\IntelliBlog.Domain\IntelliBlog.Domain.csproj", "{4548EB20-1D1B-477B-AF6E-DD55653A6583}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.Infrastructure", "src\IntelliBlog.Infrastructure\IntelliBlog.Infrastructure.csproj", "{220361D6-9C76-4E3F-BD34-3C7B50E2CA4D}"
 EndProject
@@ -34,7 +34,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.IntegrationTest
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.UnitTests", "tests\IntelliBlog.UnitTests\IntelliBlog.UnitTests.csproj", "{1DC7F5A0-DDF7-4975-84EB-05F4FC1B6AB5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.UseCases", "src\IntelliBlog.UseCases\IntelliBlog.UseCases.csproj", "{B74A78FF-B79E-4C38-A9C7-084A90990CAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.Application", "src\IntelliBlog.Application\IntelliBlog.Application.csproj", "{B74A78FF-B79E-4C38-A9C7-084A90990CAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

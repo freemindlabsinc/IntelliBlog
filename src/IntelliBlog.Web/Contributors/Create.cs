@@ -1,5 +1,5 @@
-﻿using IntelliBlog.UseCases.Contributors.Create;
-using FastEndpoints;
+﻿using FastEndpoints;
+using IntelliBlog.Application.UseCases.Contributors.Create;
 using MediatR;
 
 namespace IntelliBlog.Web.Contributors;

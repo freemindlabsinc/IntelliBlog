@@ -1,5 +1,5 @@
 ﻿using System.Reflection.Emit;
-using IntelliBlog.Core.Domain.Article;
+using IntelliBlog.Domain.Article;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
