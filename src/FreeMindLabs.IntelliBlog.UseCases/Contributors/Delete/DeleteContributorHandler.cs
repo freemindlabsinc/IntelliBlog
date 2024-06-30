@@ -4,7 +4,7 @@ using FreeMindLabs.IntelliBlog.Core.Interfaces;
 
 namespace FreeMindLabs.IntelliBlog.UseCases.Contributors.Delete;
 
-public class DeleteContributorHandler(IDeleteContributorService _deleteContributorService)
+public class DeleteContributorHandler(IContributorDeleteService _deleteContributorService)
   : ICommandHandler<DeleteContributorCommand, Result>
 {
   public async Task<Result> Handle(DeleteContributorCommand request, CancellationToken cancellationToken)

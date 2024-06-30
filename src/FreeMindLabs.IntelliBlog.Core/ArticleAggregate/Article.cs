@@ -1,8 +1,6 @@
-﻿using System.Xml.Linq;
-using Ardalis.GuardClauses;
+﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using FreeMindLabs.IntelliBlog.Core.Utilities;
-using MediatR;
 
 namespace FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
 

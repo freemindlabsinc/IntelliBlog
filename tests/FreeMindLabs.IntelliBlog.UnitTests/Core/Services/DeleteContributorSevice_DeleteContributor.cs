@@ -12,13 +12,13 @@ public class DeleteContributorService_DeleteContributor
 {
   private readonly IRepository<Contributor> _repository = Substitute.For<IRepository<Contributor>>();
   private readonly IMediator _mediator = Substitute.For<IMediator>();
-  private readonly ILogger<DeleteContributorService> _logger = Substitute.For<ILogger<DeleteContributorService>>();
+  private readonly ILogger<ContributorDeleteService> _logger = Substitute.For<ILogger<ContributorDeleteService>>();
 
-  private readonly DeleteContributorService _service;
+  private readonly ContributorDeleteService _service;
 
   public DeleteContributorService_DeleteContributor()
   {
-    _service = new DeleteContributorService(_repository, _mediator, _logger);
+    _service = new ContributorDeleteService(_repository, _mediator, _logger);
   }
 
   [Fact]
