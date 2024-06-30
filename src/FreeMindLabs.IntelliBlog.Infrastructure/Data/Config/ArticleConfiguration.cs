@@ -1,5 +1,5 @@
 ﻿using System.Reflection.Emit;
-using FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
+using FreeMindLabs.IntelliBlog.Core.Domain.Article;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

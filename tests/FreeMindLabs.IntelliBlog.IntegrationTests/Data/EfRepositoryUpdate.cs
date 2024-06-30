@@ -1,4 +1,4 @@
-﻿using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
+﻿using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
 using Microsoft.EntityFrameworkCore;
 using Xunit;
 

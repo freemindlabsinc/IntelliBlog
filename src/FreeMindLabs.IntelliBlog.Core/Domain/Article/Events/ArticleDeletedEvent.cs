@@ -1,6 +1,4 @@
-﻿using Ardalis.SharedKernel;
-
-namespace FreeMindLabs.IntelliBlog.Core.ArticleAggregate.Events;
+﻿namespace FreeMindLabs.IntelliBlog.Core.Domain.Article.Events;
 
 internal sealed class ArticleDeletedEvent(ArticleId articleId) : DomainEventBase
 {

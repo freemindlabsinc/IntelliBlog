@@ -1,3 +1,15 @@
+### 6/30/2024
+
+- Started the day watching these videos:
+    - Redis Cache, PostgreSQL Databases, Messaging, & More with .NET Aspire
+        - https://www.youtube.com/watch?v=4t_-g4fwEG0
+    - EF Core database model first - take it to the next level with Power Tools CLI | .NET Conf 2023
+        - https://www.youtube.com/watch?v=fwR59ep-2-8
+        - Useful if I were to connect to 3rd party dbs like with COBRA!!
+    - Beginner's Guide to Dev Containers - The Instant Dev Environment That I LOVE!
+        - https://www.youtube.com/watch?v=X7guekGZM20
+        - Not sure I'll use it given Aspire, but it seems related to Testcontainers (at least in principle).    
+
 ### 6/29/2024
 
 - Struggled a bit to make migrations work with the subfolder structure \Data\migrations
@@ -26,6 +38,15 @@
           SELECT [t].[value]
           FROM OPENJSON([a].[Tags]) WITH ([value] nvarchar(max) '$') AS [t]
       )
+
+- Watched very useful videos about testing:
+
+    - The cleanest way to use Docker for testing in .NET 
+        - https://www.youtube.com/watch?v=8IRNC7qZBmk
+
+    - The BEST way to reset your database for testing in .NET
+        - https://www.youtube.com/watch?v=E4TeWBFzcCw
+        - Respawn (from JBogard) https://github.com/jbogard/Respawn
 
 ### 6/28/2024
 

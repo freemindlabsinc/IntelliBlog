@@ -1,6 +1,6 @@
 ﻿using Ardalis.SharedKernel;
 
-namespace FreeMindLabs.IntelliBlog.Core.ContributorAggregate.Events;
+namespace FreeMindLabs.IntelliBlog.Core.Domain.Contributor.Events;
 
 /// <summary>
 /// A domain event that is dispatched whenever a contributor is deleted.
@@ -8,5 +8,5 @@ namespace FreeMindLabs.IntelliBlog.Core.ContributorAggregate.Events;
 /// </summary>
 internal sealed class ContributorDeletedEvent(int contributorId) : DomainEventBase
 {
-  public int ContributorId { get; init; } = contributorId;
+    public int ContributorId { get; init; } = contributorId;
 }

@@ -1,5 +1,5 @@
 ﻿using Ardalis.SharedKernel;
-using FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
+using FreeMindLabs.IntelliBlog.Core.Domain.Article;
 using FreeMindLabs.IntelliBlog.Infrastructure;
 using FreeMindLabs.IntelliBlog.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

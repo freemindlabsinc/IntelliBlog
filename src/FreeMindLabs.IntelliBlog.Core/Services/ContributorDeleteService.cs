@@ -1,7 +1,5 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate.Events;
+﻿using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor.Events;
 using FreeMindLabs.IntelliBlog.Core.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;

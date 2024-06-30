@@ -1,5 +1,5 @@
 ﻿using Ardalis.Result;
-using FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
+using FreeMindLabs.IntelliBlog.Core.Domain.Article;
 
 namespace FreeMindLabs.IntelliBlog.Core.Interfaces;
 

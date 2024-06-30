@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
-using FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
+using FreeMindLabs.IntelliBlog.Core.Domain.Article;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
 using Microsoft.EntityFrameworkCore;
 
 namespace FreeMindLabs.IntelliBlog.Infrastructure.Data;

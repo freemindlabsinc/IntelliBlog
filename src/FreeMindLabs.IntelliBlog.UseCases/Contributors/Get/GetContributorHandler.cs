@@ -1,7 +1,7 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate.Specifications;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor.Specifications;
 
 namespace FreeMindLabs.IntelliBlog.UseCases.Contributors.Get;
 

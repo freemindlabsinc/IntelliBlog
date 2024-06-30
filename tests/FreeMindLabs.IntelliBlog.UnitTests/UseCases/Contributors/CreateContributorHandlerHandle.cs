@@ -1,9 +1,9 @@
 ﻿using Ardalis.SharedKernel;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
 using FreeMindLabs.IntelliBlog.UseCases.Contributors.Create;
 using FluentAssertions;
 using NSubstitute;
 using Xunit;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
 
 namespace FreeMindLabs.IntelliBlog.UnitTests.UseCases.Contributors;
 

@@ -1,6 +1,6 @@
-﻿using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
-using FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
-using Xunit;
+﻿using Xunit;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
+using FreeMindLabs.IntelliBlog.Core.Domain.Article;
 
 namespace FreeMindLabs.IntelliBlog.IntegrationTests.Data;
 

@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 using Ardalis.SharedKernel;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
 
 namespace FreeMindLabs.IntelliBlog.UseCases.Contributors.Create;
 

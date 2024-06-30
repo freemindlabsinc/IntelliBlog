@@ -1,5 +1,5 @@
-﻿using FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
+﻿using FreeMindLabs.IntelliBlog.Core.Domain.Article;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

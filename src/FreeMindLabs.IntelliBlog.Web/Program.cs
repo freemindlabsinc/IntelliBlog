@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Ardalis.ListStartupServices;
 using Ardalis.SharedKernel;
-using FreeMindLabs.IntelliBlog.Core.ContributorAggregate;
 using FreeMindLabs.IntelliBlog.Core.Interfaces;
 using FreeMindLabs.IntelliBlog.Infrastructure;
 using FreeMindLabs.IntelliBlog.Infrastructure.Data;
@@ -12,6 +11,7 @@ using FastEndpoints.Swagger;
 using MediatR;
 using Serilog;
 using Serilog.Extensions.Logging;
+using FreeMindLabs.IntelliBlog.Core.Domain.Contributor;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()

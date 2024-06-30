@@ -2,7 +2,7 @@
 using Ardalis.SharedKernel;
 using FreeMindLabs.IntelliBlog.Core.Utilities;
 
-namespace FreeMindLabs.IntelliBlog.Core.ArticleAggregate;
+namespace FreeMindLabs.IntelliBlog.Core.Domain.Article;
 
 public readonly record struct ArticleId(int Value)
 {
