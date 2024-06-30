@@ -1,5 +1,0 @@
-dotnet ef database drop --startup-project ../FreeMindLabs.IntelliBlog.Web --force --context AppDbContext 
-
-dotnet ef database update --startup-project ../FreeMindLabs.IntelliBlog.Web --context AppDbContext 
-
-dotnet ef migrations add CreateDatabase --startup-project ../FreeMindLabs.IntelliBlog.Web --context AppDbContext --verbose --output-dir Data/Migrations 
