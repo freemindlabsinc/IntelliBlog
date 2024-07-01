@@ -10,6 +10,12 @@ public readonly record struct ArticleId(int Value)
     public static ArticleId? TryParse(string? value) => StrongIdHelper<ArticleId, int>.Deserialize(value);
 }
 
+public class ArticleSource
+{
+    public ArticleId ArticleId { get; private set; } = default!;
+    public SourceId SourceId { get; private set; } = default!;
+}
+
 public class Article : TrackedEntity<ArticleId>, IAggregateRoot
 {
     public static Article CreateNew(
@@ -28,7 +34,7 @@ public class Article : TrackedEntity<ArticleId>, IAggregateRoot
     public string? Description { get; private set; }
     public string? Text { get; private set; }
     public List<Tag> Tags { get; private set; } = new List<Tag>();
-    public List<Source> Sources { get; private set; } = new List<Source>();
+    public List<ArticleSource> Sources { get; private set; } = new List<ArticleSource>();
 
     
     public Article UpdateTitle(string title)

@@ -9,6 +9,7 @@ public readonly record struct SourceId(int Value)
     public static SourceId? TryParse(string? value) => StrongIdHelper<SourceId, int>.Deserialize(value);
 }
 
+
 public class Source : TrackedEntity<SourceId>
 {
     public static Source CreateNew(string name, string? url = default)
@@ -18,7 +19,7 @@ public class Source : TrackedEntity<SourceId>
     public string? URL { get; private set; } = default!;
     public string? Notes { get; private set; } = default!;
 
-    public List<Article> Articles { get; private set; } = new List<Article>();
+    public List<ArticleSource> Articles { get; private set; } = new List<ArticleSource>();
 
     public Source UpdateName(string name)
     {

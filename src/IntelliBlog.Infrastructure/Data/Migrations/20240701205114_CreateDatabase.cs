@@ -90,30 +90,30 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 name: "ArticleSource",
                 columns: table => new
                 {
-                    ArticlesId = table.Column<int>(type: "int", nullable: false),
-                    SourcesId = table.Column<int>(type: "int", nullable: false)
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    SourceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleSource", x => new { x.ArticlesId, x.SourcesId });
+                    table.PrimaryKey("PK_ArticleSource", x => new { x.ArticleId, x.SourceId });
                     table.ForeignKey(
-                        name: "FK_ArticleSource_Articles_ArticlesId",
-                        column: x => x.ArticlesId,
+                        name: "FK_ArticleSource_Articles_ArticleId",
+                        column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ArticleSource_Source_SourcesId",
-                        column: x => x.SourcesId,
+                        name: "FK_ArticleSource_Source_SourceId",
+                        column: x => x.SourceId,
                         principalTable: "Source",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleSource_SourcesId",
+                name: "IX_ArticleSource_SourceId",
                 table: "ArticleSource",
-                column: "SourcesId");
+                column: "SourceId");
         }
 
         /// <inheritdoc />
