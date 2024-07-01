@@ -19,7 +19,7 @@ public class Source : TrackedEntity<SourceId>
     public string? URL { get; private set; } = default!;
     public string? Notes { get; private set; } = default!;
 
-    public List<ArticleSource> Articles { get; private set; } = new List<ArticleSource>();
+    public List<SourceTag> Tags { get; private set; } = new List<SourceTag>();    
 
     public Source UpdateName(string name)
     {

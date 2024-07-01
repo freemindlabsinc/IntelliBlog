@@ -25,24 +25,25 @@ public class EfRepositoryAdd : BaseEfRepoTestFixture
     }
 
     [Fact]
-    public async Task AddsArticleAndSetsId()
+    public Task AddsArticleAndSetsId()
     {
-        const string testTag1 = "testTag1";
-        const string testTag2 = "testTag2";
-
-        var testArticleTitle = "testArticle";
-        var repository = GetArticlesRepository();
-        
-        var article = Article.CreateNew(testArticleTitle)
-            .AddTags(testTag1, testTag2);
-
-        await repository.AddAsync(article);
-
-        var newArticle = (await repository.ListAsync())
-                        .FirstOrDefault();
-
-        Assert.Equal(testArticleTitle, newArticle?.Title);
-        //Assert.Equal(testArticleTags, newArticle?.Tags);
-        Assert.True(newArticle?.Id.Value > 0);
+        throw new NotFiniteNumberException();
+        //const string testTag1 = "testTag1";
+        //const string testTag2 = "testTag2";
+        //
+        //var testArticleTitle = "testArticle";
+        //var repository = GetArticlesRepository();
+        //
+        //var article = Article.CreateNew(testArticleTitle)
+        //    .AddTags(testTag1, testTag2);
+        //
+        //await repository.AddAsync(article);
+        //
+        //var newArticle = (await repository.ListAsync())
+        //                .FirstOrDefault();
+        //
+        //Assert.Equal(testArticleTitle, newArticle?.Title);
+        ////Assert.Equal(testArticleTags, newArticle?.Tags);
+        //Assert.True(newArticle?.Id.Value > 0);
     }
 }

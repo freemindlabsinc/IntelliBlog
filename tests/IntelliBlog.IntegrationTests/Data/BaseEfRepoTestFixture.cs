@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using Ardalis.GuardClauses;
+﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
 using IntelliBlog.Domain.Articles;
 using IntelliBlog.Domain.Contributor;
@@ -60,8 +59,8 @@ public abstract class BaseEfRepoTestFixture
         return new EfRepository<Contributor>(_dbContext);
     }
 
-    protected EfRepository<Article> GetArticlesRepository()
-    {
-        return new EfRepository<Article>(_dbContext);
-    }
+    //protected EfRepository<Article> GetArticlesRepository()
+    //{
+    //    return new EfRepository<Article>(_dbContext);
+    //}
 }

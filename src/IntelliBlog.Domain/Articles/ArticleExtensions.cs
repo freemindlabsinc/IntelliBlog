@@ -6,7 +6,7 @@ public static class ArticleExtensions
 {
     public static Article AddTags(this Article article, params string[] tags)
     {
-        article.Tags.AddRange(tags.Select(tag => Tag.CreateNew(tag)));
+        article.Tags.AddRange(tags.Select(tag => ArticleTag.CreateNew(tag)));
         return article;
     }
 

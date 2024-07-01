@@ -2,6 +2,7 @@
 using Ardalis.SharedKernel;
 using IntelliBlog.Domain.Articles;
 using IntelliBlog.Domain.Contributor;
+using IntelliBlog.Domain.Sources;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntelliBlog.Infrastructure.Data;
@@ -18,6 +19,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Contributor> Contributors => Set<Contributor>();
     public DbSet<Article> Articles => Set<Article>();
+    public DbSet<Source> Sources => Set<Source>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

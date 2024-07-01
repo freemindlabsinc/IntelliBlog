@@ -61,6 +61,52 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleSource", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SourceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("SourceId");
+
+                    b.ToTable("ArticleSource");
+                });
+
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleTag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("ArticleTag");
+                });
+
             modelBuilder.Entity("IntelliBlog.Domain.Contributor.Contributor", b =>
                 {
                     b.Property<int>("Id")
@@ -80,21 +126,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contributors");
-                });
-
-            modelBuilder.Entity("IntelliBlog.Domain.Sources.ArticleSource", b =>
-                {
-                    b.Property<int>("ArticleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SourceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ArticleId", "SourceId");
-
-                    b.HasIndex("SourceId");
-
-                    b.ToTable("ArticleSource");
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
@@ -133,36 +164,60 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Source");
+                    b.ToTable("Sources");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Sources.SourceTag", b =>
                 {
-                    b.OwnsMany("IntelliBlog.Domain.Articles.Tag", "Tags", b1 =>
-                        {
-                            b1.Property<int>("ArticleId")
-                                .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)");
+                    b.Property<int>("SourceId")
+                        .HasColumnType("int");
 
-                            b1.HasKey("ArticleId", "Id");
+                    b.HasKey("Id");
 
-                            b1.ToTable("Tag");
+                    b.HasIndex("SourceId");
 
-                            b1.WithOwner()
-                                .HasForeignKey("ArticleId");
-                        });
+                    b.ToTable("SourceTag");
+                });
 
-                    b.Navigation("Tags");
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleSource", b =>
+                {
+                    b.HasOne("IntelliBlog.Domain.Articles.Article", "Article")
+                        .WithMany("Sources")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IntelliBlog.Domain.Sources.Source", "Source")
+                        .WithMany()
+                        .HasForeignKey("SourceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
+
+                    b.Navigation("Source");
+                });
+
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleTag", b =>
+                {
+                    b.HasOne("IntelliBlog.Domain.Articles.Article", "Article")
+                        .WithMany("Tags")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Contributor.Contributor", b =>
@@ -194,29 +249,27 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.Navigation("PhoneNumber");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Sources.ArticleSource", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Sources.SourceTag", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
-                        .WithMany("Sources")
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IntelliBlog.Domain.Sources.Source", null)
-                        .WithMany("Articles")
+                    b.HasOne("IntelliBlog.Domain.Sources.Source", "Source")
+                        .WithMany("Tags")
                         .HasForeignKey("SourceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Source");
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
                 {
                     b.Navigation("Sources");
+
+                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
                 {
-                    b.Navigation("Articles");
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,4 @@
 ﻿using Ardalis.SharedKernel;
-using IntelliBlog.Domain.Sources;
 
 namespace IntelliBlog.Domain.Articles;
 
@@ -8,12 +7,6 @@ public readonly record struct ArticleId(int Value)
     public static ArticleId Empty { get; } = default;
     public override string ToString() => StrongIdHelper<ArticleId, int>.Serialize(Value);
     public static ArticleId? TryParse(string? value) => StrongIdHelper<ArticleId, int>.Deserialize(value);
-}
-
-public class ArticleSource
-{
-    public ArticleId ArticleId { get; private set; } = default!;
-    public SourceId SourceId { get; private set; } = default!;
 }
 
 public class Article : TrackedEntity<ArticleId>, IAggregateRoot
@@ -33,7 +26,7 @@ public class Article : TrackedEntity<ArticleId>, IAggregateRoot
     public string Title { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Text { get; private set; }
-    public List<Tag> Tags { get; private set; } = new List<Tag>();
+    public List<ArticleTag> Tags { get; private set; } = new List<ArticleTag>();
     public List<ArticleSource> Sources { get; private set; } = new List<ArticleSource>();
 
     

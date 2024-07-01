@@ -1,8 +1,10 @@
-﻿using IntelliBlog.Domain.Articles;
+﻿using IntelliBlog.Domain;
+using IntelliBlog.Domain.Articles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace IntelliBlog.Infrastructure.Data.Config;
+
 
 public partial class ArticleConfiguration : IEntityTypeConfiguration<Article>
 {
@@ -23,32 +25,18 @@ public partial class ArticleConfiguration : IEntityTypeConfiguration<Article>
         builder.Property(p => p.Text)
             .HasMaxLength(-1);
 
-        builder.OwnsMany(p => p.Tags, tags =>
-        {            
-            tags.Property(tag => tag.Id)
-                .ValueGeneratedOnAdd()
-                .HasConversion(id => id.Value, value => new TagId(value));
+        //builder.OwnsMany(p => p.Tags);
 
-            tags.Property(tag => tag.Name)
-                .HasMaxLength(DataSchemaConstants.DEFAULT_TAG_NAME_LENGTH)
-                .IsRequired();
-        });        
 
-        //builder.OwnsMany(p => p.Sources, sources =>
-        //{
-        //    sources.Property(src => src.Id)
+        //builder.OwnsMany(p => p.Tags, tags =>
+        //{            
+        //    tags.Property(tag => tag.Id)
         //        .ValueGeneratedOnAdd()
-        //        .HasConversion(id => id.Value, value => new SourceId(value));
+        //        .HasConversion(id => id.Value, value => new TagId(value));
         //
-        //    sources.Property(src => src.Name)
-        //        .HasMaxLength(DataSchemaConstants.DEFAULT_SOURCE_NAME_LENGTH)
+        //    tags.Property(tag => tag.Name)
+        //        .HasMaxLength(DataSchemaConstants.DEFAULT_TAG_NAME_LENGTH)
         //        .IsRequired();
-        //
-        //    sources.Property(src => src.URL)
-        //        .HasMaxLength(DataSchemaConstants.DEFAULT_URL_LENGTH);
-        //
-        //    sources.Property(src => src.Notes)
-        //        .HasMaxLength(-1);
         //});
     }
 }
