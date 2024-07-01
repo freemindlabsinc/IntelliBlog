@@ -28,12 +28,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\IntelliBlog.Domain\IntelliBlog.Domain.csproj" />
     <ProjectReference Include="..\..\src\IntelliBlog.Application\IntelliBlog.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="Xunit" />
+    <Using Include="FluentAssertions" />
+  </ItemGroup>
 </Project>

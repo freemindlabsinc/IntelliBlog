@@ -2,7 +2,7 @@
 
 namespace IntelliBlog.Domain.Utilities;
 
-public static class StrongIdHelper<TId, TValue> where TId : struct
+internal static class StrongIdHelper<TId, TValue> where TId : struct
 {
   public static string Serialize(TValue value) =>
       $"{GetPrefix(typeof(TId).Name)}-{value?.ToString()?.ToLower() ?? string.Empty}";

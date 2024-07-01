@@ -19,7 +19,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    Content = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
+                    Text = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -48,6 +48,32 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Source",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    URL = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Source", x => new { x.ArticleId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Source_Articles_ArticleId",
+                        column: x => x.ArticleId,
+                        principalTable: "Articles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tag",
                 columns: table => new
                 {
@@ -73,6 +99,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Contributors");
+
+            migrationBuilder.DropTable(
+                name: "Source");
 
             migrationBuilder.DropTable(
                 name: "Tag");

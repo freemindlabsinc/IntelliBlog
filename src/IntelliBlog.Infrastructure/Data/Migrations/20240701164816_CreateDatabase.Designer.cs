@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240701155408_CreateDatabase")]
+    [Migration("20240701164816_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -33,10 +33,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Content")
-                        .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
@@ -52,6 +48,10 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .HasMaxLength(-1)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -87,6 +87,51 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IntelliBlog.Domain.Article.Article", b =>
                 {
+                    b.OwnsMany("IntelliBlog.Domain.Article.Source", "Sources", b1 =>
+                        {
+                            b1.Property<int>("ArticleId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<DateTime>("Created")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("CreatedBy")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<DateTime?>("LastModified")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("LastModifiedBy")
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)");
+
+                            b1.Property<string>("Notes")
+                                .HasMaxLength(-1)
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<string>("URL")
+                                .HasMaxLength(2000)
+                                .HasColumnType("nvarchar(2000)");
+
+                            b1.HasKey("ArticleId", "Id");
+
+                            b1.ToTable("Source");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ArticleId");
+                        });
+
                     b.OwnsMany("IntelliBlog.Domain.Article.Tag", "Tags", b1 =>
                         {
                             b1.Property<int>("ArticleId")
@@ -110,6 +155,8 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ArticleId");
                         });
+
+                    b.Navigation("Sources");
 
                     b.Navigation("Tags");
                 });

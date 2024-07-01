@@ -22,7 +22,7 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
         builder.Property(p => p.Description)
             .HasMaxLength(DataSchemaConstants.DEFAULT_DESCRIPTION_LENGTH);
 
-        builder.Property(p => p.Content)
+        builder.Property(p => p.Text)
             .HasMaxLength(-1);
 
         builder.OwnsMany(p => p.Tags, tags =>
@@ -34,6 +34,23 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
             tags.Property(tag => tag.Name)
                 .HasMaxLength(DataSchemaConstants.DEFAULT_TAG_NAME_LENGTH)
                 .IsRequired();
+        });
+
+        builder.OwnsMany(p => p.Sources, sources =>
+        {
+            sources.Property(src => src.Id)
+                .ValueGeneratedOnAdd()
+                .HasConversion(id => id.Value, value => new SourceId(value));
+
+            sources.Property(src => src.Name)
+                .HasMaxLength(DataSchemaConstants.DEFAULT_SOURCE_NAME_LENGTH)
+                .IsRequired();
+
+            sources.Property(src => src.URL)
+                .HasMaxLength(DataSchemaConstants.DEFAULT_URL_LENGTH);
+
+            sources.Property(src => src.Notes)
+                .HasMaxLength(-1);
         });
     }
 }
