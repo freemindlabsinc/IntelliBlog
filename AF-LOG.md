@@ -1,3 +1,23 @@
+### 7/1/2024
+
+- The one month sprint starts today!
+
+- I looked into the OPENJSON features of EF 8, specifically in the context of the Article.Tags property.     
+    
+    - https://chatgpt.com/share/de265a4f-1c4e-41fe-af67-9d6d1a6496b6
+    - Conclusion: "Using a normalized table structure for storing tags is generally better for performance, maintainability, and query efficiency, especially when dealing with frequent and complex searches. JSON columns offer flexibility but can complicate querying and indexing, leading to potential performance issues. Therefore, for your use case, a normalized table design is recommended."
+    
+    - DECISION: do not use JSON for tags. Use a separate table.
+
+- Finish Domain:
+    
+    - Articles
+    - Tags
+    - Images
+    
+    - Users & Identity Stuff
+
+
 ### 6/30/2024
 
 - Started the day watching these videos:

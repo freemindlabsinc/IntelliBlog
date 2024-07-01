@@ -15,6 +15,6 @@ public class CreateContributorValidator : Validator<CreateContributorRequest>
       .NotEmpty()
       .WithMessage("Name is required.")
       .MinimumLength(2)
-      .MaximumLength(DataSchemaConstants.DEFAULT_NAME_LENGTH);
+      .MaximumLength(DataSchemaConstants.DEFAULT_TITLE_LENGTH);
   }
 }

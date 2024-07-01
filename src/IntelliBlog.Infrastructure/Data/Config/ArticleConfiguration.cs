@@ -16,14 +16,24 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
             .HasConversion(id => id.Value, value => new(value));
 
         builder.Property(p => p.Title)
-            .HasMaxLength(DataSchemaConstants.DEFAULT_NAME_LENGTH)
+            .HasMaxLength(DataSchemaConstants.DEFAULT_TITLE_LENGTH)
             .IsRequired();
 
-        //builder.OwnsMany(builder => builder.Tags, x =>
-        //{
-        //    x.Property(p => p.Value)
-        //    .HasMaxLength(DataSchemaConstants.DEFAULT_NAME_LENGTH)
-        //    .IsRequired();
-        //});
+        builder.Property(p => p.Description)
+            .HasMaxLength(DataSchemaConstants.DEFAULT_DESCRIPTION_LENGTH);
+
+        builder.Property(p => p.Content)
+            .HasMaxLength(-1);
+
+        builder.OwnsMany(p => p.Tags, tags =>
+        {            
+            tags.Property(tag => tag.Id)
+                .ValueGeneratedOnAdd()
+                .HasConversion(id => id.Value, value => new TagId(value));
+
+            tags.Property(tag => tag.Name)
+                .HasMaxLength(DataSchemaConstants.DEFAULT_TAG_NAME_LENGTH)
+                .IsRequired();
+        });
     }
 }

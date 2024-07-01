@@ -31,14 +31,14 @@ public class DbTests(ITestOutputHelper outputHelper)
 
         var dbctx = serviceProvider.GetService<AppDbContext>()!;
         await dbctx.Database.EnsureCreatedAsync();
-        dbctx.Articles.Add(new Article("Test", ["TAG1", "TAG2"]));
+        dbctx.Articles.Add(Article.CreateNew("Test").AddTags("TAG1", "TAG2"));
 
         await dbctx.SaveChangesAsync();
 
         // db context 2
         var dbctx2 = serviceProvider.GetService<AppDbContext>()!;        
         var first = await dbctx2.Articles
-            .Where(a => a.Tags.Contains("TAG2"))
+            .Where(a => a.Tags.Any(t => t.Name == "TAG2" ))
             .FirstOrDefaultAsync();
 
         Assert.NotNull(first);

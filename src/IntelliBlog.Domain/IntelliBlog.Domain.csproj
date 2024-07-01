@@ -18,5 +18,6 @@
     <Using Include="Ardalis.GuardClauses" />
     <Using Include="Ardalis.Specification" />
     <Using Include="MediatR" />
+    <Using Include="IntelliBlog.Domain.Utilities" />
   </ItemGroup>
 </Project>

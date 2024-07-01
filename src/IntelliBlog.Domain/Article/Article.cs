@@ -1,6 +1,4 @@
-﻿using IntelliBlog.Domain.Utilities;
-
-namespace IntelliBlog.Domain.Article;
+﻿namespace IntelliBlog.Domain.Article;
 
 public readonly record struct ArticleId(int Value)
 {
@@ -9,16 +7,53 @@ public readonly record struct ArticleId(int Value)
     public static ArticleId? TryParse(string? value) => StrongIdHelper<ArticleId, int>.Deserialize(value);
 }
 
-public class Article(string Title, string[] Tags) : EntityBase<ArticleId>, IAggregateRoot
+public class Article : TrackedEntity<ArticleId>, IAggregateRoot
 {
-    public string Title { get; private set; } = Guard.Against.NullOrEmpty(Title, nameof(Title));
-    public string[] Tags { get; private set; } = Tags ?? Array.Empty<string>();
+    public static Article CreateNew(
+        string title,
+        string? description = default,
+        string? content = default)
+    {
+        var result = new Article(title);
+        result.Description = description;
+        result.Content = content;        
 
-    //public Article SetTags(IEnumerable<string> tags)
-    //{ 
-    //    this.Tags = tags.Distinct().ToArray();
-    //    return this;
-    //}
+        return result;
+    }
+    
+    public string Title { get; private set; } = default!;
+    public string? Description { get; private set; }
+    public string? Content { get; private set; }
+    public List<Tag> Tags { get; private set; } = new List<Tag>();
 
-    public static Article CreateNew(string title, string[] tags) => new(Title: title, Tags: tags);
+    public Article AddTags(params string[] tags)
+    { 
+        this.Tags.AddRange(Tag.CreateMany(tags));
+        return this;
+    }
+
+    public Article UpdateTitle(string title)
+    {
+        Guard.Against.NullOrWhiteSpace(title, nameof(title));
+        this.Title = title;        
+        return this;
+    }
+
+    public Article UpdateDescription(string description)
+    {
+        this.Description = description;
+        return this;
+    }
+
+    public Article UpdateContent(string content)
+    {
+        this.Content = content;
+        return this;
+    }
+
+    // For EF Core
+    private Article(string title) 
+    { 
+        UpdateTitle(title);
+    } 
 }

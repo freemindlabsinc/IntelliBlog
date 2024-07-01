@@ -10,9 +10,9 @@ public static class SeedData
     public static readonly Contributor Contributor1 = new("Ardalis");
     public static readonly Contributor Contributor2 = new("Snowfrog");
 
-    public static readonly Article Article1 = new("Learning EF 8", ["CSharp", "Programming"]);
-    public static readonly Article Article2 = new("Learning Test Driven Development", ["Programming"]);
-    public static readonly Article Article3 = new("Learning Taoism", ["Philosophy"]);
+    public static readonly Article Article1 = Article.CreateNew("Learning EF 8").AddTags("CSharp", "Programming");
+    public static readonly Article Article2 = Article.CreateNew("Learning Test Driven Development").AddTags("TDD", "Programming");
+    public static readonly Article Article3 = Article.CreateNew("Learning Taoism").AddTags("Philosophy");
 
     public static void Initialize(IServiceProvider serviceProvider)
     {
