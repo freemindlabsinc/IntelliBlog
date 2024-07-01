@@ -1,5 +1,4 @@
-﻿using FluentAssertions;
-using IntelliBlog.Domain.Article;
+﻿using IntelliBlog.Domain.Articles;
 
 namespace IntelliBlog.UnitTests.Domain;
 
@@ -55,18 +54,19 @@ public class ArticleTests
     [Fact]
     public void CreateArticle_WithSources()
     {
-        const string title = "Test Title";
-        const string source1 = "Source 1";
-        const string source2 = "Source 2";
-
-        var article = Article.CreateNew(title);
-        article.Sources.Should().BeEmpty();
-
-        article.AddSources(source1, source2);
-
-        article.Sources.Should().HaveCount(2);
-        article.Sources[0].Name.Should().Be(source1);
-        article.Sources[1].Name.Should().Be(source2);
+        throw new NotImplementedException();
+        //const string title = "Test Title";
+        //const string source1 = "Source 1";
+        //const string source2 = "Source 2";
+        //
+        //var article = Article.CreateNew(title);
+        //article.Sources.Should().BeEmpty();
+        //
+        //article.AddSources(source1, source2);
+        //
+        //article.Sources.Should().HaveCount(2);
+        //article.Sources[0].Name.Should().Be(source1);
+        //article.Sources[1].Name.Should().Be(source2);
     }
 
     [Fact]
@@ -81,11 +81,12 @@ public class ArticleTests
     [Fact]
     public void CreateArticle_WithEmptySources_ShouldFail()
     {
-        var article = Article.CreateNew("Test");
-        
-        Action action = () => article.AddSources("");
-
-        action.Should().Throw<ArgumentException>();
+        throw new NotImplementedException();
+        //var article = Article.CreateNew("Test");
+        //
+        //Action action = () => article.AddSources("");
+        //
+        //action.Should().Throw<ArgumentException>();
     }
 
     [Fact]

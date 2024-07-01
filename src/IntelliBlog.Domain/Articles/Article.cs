@@ -1,6 +1,7 @@
 ﻿using Ardalis.SharedKernel;
+using IntelliBlog.Domain.Sources;
 
-namespace IntelliBlog.Domain.Article;
+namespace IntelliBlog.Domain.Articles;
 
 public readonly record struct ArticleId(int Value)
 {

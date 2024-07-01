@@ -1,7 +1,7 @@
 ﻿using System.Configuration;
 using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using IntelliBlog.Domain.Article;
+using IntelliBlog.Domain.Articles;
 using IntelliBlog.Domain.Contributor;
 using IntelliBlog.Infrastructure;
 using IntelliBlog.Infrastructure.Data;

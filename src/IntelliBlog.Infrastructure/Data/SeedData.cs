@@ -1,4 +1,4 @@
-﻿using IntelliBlog.Domain.Article;
+﻿using IntelliBlog.Domain.Articles;
 using IntelliBlog.Domain.Contributor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

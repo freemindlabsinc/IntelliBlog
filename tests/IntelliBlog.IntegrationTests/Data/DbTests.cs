@@ -1,5 +1,5 @@
 ﻿using Ardalis.SharedKernel;
-using IntelliBlog.Domain.Article;
+using IntelliBlog.Domain.Articles;
 using IntelliBlog.Infrastructure;
 using IntelliBlog.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain.Article;
-using IntelliBlog.Domain.Article.Events;
+using IntelliBlog.Domain.Articles;
+using IntelliBlog.Domain.Articles.Events;
 using Microsoft.Extensions.Logging;
 
 namespace IntelliBlog.Application.Services;

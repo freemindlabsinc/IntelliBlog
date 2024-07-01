@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain.Article;
+﻿namespace IntelliBlog.Domain.Articles;
 
 public readonly record struct TagId(int Value)
 {

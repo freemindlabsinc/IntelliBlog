@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using IntelliBlog.Domain.Contributor;
-using IntelliBlog.Domain.Article;
+using IntelliBlog.Domain.Articles;
 
 namespace IntelliBlog.IntegrationTests.Data;
 

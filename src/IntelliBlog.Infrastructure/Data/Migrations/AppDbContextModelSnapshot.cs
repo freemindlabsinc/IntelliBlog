@@ -22,7 +22,22 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("IntelliBlog.Domain.Article.Article", b =>
+            modelBuilder.Entity("ArticleSource", b =>
+                {
+                    b.Property<int>("ArticlesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SourcesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ArticlesId", "SourcesId");
+
+                    b.HasIndex("SourcesId");
+
+                    b.ToTable("ArticleSource");
+                });
+
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,54 +97,63 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Contributors");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Article.Article", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
                 {
-                    b.OwnsMany("IntelliBlog.Domain.Article.Source", "Sources", b1 =>
-                        {
-                            b1.Property<int>("ArticleId")
-                                .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                            b1.Property<int>("Id")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
 
-                            b1.Property<DateTime>("Created")
-                                .HasColumnType("datetime2");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("CreatedBy")
-                                .IsRequired()
-                                .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
 
-                            b1.Property<DateTime?>("LastModified")
-                                .HasColumnType("datetime2");
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("LastModifiedBy")
-                                .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                            b1.Property<string>("Name")
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
+                    b.Property<string>("Notes")
+                        .HasMaxLength(-1)
+                        .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("Notes")
-                                .HasMaxLength(-1)
-                                .HasColumnType("nvarchar(max)");
+                    b.Property<string>("URL")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
-                            b1.Property<string>("URL")
-                                .HasMaxLength(2000)
-                                .HasColumnType("nvarchar(2000)");
+                    b.HasKey("Id");
 
-                            b1.HasKey("ArticleId", "Id");
+                    b.ToTable("Source");
+                });
 
-                            b1.ToTable("Source");
+            modelBuilder.Entity("ArticleSource", b =>
+                {
+                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
+                        .WithMany()
+                        .HasForeignKey("ArticlesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                            b1.WithOwner()
-                                .HasForeignKey("ArticleId");
-                        });
+                    b.HasOne("IntelliBlog.Domain.Sources.Source", null)
+                        .WithMany()
+                        .HasForeignKey("SourcesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.OwnsMany("IntelliBlog.Domain.Article.Tag", "Tags", b1 =>
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
+                {
+                    b.OwnsMany("IntelliBlog.Domain.Articles.Tag", "Tags", b1 =>
                         {
                             b1.Property<int>("ArticleId")
                                 .HasColumnType("int");
@@ -152,8 +176,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                             b1.WithOwner()
                                 .HasForeignKey("ArticleId");
                         });
-
-                    b.Navigation("Sources");
 
                     b.Navigation("Tags");
                 });

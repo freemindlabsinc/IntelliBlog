@@ -1,12 +1,10 @@
-﻿using System.Reflection.Emit;
-using IntelliBlog.Domain.Article;
-using MediatR;
+﻿using IntelliBlog.Domain.Articles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace IntelliBlog.Infrastructure.Data.Config;
 
-public class ArticleConfiguration : IEntityTypeConfiguration<Article>
+public partial class ArticleConfiguration : IEntityTypeConfiguration<Article>
 {
     public void Configure(EntityTypeBuilder<Article> builder)
     {
@@ -34,23 +32,23 @@ public class ArticleConfiguration : IEntityTypeConfiguration<Article>
             tags.Property(tag => tag.Name)
                 .HasMaxLength(DataSchemaConstants.DEFAULT_TAG_NAME_LENGTH)
                 .IsRequired();
-        });
+        });        
 
-        builder.OwnsMany(p => p.Sources, sources =>
-        {
-            sources.Property(src => src.Id)
-                .ValueGeneratedOnAdd()
-                .HasConversion(id => id.Value, value => new SourceId(value));
-
-            sources.Property(src => src.Name)
-                .HasMaxLength(DataSchemaConstants.DEFAULT_SOURCE_NAME_LENGTH)
-                .IsRequired();
-
-            sources.Property(src => src.URL)
-                .HasMaxLength(DataSchemaConstants.DEFAULT_URL_LENGTH);
-
-            sources.Property(src => src.Notes)
-                .HasMaxLength(-1);
-        });
+        //builder.OwnsMany(p => p.Sources, sources =>
+        //{
+        //    sources.Property(src => src.Id)
+        //        .ValueGeneratedOnAdd()
+        //        .HasConversion(id => id.Value, value => new SourceId(value));
+        //
+        //    sources.Property(src => src.Name)
+        //        .HasMaxLength(DataSchemaConstants.DEFAULT_SOURCE_NAME_LENGTH)
+        //        .IsRequired();
+        //
+        //    sources.Property(src => src.URL)
+        //        .HasMaxLength(DataSchemaConstants.DEFAULT_URL_LENGTH);
+        //
+        //    sources.Property(src => src.Notes)
+        //        .HasMaxLength(-1);
+        //});
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace IntelliBlog.Domain.Article;
+﻿using IntelliBlog.Domain.Articles;
+
+namespace IntelliBlog.Domain.Sources;
 
 public readonly record struct SourceId(int Value)
 {
@@ -9,12 +11,14 @@ public readonly record struct SourceId(int Value)
 
 public class Source : TrackedEntity<SourceId>
 {
-    internal static Source CreateNew(string name, string? url = default)    
+    public static Source CreateNew(string name, string? url = default)
         => new Source(name).UpdateURL(url);
-        
+
     public string Name { get; private set; } = default!;
     public string? URL { get; private set; } = default!;
     public string? Notes { get; private set; } = default!;
+
+    public List<Article> Articles { get; private set; } = new List<Article>();
 
     public Source UpdateName(string name)
     {
@@ -40,6 +44,6 @@ public class Source : TrackedEntity<SourceId>
     // For EF Core
     private Source(string name)
     {
-        UpdateName(name);        
+        UpdateName(name);
     }
 }

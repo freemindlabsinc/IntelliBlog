@@ -1,5 +1,5 @@
 ﻿using Ardalis.Result;
-using IntelliBlog.Domain.Article;
+using IntelliBlog.Domain.Articles;
 
 namespace IntelliBlog.Application.Interfaces;
 

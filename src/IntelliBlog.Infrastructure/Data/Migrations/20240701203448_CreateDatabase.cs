@@ -53,7 +53,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     URL = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     Notes = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
@@ -64,13 +63,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Source", x => new { x.ArticleId, x.Id });
-                    table.ForeignKey(
-                        name: "FK_Source_Articles_ArticleId",
-                        column: x => x.ArticleId,
-                        principalTable: "Articles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Source", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,19 +85,51 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ArticleSource",
+                columns: table => new
+                {
+                    ArticlesId = table.Column<int>(type: "int", nullable: false),
+                    SourcesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArticleSource", x => new { x.ArticlesId, x.SourcesId });
+                    table.ForeignKey(
+                        name: "FK_ArticleSource_Articles_ArticlesId",
+                        column: x => x.ArticlesId,
+                        principalTable: "Articles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ArticleSource_Source_SourcesId",
+                        column: x => x.SourcesId,
+                        principalTable: "Source",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArticleSource_SourcesId",
+                table: "ArticleSource",
+                column: "SourcesId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ArticleSource");
+
+            migrationBuilder.DropTable(
                 name: "Contributors");
 
             migrationBuilder.DropTable(
-                name: "Source");
+                name: "Tag");
 
             migrationBuilder.DropTable(
-                name: "Tag");
+                name: "Source");
 
             migrationBuilder.DropTable(
                 name: "Articles");
