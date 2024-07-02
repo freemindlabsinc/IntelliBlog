@@ -95,6 +95,8 @@
 			- Q: Do I test command handlers directly?
 		- Unit is where I test in memory things like domain objects and functionality
 
+- Started branch ddd-adjustments2
+
 ### 7/1/2024
 
 - The one month sprint starts today!
