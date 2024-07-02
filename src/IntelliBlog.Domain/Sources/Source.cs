@@ -1,4 +1,5 @@
-﻿using IntelliBlog.Domain.Articles;
+﻿using Ardalis.SharedKernel;
+using IntelliBlog.Domain.Articles;
 
 namespace IntelliBlog.Domain.Sources;
 
@@ -10,15 +11,15 @@ public readonly record struct SourceId(int Value)
 }
 
 
-public class Source : TrackedEntity<SourceId>
+public class Source : TrackedEntity<SourceId>, IAggregateRoot
 {
-    public static Source CreateNew(string name, string? url = default)
-        => new Source(name).UpdateURL(url);
+    public static Source CreateNew(string name, string? url = default, string? description = default)
+        => new Source(name).UpdateURL(url).UpdateDescription(description); // TODO: iffy
 
     public string Name { get; private set; } = default!;
+    public string? Description { get; private set; } = default!;
     public string? URL { get; private set; } = default!;
-    public string? Notes { get; private set; } = default!;
-
+    
     public List<SourceTag> Tags { get; private set; } = new List<SourceTag>();    
 
     public Source UpdateName(string name)
@@ -35,9 +36,9 @@ public class Source : TrackedEntity<SourceId>
         return this;
     }
 
-    public Source UpdateNotes(string? notes)
+    public Source UpdateDescription(string? description)
     {
-        Notes = notes;
+        Description = description;
 
         return this;
     }

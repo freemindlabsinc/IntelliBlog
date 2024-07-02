@@ -145,6 +145,10 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(-1)
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
 
@@ -155,10 +159,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URL")
                         .HasMaxLength(2000)

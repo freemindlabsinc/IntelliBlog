@@ -1,6 +1,5 @@
 ﻿using FastEndpoints;
 using IntelliBlog.API.Application.UseCases.Articles.Create;
-using IntelliBlog.Web.Contributors;
 
 namespace IntelliBlog.API.Endpoints.Articles;
 
@@ -24,8 +23,8 @@ public class Create(IMediator _mediator)
       CreateArticleRequest request,
       CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new CreateArticleCommand(request.Title!,
-          request.Description, request.Content, request.Tags), cancellationToken);
+        var result = await _mediator.Send(new CreateArticleCommand(
+            request.Title, request.Description, request.Content, request.Tags), cancellationToken);
 
         if (result.IsSuccess)
         {

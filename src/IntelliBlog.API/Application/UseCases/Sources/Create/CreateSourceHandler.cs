@@ -1,9 +1,17 @@
-﻿namespace IntelliBlog.API.Application.UseCases.Sources.Create;
+﻿using IntelliBlog.Domain.Articles;
+using IntelliBlog.Domain.Sources;
 
-public class CreateSourceHandler : ICommandHandler<CreateSourceCommand, Result<int>>
+namespace IntelliBlog.API.Application.UseCases.Sources.Create;
+
+public class CreateSourceHandler(IRepository<Source> _repository) 
+    : ICommandHandler<CreateSourceCommand, Result<int>>
 {
-    public Task<Result<int>> Handle(CreateSourceCommand request, CancellationToken cancellationToken)
+    public async Task<Result<int>> Handle(CreateSourceCommand request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var source = Source.CreateNew(request.Name, request.Url, request.Description);
+
+        var createdItem = await _repository.AddAsync(source, cancellationToken);
+
+        return createdItem.Id.Value;
     }
 }

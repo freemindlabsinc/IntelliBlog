@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240702003747_CreateDatabase")]
+    [Migration("20240702190208_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -148,6 +148,10 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(-1)
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
 
@@ -158,10 +162,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("URL")
                         .HasMaxLength(2000)

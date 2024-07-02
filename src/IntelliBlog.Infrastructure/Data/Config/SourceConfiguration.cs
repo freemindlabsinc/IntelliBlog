@@ -20,7 +20,7 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
         builder.Property(p => p.URL)
             .HasMaxLength(DataSchemaConstants.DEFAULT_URL_LENGTH);
 
-        builder.Property(p => p.Notes)
+        builder.Property(p => p.Description)
             .HasMaxLength(-1);
     }
 }

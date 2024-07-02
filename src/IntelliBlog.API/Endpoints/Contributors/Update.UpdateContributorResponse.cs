@@ -1,4 +1,6 @@
-﻿namespace IntelliBlog.Web.Contributors;
+﻿using IntelliBlog.API.Endpoints.Contributors;
+
+namespace IntelliBlog.Web.Contributors;
 
 public class UpdateContributorResponse(ContributorRecord contributor)
 {
