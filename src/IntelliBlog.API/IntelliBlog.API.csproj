@@ -25,8 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IntelliBlog.Domain\IntelliBlog.Domain.csproj" />
     <ProjectReference Include="..\IntelliBlog.Infrastructure\IntelliBlog.Infrastructure.csproj" />
     <ProjectReference Include="..\IntelliBlog.Application\IntelliBlog.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Apis\" />
+    <Folder Include="Application\" />
   </ItemGroup>
 
 </Project>

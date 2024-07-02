@@ -21,7 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\IntelliBlog.Infrastructure\IntelliBlog.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\IntelliBlog.Application\IntelliBlog.Application.csproj" />
-    <ProjectReference Include="..\..\src\IntelliBlog.Web\IntelliBlog.Web.csproj" />
+    <ProjectReference Include="..\..\src\IntelliBlog.API\IntelliBlog.API.csproj" />
   </ItemGroup>
 
 </Project>
