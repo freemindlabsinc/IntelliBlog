@@ -96,6 +96,14 @@
 		- Unit is where I test in memory things like domain objects and functionality
 
 - Started branch ddd-adjustments2
+    
+    - IMPORTANT REALIZATION: both Ardalis and Jason Tayler's DDD solutions make use of an
+    Application project. If we're to take inspiration from eShop (and we do), that is a
+    complication we don't need. We can implement the mediator calls DIRECTLY in the web api project particularily with FastEndpoints.
+
+        - I am going to move things around some more... wish me luck!
+        - 
+
 
 ### 7/1/2024
 
