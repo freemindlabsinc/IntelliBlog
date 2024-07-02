@@ -1,3 +1,9 @@
+### 7/2/2024
+
+- Started the day well by reading and watching videos on EF8-DDD related stuff
+    -  Reading wonderful article: https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/net-core-microservice-domain-model
+    - 
+
 ### 7/1/2024
 
 - The one month sprint starts today!
@@ -9,14 +15,15 @@
     
     - DECISION: do not use JSON for tags. Use a separate table.
 
-- Finish Domain:
+- Worked on Domain:
     
-    - Articles
-    - Tags
-    - Images
-    
-    - Users & Identity Stuff
-
+    - I spent all day restructuring the domain and EF until I found a good output.
+        
+        - IMPORTANT: Having unit tests for the domain was incredibly useful. I spotted several issues
+        right away (e.g. access to stuff I should not have, etc.). It definitely accelerated my work
+        and I now KNOW that things are solid even at the domain level.
+        
+        - I like the DB.
 
 ### 6/30/2024
 

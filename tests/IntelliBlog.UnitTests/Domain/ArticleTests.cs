@@ -1,4 +1,5 @@
 ﻿using IntelliBlog.Domain.Articles;
+using IntelliBlog.Domain.Sources;
 
 namespace IntelliBlog.UnitTests.Domain;
 
@@ -15,7 +16,7 @@ public class ArticleTests
         article.Text.Should().BeNull();
 
         article.Tags.Should().BeEmpty();
-        article.Sources.Should().BeEmpty();
+        article.Sources.Should().BeEmpty();        
     }
 
     [Fact]
@@ -54,7 +55,7 @@ public class ArticleTests
     [Fact]
     public void CreateArticle_WithSources()
     {
-        throw new NotImplementedException();
+        throw new Exception("Not implemented");
         //const string title = "Test Title";
         //const string source1 = "Source 1";
         //const string source2 = "Source 2";
@@ -62,7 +63,9 @@ public class ArticleTests
         //var article = Article.CreateNew(title);
         //article.Sources.Should().BeEmpty();
         //
-        //article.AddSources(source1, source2);
+        //var source = Source.CreateNew("Test Source");
+        //
+        //article.AddSource(source1, source2);
         //
         //article.Sources.Should().HaveCount(2);
         //article.Sources[0].Name.Should().Be(source1);

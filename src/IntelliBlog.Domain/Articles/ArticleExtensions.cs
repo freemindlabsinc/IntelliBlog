@@ -12,7 +12,7 @@ public static class ArticleExtensions
 
     //public static Article AddSources(this Article article, params SourceId[] sources)
     //{
-    //    article.Sources.AddRange(sources.Select(src => Source.CreateNew(src))*/);
+    //    article.Sources.AddRange(sources.Select(src => Source.CreateNew(src)));
     //
     //    return article;
     //}
