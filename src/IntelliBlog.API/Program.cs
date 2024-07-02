@@ -12,6 +12,7 @@ using Serilog.Extensions.Logging;
 using IntelliBlog.Domain.Contributor;
 using IntelliBlog.Application.UseCases.Contributors.Create;
 using IntelliBlog.Application.Interfaces;
+using IntelliBlog.Domain.Articles;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
@@ -103,8 +104,9 @@ void ConfigureMediatR()
 {
   var mediatRAssemblies = new[]
 {
+  Assembly.GetAssembly(typeof(Article)), // Core
   Assembly.GetAssembly(typeof(Contributor)), // Core
-  Assembly.GetAssembly(typeof(CreateContributorCommand)) // UseCases
+  Assembly.GetAssembly(typeof(Program)) // UseCases
 };
   builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
   builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

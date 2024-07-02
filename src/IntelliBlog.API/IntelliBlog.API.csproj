@@ -31,8 +31,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Apis\" />
-    <Folder Include="Application\" />
+    <Folder Include="Endpoints\Sources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- These are referenced by most files in this project -->
+    <Using Include="Ardalis.Result" />
+    <Using Include="Ardalis.SharedKernel" />
+    <Using Include="Ardalis.GuardClauses" />
+    <Using Include="Ardalis.Specification" />
+    <Using Include="MediatR" />
   </ItemGroup>
 
 </Project>
