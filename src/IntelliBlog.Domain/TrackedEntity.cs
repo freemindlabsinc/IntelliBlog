@@ -5,7 +5,7 @@ public abstract class TrackedEntity<TId>(): Entity<TId>
 {
     public DateTime Created { get; private set; } = DateTime.UtcNow;
 
-    public string CreatedBy { get; private set; } = default!;
+    public string? CreatedBy { get; private set; } = default!;
 
     public DateTime? LastModified { get; private set; }    
 

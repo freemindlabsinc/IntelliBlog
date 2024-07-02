@@ -22,12 +22,5 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
 
         builder.Property(p => p.Notes)
             .HasMaxLength(-1);
-
-        //builder.OwnsMany(p => p.Articles, articles =>
-        //{
-        //    articles.Property(article => article.Id)
-        //        .ValueGeneratedOnAdd()
-        //        .HasConversion(id => id.Value, value => new ArticleId(value));
-        //});
     }
 }

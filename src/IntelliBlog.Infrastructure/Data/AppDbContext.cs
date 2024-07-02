@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Ardalis.SharedKernel;
 using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain.Contributor;
 using IntelliBlog.Domain.Sources;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +16,7 @@ public class AppDbContext : DbContext
         _dispatcher = dispatcher;
     }
 
-    public DbSet<Contributor> Contributors => Set<Contributor>();
+    //public DbSet<Contributor> Contributors => Set<Contributor>();
     public DbSet<Article> Articles => Set<Article>();
     public DbSet<Source> Sources => Set<Source>();
 
@@ -25,6 +24,10 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+                
+        modelBuilder.HasSequence<int>("Article_seq")
+            .StartsAt(0)
+            .IncrementsBy(1);
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

@@ -22,19 +22,22 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.HasSequence<int>("Article_seq")
+                .StartsAt(0L);
+
             modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR Article_seq");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
@@ -125,7 +128,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contributors");
+                    b.ToTable("Contributor");
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
@@ -140,7 +143,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("LastModified")
@@ -240,7 +242,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                             b1.HasKey("ContributorId");
 
-                            b1.ToTable("Contributors");
+                            b1.ToTable("Contributor");
 
                             b1.WithOwner()
                                 .HasForeignKey("ContributorId");
