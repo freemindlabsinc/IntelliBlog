@@ -1,8 +1,9 @@
-﻿using FluentValidation;
+﻿using FastEndpoints;
+using FluentValidation;
 
 namespace IntelliBlog.API.Endpoints.Articles;
 
-public class CreateArticleValidator : AbstractValidator<CreateArticleRequest>
+public class CreateArticleValidator : Validator<CreateArticleRequest>
 {
     public CreateArticleValidator()
     {
