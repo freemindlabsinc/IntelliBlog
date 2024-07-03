@@ -23,7 +23,6 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     public IReadOnlyCollection<ArticleTag> Tags => _tags.AsReadOnly();
     public IReadOnlyCollection<ArticleSource> Sources => _sources.AsReadOnly();
     public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
-    public IReadOnlyCollection<BlogArticle> Blogs => _blogs.AsReadOnly();
 
     public Article UpdateTitle(string title)
     {
@@ -53,8 +52,8 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 
     public Article AddSources(params SourceId[] sourceIds)
     {
-        foreach (var _ in sourceIds)
-            _sources.Add(ArticleSource.CreateNew(this.Id, _));
+        //foreach (var _ in sourceIds)
+        //    _sources.Add(ArticleSource.CreateNew(this.Id, _.Value));
 
         // TODO: make distinct
         
@@ -63,8 +62,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 
     private readonly List<ArticleTag> _tags = new List<ArticleTag>();
     private readonly List<ArticleSource> _sources = new List<ArticleSource>();
-    private readonly List<Comment> _comments = new List<Comment>();
-    private readonly List<BlogArticle> _blogs = new List<BlogArticle>();
+    private readonly List<Comment> _comments = new List<Comment>();    
 
     private Article() { } // For Entity Framework
 }

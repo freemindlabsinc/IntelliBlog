@@ -4,7 +4,7 @@ namespace IntelliBlog.Domain.Articles;
 
 public class ArticleSource : HasDomainEventsBase
 {
-    public static ArticleSource CreateNew(ArticleId articleId, SourceId sourceId, int sequence)
+    public static ArticleSource CreateNew(ArticleId articleId, SourceId sourceId)
     {
         var articleSource = new ArticleSource();
         articleSource.ArticleId = articleId;
@@ -13,11 +13,6 @@ public class ArticleSource : HasDomainEventsBase
     }
 
     public ArticleId ArticleId { get; private set; } = default!;
-    public SourceId SourceId { get; private set; } = default!;    
-    public int Seq { get; private set; }
-
-    public void IncrementSequence()
-    {
-        Seq++;
-    }
+    public SourceId SourceId { get; private set; } = default!;        
+    public DateTime LinkedOn { get; private set; } = DateTime.UtcNow;
 }

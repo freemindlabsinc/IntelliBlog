@@ -1,3 +1,8 @@
+### 7/2/2024 
+
+- Lots of work on domain.
+    - DDD & Many to Many Object Relational Mapping -> https://udidahan.com/2009/01/24/ddd-many-to-many-object-relational-mapping/
+
 ### 7/2/2024
 
 - Started the day well by reading and watching videos on EF8-DDD related stuff
