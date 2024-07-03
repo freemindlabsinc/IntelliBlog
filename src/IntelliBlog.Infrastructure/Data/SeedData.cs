@@ -1,4 +1,5 @@
 ﻿using IntelliBlog.Domain.Articles;
+using IntelliBlog.Domain.Blogs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,9 +8,9 @@ namespace IntelliBlog.Infrastructure.Data;
 public static class SeedData
 {
 
-    public static readonly Article Article1 = Article.CreateNew("Learning EF 8").AddTags("CSharp", "Programming");
-    public static readonly Article Article2 = Article.CreateNew("Learning Test Driven Development").AddTags("TDD", "Programming");
-    public static readonly Article Article3 = Article.CreateNew("Learning Taoism").AddTags("Philosophy");
+    public static readonly Article Article1 = Article.CreateNew(BlogId.Empty, "Learning EF 8").AddTags("CSharp", "Programming");
+    public static readonly Article Article2 = Article.CreateNew(BlogId.Empty, "Learning Test Driven Development").AddTags("TDD", "Programming");
+    public static readonly Article Article3 = Article.CreateNew(BlogId.Empty, "Learning Taoism").AddTags("Philosophy");
 
     public static void Initialize(IServiceProvider serviceProvider)
     {

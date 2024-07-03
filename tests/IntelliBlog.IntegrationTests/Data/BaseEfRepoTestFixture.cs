@@ -1,7 +1,5 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain.Contributor;
 using IntelliBlog.Infrastructure;
 using IntelliBlog.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -54,10 +52,10 @@ public abstract class BaseEfRepoTestFixture
     return builder.Options;
   }
 
-    protected EfRepository<Contributor> GetContributorRepository()
-    {
-        return new EfRepository<Contributor>(_dbContext);
-    }
+    //protected EfRepository<Contributor> GetContributorRepository()
+    //{
+    //    return new EfRepository<Contributor>(_dbContext);
+    //}
 
     //protected EfRepository<Article> GetArticlesRepository()
     //{

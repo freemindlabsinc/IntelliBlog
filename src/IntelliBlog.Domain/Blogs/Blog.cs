@@ -1,31 +1,35 @@
 ﻿using IntelliBlog.Domain.Articles;
 
-
 namespace IntelliBlog.Domain.Blogs;
 
-public class Blog : TrackedEntity<BlogId>, IAggregateRoot
+public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
 {
-    private readonly List<Article> _articles = new List<Article>();
+    public static Blog CreateNew(
+        string name, 
+        string? description = default, 
+        string? smallImage = default, 
+        string? image = default)
+    {
+        var blog = new Blog();
+        blog.UpdateName(name);
+        blog.UpdateDescription(description);
+        blog.UpdateSmallImage(smallImage);
+        blog.UpdateImage(image);
+        return blog;
+    }
 
     public string Name { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Notes { get; private set; }
-    public string? Image { get; private set; } // TODO: convert into ValueObject URL
-    public string? SmallImage { get; private set; } // TODO: convert into ValueObject URL
+    public string? Image { get; private set; }
+    public string? SmallImage { get; private set; }
     public BlogStatus Status { get; private set; } = BlogStatus.Published; // TODO: Convert to Ardalis SmartEnum
 
     public IReadOnlyCollection<Article> Articles => _articles.AsReadOnly();
-
-    public Blog(string name)
-        : this()
-    {
-        UpdateName(name);
-    }
-
+    
     public void UpdateName(string name)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Name is required and cannot be empty or whitespace.", nameof(name));
+        Guard.Against.NullOrWhiteSpace(name, nameof(name));
 
         Name = name;
     }
@@ -66,6 +70,7 @@ public class Blog : TrackedEntity<BlogId>, IAggregateRoot
         _articles.Remove(article);
     }
 
-    protected Blog() { } // For Entity Framework
+    private readonly List<Article> _articles = new List<Article>();
 
+    private Blog() { } // For Entity Framework
 }

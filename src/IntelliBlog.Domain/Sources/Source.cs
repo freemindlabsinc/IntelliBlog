@@ -1,20 +1,19 @@
-﻿using Ardalis.SharedKernel;
-using IntelliBlog.Domain.Articles;
-
-namespace IntelliBlog.Domain.Sources;
-
-public readonly record struct SourceId(int Value)
-{
-    public static SourceId Empty { get; } = default;
-    public override string ToString() => StrongIdHelper<SourceId, int>.Serialize(Value);
-    public static SourceId? TryParse(string? value) => StrongIdHelper<SourceId, int>.Deserialize(value);
-}
-
+﻿namespace IntelliBlog.Domain.Sources;
 
 public class Source : TrackedEntity<SourceId>, IAggregateRoot
 {
-    public static Source CreateNew(string name, string? url = default, string? description = default)
-        => new Source(name).UpdateURL(url).UpdateDescription(description); // TODO: iffy
+    public static Source CreateNew(
+        string name,
+        string? url = default,
+        string? description = default)
+    { 
+        var source = new Source();
+        source.UpdateName(name);
+        source.UpdateURL(url);
+        source.UpdateDescription(description);
+
+        return source;
+    }
 
     public string Name { get; private set; } = default!;
     public string? Description { get; private set; } = default!;
@@ -43,9 +42,6 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
         return this;
     }
 
-    // For EF Core
-    private Source(string name)
-    {
-        UpdateName(name);
-    }
+    // For Entity Framework
+    private Source() { }
 }
