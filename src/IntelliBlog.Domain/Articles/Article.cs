@@ -23,6 +23,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     public IReadOnlyCollection<ArticleTag> Tags => _tags.AsReadOnly();
     public IReadOnlyCollection<ArticleSource> Sources => _sources.AsReadOnly();
     public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
+    public IReadOnlyCollection<BlogArticle> Blogs => _blogs.AsReadOnly();
 
     public Article UpdateTitle(string title)
     {
@@ -58,6 +59,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     private readonly List<ArticleTag> _tags = new List<ArticleTag>();
     private readonly List<ArticleSource> _sources = new List<ArticleSource>();
     private readonly List<Comment> _comments = new List<Comment>();
+    private readonly List<BlogArticle> _blogs = new List<BlogArticle>();
 
     private Article() { } // For Entity Framework
 }

@@ -120,7 +120,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BlogId = table.Column<int>(type: "int", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
-                    Order = table.Column<int>(type: "int", nullable: false)
+                    Seq = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

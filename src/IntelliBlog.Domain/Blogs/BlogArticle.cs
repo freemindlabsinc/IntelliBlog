@@ -4,16 +4,16 @@ namespace IntelliBlog.Domain.Blogs;
 
 public class BlogArticle : Entity<int>
 {
-    public static BlogArticle CreateNew(Blog blog, Article article, int order)
+    public static BlogArticle CreateNew(BlogId blogId, ArticleId articleId, int order)
     {
         var blogArticle = new BlogArticle();
-        blogArticle.Blog = blog;
-        blogArticle.Article = article;
-        blogArticle.Order = order;
+        blogArticle.BlogId = blogId;
+        blogArticle.ArticleId = articleId;
+        blogArticle.Seq = order;
         return blogArticle;
     }
 
-    public Blog Blog { get; private set; } = default!;
-    public Article Article { get; private set; } = default!;
-    public int Order { get; private set; }    
+    public BlogId BlogId { get; private set; } = default!;
+    public ArticleId ArticleId { get; private set; } = default!;
+    public int Seq { get; private set; }    
 }

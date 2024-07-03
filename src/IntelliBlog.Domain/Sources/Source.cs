@@ -1,4 +1,6 @@
-﻿namespace IntelliBlog.Domain.Sources;
+﻿using IntelliBlog.Domain.Articles;
+
+namespace IntelliBlog.Domain.Sources;
 
 public class Source : TrackedEntity<SourceId>, IAggregateRoot
 {
@@ -20,6 +22,7 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
     public string? URL { get; private set; } = default!;
     
     public IReadOnlyCollection<SourceTag> Tags => _tags.AsReadOnly();
+    public IReadOnlyCollection<ArticleSource> Articles => _articles.AsReadOnly();
 
     public Source UpdateName(string name)
     {
@@ -52,6 +55,7 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
     }
 
     private readonly List<SourceTag> _tags = new List<SourceTag>();
+    private readonly List<ArticleSource> _articles = new List<ArticleSource>();
 
     // For Entity Framework
     private Source() { }
