@@ -7,9 +7,9 @@ public partial class BlogArticleConfiguration : IEntityTypeConfiguration<BlogArt
 {
     public void Configure(EntityTypeBuilder<BlogArticle> builder)
     {
-        builder
-            .Property(tag => tag.Id)
-            .ValueGeneratedOnAdd();
+        builder.HasKey(blogArticle
+            => new { blogArticle.ArticleId, blogArticle.BlogId });
+
 
         builder
             .Property(tag => tag.BlogId)

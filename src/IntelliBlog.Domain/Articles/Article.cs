@@ -1,4 +1,5 @@
 ﻿using IntelliBlog.Domain.Blogs;
+using IntelliBlog.Domain.Sources;
 
 namespace IntelliBlog.Domain.Articles;
 
@@ -7,8 +8,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     public static Article CreateNew(
         string title,        
         string? description = default,
-        string? text = default,
-        BlogId? blogId = default) 
+        string? text = default) 
 
         => new Article()
             .UpdateTitle(title)
@@ -46,13 +46,18 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 
     public Article AddTag(ArticleTag tag)
     {
+
         _tags.Add(tag);
         return this;
     }
 
-    public Article AddSource(ArticleSource source)
+    public Article AddSources(params SourceId[] sourceIds)
     {
-        _sources.Add(source);
+        foreach (var _ in sourceIds)
+            _sources.Add(ArticleSource.CreateNew(this.Id, _));
+
+        // TODO: make distinct
+        
         return this;
     }
 

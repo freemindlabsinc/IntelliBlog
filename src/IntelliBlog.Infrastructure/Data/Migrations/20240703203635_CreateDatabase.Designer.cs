@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240703200712_CreateDatabase")]
+    [Migration("20240703203635_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -71,21 +71,13 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleSource", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<int>("SourceId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
+                    b.HasKey("ArticleId", "SourceId");
 
                     b.HasIndex("SourceId");
 
@@ -193,12 +185,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IntelliBlog.Domain.Blogs.BlogArticle", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
@@ -208,9 +194,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.Property<int>("Seq")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
+                    b.HasKey("ArticleId", "BlogId");
 
                     b.HasIndex("BlogId");
 

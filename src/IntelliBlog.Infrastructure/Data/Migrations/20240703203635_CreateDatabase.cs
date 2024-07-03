@@ -116,15 +116,13 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 name: "BlogArticle",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     BlogId = table.Column<int>(type: "int", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     Seq = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BlogArticle", x => x.Id);
+                    table.PrimaryKey("PK_BlogArticle", x => new { x.ArticleId, x.BlogId });
                     table.ForeignKey(
                         name: "FK_BlogArticle_Articles_ArticleId",
                         column: x => x.ArticleId,
@@ -143,14 +141,12 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 name: "ArticleSource",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     SourceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleSource", x => x.Id);
+                    table.PrimaryKey("PK_ArticleSource", x => new { x.ArticleId, x.SourceId });
                     table.ForeignKey(
                         name: "FK_ArticleSource_Articles_ArticleId",
                         column: x => x.ArticleId,
@@ -186,11 +182,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleSource_ArticleId",
-                table: "ArticleSource",
-                column: "ArticleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ArticleSource_SourceId",
                 table: "ArticleSource",
                 column: "SourceId");
@@ -198,11 +189,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ArticleTag_ArticleId",
                 table: "ArticleTag",
-                column: "ArticleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_BlogArticle_ArticleId",
-                table: "BlogArticle",
                 column: "ArticleId");
 
             migrationBuilder.CreateIndex(

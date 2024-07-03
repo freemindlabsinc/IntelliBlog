@@ -56,21 +56,22 @@ public class ArticleTests
     [Fact]
     public void CreateArticle_WithSources()
     {
-        throw new Exception("Not implemented");
-        //const string title = "Test Title";
-        //const string source1 = "Source 1";
-        //const string source2 = "Source 2";
-        //
-        //var article = Article.CreateNew(title);
-        //article.Sources.Should().BeEmpty();
-        //
-        //var source = Source.CreateNew("Test Source");
-        //
-        //article.AddSource(source1, source2);
-        //
-        //article.Sources.Should().HaveCount(2);
-        //article.Sources[0].Name.Should().Be(source1);
-        //article.Sources[1].Name.Should().Be(source2);
+        const string title = "Test Title";
+        
+        var source1 = Source.CreateNew("Source 1");
+        var source2 = Source.CreateNew("Source 2");
+        
+        var article = Article.CreateNew(title);
+        article.Sources.Should().BeEmpty();
+        
+        var source = Source.CreateNew("Test Source");
+        
+        article.AddSources(source1.Id, source2.Id);
+        
+        article.Sources.Should().HaveCount(2);
+        var arr = article.Sources.ToArray();
+        arr[0].SourceId.Should().Be(source1);
+        arr[1].SourceId.Should().Be(source2);
     }
 
     [Fact]

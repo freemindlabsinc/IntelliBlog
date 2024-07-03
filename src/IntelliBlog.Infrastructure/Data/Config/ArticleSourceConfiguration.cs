@@ -7,10 +7,9 @@ public partial class ArticleSourceConfiguration : IEntityTypeConfiguration<Artic
 {
     public void Configure(EntityTypeBuilder<ArticleSource> builder)
     {
-        builder
-            .Property(tag => tag.Id)
-            .ValueGeneratedOnAdd();
-
+        builder.HasKey(articleSource 
+            => new { articleSource.ArticleId, articleSource.SourceId });
+        
         builder
             .Property(tag => tag.ArticleId)
             .HasConversion(id => id.Value, value => new ArticleId(value));

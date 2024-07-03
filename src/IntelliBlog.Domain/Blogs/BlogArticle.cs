@@ -2,14 +2,14 @@
 
 namespace IntelliBlog.Domain.Blogs;
 
-public class BlogArticle : Entity<int>
+public class BlogArticle : HasDomainEventsBase
 {
-    public static BlogArticle CreateNew(BlogId blogId, ArticleId articleId, int order)
+    public static BlogArticle CreateNew(BlogId blogId, ArticleId articleId, int sequence)
     {
         var blogArticle = new BlogArticle();
         blogArticle.BlogId = blogId;
         blogArticle.ArticleId = articleId;
-        blogArticle.Seq = order;
+        blogArticle.Seq = sequence;
         return blogArticle;
     }
 
