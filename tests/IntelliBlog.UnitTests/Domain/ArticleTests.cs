@@ -10,7 +10,7 @@ public class ArticleTests
     public void CreateArticle()
     {
         const string title = "Test Title";
-        var article = Article.CreateNew(BlogId.Empty, title);
+        var article = Article.CreateNew(title);
 
         article.Title.Should().Be(title);
         article.Description.Should().BeNull();
@@ -27,7 +27,7 @@ public class ArticleTests
         const string description = "Test Description";
         const string text = "Test Text";
 
-        var article = Article.CreateNew(BlogId.Empty, title, description, text);
+        var article = Article.CreateNew(title, description, text);
 
         article.Title.Should().Be(title);
         article.Description.Should().Be(description);
@@ -44,7 +44,7 @@ public class ArticleTests
         const string tag1 = "Tag 1";
         const string tag2 = "Tag 2";
 
-        var article = Article.CreateNew(BlogId.Empty, title);
+        var article = Article.CreateNew(title);
 
         article.AddTags(tag1, tag2);
 
@@ -76,7 +76,7 @@ public class ArticleTests
     [Fact]
     public void CreateArticle_WithEmptyTitle()
     {
-        Action action = () => Article.CreateNew(BlogId.Empty, string.Empty);
+        Action action = () => Article.CreateNew(string.Empty);
         
         action.Should().Throw<ArgumentException>();
 
@@ -96,7 +96,7 @@ public class ArticleTests
     [Fact]
     public void CreateArticle_WithEmptyTags_ShouldFail()
     {
-        var article = Article.CreateNew(BlogId.Empty, "Test");
+        var article = Article.CreateNew("Test");
 
         Action action = () => article.AddTags("");
 

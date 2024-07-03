@@ -5,31 +5,24 @@ namespace IntelliBlog.Domain.Articles;
 public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 {
     public static Article CreateNew(
-        BlogId blogId,
-        string title,
+        string title,        
         string? description = default,
-        string? text = default)
-    {
-        var article = new Article()
-        { 
-            BlogId = blogId
-        };
-        article.UpdateTitle(title);
-        article.UpdateDescription(description);
-        article.UpdateText(text);
+        string? text = default,
+        BlogId? blogId = default) 
 
-        return article;
-    }
+        => new Article()
+            .UpdateTitle(title)
+            .UpdateDescription(description)
+            .UpdateText(text);
+        
     
-    public BlogId BlogId { get; private set; } = default!;
     public string Title { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Text { get; private set; }
     
     public IReadOnlyCollection<ArticleTag> Tags => _tags.AsReadOnly();
     public IReadOnlyCollection<ArticleSource> Sources => _sources.AsReadOnly();
-
-
+    
     public Article UpdateTitle(string title)
     {
         Guard.Against.NullOrWhiteSpace(title, nameof(title));
