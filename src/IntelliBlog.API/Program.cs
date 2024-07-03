@@ -1,16 +1,12 @@
 ﻿using System.Reflection;
 using Ardalis.ListStartupServices;
-using Ardalis.SharedKernel;
 using IntelliBlog.Infrastructure;
 using IntelliBlog.Infrastructure.Data;
 using IntelliBlog.Infrastructure.Email;
 using FastEndpoints;
 using FastEndpoints.Swagger;
-using MediatR;
 using Serilog;
 using Serilog.Extensions.Logging;
-using IntelliBlog.Domain.Contributor;
-using IntelliBlog.Application.UseCases.Contributors.Create;
 using IntelliBlog.Application.Interfaces;
 using IntelliBlog.Domain.Articles;
 
@@ -105,7 +101,6 @@ void ConfigureMediatR()
   var mediatRAssemblies = new[]
 {
   Assembly.GetAssembly(typeof(Article)), // Core
-  Assembly.GetAssembly(typeof(Contributor)), // Core
   Assembly.GetAssembly(typeof(Program)) // UseCases
 };
   builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));

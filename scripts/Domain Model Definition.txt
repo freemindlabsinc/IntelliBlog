@@ -1,0 +1,76 @@
+-----------------------------
+Blog -> Tracked, IAggregateRoot
+
+Properties:
+
+Name -> required, non whitespace
+Description -> optional
+Notes -> optional
+Image -> optional, must be valid url
+SmallImage -> optional, must be valid url
+Status -> required, enumeration(Published, Hidden)
+Articles (List)
+
+Actions:
+
+Update
+Add Article
+Remove Article
+Change Status
+Update Image
+Update SmallImage
+
+
+-----------------------------
+Article -> Tracked, IAggregateRoot
+
+Properties:
+
+Title -> required, non whitespace
+Summary -> optional
+Description -> optional
+Notes -> optional
+Status -> required, enumeration(Draft, Published)
+Sources (List)
+Comments (List)
+Likes (List)
+
+Actions:
+
+Update
+Change Status
+Add Source
+Remove Source
+Add Comment
+Remove Comment
+Add Like -> takes a byUserId (string) argument
+Remove Like -> takes a byUserId (string) argument
+
+-----------------------------
+Like -> Entity
+
+Properties:
+Liked By -> required, non whitespace. It's the id of the user who liked the article
+
+Actions:
+No actions specified, likely inherent with being liked by a user.
+
+-----------------------------
+Comment -> Tracked
+
+Properties:
+Text -> required, non whitespace.
+ParentId ->
+
+-----------------------------
+Source -> Tracked
+
+Properties:
+URL
+Description
+SourceType
+
+Actions:
+
+Update It
+Change Type (video/website/etc.)

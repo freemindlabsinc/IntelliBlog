@@ -1,5 +1,4 @@
-﻿using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain.Sources;
+﻿using IntelliBlog.Domain.Sources;
 
 namespace IntelliBlog.API.Application.UseCases.Sources.Create;
 

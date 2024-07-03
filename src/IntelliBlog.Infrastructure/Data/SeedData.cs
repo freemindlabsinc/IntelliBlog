@@ -1,5 +1,4 @@
 ﻿using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain.Contributor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,8 +6,6 @@ namespace IntelliBlog.Infrastructure.Data;
 
 public static class SeedData
 {
-    public static readonly Contributor Contributor1 = new("Ardalis");
-    public static readonly Contributor Contributor2 = new("Snowfrog");
 
     public static readonly Article Article1 = Article.CreateNew("Learning EF 8").AddTags("CSharp", "Programming");
     public static readonly Article Article2 = Article.CreateNew("Learning Test Driven Development").AddTags("TDD", "Programming");

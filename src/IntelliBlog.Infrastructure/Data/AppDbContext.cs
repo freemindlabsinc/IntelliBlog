@@ -16,7 +16,7 @@ public class AppDbContext : DbContext
         _dispatcher = dispatcher;
     }
 
-    //public DbSet<Contributor> Contributors => Set<Contributor>();
+    public DbSet<Blog> Blogs => Set<Blog>();
     public DbSet<Article> Articles => Set<Article>();
     public DbSet<Source> Sources => Set<Source>();
 

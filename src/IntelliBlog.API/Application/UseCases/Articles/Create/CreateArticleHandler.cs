@@ -1,6 +1,4 @@
-﻿using Ardalis.Result;
-using Ardalis.SharedKernel;
-using IntelliBlog.Domain.Articles;
+﻿using IntelliBlog.Domain.Articles;
 
 namespace IntelliBlog.API.Application.UseCases.Articles.Create;
 

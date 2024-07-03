@@ -36,4 +36,8 @@
     <Using Include="Xunit" />
     <Using Include="FluentAssertions" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\" />
+  </ItemGroup>
 </Project>

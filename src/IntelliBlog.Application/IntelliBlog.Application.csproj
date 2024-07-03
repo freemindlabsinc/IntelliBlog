@@ -19,4 +19,9 @@
     <Using Include="Ardalis.Specification" />
     <Using Include="MediatR" />
   </ItemGroup>
+  
+
+  <ItemGroup>
+    <Folder Include="UseCases\" />
+  </ItemGroup>
 </Project>
