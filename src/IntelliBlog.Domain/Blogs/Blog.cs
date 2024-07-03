@@ -1,7 +1,4 @@
-﻿using IntelliBlog.Domain.Articles;
-
-namespace IntelliBlog.Domain.Blogs;
-
+﻿namespace IntelliBlog.Domain.Blogs;
 public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
 {
     public static Blog CreateNew(
@@ -25,7 +22,7 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
     public string? SmallImage { get; private set; }
     public BlogStatus Status { get; private set; } = BlogStatus.Published; // TODO: Convert to Ardalis SmartEnum
 
-    public IReadOnlyCollection<Article> Articles => _articles.AsReadOnly();
+    public IReadOnlyCollection<BlogArticle> Articles => _articles.AsReadOnly();
     
     public void UpdateName(string name)
     {
@@ -60,17 +57,17 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         SmallImage = smallImage;
     }
     
-    public void AddArticle(Article article)
+    public void AddArticle(BlogArticle article)
     {
         _articles.Add(article);
     }
 
-    public void RemoveArticle(Article article)
+    public void RemoveArticle(BlogArticle article)
     {
         _articles.Remove(article);
     }
 
-    private readonly List<Article> _articles = new List<Article>();
+    private readonly List<BlogArticle> _articles = new List<BlogArticle>();
 
     private Blog() { } // For Entity Framework
 }
