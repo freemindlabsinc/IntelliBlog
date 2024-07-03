@@ -1,8 +1,4 @@
-﻿using Ardalis.HttpClientTestExtensions;
-using IntelliBlog.Infrastructure.Data;
-using IntelliBlog.Web.Contributors;
-using Xunit;
-
+﻿
 namespace IntelliBlog.FunctionalTests.ApiEndpoints;
 
 [Collection("Sequential")]

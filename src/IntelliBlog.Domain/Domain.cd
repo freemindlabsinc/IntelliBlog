@@ -1,67 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="IntelliBlog.Domain.TrackedEntity&lt;TId&gt;">
-    <Position X="5.5" Y="0.5" Width="2.25" />
+  <Class Name="IntelliBlog.Domain.Articles.Article" BaseTypeListCollapsed="true">
+    <Position X="1.75" Y="0.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQAAAAAAAAAAAAAAAACAAAAAAQAAAAAAAAAAAE=</HashCode>
-      <FileName>TrackedEntity.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="IntelliBlog.Domain.Articles.Article">
-    <Position X="4.25" Y="4.5" Width="2.5" />
-    <AssociationLine Name="Sources" Type="IntelliBlog.Domain.Articles.ArticleSource" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="5.875" Y="7.588" />
-        <Point X="5.875" Y="9.777" />
-        <Point X="7" Y="9.777" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="Tags" Type="IntelliBlog.Domain.Articles.ArticleTag" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.875" Y="7.588" />
-        <Point X="4.875" Y="9.267" />
-        <Point X="2.75" Y="9.267" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAMAAAAAAAgAAAAAQBEAAAAAACAAAAAA=</HashCode>
+      <HashCode>AAAAAEAAAAggAEEgAAAAAgAAAACQBEAAAAAACAAAAAA=</HashCode>
       <FileName>Articles\Article.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Sources" />
-      <Property Name="Tags" />
-    </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IntelliBlog.Domain.Blogs.Blog" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAMIAEgAEAAAAAAAgQAIAQAABAAAAAAAIAAIAQ=</HashCode>
+      <FileName>Blogs\Blog.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IntelliBlog.Domain.Sources.Source" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="0.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAgAAEAAAAAAgQAACCAAEAgAAAAAAAAAAQ=</HashCode>
+      <FileName>Sources\Source.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="IntelliBlog.Domain.Articles.ArticleSource">
-    <Position X="7" Y="8.75" Width="1.75" />
+    <Position X="7.5" Y="2" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Articles\ArticleSource.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="IntelliBlog.Domain.Articles.ArticleTag">
-    <Position X="0.5" Y="8.25" Width="2.25" />
+    <Position X="1.5" Y="8.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAEAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Articles\ArticleTag.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="IntelliBlog.Domain.Sources.Source">
-    <Position X="10.75" Y="4.5" Width="2" />
+  <Class Name="IntelliBlog.Domain.Articles.Comment">
+    <Position X="16.25" Y="7.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAAAAAAAAAgQAACAAAEAgAAAAAAAAIAQ=</HashCode>
-      <FileName>Sources\Source.cs</FileName>
+      <HashCode>EAAAAAAAAAgAAAAAAAAAAgAAAAAAAAAAggAACAAAAAA=</HashCode>
+      <FileName>Articles\Comment.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Tags" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="IntelliBlog.Domain.Sources.SourceTag">
-    <Position X="14.75" Y="4.75" Width="2.25" />
+    <Position X="7.25" Y="8.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Sources\SourceTag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IntelliBlog.Domain.Tag">
+    <Position X="5.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tag.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="10" />

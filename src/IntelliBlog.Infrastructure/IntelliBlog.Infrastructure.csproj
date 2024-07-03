@@ -19,4 +19,17 @@
     <ProjectReference Include="..\IntelliBlog.Domain\IntelliBlog.Domain.csproj" />
     <ProjectReference Include="..\IntelliBlog.Application\IntelliBlog.Application.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <!-- These are referenced by most files in this project -->
+    <Using Include="Ardalis.Result" />
+    <Using Include="Ardalis.SharedKernel" />
+    <Using Include="Ardalis.GuardClauses" />
+    <Using Include="Ardalis.Specification" />
+    <Using Include="MediatR" />
+    <Using Include="IntelliBlog.Domain.Utilities" />
+
+    <Using Include="Microsoft.EntityFrameworkCore" />
+    <Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
+  </ItemGroup>
 </Project>

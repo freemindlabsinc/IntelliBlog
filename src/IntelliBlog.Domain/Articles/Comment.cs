@@ -4,13 +4,13 @@ public sealed class Comment : Entity<CommentId>
 {
     public static Comment CreateNew(        
         string text,
-        string commentedBy,
-        CommentId parentId = default)
+        string commentedBy)
+        //,CommentId parentId = default)
     {
-        var comment = new Comment()
-        {
-            ParentId = parentId,
-        };
+        var comment = new Comment();
+        //{
+        //    ParentId = parentId,
+        //};
         comment.UpdateText(text);
         
         return comment;
@@ -19,7 +19,7 @@ public sealed class Comment : Entity<CommentId>
     public ArticleId ArticleId { get; private set; } = default!;
     public string Text { get; private set; } = default!;
     public string CommentedBy { get; private set; } = default!;
-    public CommentId? ParentId { get; private set; }
+   // public CommentId? ParentId { get; private set; }
 
     public Comment UpdateText(string text)
     {

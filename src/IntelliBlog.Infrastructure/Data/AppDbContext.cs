@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
-using Ardalis.SharedKernel;
 using IntelliBlog.Domain.Articles;
 using IntelliBlog.Domain.Blogs;
 using IntelliBlog.Domain.Sources;
-using Microsoft.EntityFrameworkCore;
 
 namespace IntelliBlog.Infrastructure.Data;
 public class AppDbContext : DbContext
 {
+    public const string GlobalSequenceName = "General_seq"; // TODO: temporary
+
     private readonly IDomainEventDispatcher? _dispatcher;
 
     public AppDbContext(DbContextOptions<AppDbContext> options,
@@ -26,7 +26,7 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
                 
-        modelBuilder.HasSequence<int>("Article_seq")
+        modelBuilder.HasSequence<int>(GlobalSequenceName)
             .StartsAt(0)
             .IncrementsBy(1);
     }
