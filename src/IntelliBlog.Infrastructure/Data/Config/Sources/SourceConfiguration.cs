@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace IntelliBlog.Infrastructure.Data.Config;
+namespace IntelliBlog.Infrastructure.Data.Config.Sources;
 
 public class SourceConfiguration : IEntityTypeConfiguration<Source>
 {

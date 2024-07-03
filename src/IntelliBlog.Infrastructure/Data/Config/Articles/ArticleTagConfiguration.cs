@@ -4,7 +4,7 @@ using IntelliBlog.Domain.Blogs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace IntelliBlog.Infrastructure.Data.Config;
+namespace IntelliBlog.Infrastructure.Data.Config.Articles;
 
 public class ArticleTagConfiguration : IEntityTypeConfiguration<ArticleTag>
 {
@@ -13,11 +13,11 @@ public class ArticleTagConfiguration : IEntityTypeConfiguration<ArticleTag>
         // Common
         builder.AddSequenceForId<ArticleTag, TagId>()
                .HasConversion(id => id.Value, value => new(value));
-        
+
         // Entity
         builder.Property(p => p.Name)
             .HasMaxLength(DataSchemaConstants.DEFAULT_TAG_NAME_LENGTH)
             .IsRequired();
 
-    }  
+    }
 }

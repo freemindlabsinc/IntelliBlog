@@ -21,8 +21,8 @@ public static class EntityConfigurationExtensions
             .ValueGeneratedOnAdd()
             .HasDefaultValueSql("GETUTCDATE()");
 
-        builder.Property(p => p.LastModified)
-            .ValueGeneratedOnUpdate()
-            .HasDefaultValueSql("GETUTCDATE()");
+        //builder.Property(p => p.LastModified)
+        //    .ValueGeneratedOnUpdate()
+        //    .HasDefaultValueSql("GETUTCDATE()");
     }
 }

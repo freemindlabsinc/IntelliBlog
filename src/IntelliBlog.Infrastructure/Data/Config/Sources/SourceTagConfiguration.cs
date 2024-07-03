@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace IntelliBlog.Infrastructure.Data.Config;
+namespace IntelliBlog.Infrastructure.Data.Config.Sources;
 
 public partial class SourceTagConfiguration : IEntityTypeConfiguration<SourceTag>
 {

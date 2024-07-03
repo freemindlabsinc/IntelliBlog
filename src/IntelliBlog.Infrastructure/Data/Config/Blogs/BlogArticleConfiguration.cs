@@ -1,7 +1,7 @@
 ﻿using IntelliBlog.Domain.Articles;
 using IntelliBlog.Domain.Blogs;
 
-namespace IntelliBlog.Infrastructure.Data.Config;
+namespace IntelliBlog.Infrastructure.Data.Config.Blogs;
 
 public partial class BlogArticleConfiguration : IEntityTypeConfiguration<BlogArticle>
 {

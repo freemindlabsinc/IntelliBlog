@@ -15,5 +15,9 @@ public class BlogArticle : HasDomainEventsBase
 
     public BlogId BlogId { get; private set; } = default!;
     public ArticleId ArticleId { get; private set; } = default!;
-    public int Seq { get; private set; }    
+    public int Seq { get; private set; }
+    public void IncrementSequence()
+    {
+        Seq++;
+    }
 }

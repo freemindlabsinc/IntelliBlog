@@ -1,7 +1,7 @@
 ﻿using IntelliBlog.Domain.Articles;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace IntelliBlog.Infrastructure.Data.Config;
+namespace IntelliBlog.Infrastructure.Data.Config.Articles;
 
 public partial class ArticleConfiguration : IEntityTypeConfiguration<Article>
 {
@@ -16,7 +16,7 @@ public partial class ArticleConfiguration : IEntityTypeConfiguration<Article>
         // Entity
         builder.Property(p => p.Title)
                .HasMaxLength(DataSchemaConstants.DEFAULT_TITLE_LENGTH);
-               //.IsRequired();
+        //.IsRequired();
 
         builder.Property(p => p.Description)
                .HasMaxLength(DataSchemaConstants.DEFAULT_DESCRIPTION_LENGTH);
