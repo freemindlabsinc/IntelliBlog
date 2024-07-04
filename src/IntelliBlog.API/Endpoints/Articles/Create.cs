@@ -24,6 +24,7 @@ public class Create(IMediator _mediator)
       CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new CreateArticleCommand(
+            request.BlogId,
             request.Title, request.Description, request.Content, request.Tags), cancellationToken);
 
         if (result.IsSuccess)

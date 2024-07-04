@@ -1,5 +1,6 @@
 ﻿using IntelliBlog.Domain;
 using IntelliBlog.Domain.Articles;
+using IntelliBlog.Domain.Blogs;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Articles;
@@ -15,6 +16,13 @@ public partial class ArticleConfiguration : IEntityTypeConfiguration<Article>
         builder.AddTrackedEntityConfiguration<Article, ArticleId>();
 
         // Entity
+        builder.HasOne<Blog>()
+               .WithMany()
+               .HasForeignKey(p => p.BlogId);
+
+        builder.Property(p => p.BlogId)
+               .HasConversion(new ValueConverter<BlogId, int>(id => id.Value, value => new(value)));
+
         builder.Property(p => p.Title)
                .HasMaxLength(DataSchemaConstants.DEFAULT_TITLE_LENGTH);
         //.IsRequired();

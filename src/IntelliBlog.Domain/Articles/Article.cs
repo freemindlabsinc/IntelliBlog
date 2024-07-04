@@ -6,16 +6,21 @@ namespace IntelliBlog.Domain.Articles;
 public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 {
     public static Article CreateNew(
-        string title,        
+        BlogId blogId,
+        string title,
         string? description = default,
-        string? text = default) 
-
-        => new Article()
+        string? text = default)
+    {
+        var article = new Article()
             .UpdateTitle(title)
             .UpdateDescription(description)
             .UpdateText(text);
         
-    
+        article.BlogId = blogId; // Once-setter
+        return article;
+    }
+
+    public BlogId BlogId { get; private set; } = default!;
     public string Title { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Text { get; private set; }

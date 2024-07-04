@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240704145505_CreateDatabase")]
+    [Migration("20240704183118_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -34,6 +34,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValueSql("NEXT VALUE FOR General_seq");
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
@@ -63,6 +66,8 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BlogId");
 
                     b.ToTable("Articles");
                 });
@@ -182,24 +187,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Blogs");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Blogs.BlogArticle", b =>
-                {
-                    b.Property<int>("ArticleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Seq")
-                        .HasColumnType("int");
-
-                    b.HasKey("ArticleId", "BlogId");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("BlogArticle");
-                });
-
             modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
                 {
                     b.Property<int>("Id")
@@ -207,6 +194,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
@@ -235,6 +225,8 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BlogId");
+
                     b.ToTable("Sources");
                 });
 
@@ -261,6 +253,15 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("SourceTag");
                 });
 
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
+                {
+                    b.HasOne("IntelliBlog.Domain.Blogs.Blog", null)
+                        .WithMany()
+                        .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleSource", b =>
                 {
                     b.HasOne("IntelliBlog.Domain.Articles.Article", null)
@@ -270,9 +271,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("IntelliBlog.Domain.Sources.Source", null)
-                        .WithMany("Articles")
+                        .WithMany()
                         .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
@@ -296,16 +297,10 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Blogs.BlogArticle", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
-                        .WithMany()
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("IntelliBlog.Domain.Blogs.Blog", null)
-                        .WithMany("Articles")
+                        .WithMany()
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -331,15 +326,8 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.Navigation("Tags");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Blogs.Blog", b =>
-                {
-                    b.Navigation("Articles");
-                });
-
             modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
                 {
-                    b.Navigation("Articles");
-
                     b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618

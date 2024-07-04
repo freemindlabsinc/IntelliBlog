@@ -31,7 +31,7 @@ public class DbTests(ITestOutputHelper outputHelper)
 
         var dbctx = serviceProvider.GetService<AppDbContext>()!;
         await dbctx.Database.EnsureCreatedAsync();
-        dbctx.Articles.Add(Article.CreateNew("Test").AddTags("TAG1", "TAG2"));
+        dbctx.Articles.Add(Article.CreateNew(new Domain.BlogId(1), "Test").AddTags("TAG1", "TAG2"));
 
         await dbctx.SaveChangesAsync();
 

@@ -1,5 +1,5 @@
 ﻿using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain.Blogs;
+using IntelliBlog.Domain;
 using IntelliBlog.Domain.Sources;
 
 namespace IntelliBlog.UnitTests.Domain;
@@ -10,7 +10,7 @@ public class ArticleTests
     public void CreateArticle()
     {
         const string title = "Test Title";
-        var article = Article.CreateNew(title);
+        var article = Article.CreateNew(new BlogId(1), title);
 
         article.Title.Should().Be(title);
         article.Description.Should().BeNull();
@@ -27,7 +27,7 @@ public class ArticleTests
         const string description = "Test Description";
         const string text = "Test Text";
 
-        var article = Article.CreateNew(title, description, text);
+        var article = Article.CreateNew(new BlogId(1), description, text);
 
         article.Title.Should().Be(title);
         article.Description.Should().Be(description);
@@ -44,7 +44,7 @@ public class ArticleTests
         const string tag1 = "Tag 1";
         const string tag2 = "Tag 2";
 
-        var article = Article.CreateNew(title);
+        var article = Article.CreateNew(new BlogId(1), title);
 
         article.AddTags(tag1, tag2);
 
@@ -58,13 +58,13 @@ public class ArticleTests
     {
         const string title = "Test Title";
         
-        var source1 = Source.CreateNew("Source 1");
-        var source2 = Source.CreateNew("Source 2");
+        var source1 = Source.CreateNew(new BlogId(1), "Source 1");
+        var source2 = Source.CreateNew(new BlogId(1), "Source 2");
         
-        var article = Article.CreateNew(title);
+        var article = Article.CreateNew(new BlogId(1), title);
         article.Sources.Should().BeEmpty();
         
-        var source = Source.CreateNew("Test Source");
+        var source = Source.CreateNew(new BlogId(1), "Test Source");
         
         article.AddSources(source1.Id, source2.Id);
         
@@ -77,7 +77,7 @@ public class ArticleTests
     [Fact]
     public void CreateArticle_WithEmptyTitle()
     {
-        Action action = () => Article.CreateNew(string.Empty);
+        Action action = () => Article.CreateNew(new BlogId(1), string.Empty);
         
         action.Should().Throw<ArgumentException>();
 
@@ -97,7 +97,7 @@ public class ArticleTests
     [Fact]
     public void CreateArticle_WithEmptyTags_ShouldFail()
     {
-        var article = Article.CreateNew("Test");
+        var article = Article.CreateNew(new BlogId(1), "Test");
 
         Action action = () => article.AddTags("");
 

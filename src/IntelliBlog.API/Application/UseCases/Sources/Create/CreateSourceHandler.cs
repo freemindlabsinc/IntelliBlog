@@ -7,7 +7,7 @@ public class CreateSourceHandler(IRepository<Source> _repository)
 {
     public async Task<Result<int>> Handle(CreateSourceCommand request, CancellationToken cancellationToken)
     {
-        var source = Source.CreateNew(request.Name, request.Url, request.Description);
+        var source = Source.CreateNew(new Domain.BlogId(request.BlogId), request.Name, request.Url, request.Description);
 
         var createdItem = await _repository.AddAsync(source, cancellationToken);
 

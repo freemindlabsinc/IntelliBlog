@@ -22,8 +22,6 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
     public string? SmallImage { get; private set; }
     public BlogStatus Status { get; private set; } = BlogStatus.Published; // TODO: Convert to Ardalis SmartEnum
 
-    public IReadOnlyCollection<BlogArticle> Articles => _articles.AsReadOnly();
-    
     public void UpdateName(string name)
     {
         Guard.Against.NullOrWhiteSpace(name, nameof(name));
@@ -56,13 +54,6 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
     {
         SmallImage = smallImage;
     }
-    
-    public void RemoveArticle(BlogArticle article)
-    {
-        _articles.Remove(article);
-    }
-
-    private readonly List<BlogArticle> _articles = new List<BlogArticle>();
 
     private Blog() { } // For Entity Framework
 }

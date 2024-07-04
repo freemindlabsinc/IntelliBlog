@@ -10,6 +10,15 @@ public partial class ArticleSourceConfiguration : IEntityTypeConfiguration<Artic
         builder.HasKey(articleSource
             => new { articleSource.ArticleId, articleSource.SourceId });
 
+        //builder.HasOne<Article>()
+        //    .WithMany()
+        //    .HasForeignKey(articleSource => articleSource.ArticleId);  
+
+        builder.HasOne<Source>()
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict)
+            .HasForeignKey(articleSource => articleSource.SourceId);            
+
         builder
             .Property(tag => tag.ArticleId)
             .HasConversion(id => id.Value, value => new ArticleId(value));

@@ -8,9 +8,9 @@ namespace IntelliBlog.Infrastructure.Data;
 public static class SeedData
 {
 
-    public static readonly Article Article1 = Article.CreateNew("Learning EF 8").AddTags("CSharp", "Programming");
-    public static readonly Article Article2 = Article.CreateNew("Learning Test Driven Development").AddTags("TDD", "Programming");
-    public static readonly Article Article3 = Article.CreateNew("Learning Taoism").AddTags("Philosophy");
+    public static readonly Article Article1 = Article.CreateNew(new BlogId(1), "Learning EF 8").AddTags("CSharp", "Programming");
+    public static readonly Article Article2 = Article.CreateNew(new BlogId(1), "Learning Test Driven Development").AddTags("TDD", "Programming");
+    public static readonly Article Article3 = Article.CreateNew(new BlogId(2), "Learning Taoism").AddTags("Philosophy");
 
     public static void Initialize(IServiceProvider serviceProvider)
     {

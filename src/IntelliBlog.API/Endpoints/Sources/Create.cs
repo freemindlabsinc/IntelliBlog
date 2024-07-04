@@ -1,5 +1,6 @@
 ﻿using FastEndpoints;
 using IntelliBlog.API.Application.UseCases.Sources.Create;
+using IntelliBlog.Domain;
 
 namespace IntelliBlog.API.Endpoints.Sources;
 
@@ -24,6 +25,7 @@ public class Create(IMediator _mediator)
       CancellationToken cancellationToken)
     {
         var result = await _mediator.Send(new CreateSourceCommand(
+            request.BlogId,
             request.Name, request.Url, request.Description, request.Tags), cancellationToken);
         
         if (result.IsSuccess)

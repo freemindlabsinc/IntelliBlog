@@ -16,24 +16,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 startValue: 0L);
 
             migrationBuilder.CreateTable(
-                name: "Articles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR General_seq"),
-                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    Text = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Articles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Blogs",
                 columns: table => new
                 {
@@ -55,11 +37,37 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Articles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR General_seq"),
+                    BlogId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    Text = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Articles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Articles_Blogs_BlogId",
+                        column: x => x.BlogId,
+                        principalTable: "Blogs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sources",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    BlogId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
                     URL = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
@@ -71,6 +79,12 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sources", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sources_Blogs_BlogId",
+                        column: x => x.BlogId,
+                        principalTable: "Blogs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,31 +127,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BlogArticle",
-                columns: table => new
-                {
-                    BlogId = table.Column<int>(type: "int", nullable: false),
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
-                    Seq = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BlogArticle", x => new { x.ArticleId, x.BlogId });
-                    table.ForeignKey(
-                        name: "FK_BlogArticle_Articles_ArticleId",
-                        column: x => x.ArticleId,
-                        principalTable: "Articles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_BlogArticle_Blogs_BlogId",
-                        column: x => x.BlogId,
-                        principalTable: "Blogs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ArticleSource",
                 columns: table => new
                 {
@@ -159,7 +148,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         column: x => x.SourceId,
                         principalTable: "Sources",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,6 +172,11 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Articles_BlogId",
+                table: "Articles",
+                column: "BlogId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ArticleSource_SourceId",
                 table: "ArticleSource",
                 column: "SourceId");
@@ -193,14 +187,14 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 column: "ArticleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BlogArticle_BlogId",
-                table: "BlogArticle",
-                column: "BlogId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Comment_ArticleId",
                 table: "Comment",
                 column: "ArticleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sources_BlogId",
+                table: "Sources",
+                column: "BlogId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SourceTag_SourceId",
@@ -218,22 +212,19 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 name: "ArticleTag");
 
             migrationBuilder.DropTable(
-                name: "BlogArticle");
-
-            migrationBuilder.DropTable(
                 name: "Comment");
 
             migrationBuilder.DropTable(
                 name: "SourceTag");
 
             migrationBuilder.DropTable(
-                name: "Blogs");
-
-            migrationBuilder.DropTable(
                 name: "Articles");
 
             migrationBuilder.DropTable(
                 name: "Sources");
+
+            migrationBuilder.DropTable(
+                name: "Blogs");
 
             migrationBuilder.DropSequence(
                 name: "General_seq");
