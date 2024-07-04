@@ -2,7 +2,7 @@
 
 public class SourceTag : Tag
 {
-    public static SourceTag CreateNew(string name, string? description) 
+    internal static SourceTag CreateNew(string name, string? description) 
     {
         var tag = new SourceTag();
         tag.UpdateName(name);
@@ -10,8 +10,6 @@ public class SourceTag : Tag
 
         return tag;
     }
-
-    public Source Source { get; private set; } = default!;
-
+    
     private SourceTag() { } // For Entity Framework
 }

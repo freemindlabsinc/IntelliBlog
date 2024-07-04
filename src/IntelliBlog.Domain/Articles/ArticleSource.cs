@@ -2,7 +2,7 @@
 
 public class ArticleSource : HasDomainEventsBase
 {
-    public static ArticleSource CreateNew(ArticleId articleId, SourceId sourceId)
+    internal static ArticleSource CreateNew(ArticleId articleId, SourceId sourceId)
     {
         var articleSource = new ArticleSource();
         articleSource.ArticleId = articleId;

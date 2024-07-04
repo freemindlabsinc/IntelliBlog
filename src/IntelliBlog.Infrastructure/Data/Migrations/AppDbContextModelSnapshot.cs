@@ -97,6 +97,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.Property<int?>("ArticleId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -235,12 +238,15 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("SourceId")
+                    b.Property<int?>("SourceId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -301,13 +307,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IntelliBlog.Domain.Sources.SourceTag", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Sources.Source", "Source")
+                    b.HasOne("IntelliBlog.Domain.Sources.Source", null)
                         .WithMany("Tags")
-                        .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Source");
+                        .HasForeignKey("SourceId");
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>

@@ -1,6 +1,4 @@
-﻿using IntelliBlog.Domain.Articles;
-
-namespace IntelliBlog.Domain.Sources;
+﻿namespace IntelliBlog.Domain.Sources;
 
 public class Source : TrackedEntity<SourceId>, IAggregateRoot
 {
@@ -11,12 +9,10 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
         string? description = default)
     { 
         var source = new Source();
+        source.BlogId = blogId; // Once-setter
         source.UpdateName(name);
         source.UpdateURL(url);
-        source.UpdateDescription(description);
-
-        source.BlogId = blogId; // Once-setter
-
+        source.UpdateDescription(description);        
         return source;
     }
 
@@ -25,8 +21,7 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
     public string? Description { get; private set; } = default!;
     public string? URL { get; private set; } = default!;
     
-    public IReadOnlyCollection<SourceTag> Tags => _tags.AsReadOnly();
-    //public IReadOnlyCollection<ArticleSource> Articles => _articles.AsReadOnly();
+    public IReadOnlyCollection<SourceTag> Tags => _tags.AsReadOnly();    
 
     public void UpdateName(string name)
     {

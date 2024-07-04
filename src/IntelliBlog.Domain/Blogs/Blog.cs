@@ -5,22 +5,28 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         string name, 
         string? description = default, 
         string? smallImage = default, 
-        string? image = default)
+        string? image = default,
+        BlogStatus status = default,
+        string? notes = default)
     {
         var blog = new Blog();
         blog.UpdateName(name);
         blog.UpdateDescription(description);
         blog.UpdateSmallImage(smallImage);
         blog.UpdateImage(image);
+        blog.ChangeStatus(status);
+        blog.UpdateNotes(notes);
+
         return blog;
     }
 
     public string Name { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Notes { get; private set; }
+    // TODO: Make Image+SmallImage a ValueObject
     public string? Image { get; private set; }
     public string? SmallImage { get; private set; }
-    public BlogStatus Status { get; private set; } = BlogStatus.Published; // TODO: Convert to Ardalis SmartEnum
+    public BlogStatus Status { get; private set; }
 
     public void UpdateName(string name)
     {

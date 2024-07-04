@@ -65,8 +65,9 @@ public class ArticleTests
         article.Sources.Should().BeEmpty();
         
         var source = Source.CreateNew(new BlogId(1), "Test Source");
-        
-        article.AddSources(source1.Id, source2.Id);
+
+        article.AddSource(source1.Id);
+        article.AddSource(source2.Id);
         
         article.Sources.Should().HaveCount(2);
         var arr = article.Sources.ToArray();

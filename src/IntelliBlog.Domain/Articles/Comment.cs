@@ -2,32 +2,37 @@
 
 public sealed class Comment : Entity<CommentId>
 {
-    public static Comment CreateNew(        
+    internal static Comment CreateNew(        
+        ArticleId articleId,
         string text,
         string commentedBy)
         //,CommentId parentId = default)
     {
         var comment = new Comment();
-        //{
-        //    ParentId = parentId,
-        //};
+        comment.ArticleId = articleId; // Once-setter        
         comment.UpdateText(text);
-        
+        comment.UpdateCommentedBy(commentedBy);
+
         return comment;
     }
 
     public ArticleId ArticleId { get; private set; } = default!;
     public string Text { get; private set; } = default!;
     public string CommentedBy { get; private set; } = default!;
-   // public CommentId? ParentId { get; private set; }
+    // public CommentId? ParentId { get; private set; }
 
-    public Comment UpdateText(string text)
+    public void UpdateText(string text)
     {
         Guard.Against.NullOrWhiteSpace(text, nameof(text));
-        Text = text;
-        return this;
+        Text = text;     
     }
-    
+
+    public void UpdateCommentedBy(string commentedBy)
+    {
+        Guard.Against.NullOrWhiteSpace(commentedBy, nameof(commentedBy));
+        CommentedBy = commentedBy;
+    }
+
     // For Entity Framework
     private Comment() { }
 }

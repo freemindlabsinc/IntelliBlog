@@ -2,13 +2,10 @@
 
 public sealed class Like : Entity<LikeId>
 {
-    public static Like CreateNew(ArticleId articleId, string likedBy)
+    internal static Like CreateNew(ArticleId articleId, string likedBy)
     {
-        var like = new Like()
-        {
-            ArticleId = articleId,
-        };
-
+        var like = new Like();
+        like.ArticleId = articleId; // Once-setter
         like.UpdateLikedBy(likedBy);
         return like;
     }
