@@ -92,7 +92,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR General_seq"),
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    ArticleId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -102,8 +102,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         name: "FK_ArticleTag_Articles_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "Articles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

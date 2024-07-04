@@ -1,6 +1,4 @@
-﻿using IntelliBlog.Domain.Sources;
-
-namespace IntelliBlog.Domain.Articles;
+﻿namespace IntelliBlog.Domain.Articles;
 
 public static class ArticleExtensions
 {
@@ -8,7 +6,7 @@ public static class ArticleExtensions
     {
         foreach (var tag in tags)
         {
-            article.AddTag(ArticleTag.CreateNew(tag));
+            article.AddTag(tag);
         }        
 
         return article;

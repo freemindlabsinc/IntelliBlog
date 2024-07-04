@@ -1,6 +1,4 @@
-﻿using IntelliBlog.Domain.Sources;
-
-namespace IntelliBlog.Domain.Articles;
+﻿namespace IntelliBlog.Domain.Articles;
 
 public class ArticleSource : HasDomainEventsBase
 {

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240704183118_CreateDatabase")]
+    [Migration("20240704184202_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -97,7 +97,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasDefaultValueSql("NEXT VALUE FOR General_seq");
 
-                    b.Property<int>("ArticleId")
+                    b.Property<int?>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -279,13 +279,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleTag", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Articles.Article", "Article")
+                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
                         .WithMany("Tags")
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Article");
+                        .HasForeignKey("ArticleId");
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Articles.Comment", b =>

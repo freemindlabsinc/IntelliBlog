@@ -1,7 +1,4 @@
-﻿using IntelliBlog.Domain.Blogs;
-using IntelliBlog.Domain.Sources;
-
-namespace IntelliBlog.Domain.Articles;
+﻿namespace IntelliBlog.Domain.Articles;
 
 public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 {
@@ -48,9 +45,9 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
         return this;
     }
 
-    public Article AddTag(ArticleTag tag)
+    public Article AddTag(string name, string? description = default)
     {
-
+        var tag = ArticleTag.CreateNew(name, description);
         _tags.Add(tag);
         return this;
     }

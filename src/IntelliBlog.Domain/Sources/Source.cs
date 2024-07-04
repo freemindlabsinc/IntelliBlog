@@ -28,34 +28,30 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
     public IReadOnlyCollection<SourceTag> Tags => _tags.AsReadOnly();
     //public IReadOnlyCollection<ArticleSource> Articles => _articles.AsReadOnly();
 
-    public Source UpdateName(string name)
+    public void UpdateName(string name)
     {
-        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        return this;
+        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));        
     }
 
-    public Source UpdateURL(string? url)
+    public void UpdateURL(string? url)
     {
-        URL = url;
-        return this;
+        URL = url;        
     }
 
-    public Source UpdateDescription(string? description)
+    public void UpdateDescription(string? description)
     {
-        Description = description;
-        return this;
+        Description = description;        
     }
 
-    public Source AddTag(SourceTag tag)
+    public void AddTag(string name, string? description = default)
     {
-        _tags.Add(tag);
-        return this;
+        var tag = SourceTag.CreateNew(name, description);
+        _tags.Add(tag);        
     }
 
-    public Source RemoveTag(SourceTag tag)
+    public void RemoveTag(SourceTag tag)
     {
-        _tags.Remove(tag);
-        return this;
+        _tags.Remove(tag);        
     }
 
     private readonly List<SourceTag> _tags = new List<SourceTag>();

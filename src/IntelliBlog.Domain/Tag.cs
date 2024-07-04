@@ -3,9 +3,18 @@
 public abstract class Tag : Entity<TagId>
 {    
     public string Name { get; private set; } = default!;
+    public string? Description { get; private set; } = default!;
 
-    protected Tag(string name)
+    public void UpdateName(string name)        
     {
-        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        Name = name;
     }
+
+    public void UpdateDescription(string? description)        
+    {
+        Description = description;
+    }
+
+    protected Tag() { } // For Entity Framework
 }

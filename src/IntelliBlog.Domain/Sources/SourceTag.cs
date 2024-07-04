@@ -2,14 +2,16 @@
 
 public class SourceTag : Tag
 {
-    internal static SourceTag CreateNew(string name)
-        => new SourceTag(name);
+    public static SourceTag CreateNew(string name, string? description) 
+    {
+        var tag = new SourceTag();
+        tag.UpdateName(name);
+        tag.UpdateDescription(description);
+
+        return tag;
+    }
 
     public Source Source { get; private set; } = default!;
 
-    private SourceTag(string name) 
-        : base(name)
-    {
-        
-    }
+    private SourceTag() { } // For Entity Framework
 }
