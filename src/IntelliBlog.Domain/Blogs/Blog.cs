@@ -57,11 +57,6 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         SmallImage = smallImage;
     }
     
-    public void AddArticle(BlogArticle article)
-    {
-        _articles.Add(article);
-    }
-
     public void RemoveArticle(BlogArticle article)
     {
         _articles.Remove(article);

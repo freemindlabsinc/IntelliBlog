@@ -11,6 +11,11 @@ public partial class BlogArticleConfiguration : IEntityTypeConfiguration<BlogArt
             => new { blogArticle.ArticleId, blogArticle.BlogId });
 
 
+        builder.HasOne<Article>()
+               .WithMany()
+               .HasForeignKey(blogArticle => blogArticle.ArticleId);
+
+
         builder
             .Property(tag => tag.BlogId)
             .HasConversion(id => id.Value, value => new BlogId(value));

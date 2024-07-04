@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240703204016_CreateDatabase")]
+    [Migration("20240704145505_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -48,9 +48,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(300)");
 
                     b.Property<DateTime?>("LastModified")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -76,6 +74,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     b.Property<int>("SourceId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("LinkedOn")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ArticleId", "SourceId");
 
@@ -155,9 +156,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(2000)");
 
                     b.Property<DateTime?>("LastModified")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("GETUTCDATE()");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -300,7 +299,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
             modelBuilder.Entity("IntelliBlog.Domain.Blogs.BlogArticle", b =>
                 {
                     b.HasOne("IntelliBlog.Domain.Articles.Article", null)
-                        .WithMany("Blogs")
+                        .WithMany()
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -325,8 +324,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
                 {
-                    b.Navigation("Blogs");
-
                     b.Navigation("Comments");
 
                     b.Navigation("Sources");

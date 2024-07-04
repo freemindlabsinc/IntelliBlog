@@ -25,7 +25,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     Text = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GETUTCDATE()"),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -46,7 +46,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     Status = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true, defaultValueSql: "GETUTCDATE()"),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -142,7 +142,8 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     ArticleId = table.Column<int>(type: "int", nullable: false),
-                    SourceId = table.Column<int>(type: "int", nullable: false)
+                    SourceId = table.Column<int>(type: "int", nullable: false),
+                    LinkedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
