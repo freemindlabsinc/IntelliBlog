@@ -28,6 +28,7 @@
     <Using Include="Ardalis.Specification" />
     <Using Include="MediatR" />
     <Using Include="IntelliBlog.Domain.Utilities" />
+    <Using Include="IntelliBlog.Domain" />
 
     <Using Include="Microsoft.EntityFrameworkCore" />
     <Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />
