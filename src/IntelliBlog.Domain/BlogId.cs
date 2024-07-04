@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain.Blogs;
+﻿namespace IntelliBlog.Domain;
 
 public readonly record struct BlogId(int Value)
 {

@@ -1,4 +1,5 @@
-﻿using IntelliBlog.Domain.Articles;
+﻿using IntelliBlog.Domain;
+using IntelliBlog.Domain.Articles;
 
 namespace IntelliBlog.Application.Specifications.Articles;
 

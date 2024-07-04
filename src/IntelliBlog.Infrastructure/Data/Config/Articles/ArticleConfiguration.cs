@@ -1,4 +1,5 @@
-﻿using IntelliBlog.Domain.Articles;
+﻿using IntelliBlog.Domain;
+using IntelliBlog.Domain.Articles;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Articles;

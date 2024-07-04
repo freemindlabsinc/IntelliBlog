@@ -1,4 +1,5 @@
 ﻿using IntelliBlog.Application.Interfaces;
+using IntelliBlog.Domain;
 using IntelliBlog.Domain.Articles;
 using IntelliBlog.Domain.Articles.Events;
 using Microsoft.Extensions.Logging;
