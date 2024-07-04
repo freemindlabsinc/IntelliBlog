@@ -6,9 +6,11 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
         BlogId blogId,
         string name,
         string? url = default,
-        string? description = default)
+        string? description = default,
+        SourceId id = default)
     { 
         var source = new Source();
+        source.Id = id; // Once-setter
         source.BlogId = blogId; // Once-setter
         source.UpdateName(name);
         source.UpdateURL(url);
@@ -50,8 +52,7 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
     }
 
     private readonly List<SourceTag> _tags = new List<SourceTag>();
-    //private readonly List<ArticleSource> _articles = new List<ArticleSource>();
-
+    
     // For Entity Framework
     private Source() { }
 }

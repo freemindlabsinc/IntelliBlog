@@ -7,9 +7,11 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         string? smallImage = default, 
         string? image = default,
         BlogStatus status = default,
-        string? notes = default)
+        string? notes = default,
+        BlogId id = default)
     {
         var blog = new Blog();
+        blog.Id = id; // Once-setter
         blog.UpdateName(name);
         blog.UpdateDescription(description);
         blog.UpdateSmallImage(smallImage);

@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="UseCases\**" />
+    <EmbeddedResource Remove="UseCases\**" />
+    <None Remove="UseCases\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="NSubstitute" />
@@ -35,9 +41,5 @@
   <ItemGroup>
     <Using Include="Xunit" />
     <Using Include="FluentAssertions" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UseCases\" />
   </ItemGroup>
 </Project>

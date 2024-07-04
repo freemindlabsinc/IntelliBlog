@@ -127,16 +127,36 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Like",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    LikedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Like", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Like_Articles_ArticleId",
+                        column: x => x.ArticleId,
+                        principalTable: "Articles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ArticleSource",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     SourceId = table.Column<int>(type: "int", nullable: false),
                     LinkedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleSource", x => new { x.ArticleId, x.SourceId });
+                    table.PrimaryKey("PK_ArticleSource", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ArticleSource_Articles_ArticleId",
                         column: x => x.ArticleId,
@@ -177,6 +197,11 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 column: "BlogId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ArticleSource_ArticleId",
+                table: "ArticleSource",
+                column: "ArticleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ArticleSource_SourceId",
                 table: "ArticleSource",
                 column: "SourceId");
@@ -189,6 +214,11 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Comment_ArticleId",
                 table: "Comment",
+                column: "ArticleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Like_ArticleId",
+                table: "Like",
                 column: "ArticleId");
 
             migrationBuilder.CreateIndex(
@@ -213,6 +243,9 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comment");
+
+            migrationBuilder.DropTable(
+                name: "Like");
 
             migrationBuilder.DropTable(
                 name: "SourceTag");

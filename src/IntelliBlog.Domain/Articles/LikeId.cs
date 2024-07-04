@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain;
+﻿namespace IntelliBlog.Domain.Articles;
 
 public readonly record struct LikeId(int Value)
 {

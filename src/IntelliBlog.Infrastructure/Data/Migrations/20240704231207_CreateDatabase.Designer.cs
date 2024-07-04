@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240704212042_CreateDatabase")]
+    [Migration("20240704231207_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -74,16 +74,21 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleSource", b =>
                 {
-                    b.Property<int>("ArticleId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("SourceId")
+                    b.Property<int>("ArticleId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("LinkedOn")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ArticleId", "SourceId");
+                    b.Property<int>("SourceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
 
                     b.HasIndex("SourceId");
 
@@ -138,6 +143,26 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.HasIndex("ArticleId");
 
                     b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LikedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("Like");
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Blogs.Blog", b =>
@@ -299,6 +324,15 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("IntelliBlog.Domain.Articles.Like", b =>
+                {
+                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
                 {
                     b.HasOne("IntelliBlog.Domain.Blogs.Blog", null)
@@ -318,6 +352,8 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
             modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
 
                     b.Navigation("Sources");
 

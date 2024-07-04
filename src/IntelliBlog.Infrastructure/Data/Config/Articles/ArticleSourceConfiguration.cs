@@ -7,8 +7,11 @@ public partial class ArticleSourceConfiguration : IEntityTypeConfiguration<Artic
 {
     public void Configure(EntityTypeBuilder<ArticleSource> builder)
     {
-        builder.HasKey(articleSource
-            => new { articleSource.ArticleId, articleSource.SourceId });
+        //builder.HasKey(articleSource
+        //    => new { articleSource.ArticleId, articleSource.SourceId });
+        builder
+            .Property(src => src.Id)
+            .HasConversion(id => id.Value, value => new ArticleSourceId(value));
 
         //builder.HasOne<Article>()
         //    .WithMany()

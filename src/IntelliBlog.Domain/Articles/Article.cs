@@ -6,9 +6,11 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
         BlogId blogId,
         string title,
         string? description = default,
-        string? text = default)
+        string? text = default,
+        ArticleId id = default)
     {
         var article = new Article();
+        article.Id = id; // Once-setter 
         article.BlogId = blogId; // Once-setter
         article.UpdateTitle(title);
         article.UpdateDescription(description);
@@ -50,12 +52,8 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     }
 
     public void AddSource(SourceId sourceId)
-    {
-        var src = _sources.FirstOrDefault(x => x.SourceId == sourceId);
-        if (src != null)
-            return;
-
-        src = ArticleSource.CreateNew(this.Id, sourceId);
+    { 
+        var src = ArticleSource.CreateNew(this.Id, sourceId);
         _sources.Add(src);
     }
 
