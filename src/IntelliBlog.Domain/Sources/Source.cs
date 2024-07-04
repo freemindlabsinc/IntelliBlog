@@ -21,7 +21,7 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
     public BlogId BlogId { get; private set; } = default!;
     public string Name { get; private set; } = default!;
     public string? Description { get; private set; } = default!;
-    public string? URL { get; private set; } = default!;
+    public string? Url { get; private set; } = default!;
     
     public IReadOnlyCollection<SourceTag> Tags => _tags.AsReadOnly();    
 
@@ -32,7 +32,7 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
 
     public void UpdateURL(string? url)
     {
-        URL = url;        
+        Url = url;        
     }
 
     public void UpdateDescription(string? description)

@@ -21,4 +21,8 @@
     <Using Include="IntelliBlog.Domain.Utilities" />
     <Using Include="IntelliBlog.Domain" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Blogs\Events\" />
+  </ItemGroup>
 </Project>

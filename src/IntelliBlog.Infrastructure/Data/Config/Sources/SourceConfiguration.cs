@@ -26,7 +26,7 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
             .HasMaxLength(DataSchemaConstants.DEFAULT_SOURCE_NAME_LENGTH)
             .IsRequired();
 
-        builder.Property(p => p.URL)
+        builder.Property(p => p.Url)
             .HasMaxLength(DataSchemaConstants.DEFAULT_URL_LENGTH);
 
         builder.Property(p => p.Description)
