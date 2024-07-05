@@ -1,8 +1,7 @@
-﻿using IntelliBlog.Domain.Sources;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using IntelliBlog.Domain.Blogs;
+﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using IntelliBlog.Domain.Aggregates.Blogs;
+using IntelliBlog.Domain.Aggregates.Sources;
+using IntelliBlog.Domain.Aggregates;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Sources;
 

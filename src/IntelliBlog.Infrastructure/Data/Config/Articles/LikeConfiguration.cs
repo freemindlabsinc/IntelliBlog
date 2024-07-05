@@ -1,4 +1,5 @@
-﻿using IntelliBlog.Domain.Articles;
+﻿using IntelliBlog.Domain.Aggregates;
+using IntelliBlog.Domain.Aggregates.Articles;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Articles;
 
@@ -13,6 +14,7 @@ public partial class LikeConfiguration : IEntityTypeConfiguration<Like>
         builder
             .Property(like => like.ArticleId)
             .HasConversion(id => id.Value, value => new ArticleId(value));
+        // TODO: try using implicit ops
 
         builder
             .Property(like => like.LikedBy)

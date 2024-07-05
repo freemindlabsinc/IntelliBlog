@@ -1,10 +1,10 @@
-﻿namespace IntelliBlog.Domain.Blogs;
+﻿namespace IntelliBlog.Domain.Aggregates.Blogs;
 public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
 {
     public static Blog CreateNew(
-        string name, 
-        string? description = default, 
-        string? smallImage = default, 
+        string name,
+        string? description = default,
+        string? smallImage = default,
         string? image = default,
         BlogStatus status = default,
         string? notes = default,

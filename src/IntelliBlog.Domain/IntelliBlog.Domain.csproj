@@ -19,10 +19,10 @@
     <Using Include="Ardalis.Specification" />
     <Using Include="MediatR" />
     <Using Include="IntelliBlog.Domain.Utilities" />
-    <Using Include="IntelliBlog.Domain" />
+    <Using Include="IntelliBlog.Domain.Aggregates" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Blogs\Events\" />
+    <Folder Include="Aggregates\Blogs\Events\" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿using IntelliBlog.Domain.Articles;
+﻿using IntelliBlog.Domain.Aggregates.Articles;
 
 namespace IntelliBlog.API.Application.UseCases.Articles.List;
 

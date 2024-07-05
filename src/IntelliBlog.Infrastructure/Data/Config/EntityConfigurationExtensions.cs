@@ -1,6 +1,4 @@
-﻿using IntelliBlog.Domain;
-
-namespace IntelliBlog.Infrastructure.Data.Config;
+﻿namespace IntelliBlog.Infrastructure.Data.Config;
 
 public static class EntityConfigurationExtensions
 {

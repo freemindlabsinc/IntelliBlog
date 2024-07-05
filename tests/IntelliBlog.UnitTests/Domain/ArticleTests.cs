@@ -1,7 +1,6 @@
-﻿using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain;
-using IntelliBlog.Domain.Sources;
-using IntelliBlog.Domain.Blogs;
+﻿using IntelliBlog.Domain.Aggregates.Articles;
+using IntelliBlog.Domain.Aggregates.Blogs;
+using IntelliBlog.Domain.Aggregates.Sources;
 
 namespace IntelliBlog.UnitTests.Domain;
 

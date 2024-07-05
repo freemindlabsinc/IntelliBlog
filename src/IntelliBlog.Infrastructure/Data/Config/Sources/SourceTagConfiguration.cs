@@ -1,6 +1,4 @@
-﻿using IntelliBlog.Domain.Sources;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using IntelliBlog.Domain.Aggregates.Sources;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Sources;
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240704231207_CreateDatabase")]
+    [Migration("20240705004920_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -28,7 +28,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
             modelBuilder.HasSequence<int>("General_seq")
                 .StartsAt(0L);
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Article", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Articles");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleSource", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleSource", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -95,7 +95,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("ArticleSource");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleTag", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleTag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,7 +120,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("ArticleTag");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.Comment", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Comment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -145,7 +145,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Comment");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.Like", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Like", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -165,7 +165,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Like");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Blogs.Blog", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Blogs.Blog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,7 +215,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Blogs");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Sources.Source", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -247,7 +247,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("URL")
+                    b.Property<string>("Url")
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
@@ -258,7 +258,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Sources");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Sources.SourceTag", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Sources.SourceTag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -284,72 +284,72 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("SourceTag");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Article", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Blogs.Blog", null)
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Blogs.Blog", null)
                         .WithMany()
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleSource", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleSource", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
                         .WithMany("Sources")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IntelliBlog.Domain.Sources.Source", null)
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Sources.Source", null)
                         .WithMany()
                         .HasForeignKey("SourceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.ArticleTag", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleTag", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
                         .WithMany("Tags")
                         .HasForeignKey("ArticleId");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.Comment", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Comment", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
                         .WithMany("Comments")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.Like", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Like", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Articles.Article", null)
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
                         .WithMany("Likes")
                         .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Sources.Source", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Blogs.Blog", null)
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Blogs.Blog", null)
                         .WithMany()
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Sources.SourceTag", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Sources.SourceTag", b =>
                 {
-                    b.HasOne("IntelliBlog.Domain.Sources.Source", null)
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Sources.Source", null)
                         .WithMany("Tags")
                         .HasForeignKey("SourceId");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Articles.Article", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Article", b =>
                 {
                     b.Navigation("Comments");
 
@@ -360,7 +360,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.Navigation("Tags");
                 });
 
-            modelBuilder.Entity("IntelliBlog.Domain.Sources.Source", b =>
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Sources.Source", b =>
                 {
                     b.Navigation("Tags");
                 });

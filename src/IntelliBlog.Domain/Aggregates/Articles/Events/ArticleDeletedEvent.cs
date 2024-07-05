@@ -1,6 +1,4 @@
-﻿using Ardalis.SharedKernel;
-
-namespace IntelliBlog.Domain.Articles.Events;
+﻿namespace IntelliBlog.Domain.Aggregates.Articles.Events;
 
 public sealed class ArticleDeletedEvent(ArticleId articleId) : DomainEventBase
 {

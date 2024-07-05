@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain;
+﻿namespace IntelliBlog.Domain.Aggregates;
 
 public readonly record struct SourceId(int Value)
 {

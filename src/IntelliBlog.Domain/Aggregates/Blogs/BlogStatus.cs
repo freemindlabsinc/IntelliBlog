@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain.Blogs;
+﻿namespace IntelliBlog.Domain.Aggregates.Blogs;
 
 // TODO: Convert to Ardalis SmartEnum
 public enum BlogStatus

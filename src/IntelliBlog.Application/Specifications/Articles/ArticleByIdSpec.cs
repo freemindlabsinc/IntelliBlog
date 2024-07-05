@@ -1,5 +1,5 @@
-﻿using IntelliBlog.Domain;
-using IntelliBlog.Domain.Articles;
+﻿using IntelliBlog.Domain.Aggregates;
+using IntelliBlog.Domain.Aggregates.Articles;
 
 namespace IntelliBlog.Application.Specifications.Articles;
 

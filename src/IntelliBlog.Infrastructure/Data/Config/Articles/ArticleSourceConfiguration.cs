@@ -1,5 +1,6 @@
-﻿using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain.Sources;
+﻿using IntelliBlog.Domain.Aggregates;
+using IntelliBlog.Domain.Aggregates.Articles;
+using IntelliBlog.Domain.Aggregates.Sources;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Articles;
 
@@ -7,8 +8,6 @@ public partial class ArticleSourceConfiguration : IEntityTypeConfiguration<Artic
 {
     public void Configure(EntityTypeBuilder<ArticleSource> builder)
     {
-        //builder.HasKey(articleSource
-        //    => new { articleSource.ArticleId, articleSource.SourceId });
         builder
             .Property(src => src.Id)
             .HasConversion(id => id.Value, value => new ArticleSourceId(value));

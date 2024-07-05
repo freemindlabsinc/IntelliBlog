@@ -70,7 +70,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     BlogId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
-                    URL = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    Url = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),

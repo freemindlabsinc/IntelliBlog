@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		AF-LOG.md = AF-LOG.md
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.FunctionalTests", "tests\IntelliBlog.FunctionalTests\IntelliBlog.FunctionalTests.csproj", "{7D84EFEE-A7D9-44AD-A0A3-38EC7882D94C}"
@@ -135,7 +136,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C9751CB7-4CD6-4633-A99A-4F6ADD525437} = {106AE906-5075-410A-B941-912F811848EE}
 		{4548EB20-1D1B-477B-AF6E-DD55653A6583} = {106AE906-5075-410A-B941-912F811848EE}
 		{220361D6-9C76-4E3F-BD34-3C7B50E2CA4D} = {106AE906-5075-410A-B941-912F811848EE}
 		{7D84EFEE-A7D9-44AD-A0A3-38EC7882D94C} = {B31B4797-1D9F-4288-808C-BE9A31A98C7D}

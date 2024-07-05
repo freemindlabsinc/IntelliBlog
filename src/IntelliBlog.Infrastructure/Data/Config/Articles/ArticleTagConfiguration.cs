@@ -1,8 +1,4 @@
-﻿using IntelliBlog.Domain;
-using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain.Blogs;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using IntelliBlog.Domain.Aggregates.Articles;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Articles;
 

@@ -1,4 +1,4 @@
-﻿using IntelliBlog.Domain.Articles;
+﻿using IntelliBlog.Domain.Aggregates.Articles;
 
 namespace IntelliBlog.API.Application.UseCases.Articles.Create;
 
@@ -9,7 +9,7 @@ public class CreateArticleHandler(IRepository<Article> _repository)
       CancellationToken cancellationToken)
     {
         var newArticle = Article.CreateNew(
-            new Domain.BlogId(request.BlogId),
+            request.BlogId,
             request.Title, request.Description, request.Text);
         var createdItem = await _repository.AddAsync(newArticle, cancellationToken);
 

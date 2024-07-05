@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain.Articles;
+﻿namespace IntelliBlog.Domain.Aggregates.Articles;
 
 public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 {
@@ -15,7 +15,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
         article.UpdateTitle(title);
         article.UpdateDescription(description);
         article.UpdateText(text);
-                
+
         return article;
     }
 
@@ -23,7 +23,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     public string Title { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Text { get; private set; }
-    
+
     public IReadOnlyCollection<ArticleTag> Tags => _tags.AsReadOnly();
     public IReadOnlyCollection<ArticleSource> Sources => _sources.AsReadOnly();
     public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
@@ -32,41 +32,41 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     public void UpdateTitle(string title)
     {
         Guard.Against.NullOrWhiteSpace(title, nameof(title));
-        this.Title = title;                
+        Title = title;
     }
 
     public void UpdateDescription(string? description)
     {
-        this.Description = description;        
+        Description = description;
     }
 
     public void UpdateText(string? text)
     {
-        this.Text = text;        
+        Text = text;
     }
 
     public void AddTag(string name, string? description = default)
     {
         var tag = ArticleTag.CreateNew(name, description);
-        _tags.Add(tag);        
+        _tags.Add(tag);
     }
 
     public void AddSource(SourceId sourceId)
-    { 
-        var src = ArticleSource.CreateNew(this.Id, sourceId);
+    {
+        var src = ArticleSource.CreateNew(Id, sourceId);
         _sources.Add(src);
     }
 
     public void RemoveSource(ArticleSource sourceId)
-    { 
-        _sources.Remove(sourceId);        
+    {
+        _sources.Remove(sourceId);
     }
 
     public void AddComment(string text, string commentedBy)
     {
-        var comment = Comment.CreateNew(this.Id, text, commentedBy);
+        var comment = Comment.CreateNew(Id, text, commentedBy);
         _comments.Add(comment);
-    }    
+    }
 
     public void RemoveComment(Comment comment)
     {
@@ -79,7 +79,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
         if (like != null)
             return;
 
-        like = Articles.Like.CreateNew(this.Id, likeUserId);
+        like = Articles.Like.CreateNew(Id, likeUserId);
         _likes.Add(like);
     }
 

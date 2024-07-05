@@ -8,7 +8,7 @@ using FastEndpoints.Swagger;
 using Serilog;
 using Serilog.Extensions.Logging;
 using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain.Articles;
+using IntelliBlog.Domain.Aggregates.Articles;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()

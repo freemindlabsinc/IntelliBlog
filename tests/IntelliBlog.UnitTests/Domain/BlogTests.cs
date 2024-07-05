@@ -1,4 +1,4 @@
-﻿using IntelliBlog.Domain.Blogs;
+﻿using IntelliBlog.Domain.Aggregates.Blogs;
 
 namespace IntelliBlog.UnitTests.Domain;
 

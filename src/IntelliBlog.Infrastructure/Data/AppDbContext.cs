@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
-using IntelliBlog.Domain.Articles;
-using IntelliBlog.Domain.Blogs;
-using IntelliBlog.Domain.Sources;
+using IntelliBlog.Domain.Aggregates.Articles;
+using IntelliBlog.Domain.Aggregates.Blogs;
+using IntelliBlog.Domain.Aggregates.Sources;
 
 namespace IntelliBlog.Infrastructure.Data;
 public class AppDbContext : DbContext

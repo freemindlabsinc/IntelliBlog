@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain;
+﻿namespace IntelliBlog.Domain.Aggregates;
 
 public readonly record struct ArticleId(int Value)
 {

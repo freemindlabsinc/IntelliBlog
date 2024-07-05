@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain.Articles;
+﻿namespace IntelliBlog.Domain.Aggregates.Articles;
 
 public sealed class Comment : Entity<CommentId>
 {
