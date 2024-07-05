@@ -1,10 +1,10 @@
 ﻿namespace IntelliBlog.Domain.Aggregates.Articles;
 
-public sealed class Like : Entity<int> 
+public sealed class ArticleLike : Entity<int> 
 {
-    internal static Like CreateNew(ArticleId articleId, string likedBy)
+    internal static ArticleLike CreateNew(ArticleId articleId, string likedBy)
     {
-        var like = new Like();
+        var like = new ArticleLike();
         like.ArticleId = articleId; // Once-setter
         like.UpdateLikedBy(likedBy);
         return like;
@@ -21,5 +21,5 @@ public sealed class Like : Entity<int>
     }
 
     // For Entity Framework
-    private Like() { }
+    private ArticleLike() { }
 }

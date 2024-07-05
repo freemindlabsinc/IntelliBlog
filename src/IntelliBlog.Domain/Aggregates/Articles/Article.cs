@@ -26,8 +26,8 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 
     public IReadOnlyCollection<ArticleTag> Tags => _tags.AsReadOnly();
     public IReadOnlyCollection<ArticleSource> Sources => _sources.AsReadOnly();
-    public IReadOnlyCollection<Comment> Comments => _comments.AsReadOnly();
-    public IReadOnlyCollection<Like> Likes => _likes.AsReadOnly();
+    public IReadOnlyCollection<ArticleComment> Comments => _comments.AsReadOnly();
+    public IReadOnlyCollection<ArticleLike> Likes => _likes.AsReadOnly();
 
     public void UpdateTitle(string title)
     {
@@ -64,11 +64,11 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 
     public void AddComment(string text, string commentedBy)
     {
-        var comment = Comment.CreateNew(Id, text, commentedBy);
+        var comment = ArticleComment.CreateNew(Id, text, commentedBy);
         _comments.Add(comment);
     }
 
-    public void RemoveComment(Comment comment)
+    public void RemoveComment(ArticleComment comment)
     {
         _comments.Remove(comment);
     }
@@ -79,7 +79,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
         if (like != null)
             return;
 
-        like = Articles.Like.CreateNew(Id, likeUserId);
+        like = Articles.ArticleLike.CreateNew(Id, likeUserId);
         _likes.Add(like);
     }
 
@@ -94,8 +94,8 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 
     private readonly List<ArticleTag> _tags = new List<ArticleTag>();
     private readonly List<ArticleSource> _sources = new List<ArticleSource>();
-    private readonly List<Comment> _comments = new List<Comment>();
-    private readonly List<Like> _likes = new List<Like>();
+    private readonly List<ArticleComment> _comments = new List<ArticleComment>();
+    private readonly List<ArticleLike> _likes = new List<ArticleLike>();
 
     private Article() { } // For Entity Framework
 }

@@ -1,14 +1,14 @@
 ﻿namespace IntelliBlog.Domain.Aggregates.Articles;
 
-public sealed class Comment : Entity<int>
+public sealed class ArticleComment : Entity<int>
 {
-    internal static Comment CreateNew(        
+    internal static ArticleComment CreateNew(        
         ArticleId articleId,
         string text,
         string commentedBy)
         //,CommentId parentId = default)
     {
-        var comment = new Comment();
+        var comment = new ArticleComment();
         comment.ArticleId = articleId; // Once-setter        
         comment.UpdateText(text);
         comment.UpdateCommentedBy(commentedBy);
@@ -34,5 +34,5 @@ public sealed class Comment : Entity<int>
     }
 
     // For Entity Framework
-    private Comment() { }
+    private ArticleComment() { }
 }

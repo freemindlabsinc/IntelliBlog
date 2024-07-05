@@ -3,9 +3,9 @@ using IntelliBlog.Domain.Aggregates.Articles;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Articles;
 
-public partial class LikeConfiguration : IEntityTypeConfiguration<Like>
+public partial class ArticleLikeConfiguration : IEntityTypeConfiguration<ArticleLike>
 {
-    public void Configure(EntityTypeBuilder<Like> builder)
+    public void Configure(EntityTypeBuilder<ArticleLike> builder)
     {
         //builder
         //    .Property(like => like.Id)

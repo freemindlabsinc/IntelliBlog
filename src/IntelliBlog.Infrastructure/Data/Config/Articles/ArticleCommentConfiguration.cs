@@ -3,9 +3,9 @@ using IntelliBlog.Domain.Aggregates.Articles;
 
 namespace IntelliBlog.Infrastructure.Data.Config.Articles;
 
-public class CommentConfiguration : IEntityTypeConfiguration<Comment>
+public class ArticleCommentConfiguration : IEntityTypeConfiguration<ArticleComment>
 {
-    public void Configure(EntityTypeBuilder<Comment> builder)
+    public void Configure(EntityTypeBuilder<ArticleComment> builder)
     {
         // Common
         //builder.AddTrackedEntityConfiguration<Comment, CommentId>();
