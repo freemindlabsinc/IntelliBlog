@@ -20,9 +20,4 @@
     <Using Include="MediatR" />
     <Using Include="IntelliBlog.Domain.Aggregates" />
   </ItemGroup>
-  
-
-  <ItemGroup>
-    <Folder Include="UseCases\" />
-  </ItemGroup>
 </Project>

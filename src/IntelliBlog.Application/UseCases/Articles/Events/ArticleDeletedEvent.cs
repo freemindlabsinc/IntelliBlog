@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain.Aggregates.Articles.Events;
+﻿namespace IntelliBlog.Application.UseCases.Articles.Events;
 
 public sealed class ArticleDeletedEvent(ArticleId articleId) : DomainEventBase
 {

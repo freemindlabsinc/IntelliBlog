@@ -18,7 +18,7 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         blog.UpdateImage(image);
         blog.ChangeStatus(status);
         blog.UpdateNotes(notes);
-
+        
         return blog;
     }
 
@@ -32,19 +32,28 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
 
     public void UpdateName(string name)
     {
-        Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        if (name == this.Name)
+            return;
 
-        Name = name;
+        Guard.Against.NullOrWhiteSpace(name, nameof(name)); 
+        
+        Name = name;        
     }
 
     public void UpdateDescription(string? description)
     {
-        Description = description;
-    }
+        if (description == this.Description)
+            return;
+
+        Description = description;        
+    }                
 
     public void UpdateNotes(string? notes)
     {
-        Notes = notes;
+        if (notes == this.Notes)
+            return;
+
+        Notes = notes;        
     }
 
 
