@@ -88,38 +88,20 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticleTag",
+                name: "ArticleComments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR General_seq"),
-                    ArticleId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ArticleTag", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ArticleTag_Articles_ArticleId",
-                        column: x => x.ArticleId,
-                        principalTable: "Articles",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Comment",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR General_seq"),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CommentedBy = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_ArticleComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_Articles_ArticleId",
+                        name: "FK_ArticleComments_Articles_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
@@ -127,18 +109,19 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Like",
+                name: "ArticleLikes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     LikedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Like", x => x.Id);
+                    table.PrimaryKey("PK_ArticleLikes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Like_Articles_ArticleId",
+                        name: "FK_ArticleLikes_Articles_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
@@ -146,7 +129,27 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ArticleSource",
+                name: "ArticleTags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ArticleId = table.Column<int>(type: "int", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ArticleTags", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ArticleTags_Articles_ArticleId",
+                        column: x => x.ArticleId,
+                        principalTable: "Articles",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ArticleSources",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -157,15 +160,15 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ArticleSource", x => x.Id);
+                    table.PrimaryKey("PK_ArticleSources", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ArticleSource_Articles_ArticleId",
+                        name: "FK_ArticleSources_Articles_ArticleId",
                         column: x => x.ArticleId,
                         principalTable: "Articles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ArticleSource_Sources_SourceId",
+                        name: "FK_ArticleSources_Sources_SourceId",
                         column: x => x.SourceId,
                         principalTable: "Sources",
                         principalColumn: "Id",
@@ -173,7 +176,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SourceTag",
+                name: "SourceTags",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -184,13 +187,23 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SourceTag", x => x.Id);
+                    table.PrimaryKey("PK_SourceTags", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SourceTag_Sources_SourceId",
+                        name: "FK_SourceTags_Sources_SourceId",
                         column: x => x.SourceId,
                         principalTable: "Sources",
                         principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArticleComments_ArticleId",
+                table: "ArticleComments",
+                column: "ArticleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ArticleLikes_ArticleId",
+                table: "ArticleLikes",
+                column: "ArticleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Articles_BlogId",
@@ -198,28 +211,18 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 column: "BlogId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleSource_ArticleId",
-                table: "ArticleSource",
+                name: "IX_ArticleSources_ArticleId",
+                table: "ArticleSources",
                 column: "ArticleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleSource_SourceId",
-                table: "ArticleSource",
+                name: "IX_ArticleSources_SourceId",
+                table: "ArticleSources",
                 column: "SourceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleTag_ArticleId",
-                table: "ArticleTag",
-                column: "ArticleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comment_ArticleId",
-                table: "Comment",
-                column: "ArticleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Like_ArticleId",
-                table: "Like",
+                name: "IX_ArticleTags_ArticleId",
+                table: "ArticleTags",
                 column: "ArticleId");
 
             migrationBuilder.CreateIndex(
@@ -228,8 +231,8 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 column: "BlogId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SourceTag_SourceId",
-                table: "SourceTag",
+                name: "IX_SourceTags_SourceId",
+                table: "SourceTags",
                 column: "SourceId");
         }
 
@@ -237,19 +240,19 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ArticleSource");
+                name: "ArticleComments");
 
             migrationBuilder.DropTable(
-                name: "ArticleTag");
+                name: "ArticleLikes");
 
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "ArticleSources");
 
             migrationBuilder.DropTable(
-                name: "Like");
+                name: "ArticleTags");
 
             migrationBuilder.DropTable(
-                name: "SourceTag");
+                name: "SourceTags");
 
             migrationBuilder.DropTable(
                 name: "Articles");

@@ -6,9 +6,7 @@ public class ArticleTagConfiguration : IEntityTypeConfiguration<ArticleTag>
 {
     public void Configure(EntityTypeBuilder<ArticleTag> builder)
     {
-        //// Common
-        //builder.AddSequenceForId<ArticleTag, TagId>()
-        //       .HasConversion(id => id.Value, value => new(value));
+        builder.ToTable(nameof(ArticleTag) + "s");
 
         // Entity
         builder.Property(p => p.Name)

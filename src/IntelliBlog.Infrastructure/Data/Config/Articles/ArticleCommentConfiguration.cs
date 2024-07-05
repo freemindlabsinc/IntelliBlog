@@ -7,8 +7,7 @@ public class ArticleCommentConfiguration : IEntityTypeConfiguration<ArticleComme
 {
     public void Configure(EntityTypeBuilder<ArticleComment> builder)
     {
-        // Common
-        //builder.AddTrackedEntityConfiguration<Comment, CommentId>();
+        builder.ToTable(nameof(ArticleComment) + "s");
 
         // Entity
         builder.Property(p => p.ArticleId)

@@ -69,6 +69,55 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleComment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CommentedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("ArticleComments", (string)null);
+                });
+
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleLike", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ArticleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LikedBy")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("ArticleLikes", (string)null);
+                });
+
             modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleSource", b =>
                 {
                     b.Property<int>("Id")
@@ -92,15 +141,16 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     b.HasIndex("SourceId");
 
-                    b.ToTable("ArticleSource");
+                    b.ToTable("ArticleSources", (string)null);
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleTag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR General_seq");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("ArticleId")
                         .HasColumnType("int");
@@ -117,52 +167,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     b.HasIndex("ArticleId");
 
-                    b.ToTable("ArticleTag");
-                });
-
-            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Comment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValueSql("NEXT VALUE FOR General_seq");
-
-                    b.Property<int>("ArticleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CommentedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
-
-                    b.ToTable("Comment");
-                });
-
-            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Like", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ArticleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LikedBy")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArticleId");
-
-                    b.ToTable("Like");
+                    b.ToTable("ArticleTags", (string)null);
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Blogs.Blog", b =>
@@ -281,7 +286,7 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
 
                     b.HasIndex("SourceId");
 
-                    b.ToTable("SourceTag");
+                    b.ToTable("SourceTags", (string)null);
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Article", b =>
@@ -289,6 +294,24 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.HasOne("IntelliBlog.Domain.Aggregates.Blogs.Blog", null)
                         .WithMany()
                         .HasForeignKey("BlogId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleComment", b =>
+                {
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleLike", b =>
+                {
+                    b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("ArticleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -313,24 +336,6 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                     b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
                         .WithMany("Tags")
                         .HasForeignKey("ArticleId");
-                });
-
-            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Comment", b =>
-                {
-                    b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.Like", b =>
-                {
-                    b.HasOne("IntelliBlog.Domain.Aggregates.Articles.Article", null)
-                        .WithMany("Likes")
-                        .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Sources.Source", b =>

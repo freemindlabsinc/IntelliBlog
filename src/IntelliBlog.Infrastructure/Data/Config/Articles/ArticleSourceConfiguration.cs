@@ -8,6 +8,8 @@ public partial class ArticleSourceConfiguration : IEntityTypeConfiguration<Artic
 {
     public void Configure(EntityTypeBuilder<ArticleSource> builder)
     {
+        builder.ToTable(nameof(ArticleSource) + "s");
+
         builder.HasOne<Source>()
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict)
