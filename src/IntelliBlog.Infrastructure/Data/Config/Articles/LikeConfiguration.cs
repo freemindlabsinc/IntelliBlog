@@ -7,9 +7,9 @@ public partial class LikeConfiguration : IEntityTypeConfiguration<Like>
 {
     public void Configure(EntityTypeBuilder<Like> builder)
     {
-        builder
-            .Property(like => like.Id)
-            .HasConversion(id => id.Value, value => new LikeId(value));
+        //builder
+        //    .Property(like => like.Id)
+        //    .HasConversion(id => id.Value, value => new LikeId(value));
 
         builder
             .Property(like => like.ArticleId)

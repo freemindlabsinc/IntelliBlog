@@ -1,6 +1,6 @@
 ﻿namespace IntelliBlog.Domain;
 
-public abstract class Tag : Entity<TagId>
+public abstract class Tag : Entity<int>
 {    
     public string Name { get; private set; } = default!;
     public string? Description { get; private set; } = default!;

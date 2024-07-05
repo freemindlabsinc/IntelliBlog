@@ -8,9 +8,6 @@ public class CommentConfiguration : IEntityTypeConfiguration<Comment>
     public void Configure(EntityTypeBuilder<Comment> builder)
     {
         // Common
-        builder.AddSequenceForId<Comment, CommentId>()
-               .HasConversion(id => id.Value, value => new(value));
-
         //builder.AddTrackedEntityConfiguration<Comment, CommentId>();
 
         // Entity

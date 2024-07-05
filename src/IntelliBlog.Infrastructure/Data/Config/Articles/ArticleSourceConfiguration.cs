@@ -8,14 +8,6 @@ public partial class ArticleSourceConfiguration : IEntityTypeConfiguration<Artic
 {
     public void Configure(EntityTypeBuilder<ArticleSource> builder)
     {
-        builder
-            .Property(src => src.Id)
-            .HasConversion(id => id.Value, value => new ArticleSourceId(value));
-
-        //builder.HasOne<Article>()
-        //    .WithMany()
-        //    .HasForeignKey(articleSource => articleSource.ArticleId);  
-
         builder.HasOne<Source>()
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict)

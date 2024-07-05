@@ -1,6 +1,6 @@
 ﻿namespace IntelliBlog.Domain.Aggregates.Articles;
 
-public sealed class Comment : Entity<CommentId>
+public sealed class Comment : Entity<int>
 {
     internal static Comment CreateNew(        
         ArticleId articleId,

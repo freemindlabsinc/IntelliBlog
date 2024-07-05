@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliBlog.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240705004920_CreateDatabase")]
+    [Migration("20240705005927_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -75,7 +75,10 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
             modelBuilder.Entity("IntelliBlog.Domain.Aggregates.Articles.ArticleSource", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ArticleId")
                         .HasColumnType("int");

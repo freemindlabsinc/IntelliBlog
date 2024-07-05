@@ -149,7 +149,8 @@ namespace IntelliBlog.Infrastructure.Data.Migrations
                 name: "ArticleSource",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ArticleId = table.Column<int>(type: "int", nullable: false),
                     SourceId = table.Column<int>(type: "int", nullable: false),
                     LinkedOn = table.Column<DateTime>(type: "datetime2", nullable: false)

@@ -1,6 +1,6 @@
 ﻿namespace IntelliBlog.Domain.Aggregates.Articles;
 
-public sealed class Like : Entity<LikeId>
+public sealed class Like : Entity<int> 
 {
     internal static Like CreateNew(ArticleId articleId, string likedBy)
     {

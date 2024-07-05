@@ -12,7 +12,7 @@ public class ArticleSource : HasDomainEventsBase
         return articleSource;
     }
 
-    public ArticleSourceId Id { get; private set; } = default!;
+    public int Id { get; private set; } = default!; // It's never accessed directly so it does not need to be a strong id
     public ArticleId ArticleId { get; private set; } = default!;
     public SourceId SourceId { get; private set; } = default!;        
     public DateTime LinkedOn { get; private set; } = DateTime.UtcNow;
