@@ -1,5 +1,5 @@
 ﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain.Articles.Events;
+using IntelliBlog.Application.UseCases.Articles.Events;
 using Microsoft.Extensions.Logging;
 
 namespace IntelliBlog.Application.EventHandlers;

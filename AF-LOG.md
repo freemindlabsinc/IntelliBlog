@@ -1,3 +1,31 @@
+### 7/4/2024
+
+- I think the Domain is done, at least for now. 
+    - I have all aggregates defined and I have a number of methods on each aggregate
+    to enforce encapsulation and controlled access to invariants.
+
+- I am now working on the Application layer. 
+    
+### 7/3 to 7/5/2024
+
+-Massive R&D on aggregates and associations. 
+    - I am going in the right direction 
+    - I really got a lot of insight on what is coming next
+    - Videos:
+        - Vaughn Vernon - How to Use Aggregates for Tactical Design (3 Parts)
+            - https://www.youtube.com/watch?v=Xf_aLAK1RfE
+            - https://www.youtube.com/watch?v=JOsv01y8dlw
+            - https://www.youtube.com/watch?v=aVHVFi8aAm
+
+-Outcome of last days 
+    - Domain model looks good
+    - EF schema looks good too
+
+-What to do next:
+    -We now need Domain Services (including base IRepository)
+    -We also need Domain Events
+
+
 ### 7/2/2024 
 
 - Lots of work on domain.
