@@ -1,3 +1,11 @@
+### 7/4/2024
+
+- I think the Domain is done, at least for now. 
+    - I have all aggregates defined and I have a number of methods on each aggregate
+    to enforce encapsulation and controlled access to invariants.
+
+- I am now working on the Application layer. 
+    
 ### 7/3 to 7/5/2024
 
 -Massive R&D on aggregates and associations. 
