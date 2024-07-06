@@ -21,8 +21,7 @@ public static class InfrastructureServiceExtensions
     
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
-    //services.AddScoped<IListContributorsQueryService, ListContributorsQueryService>();
-    //services.AddScoped<IContributorDeleteService, ContributorDeleteService>();
+    services.AddScoped<IUnitOfWork, UnitOfWork>();
 
     services.Configure<MailserverConfiguration>(config.GetSection("Mailserver"));
     

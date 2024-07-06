@@ -8,7 +8,7 @@ public interface IUnitOfWork
     public Task<int> CompleteAsync(CancellationToken cancellationToken = default);
 
     public IRepository<TAGGREGATE> GetRepository<TAGGREGATE>()
-        where TAGGREGATE : class, IAggregateRoot, new();
+        where TAGGREGATE : class, IAggregateRoot;
 
     public IRepository<Blog> BlogRepository { get; }
     public IRepository<Article> ArticleRepository { get; }
