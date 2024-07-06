@@ -8,14 +8,12 @@ namespace IntelliBlog.IntegrationTests.UnitOfWork;
 public class UnitOfWorkTests
 : IClassFixture<UnitOfWorkFixture>
 {
-    private readonly ITestOutputHelper _outputHelper;
     private readonly UnitOfWorkFixture _fixture;
 
     public UnitOfWorkTests(UnitOfWorkFixture fixture, ITestOutputHelper outputHelper)
     {
-        _outputHelper = outputHelper;
         _fixture = fixture;
-        _fixture.SetTestOutputHelper(_outputHelper);
+        _fixture.SetTestOutputHelper(outputHelper);
     }
 
     [Fact]
@@ -26,13 +24,6 @@ public class UnitOfWorkTests
         repo1.Should().BeAssignableTo<IRepository<Blog>>();
 
         var repo2 = uow.GetRepository<Article>();
-        repo1.Should().BeAssignableTo<IRepository<Article>>();
+        repo2.Should().BeAssignableTo<IRepository<Article>>();
     }
-
-    [Fact]
-    public void Ensure_domain_events_are_published()
-    { 
-        
-    }
-    
 }

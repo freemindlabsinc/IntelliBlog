@@ -9,6 +9,7 @@ using Serilog;
 using Serilog.Extensions.Logging;
 using IntelliBlog.Application.Interfaces;
 using IntelliBlog.Domain.Aggregates.Articles;
+using System.Runtime.CompilerServices;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
@@ -38,6 +39,7 @@ builder.Services.AddFastEndpoints()
 
 ConfigureMediatR();
 
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
 if (builder.Environment.IsDevelopment())
@@ -73,11 +75,11 @@ app.UseFastEndpoints()
 
 app.UseHttpsRedirection();
 
-SeedDatabase(app);
+await SeedDatabase(app);
 
 app.Run();
 
-static void SeedDatabase(WebApplication app)
+static async Task SeedDatabase(WebApplication app)
 {
   using var scope = app.Services.CreateScope();
   var services = scope.ServiceProvider;
@@ -87,7 +89,7 @@ static void SeedDatabase(WebApplication app)
     var context = services.GetRequiredService<AppDbContext>();
     //          context.Database.Migrate();
     context.Database.EnsureCreated();
-    SeedData.Initialize(services);
+    await SeedData.PopulateTestData(context);
   }
   catch (Exception ex)
   {

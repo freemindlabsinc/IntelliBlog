@@ -2,15 +2,14 @@
 using IntelliBlog.Infrastructure.Data;
 using IntelliBlog.Infrastructure.Email;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace IntelliBlog.Infrastructure;
-public static class InfrastructureServiceExtensions
+namespace Microsoft.Extensions.DependencyInjection;
+
+public static class InfrastructureExtensions
 {
-  public static IServiceCollection AddInfrastructureServices(
-    this IServiceCollection services,
-    IConfiguration config)
-  {        
+  public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, 
+      IConfiguration config)
+  {
     string? connectionString = config.GetConnectionString($"DbConnection");
     Guard.Against.Null(connectionString);
 

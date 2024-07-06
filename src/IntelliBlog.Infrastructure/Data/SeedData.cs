@@ -55,7 +55,7 @@ public static class SeedData
         await dbContext.SaveChangesAsync();
     }
 
-    public static async Task CreateLovableBlog(AppDbContext dbContext)
+    static async Task CreateLovableBlog(AppDbContext dbContext)
     {
         Blog lovableBlog = Blog.CreateNew(LovableBlogName, "A blog with lovely topics such as puppies and kittens.");
         dbContext.Blogs.Add(lovableBlog);

@@ -6,6 +6,7 @@ using NSubstitute;
 using Xunit.Abstractions;
 using IntelliBlog.Infrastructure;
 using IntelliBlog.IntegrationTests._garbage;
+using MediatR;
 
 namespace IntelliBlog.IntegrationTests;
 
@@ -32,6 +33,7 @@ public abstract class FixtureBase
     {
         var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
         services.AddSingleton(_fakeEventDispatcher);
+        services.AddApplicationServices(_config);
         services.AddInfrastructureServices(_config);
     }
 
@@ -61,4 +63,6 @@ public abstract class FixtureBase
     }
 
     public ITestOutputHelper? Output => _outputHelper;
+
+    public ISender Sender => GetServiceProvider()!.GetService<ISender>()!;
 }

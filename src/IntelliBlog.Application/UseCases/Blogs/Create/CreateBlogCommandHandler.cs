@@ -4,19 +4,15 @@ using IntelliBlog.Domain.Aggregates.Blogs;
 namespace IntelliBlog.Application.UseCases.Blogs.Create;
 
 public class CreateBlogCommandHandler(
-    IMediator _mediator,
-    IUnitOfWork _unitOfWork)
+    //IMediator _mediator,
+    IRepository<Blog> _repository)
     : ICommandHandler<CreateBlogCommand, Result<BlogId>>
 {
     public async Task<Result<BlogId>> Handle(CreateBlogCommand command, CancellationToken cancellationToken)
     {
         var blog = Blog.CreateNew(command.Name, description: command.Description);
 
-        await _unitOfWork.GetRepository<Blog>().AddAsync(blog, cancellationToken);
-
-        await _unitOfWork.CompleteAsync(cancellationToken);
-
-        await _mediator.Publish(new BlogCreatedEvent(blog.Id), cancellationToken);
+        await _repository.AddAsync(blog, cancellationToken);
 
         return Result.Success(blog.Id);
     }
