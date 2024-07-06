@@ -1,4 +1,5 @@
 ﻿using IntelliBlog.Application.Interfaces;
+using IntelliBlog.Domain.Aggregates.Blogs;
 
 namespace IntelliBlog.Application.UseCases.Blogs.ChangeStatus;
 
@@ -6,7 +7,8 @@ public class ChangeBlogStatusCommandHandler(IUnitOfWork _unitOfWork) : ICommandH
 {
     public async Task<Result> Handle(ChangeBlogStatusCommand request, CancellationToken cancellationToken)
     {
-        var blog = await _unitOfWork.BlogRepository.GetByIdAsync(request.Id, cancellationToken);
+        var blog = await _unitOfWork.GetRepository<Blog>()
+            .GetByIdAsync(request.Id, cancellationToken);
         
         if (blog == null)
         {

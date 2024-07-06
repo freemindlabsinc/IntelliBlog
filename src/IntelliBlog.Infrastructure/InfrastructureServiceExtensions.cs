@@ -1,9 +1,6 @@
-﻿using Ardalis.GuardClauses;
-using Ardalis.SharedKernel;
-using IntelliBlog.Application.Interfaces;
+﻿using IntelliBlog.Application.Interfaces;
 using IntelliBlog.Infrastructure.Data;
 using IntelliBlog.Infrastructure.Email;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,9 +12,10 @@ public static class InfrastructureServiceExtensions
     IConfiguration config)
   {        
     string? connectionString = config.GetConnectionString($"DbConnection");
-    Guard.Against.Null(connectionString);    
+    Guard.Against.Null(connectionString);
 
-    services.AddApplicationDbContext(connectionString);
+    services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlServer(connectionString));        
     
     services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));

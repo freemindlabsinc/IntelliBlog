@@ -8,22 +8,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace IntelliBlog.IntegrationTests.Data;
+namespace IntelliBlog.IntegrationTests._garbage;
 
 public abstract class BaseEfRepoTestFixture
 {
-  protected AppDbContext _dbContext;
+    protected AppDbContext _dbContext;
 
-  protected BaseEfRepoTestFixture()
-  {
-    var options = CreateNewContextOptions();
-    var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
+    protected BaseEfRepoTestFixture()
+    {
+        var options = CreateNewContextOptions();
+        var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
 
-    _dbContext = new AppDbContext(options, _fakeEventDispatcher);
-  }
+        _dbContext = new AppDbContext(options, _fakeEventDispatcher);
+    }
 
-  protected static DbContextOptions<AppDbContext> CreateNewContextOptions()
-  {
+    protected static DbContextOptions<AppDbContext> CreateNewContextOptions()
+    {
         // Create a fresh service provider        
         var config = new ConfigurationBuilder()
             .AddJsonFile("appsettings.testing.json")
@@ -33,7 +33,7 @@ public abstract class BaseEfRepoTestFixture
         var logger = new LoggerFactory()
             .CreateLogger<BaseEfRepoTestFixture>();
 
-        var connString = config.GetConnectionString("DbConnection");    
+        var connString = config.GetConnectionString("DbConnection");
         Guard.Against.NullOrEmpty(connString, "DbConnection");
 
         var serviceProvider = new ServiceCollection()
@@ -43,14 +43,14 @@ public abstract class BaseEfRepoTestFixture
             //.AddInfrastructureServices(config, logger)
             .BuildServiceProvider();
 
-    // Create a new options instance telling the context to use an
-    // InMemory database and the new service provider.
-    var builder = new DbContextOptionsBuilder<AppDbContext>();
+        // Create a new options instance telling the context to use an
+        // InMemory database and the new service provider.
+        var builder = new DbContextOptionsBuilder<AppDbContext>();
         builder.UseSqlServer(connString)
                .UseInternalServiceProvider(serviceProvider);
 
-    return builder.Options;
-  }
+        return builder.Options;
+    }
 
     //protected EfRepository<Contributor> GetContributorRepository()
     //{

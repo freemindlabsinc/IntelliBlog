@@ -10,5 +10,15 @@ public static class ArticleExtensions
         }        
 
         return article;
-    }    
+    }
+
+    public static Article AddSources(this Article article, params SourceId[] sourcesIds)
+    {
+        foreach (var id in sourcesIds)
+        {
+            article.AddSource(id);
+        }
+
+        return article;
+    }
 }

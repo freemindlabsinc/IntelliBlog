@@ -12,7 +12,7 @@ public class CreateBlogCommandHandler(
     {
         var blog = Blog.CreateNew(command.Name, description: command.Description);
 
-        await _unitOfWork.BlogRepository.AddAsync(blog, cancellationToken);
+        await _unitOfWork.GetRepository<Blog>().AddAsync(blog, cancellationToken);
 
         await _unitOfWork.CompleteAsync(cancellationToken);
 
