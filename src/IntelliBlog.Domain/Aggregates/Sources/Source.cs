@@ -1,4 +1,6 @@
-﻿namespace IntelliBlog.Domain.Aggregates.Sources;
+﻿using IntelliBlog.Domain.Aggregates.Sources.Events;
+
+namespace IntelliBlog.Domain.Aggregates.Sources;
 
 public class Source : TrackedEntity<SourceId>, IAggregateRoot
 {
@@ -6,15 +8,17 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
         BlogId blogId,
         string name,
         string? url = default,
-        string? description = default,
-        SourceId id = default)
+        string? description = default)
     {
         var source = new Source();
-        source.Id = id; // Once-setter
         source.BlogId = blogId; // Once-setter
         source.UpdateName(name);
         source.UpdateURL(url);
         source.UpdateDescription(description);
+
+        source.ClearDomainEvents();
+        source.RegisterDomainEvent(new SourceCreatedEvent(source));
+
         return source;
     }
 
@@ -27,28 +31,44 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
 
     public void UpdateName(string name)
     {
+        if (this.Name == name) return; 
+
         Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+
+        RegisterDomainEvent(new SourceUpdatedEvent(this, nameof(this.Name)));
     }
 
     public void UpdateURL(string? url)
     {
+        if (this.Url == url) return;
+
         Url = url;
+
+        RegisterDomainEvent(new SourceUpdatedEvent(this, nameof(this.Url)));
     }
 
     public void UpdateDescription(string? description)
     {
+        if (this.Description == description) return;
+
         Description = description;
+
+        RegisterDomainEvent(new SourceUpdatedEvent(this, nameof(this.Description)));
     }
 
     public void AddTag(string name, string? description = default)
     {
         var tag = SourceTag.CreateNew(name, description);
         _tags.Add(tag);
+
+        RegisterDomainEvent(new SourceUpdatedEvent(this, nameof(this.Tags)));
     }
 
     public void RemoveTag(SourceTag tag)
     {
         _tags.Remove(tag);
+
+        RegisterDomainEvent(new SourceUpdatedEvent(this, nameof(this.Tags)));
     }
 
     private readonly List<SourceTag> _tags = new List<SourceTag>();

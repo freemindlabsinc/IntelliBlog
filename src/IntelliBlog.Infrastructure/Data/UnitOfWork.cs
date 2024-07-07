@@ -1,22 +1,29 @@
 ﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain.Aggregates.Articles;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Domain.Aggregates.Sources;
+using IntelliBlog.Domain;
 
 namespace IntelliBlog.Infrastructure.Data;
-public class UnitOfWork(AppDbContext _dbContext) : IUnitOfWork
+public class UnitOfWork(
+    AppDbContext _dbContext,
+    IMediator _mediator) 
+    : IUnitOfWork
 {
     Dictionary<Type, object> _repositories = new();
 
-    public IRepository<Blog> BlogRepository => GetRepository<Blog>();
+    public async Task<int> CompleteAsync(CancellationToken cancellationToken = default)
+    {        
+        var entityEvents = _dbContext.ChangeTracker
+            .Entries<HasDomainEvents>()
+            .Where(e => e.Entity.DomainEvents.Any())
+            .SelectMany(e => e.Entity.DomainEvents)
+            .ToArray();
 
-    public IRepository<Article> ArticleRepository => GetRepository<Article>();
+        foreach (var evt in entityEvents)
+        {
+            await _mediator.Publish(evt, cancellationToken);
+        }
 
-    public IRepository<Source> SourceRepository => GetRepository<Source>();
-
-    public Task<int> CompleteAsync(CancellationToken cancellationToken = default)
-    {
-        return _dbContext.SaveChangesAsync(cancellationToken);
+        var changes = await _dbContext.SaveChangesAsync(cancellationToken);
+        return changes;
     }
 
     public IRepository<TAGGREGATE> GetRepository<TAGGREGATE>()

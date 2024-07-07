@@ -7,8 +7,7 @@ public abstract class Tag : Entity<int>
 
     public void UpdateName(string name)
     {
-        Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        Name = name;
+        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));        
     }
 
     public void UpdateDescription(string? description)

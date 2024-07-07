@@ -1,9 +1,11 @@
 ﻿
 using System.Transactions;
 using IntelliBlog.Application.Interfaces;
+using IntelliBlog.Domain;
 
 namespace IntelliBlog.Application.Behaviors;
-public class UnitOfWorkBehavior<TRequest, TResponse>(IUnitOfWork _unitOfWork)
+public class UnitOfWorkBehavior<TRequest, TResponse>(
+    IUnitOfWork _unitOfWork)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>
 {    
@@ -15,9 +17,7 @@ public class UnitOfWorkBehavior<TRequest, TResponse>(IUnitOfWork _unitOfWork)
             response = await next();
 
             await _unitOfWork.CompleteAsync(cancellationToken);
-
-            // Processes domain events
-
+            
             transactionScope.Complete();
         }
 

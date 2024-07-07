@@ -4,7 +4,6 @@ using IntelliBlog.Domain.Aggregates.Blogs;
 namespace IntelliBlog.Application.UseCases.Blogs.Create;
 
 public class CreateBlogCommandHandler(
-    //IMediator _mediator,
     IRepository<Blog> _repository)
     : ICommandHandler<CreateBlogCommand, Result<BlogId>>
 {

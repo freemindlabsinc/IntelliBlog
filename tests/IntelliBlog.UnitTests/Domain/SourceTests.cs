@@ -5,8 +5,6 @@ namespace IntelliBlog.UnitTests.Domain;
 
 public class SourceTests
 {
-    private Blog Blog => Blog.CreateNew("Fake Blog", id: 1);
-
     [Fact]
     public void Can_create_new_source()
     {
@@ -15,12 +13,12 @@ public class SourceTests
         const string url = "http://test.com";
         
         var source = Source.CreateNew(
-            blogId: Blog.Id,
+            blogId: 101,
             name: name,
             description: description,
             url: url);
 
-        source.BlogId.Should().Be(Blog.Id);
+        source.BlogId.Value.Should().Be(101);
         source.Name.Should().Be(name);
         source.Description.Should().Be(description);
         source.Url.Should().Be(url);        

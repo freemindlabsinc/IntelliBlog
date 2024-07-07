@@ -1,4 +1,7 @@
-﻿namespace IntelliBlog.Domain.Aggregates.Blogs;
+﻿using System.ComponentModel;
+using IntelliBlog.Domain.Aggregates.Blogs.Events;
+
+namespace IntelliBlog.Domain.Aggregates.Blogs;
 public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
 {
     public static Blog CreateNew(
@@ -7,11 +10,9 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         string? smallImage = default,
         string? image = default,
         BlogStatus status = default,
-        string? notes = default,
-        BlogId id = default)
+        string? notes = default)
     {
         var blog = new Blog();
-        blog.Id = id; // Once-setter
         blog.UpdateName(name);
         blog.UpdateDescription(description);
         blog.UpdateSmallImage(smallImage);
@@ -19,6 +20,8 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         blog.ChangeStatus(status);
         blog.UpdateNotes(notes);
         
+        blog.ClearDomainEvents();
+        blog.RegisterDomainEvent(new BlogCreatedEvent(blog));
         return blog;
     }
 
@@ -32,44 +35,59 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
 
     public void UpdateName(string name)
     {
-        if (name == this.Name)
-            return;
+        if (name == this.Name) return;
 
         Guard.Against.NullOrWhiteSpace(name, nameof(name)); 
         
-        Name = name;        
+        Name = name;
+
+        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Name)));
     }
 
     public void UpdateDescription(string? description)
     {
-        if (description == this.Description)
-            return;
+        if (description == this.Description) return;
 
-        Description = description;        
+        Description = description;
+
+        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Description)));
     }                
 
     public void UpdateNotes(string? notes)
     {
-        if (notes == this.Notes)
-            return;
+        if (notes == this.Notes) return;
 
-        Notes = notes;        
+        Notes = notes;
+
+        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Notes)));
     }
 
 
     public void ChangeStatus(BlogStatus status)
     {
+        if (status == this.Status) return;
+        
         Status = status;
+        
+        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Status)));
     }
 
     public void UpdateImage(string? image)
     {
+        if (image == this.Image) return;
+
         Image = image;
+
+        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Image)));
     }
 
     public void UpdateSmallImage(string? smallImage)
     {
+        if (smallImage == this.SmallImage) return;
+
         SmallImage = smallImage;
+
+        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(SmallImage)));
     }
 
     private Blog() { } // For Entity Framework

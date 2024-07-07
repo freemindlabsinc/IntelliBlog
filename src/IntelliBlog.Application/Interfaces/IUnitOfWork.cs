@@ -1,10 +1,8 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Domain.Aggregates.Sources;
+﻿namespace IntelliBlog.Application.Interfaces;
 
-namespace IntelliBlog.Application.Interfaces;
-
-// Insipired by https://medium.com/@josiahmahachi/how-to-use-iunitofwork-single-responsibility-principle-2821398addee
+// Inspired by
+//  https://medium.com/@josiahmahachi/how-to-use-iunitofwork-single-responsibility-principle-2821398addee
+//  https://steven-giesel.com/blogPost/ae55581a-9722-4735-8d0e-bfcfe4f6ad5a
 public interface IUnitOfWork
 {
     public Task<int> CompleteAsync(CancellationToken cancellationToken = default);

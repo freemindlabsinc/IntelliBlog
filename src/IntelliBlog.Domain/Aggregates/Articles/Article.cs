@@ -1,4 +1,6 @@
-﻿namespace IntelliBlog.Domain.Aggregates.Articles;
+﻿using IntelliBlog.Domain.Aggregates.Articles.Events;
+
+namespace IntelliBlog.Domain.Aggregates.Articles;
 
 public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 {
@@ -6,15 +8,16 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
         BlogId blogId,
         string title,
         string? description = default,
-        string? text = default,
-        ArticleId id = default)
+        string? text = default)
     {
         var article = new Article();
-        article.Id = id; // Once-setter 
         article.BlogId = blogId; // Once-setter
         article.UpdateTitle(title);
         article.UpdateDescription(description);
         article.UpdateText(text);
+
+        article.ClearDomainEvents();
+        article.RegisterDomainEvent(new ArticleCreatedEvent(article));
 
         return article;
     }
@@ -31,46 +34,78 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 
     public void UpdateTitle(string title)
     {
-        Guard.Against.NullOrWhiteSpace(title, nameof(title));
-        Title = title;
+        if (this.Title == title) return;
+
+        title = Guard.Against.NullOrWhiteSpace(title, nameof(title));        
+        
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Title)));
     }
 
     public void UpdateDescription(string? description)
     {
+        if (this.Description == description) return;
+
         Description = description;
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Description)));
     }
 
     public void UpdateText(string? text)
     {
+        if (this.Text == text) return;
+
         Text = text;
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Text)));
     }
 
     public void AddTag(string name, string? description = default)
     {
         var tag = ArticleTag.CreateNew(name, description);
         _tags.Add(tag);
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Tags)));
+    }
+
+    public void RemoveTag(int tagId, string? description = default)
+    {
+        var tag = _tags.FirstOrDefault(t => t.Id == tagId);
+        if (tag == null)
+            return;
+
+        _tags.Remove(tag);
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Tags)));
     }
 
     public void AddSource(SourceId sourceId)
     {
         var src = ArticleSource.CreateNew(Id, sourceId);
         _sources.Add(src);
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Sources)));
     }
 
     public void RemoveSource(ArticleSource sourceId)
     {
         _sources.Remove(sourceId);
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Sources)));
     }
 
     public void AddComment(string text, string commentedBy)
     {
         var comment = ArticleComment.CreateNew(Id, text, commentedBy);
         _comments.Add(comment);
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Comments)));
     }
 
     public void RemoveComment(ArticleComment comment)
     {
         _comments.Remove(comment);
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Comments)));
     }
 
     public void Like(string likeUserId)
@@ -81,6 +116,8 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 
         like = Articles.ArticleLike.CreateNew(Id, likeUserId);
         _likes.Add(like);
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Likes)));
     }
 
     public void Unlike(string likeUserId)
@@ -90,6 +127,8 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
             return;
 
         _likes.Remove(like);
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Likes)));
     }
 
     private readonly List<ArticleTag> _tags = new List<ArticleTag>();
