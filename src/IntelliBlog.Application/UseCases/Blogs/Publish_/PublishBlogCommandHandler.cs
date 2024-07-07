@@ -3,9 +3,9 @@ using IntelliBlog.Domain.Aggregates.Blogs;
 
 namespace IntelliBlog.Application.UseCases.Blogs.ChangeStatus;
 
-public class ChangeBlogStatusCommandHandler(IUnitOfWork _unitOfWork) : ICommandHandler<ChangeBlogStatusCommand, Result>
+public class PublishBlogCommandHandler(IUnitOfWork _unitOfWork) : ICommandHandler<PublishBlogCommand, Result>
 {
-    public async Task<Result> Handle(ChangeBlogStatusCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(PublishBlogCommand request, CancellationToken cancellationToken)
     {
         var blog = await _unitOfWork.GetRepository<Blog>()
             .GetByIdAsync(request.Id, cancellationToken);
@@ -15,9 +15,8 @@ public class ChangeBlogStatusCommandHandler(IUnitOfWork _unitOfWork) : ICommandH
             return Result.NotFound("Blog not found");
         }
 
-        blog.ChangeStatus(request.NewStatus);
-        await _unitOfWork.CompleteAsync(cancellationToken);
-
+        blog.Publish();
+        
         return Result.Success();
 
     }

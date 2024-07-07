@@ -4,9 +4,9 @@ using IntelliBlog.Domain.Aggregates.Blogs;
 namespace IntelliBlog.Application.UseCases.Blogs.Update;
 
 public class UpdateBlogCommandHandler(IUnitOfWork _unitOfWork)
-    : ICommandHandler<UpdateBlogCommand, Result<int>>
+    : ICommandHandler<UpdateBlogCommand, Result>
 {
-    public async Task<Result<int>> Handle(UpdateBlogCommand command, CancellationToken cancellationToken)
+    public async Task<Result> Handle(UpdateBlogCommand command, CancellationToken cancellationToken)
     {
         var blogRepo = _unitOfWork.GetRepository<Blog>();
         var blog = await blogRepo.GetByIdAsync(command.Id, cancellationToken);
@@ -23,6 +23,6 @@ public class UpdateBlogCommandHandler(IUnitOfWork _unitOfWork)
 
         var changeCount = await _unitOfWork.CompleteAsync(cancellationToken);
 
-        return Result.Success(changeCount);
+        return Result.Success();
     }
 }

@@ -22,4 +22,5 @@
     <Using Include="MediatR" />
     <Using Include="IntelliBlog.Domain.Aggregates" />
   </ItemGroup>
+    
 </Project>

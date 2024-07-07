@@ -4,7 +4,6 @@ using IntelliBlog.Domain.Aggregates.Blogs;
 namespace IntelliBlog.Application.UseCases.Blogs.Delete;
 
 public class DeleteBlogCommandHandler(
-    IPublisher _publisher,
     IRepository<Blog> _repository)
     : ICommandHandler<DeleteBlogCommand, Result>
 {
@@ -16,11 +15,9 @@ public class DeleteBlogCommandHandler(
         {
             return Result.NotFound("Blog not found");
         }
-
+    
+        blog.MarkDeleted(); // TODO implement marking in repository
         await _repository.DeleteAsync(blog, cancellationToken);
-
-        // Events
-        await _publisher.Publish(new BlogDeletedEvent(blog.Id));
 
         return Result.Success();
     }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using IntelliBlog.Domain.Aggregates.Articles.Events;
 using IntelliBlog.Domain.Aggregates.Blogs.Events;
 
 namespace IntelliBlog.Domain.Aggregates.Blogs;
@@ -8,8 +9,7 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         string name,
         string? description = default,
         string? smallImage = default,
-        string? image = default,
-        BlogStatus status = default,
+        string? image = default,        
         string? notes = default)
     {
         var blog = new Blog();
@@ -17,7 +17,6 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         blog.UpdateDescription(description);
         blog.UpdateSmallImage(smallImage);
         blog.UpdateImage(image);
-        blog.ChangeStatus(status);
         blog.UpdateNotes(notes);
         
         blog.ClearDomainEvents();
@@ -31,8 +30,12 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
     // TODO: Make Image+SmallImage a ValueObject
     public string? Image { get; private set; }
     public string? SmallImage { get; private set; }
-    public BlogStatus Status { get; private set; }
+    public bool IsPublished { get; private set; }
 
+    public void MarkDeleted()
+    {
+        RegisterDomainEvent(new BlogDeletedEvent(this));
+    }
     public void UpdateName(string name)
     {
         if (name == this.Name) return;
@@ -62,14 +65,22 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Notes)));
     }
 
-
-    public void ChangeStatus(BlogStatus status)
+    public void Publish()
     {
-        if (status == this.Status) return;
-        
-        Status = status;
-        
-        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Status)));
+        if (this.IsPublished) return;
+
+        IsPublished = true;
+
+        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(IsPublished)));
+    }
+
+    public void Unpublish()
+    {
+        if (this.IsPublished == false) return;
+
+        IsPublished = false;
+
+        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(IsPublished)));
     }
 
     public void UpdateImage(string? image)

@@ -1,5 +1,5 @@
 ﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Application.UseCases.Articles.Events;
+using IntelliBlog.Domain.Aggregates.Articles.Events;
 using Microsoft.Extensions.Logging;
 
 namespace IntelliBlog.Application.EventHandlers;
@@ -9,11 +9,11 @@ internal class ArticleDeletedHandler(ILogger<ArticleDeletedHandler> logger, IEma
 {
     public async Task Handle(ArticleDeletedEvent domainEvent, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Handling Article Deleted event for {articleId}", domainEvent.ArticleId);
+        logger.LogInformation("Handling Article Deleted event for {articleId}", domainEvent.Sender.Id);
 
         await emailSender.SendEmailAsync("to@test.com",
                                          "from@test.com",
                                          "Contributor Deleted",
-                                         $"Contributor with id {domainEvent.ArticleId} was deleted.");
+                                         $"Contributor with id {domainEvent.Sender.Id} was deleted.");
     }
 }

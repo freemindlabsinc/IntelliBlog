@@ -12,6 +12,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     {
         var article = new Article();
         article.BlogId = blogId; // Once-setter
+        article.State = ArticleState.Draft;
         article.UpdateTitle(title);
         article.UpdateDescription(description);
         article.UpdateText(text);
@@ -26,17 +27,59 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
     public string Title { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Text { get; private set; }
+    public bool IsPublished { get; private set; }
+    public ArticleState State { get; private set; }
 
     public IReadOnlyCollection<ArticleTag> Tags => _tags.AsReadOnly();
     public IReadOnlyCollection<ArticleSource> Sources => _sources.AsReadOnly();
     public IReadOnlyCollection<ArticleComment> Comments => _comments.AsReadOnly();
     public IReadOnlyCollection<ArticleLike> Likes => _likes.AsReadOnly();
 
+    public void MarkDeleted()
+    {
+        RegisterDomainEvent(new ArticleDeletedEvent(this));
+    }
+
+    public void Publish()
+    {
+        if (this.IsPublished) return;
+
+        IsPublished = true;
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(this.IsPublished)));
+    }
+
+    public void Unpublish()
+    {
+        if (!this.IsPublished) return;
+
+        IsPublished = false;
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(this.IsPublished)));
+    }
+
+    public void SetIsComplete()
+    {
+        if (this.State == ArticleState.Complete) return;
+
+        State = ArticleState.Complete;
+
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(this.State)));
+    }
+
+    public void SetIsDraft()
+    {
+        if (this.State == ArticleState.Draft) return;
+
+        State = ArticleState.Draft;
+        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(this.State)));
+    }
+
     public void UpdateTitle(string title)
     {
         if (this.Title == title) return;
 
-        title = Guard.Against.NullOrWhiteSpace(title, nameof(title));        
+        Title = Guard.Against.NullOrWhiteSpace(title, nameof(title));        
         
         RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Title)));
     }

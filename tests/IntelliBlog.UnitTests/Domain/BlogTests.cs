@@ -11,7 +11,6 @@ public class BlogTests
         const string description = "Test Description";
         const string smallImage = "Test Small Image";
         const string image = "Test Image";
-        const BlogStatus status = BlogStatus.Published;
         const string notes = "Test Notes";
 
         var blog = Blog.CreateNew(
@@ -19,14 +18,13 @@ public class BlogTests
             description: description,
             smallImage: smallImage,
             image: image,
-            status: status,
             notes: notes);
 
         blog.Name.Should().Be(name);
         blog.Description.Should().Be(description);
         blog.SmallImage.Should().Be(smallImage);
         blog.Image.Should().Be(image);
-        blog.Status.Should().Be(status);
+        blog.IsPublished.Should().Be(false);
         blog.Notes.Should().Be(notes);       
     }    
 }
