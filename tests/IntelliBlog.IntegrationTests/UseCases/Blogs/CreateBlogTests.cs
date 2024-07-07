@@ -1,30 +1,16 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
-using IntelliBlog.Application.Interfaces;
 using IntelliBlog.Application.UseCases.Blogs.Create;
 using IntelliBlog.Domain.Aggregates;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit.Abstractions;
 
 namespace IntelliBlog.IntegrationTests.UseCases.Blogs;
 
-public class WithISenderFixture : FixtureBase
+public class CreateBlogTests : IClassFixture<UnitOfWorkFixture>
 {
-    public WithISenderFixture() : base() { }
+    readonly UnitOfWorkFixture _fixture;
 
-    public void Dispose()
-    {
-    }
-
-    public ISender GetSender() => GetServiceProvider().GetService<ISender>()!;
-}
-
-public class CreateBlogTests : IClassFixture<WithISenderFixture>
-{
-    readonly WithISenderFixture _fixture;
-
-    public CreateBlogTests(WithISenderFixture fixture, ITestOutputHelper outputHelper)
+    public CreateBlogTests(UnitOfWorkFixture fixture, ITestOutputHelper outputHelper)
         : base()
     {
         _fixture = fixture;
@@ -35,7 +21,7 @@ public class CreateBlogTests : IClassFixture<WithISenderFixture>
     public async Task Can_create_valid_blog()
     {
         var cmd = new CreateBlogCommand("A valid blog"); 
-        var result = await _fixture.GetSender().Send(cmd);
+        var result = await _fixture.Sender.Send(cmd);
 
         result.IsSuccess.Should().BeTrue();
         result.Value.Value.Should().BeGreaterThan(0);
@@ -45,9 +31,8 @@ public class CreateBlogTests : IClassFixture<WithISenderFixture>
     public async Task Cannot_create_invalid_blog()
     {
         var cmd = new CreateBlogCommand(); //
-
-        Func<Task<Result<BlogId>>> func = () => _fixture.GetSender().Send(cmd);
+        Func<Task<Result<BlogId>>> func = () => _fixture.Sender.Send(cmd);
 
         await func.Should().ThrowAsync<ValidationException>();
-    }
+    }    
 }

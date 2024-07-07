@@ -1,8 +1,8 @@
 ﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Infrastructure.Data;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IntelliBlog.IntegrationTests.UnitOfWork;
+namespace IntelliBlog.IntegrationTests.UseCases;
 
 public class UnitOfWorkFixture : FixtureBase, IDisposable
 {
@@ -12,5 +12,6 @@ public class UnitOfWorkFixture : FixtureBase, IDisposable
     {
     }
 
-    public IUnitOfWork GetUnitOfWork() => GetServiceProvider().GetService<IUnitOfWork>()!;
+    public IUnitOfWork Uow => GetServiceProvider().GetService<IUnitOfWork>()!;
+    public ISender Sender => GetServiceProvider().GetService<ISender>()!;
 }

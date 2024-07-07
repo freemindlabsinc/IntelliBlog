@@ -63,6 +63,5 @@ public abstract class FixtureBase
     }
 
     public ITestOutputHelper? Output => _outputHelper;
-
-    public ISender Sender => GetServiceProvider()!.GetService<ISender>()!;
+    
 }
