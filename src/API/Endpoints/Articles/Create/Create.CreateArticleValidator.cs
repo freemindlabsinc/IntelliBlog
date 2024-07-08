@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
 using FluentValidation;
 
-namespace Blogging.API.Endpoints.Articles;
+namespace API.Endpoints.Articles.Create;
 
 public class CreateArticleValidator : Validator<CreateArticleRequest>
 {

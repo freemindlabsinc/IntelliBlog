@@ -1,6 +1,6 @@
 ﻿using Application.UseCases.Articles.List;
 
-namespace Blogging.API.Endpoints.Articles;
+namespace API.Endpoints.Articles.List;
 
 public readonly record struct ListArticlesResponse(
      IEnumerable<ArticleDTO> Articles);

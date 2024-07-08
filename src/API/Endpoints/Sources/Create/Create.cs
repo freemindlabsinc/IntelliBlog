@@ -1,9 +1,9 @@
 ﻿using Blogging.Application.UseCases.Sources.Create;
 using FastEndpoints;
 
-namespace Blogging.API.Endpoints.Sources;
+namespace API.Endpoints.Sources.Create;
 
-public class Create(ISender _sender) 
+public class Create(ISender _sender)
     : Endpoint<CreateSourceRequest, CreateSourceResponse>
 {
     public override void Configure()
@@ -31,7 +31,7 @@ public class Create(ISender _sender)
             request.Tags);
 
         var result = await _sender.Send(command);
-        
+
         if (result.IsSuccess)
         {
             Response = new CreateSourceResponse(result.Value.Value);

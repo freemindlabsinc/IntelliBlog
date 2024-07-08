@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Blogging.API.Endpoints.Articles;
+namespace API.Endpoints.Articles.List;
 
 public class ListArticlesValidator : AbstractValidator<ListArticlesRequest>
 {

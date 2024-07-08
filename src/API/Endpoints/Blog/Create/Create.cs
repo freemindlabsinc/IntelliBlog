@@ -2,18 +2,14 @@
 using Blogging.Domain.Aggregates;
 using FastEndpoints;
 
-namespace API.Endpoints.Blog;
+namespace API.Endpoints.Blog.Create;
 
 public class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogResponse>
 {
-    // configure the endpoint
     public override void Configure()
     {
-        // post to the /Blog endpoint
         Post("/Blog");
-        // allow anonymous access
         AllowAnonymous();
-        // set the summary
         Summary(s =>
         {
             // set the example request
@@ -32,7 +28,7 @@ public class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogRes
             Description: request.Description);
 
         // send the command
-        Result<BlogId> result = await _sender.Send(command);
+        var result = await _sender.Send(command);
 
         // if the result is successful
         if (result.IsSuccess)

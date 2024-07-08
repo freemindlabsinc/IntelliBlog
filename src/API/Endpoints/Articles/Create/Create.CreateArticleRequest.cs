@@ -1,6 +1,6 @@
 ﻿using Blogging.Application.UseCases.Articles.Create;
 
-namespace Blogging.API.Endpoints.Articles;
+namespace API.Endpoints.Articles.Create;
 
 /// <summary>
 /// Creates a new blog article.

@@ -1,4 +1,4 @@
-﻿namespace Blogging.API.Endpoints.Sources;
+﻿namespace API.Endpoints.Sources.Create;
 
 public readonly record struct CreateSourceRequest(
     int BlogId,

@@ -1,4 +1,4 @@
-﻿namespace Blogging.API.Endpoints.Articles;
+﻿namespace API.Endpoints.Articles.Create;
 
 /// <summary>
 /// The response for the create article endpoint.
