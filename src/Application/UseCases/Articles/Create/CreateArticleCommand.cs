@@ -2,4 +2,6 @@
 public readonly record struct CreateArticleCommand(
     BlogId BlogId,
     string Title,
-    string? Description = default) : ICommand<Result<ArticleId>>;
+    string? Description = default,
+    string? Text = default,
+    string[]? Tags = default) : ICommand<Result<ArticleId>>;

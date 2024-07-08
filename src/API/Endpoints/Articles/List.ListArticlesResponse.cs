@@ -1,4 +1,4 @@
-﻿using Blogging.API.Application.UseCases.Articles;
+﻿using Application.UseCases.Articles.List;
 
 namespace Blogging.API.Endpoints.Articles;
 

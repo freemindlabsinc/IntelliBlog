@@ -1,8 +1,18 @@
-﻿namespace Blogging.API.Endpoints.Articles;
+﻿using Blogging.Application.UseCases.Articles.Create;
 
+namespace Blogging.API.Endpoints.Articles;
+
+/// <summary>
+/// Creates a new blog article.
+/// </summary>
+/// <param name="BlogId">The id of the blog to create the article in.</param>
+/// <param name="Title">The title of the article.</param>
+/// <param name="Description">The description of the article (optional).</param>
+/// <param name="Text">The text of the article (optional).</param>
+/// <param name="Tags">A list of tags for the article (optional).</param>
 public readonly record struct CreateArticleRequest(
     int BlogId,
     string Title,
-    string Description,
-    string Content,
-    string[] Tags);
+    string? Description,
+    string? Text,
+    string[]? Tags);

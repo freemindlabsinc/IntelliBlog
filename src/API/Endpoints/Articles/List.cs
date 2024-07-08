@@ -1,5 +1,5 @@
-﻿using FastEndpoints;
-using Blogging.API.Application.UseCases.Articles.List;
+﻿using Application.UseCases.Articles.List;
+using FastEndpoints;
 
 namespace Blogging.API.Endpoints.Articles;
 
@@ -23,8 +23,9 @@ public class List(IMediator _mediator)
         ListArticlesRequest request,
         CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new ListArticlesQuery(
-            request.Skip, request.Take), cancellationToken);
+        var query = new ListArticlesQuery(request.Skip, request.Take);
+
+        var result = await _mediator.Send(query, cancellationToken);
 
         if (result.IsSuccess)
         {

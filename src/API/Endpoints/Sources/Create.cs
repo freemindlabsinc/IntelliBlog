@@ -1,10 +1,9 @@
-﻿using FastEndpoints;
-using Blogging.API.Application.UseCases.Sources.Create;
-using Blogging.Domain;
+﻿using Blogging.Application.UseCases.Sources.Create;
+using FastEndpoints;
 
 namespace Blogging.API.Endpoints.Sources;
 
-public class Create(IMediator _mediator) 
+public class Create(ISender _sender) 
     : Endpoint<CreateSourceRequest, CreateSourceResponse>
 {
     public override void Configure()
@@ -24,13 +23,18 @@ public class Create(IMediator _mediator)
       CreateSourceRequest request,
       CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new CreateSourceCommand(
+        var command = new CreateSourceCommand(
             request.BlogId,
-            request.Name, request.Url, request.Description, request.Tags), cancellationToken);
+            request.Name,
+            request.Url,
+            request.Description,
+            request.Tags);
+
+        var result = await _sender.Send(command);
         
         if (result.IsSuccess)
         {
-            Response = new CreateSourceResponse(result.Value);
+            Response = new CreateSourceResponse(result.Value.Value);
             return;
         }
     }
