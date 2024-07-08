@@ -1,14 +1,14 @@
 ﻿using Ardalis.GuardClauses;
 using Ardalis.SharedKernel;
-using IntelliBlog.Infrastructure;
-using IntelliBlog.Infrastructure.Data;
+using Blogging.Infrastructure;
+using Blogging.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 
-namespace IntelliBlog.IntegrationTests._garbage;
+namespace Blogging.IntegrationTests._garbage;
 
 public abstract class BaseEfRepoTestFixture
 {

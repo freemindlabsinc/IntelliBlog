@@ -1,9 +1,9 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Domain.Aggregates.Sources;
+﻿using Blogging.Domain.Aggregates.Articles;
+using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Aggregates.Sources;
 using Microsoft.EntityFrameworkCore;
 
-namespace IntelliBlog.Infrastructure.Data;
+namespace Blogging.Infrastructure.Data;
 
 public static class SeedData
 {

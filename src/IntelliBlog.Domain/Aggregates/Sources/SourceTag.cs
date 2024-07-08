@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain.Aggregates.Sources;
+﻿namespace Blogging.Domain.Aggregates.Sources;
 
 public class SourceTag : Tag
 {

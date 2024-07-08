@@ -1,7 +1,7 @@
-﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain.Aggregates.Blogs;
+﻿using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Services;
 
-namespace IntelliBlog.Application.UseCases.Blogs.ChangeStatus;
+namespace Blogging.Application.UseCases.Blogs.ChangeStatus;
 
 public class PublishBlogCommandHandler(IUnitOfWork _unitOfWork) : ICommandHandler<PublishBlogCommand, Result>
 {

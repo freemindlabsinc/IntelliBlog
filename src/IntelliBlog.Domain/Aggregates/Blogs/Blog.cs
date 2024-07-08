@@ -1,15 +1,13 @@
-﻿using System.ComponentModel;
-using IntelliBlog.Domain.Aggregates.Articles.Events;
-using IntelliBlog.Domain.Aggregates.Blogs.Events;
+﻿using Blogging.Domain.Aggregates.Blogs.Events;
 
-namespace IntelliBlog.Domain.Aggregates.Blogs;
+namespace Blogging.Domain.Aggregates.Blogs;
 public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
 {
     public static Blog CreateNew(
         string name,
         string? description = default,
         string? smallImage = default,
-        string? image = default,        
+        string? image = default,
         string? notes = default)
     {
         var blog = new Blog();
@@ -18,7 +16,7 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         blog.UpdateSmallImage(smallImage);
         blog.UpdateImage(image);
         blog.UpdateNotes(notes);
-        
+
         blog.ClearDomainEvents();
         blog.RegisterDomainEvent(new BlogCreatedEvent(blog));
         return blog;
@@ -40,8 +38,8 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
     {
         if (name == this.Name) return;
 
-        Guard.Against.NullOrWhiteSpace(name, nameof(name)); 
-        
+        Guard.Against.NullOrWhiteSpace(name, nameof(name));
+
         Name = name;
 
         RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Name)));
@@ -54,7 +52,7 @@ public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
         Description = description;
 
         RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Description)));
-    }                
+    }
 
     public void UpdateNotes(string? notes)
     {

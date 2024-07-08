@@ -1,12 +1,12 @@
 ﻿using Ardalis.SharedKernel;
-using IntelliBlog.Domain.Aggregates.Articles;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Infrastructure.Data;
-using IntelliBlog.IntegrationTests.UseCases;
+using Blogging.Domain.Aggregates.Articles;
+using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Infrastructure.Data;
+using Blogging.IntegrationTests.UseCases;
 using MediatR;
 using Xunit.Abstractions;
 
-namespace IntelliBlog.IntegrationTests.UnitOfWork;
+namespace Blogging.IntegrationTests.UnitOfWork;
 
 // TODO: refactor!!!
 // This should probably not get a UOW in the fixture... it shuold create

@@ -1,5 +1,5 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
+﻿using Blogging.Domain.Aggregates.Articles;
 
-namespace IntelliBlog.Application.UseCases.Articles.Delete;
+namespace Blogging.Application.UseCases.Articles.Delete;
 
 public readonly record struct DeleteArticleCommand(ArticleId Id) : ICommand<Result>;

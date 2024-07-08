@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using MediatR;
 
-namespace IntelliBlog.UnitTests;
+namespace Blogging.UnitTests;
 
 public class NoOpMediator : IMediator
 {

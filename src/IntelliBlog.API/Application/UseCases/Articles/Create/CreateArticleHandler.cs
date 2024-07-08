@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
+﻿using Blogging.Domain.Aggregates.Articles;
 
-namespace IntelliBlog.API.Application.UseCases.Articles.Create;
+namespace Blogging.API.Application.UseCases.Articles.Create;
 
 public class CreateArticleHandler(IRepository<Article> _repository)
   : ICommandHandler<CreateArticleCommand, Result<int>>

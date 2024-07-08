@@ -1,7 +1,7 @@
-﻿using IntelliBlog.Domain.Aggregates;
-using IntelliBlog.Domain.Aggregates.Articles;
+﻿using Blogging.Domain.Aggregates;
+using Blogging.Domain.Aggregates.Articles;
 
-namespace IntelliBlog.Infrastructure.Data.Config.Articles;
+namespace Blogging.Infrastructure.Data.Config.Articles;
 
 public partial class ArticleLikeConfiguration : IEntityTypeConfiguration<ArticleLike>
 {

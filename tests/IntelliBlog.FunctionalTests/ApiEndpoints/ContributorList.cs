@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.FunctionalTests.ApiEndpoints;
+﻿namespace Blogging.FunctionalTests.ApiEndpoints;
 
 [Collection("Sequential")]
 public class ContributorList(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>

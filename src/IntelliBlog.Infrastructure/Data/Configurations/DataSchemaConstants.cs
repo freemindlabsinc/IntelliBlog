@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Infrastructure.Data.Config;
+﻿namespace Blogging.Infrastructure.Data.Config;
 
 public static class DataSchemaConstants
 {

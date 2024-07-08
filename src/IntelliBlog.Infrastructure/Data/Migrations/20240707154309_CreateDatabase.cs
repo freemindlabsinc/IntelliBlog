@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace IntelliBlog.Infrastructure.Data.Migrations
+namespace Blogging.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class CreateDatabase : Migration

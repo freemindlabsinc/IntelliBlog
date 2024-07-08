@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace IntelliBlog.Application.UseCases.Blogs.Create;
+namespace Blogging.Application.UseCases.Blogs.Create;
 
 public class CreateBlogCommandValidator : AbstractValidator<CreateBlogCommand>
 {

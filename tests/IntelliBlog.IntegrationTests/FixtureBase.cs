@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit.Abstractions;
-using IntelliBlog.Infrastructure;
-using IntelliBlog.IntegrationTests._garbage;
+using Blogging.Infrastructure;
+using Blogging.IntegrationTests._garbage;
 using MediatR;
 
-namespace IntelliBlog.IntegrationTests;
+namespace Blogging.IntegrationTests;
 
 public abstract class FixtureBase
 {

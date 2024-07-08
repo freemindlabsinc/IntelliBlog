@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles.Events;
+﻿using Blogging.Domain.Aggregates.Articles.Events;
 
-namespace IntelliBlog.Domain.Aggregates.Articles;
+namespace Blogging.Domain.Aggregates.Articles;
 
 public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
 {

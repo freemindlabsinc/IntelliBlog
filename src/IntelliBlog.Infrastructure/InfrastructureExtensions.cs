@@ -1,6 +1,7 @@
-﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Infrastructure.Data;
-using IntelliBlog.Infrastructure.Email;
+﻿using Blogging.Application.Interfaces;
+using Blogging.Domain.Services;
+using Blogging.Infrastructure.Data;
+using Blogging.Infrastructure.Email;
 using Microsoft.Extensions.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection;

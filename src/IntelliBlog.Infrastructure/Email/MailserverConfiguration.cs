@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Infrastructure.Email;
+﻿namespace Blogging.Infrastructure.Email;
 
 public class MailserverConfiguration()
 {

@@ -1,7 +1,7 @@
-﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain.Aggregates.Blogs;
+﻿using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Services;
 
-namespace IntelliBlog.Application.UseCases.Blogs.Update;
+namespace Blogging.Application.UseCases.Blogs.Update;
 
 public class UpdateBlogCommandHandler(IUnitOfWork _unitOfWork)
     : ICommandHandler<UpdateBlogCommand, Result>

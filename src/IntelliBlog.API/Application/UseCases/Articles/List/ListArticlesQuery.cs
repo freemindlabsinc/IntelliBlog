@@ -1,7 +1,7 @@
 ﻿
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace IntelliBlog.API.Application.UseCases.Articles.List;
+namespace Blogging.API.Application.UseCases.Articles.List;
 
 public readonly record struct ListArticlesQuery(
     int? Skip, 

@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
+﻿using Blogging.Domain.Aggregates.Articles;
 
-namespace IntelliBlog.API.Application.UseCases.Articles.List;
+namespace Blogging.API.Application.UseCases.Articles.List;
 
 public class ListArticlesQueryHandler(IRepository<Article> _repository) 
     : IQueryHandler<ListArticlesQuery, Result<IEnumerable<ArticleDTO>>>

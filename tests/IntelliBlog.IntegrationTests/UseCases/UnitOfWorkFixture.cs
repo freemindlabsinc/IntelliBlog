@@ -1,8 +1,8 @@
-﻿using IntelliBlog.Application.Interfaces;
+﻿using Blogging.Domain.Services;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IntelliBlog.IntegrationTests.UseCases;
+namespace Blogging.IntegrationTests.UseCases;
 
 public class UnitOfWorkFixture : FixtureBase, IDisposable
 {

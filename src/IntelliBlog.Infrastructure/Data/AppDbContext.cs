@@ -1,9 +1,9 @@
 ﻿using System.Reflection;
-using IntelliBlog.Domain.Aggregates.Articles;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Domain.Aggregates.Sources;
+using Blogging.Domain.Aggregates.Articles;
+using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Aggregates.Sources;
 
-namespace IntelliBlog.Infrastructure.Data;
+namespace Blogging.Infrastructure.Data;
 public class AppDbContext : DbContext
 {
     public const string GlobalSequenceName = "General_seq"; // TODO: temporary

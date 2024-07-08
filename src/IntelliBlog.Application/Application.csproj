@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IntelliBlog.Domain\IntelliBlog.Domain.csproj" />
+    <ProjectReference Include="..\IntelliBlog.Domain\Blogging.Domain.csproj" />
   </ItemGroup>
   
 
@@ -20,7 +20,7 @@
     <Using Include="Ardalis.GuardClauses" />
     <Using Include="Ardalis.Specification" />
     <Using Include="MediatR" />
-    <Using Include="IntelliBlog.Domain.Aggregates" />
+    <Using Include="Blogging.Domain.Aggregates" />
   </ItemGroup>
     
 </Project>

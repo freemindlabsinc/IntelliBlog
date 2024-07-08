@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
-using IntelliBlog.API.Application.UseCases.Articles.Create;
+using Blogging.API.Application.UseCases.Articles.Create;
 
-namespace IntelliBlog.API.Endpoints.Articles;
+namespace Blogging.API.Endpoints.Articles;
 
 public class Create(IMediator _mediator)
   : Endpoint<CreateArticleRequest, CreateArticleResponse>

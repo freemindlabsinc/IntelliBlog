@@ -1,10 +1,10 @@
-﻿using IntelliBlog.Application.Interfaces;
+﻿using Blogging.Application.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace IntelliBlog.Infrastructure.Email;
+namespace Blogging.Infrastructure.Email;
 
 public class MimeKitEmailSender : IEmailSender
 {

@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Domain.Aggregates.Sources;
-using IntelliBlog.Domain.Aggregates;
+using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Aggregates.Sources;
+using Blogging.Domain.Aggregates;
 
-namespace IntelliBlog.Infrastructure.Data.Config.Sources;
+namespace Blogging.Infrastructure.Data.Config.Sources;
 
 public class SourceConfiguration : IEntityTypeConfiguration<Source>
 {

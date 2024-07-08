@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Application.UseCases.Sources.Update;
+﻿namespace Blogging.Application.UseCases.Sources.Update;
 
 public readonly record struct UpdateSourceCommand(
     SourceId SourceId,

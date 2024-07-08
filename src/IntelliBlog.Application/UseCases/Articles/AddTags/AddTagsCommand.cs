@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Application.UseCases.Articles.UpdateTags;
+﻿namespace Blogging.Application.UseCases.Articles.UpdateTags;
 public readonly record struct AddTagsCommand(
     ArticleId Id,
     string[] NewTags) 

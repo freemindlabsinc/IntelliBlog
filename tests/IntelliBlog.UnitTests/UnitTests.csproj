@@ -34,8 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\IntelliBlog.Domain\IntelliBlog.Domain.csproj" />
-    <ProjectReference Include="..\..\src\IntelliBlog.Application\IntelliBlog.Application.csproj" />
+    <ProjectReference Include="..\..\src\IntelliBlog.Domain\Blogging.Domain.csproj" />
+    <ProjectReference Include="..\..\src\IntelliBlog.Application\Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using IntelliBlog.Infrastructure.Data;
+using Blogging.Infrastructure.Data;
 
-namespace IntelliBlog.IntegrationTests.Data;
+namespace Blogging.IntegrationTests.Data;
 
 public class DbContextFixture : FixtureBase, IDisposable
 {

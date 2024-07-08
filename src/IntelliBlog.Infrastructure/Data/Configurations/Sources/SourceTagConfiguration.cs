@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Sources;
+﻿using Blogging.Domain.Aggregates.Sources;
 
-namespace IntelliBlog.Infrastructure.Data.Config.Sources;
+namespace Blogging.Infrastructure.Data.Config.Sources;
 
 public partial class SourceTagConfiguration : IEntityTypeConfiguration<SourceTag>
 {

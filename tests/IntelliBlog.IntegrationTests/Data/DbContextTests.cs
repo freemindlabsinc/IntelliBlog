@@ -1,11 +1,11 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Domain.Aggregates.Sources;
-using IntelliBlog.Infrastructure.Data;
+﻿using Blogging.Domain.Aggregates.Articles;
+using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Aggregates.Sources;
+using Blogging.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Xunit.Abstractions;
 
-namespace IntelliBlog.IntegrationTests.Data;
+namespace Blogging.IntegrationTests.Data;
 
 public class DbContextTests
     : IClassFixture<DbContextFixture>

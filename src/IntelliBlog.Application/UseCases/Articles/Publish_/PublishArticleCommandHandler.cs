@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
+﻿using Blogging.Domain.Aggregates.Articles;
 
-namespace IntelliBlog.Application.UseCases.Articles.Publish;
+namespace Blogging.Application.UseCases.Articles.Publish;
 
 public class PublishArticleCommandHandler(
     IRepository<Article> _repository

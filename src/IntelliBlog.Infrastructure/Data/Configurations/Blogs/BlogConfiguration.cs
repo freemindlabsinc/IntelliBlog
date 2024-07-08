@@ -1,7 +1,7 @@
-﻿using IntelliBlog.Domain.Aggregates;
-using IntelliBlog.Domain.Aggregates.Blogs;
+﻿using Blogging.Domain.Aggregates;
+using Blogging.Domain.Aggregates.Blogs;
 
-namespace IntelliBlog.Infrastructure.Data.Config.Blogs;
+namespace Blogging.Infrastructure.Data.Config.Blogs;
 
 public class BlogConfiguration : IEntityTypeConfiguration<Blog>
 {

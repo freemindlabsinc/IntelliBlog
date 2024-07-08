@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Blogs;
+﻿using Blogging.Domain.Aggregates.Blogs;
 
-namespace IntelliBlog.UnitTests.Domain;
+namespace Blogging.UnitTests.Domain;
 
 public class BlogTests
 {

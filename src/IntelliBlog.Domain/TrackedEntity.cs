@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain;
+﻿namespace Blogging.Domain;
 
 public abstract class TrackedEntity<TId>(): Entity<TId>
     where TId : struct, IEquatable<TId>

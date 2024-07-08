@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace IntelliBlog.Domain;
+namespace Blogging.Domain;
 
 public abstract class HasDomainEvents
 {

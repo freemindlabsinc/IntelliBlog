@@ -1,6 +1,6 @@
-﻿namespace IntelliBlog.Domain.Aggregates.Articles;
+﻿namespace Blogging.Domain.Aggregates.Articles;
 
-public class ArticleSource : HasDomainEventsBase
+public sealed class ArticleSource : HasDomainEventsBase
 {
     internal static ArticleSource CreateNew(
         ArticleId articleId, 

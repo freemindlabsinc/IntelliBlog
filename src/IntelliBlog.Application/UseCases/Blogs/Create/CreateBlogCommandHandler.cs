@@ -1,7 +1,7 @@
-﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain.Aggregates.Blogs;
+﻿using Blogging.Application.Interfaces;
+using Blogging.Domain.Aggregates.Blogs;
 
-namespace IntelliBlog.Application.UseCases.Blogs.Create;
+namespace Blogging.Application.UseCases.Blogs.Create;
 
 public class CreateBlogCommandHandler(
     IRepository<Blog> _repository)

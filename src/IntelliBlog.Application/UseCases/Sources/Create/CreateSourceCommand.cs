@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Application.UseCases.Sources.Create;
+﻿namespace Blogging.Application.UseCases.Sources.Create;
 public readonly record struct CreateSourceCommand(
     BlogId BlogId,
     string Name,

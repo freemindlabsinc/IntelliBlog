@@ -1,8 +1,8 @@
 ﻿using FastEndpoints;
-using IntelliBlog.API.Application.UseCases.Sources.Create;
-using IntelliBlog.Domain;
+using Blogging.API.Application.UseCases.Sources.Create;
+using Blogging.Domain;
 
-namespace IntelliBlog.API.Endpoints.Sources;
+namespace Blogging.API.Endpoints.Sources;
 
 public class Create(IMediator _mediator) 
     : Endpoint<CreateSourceRequest, CreateSourceResponse>

@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain.Aggregates.Articles;
+﻿namespace Blogging.Domain.Aggregates.Articles;
 
 public enum ArticleState
 {

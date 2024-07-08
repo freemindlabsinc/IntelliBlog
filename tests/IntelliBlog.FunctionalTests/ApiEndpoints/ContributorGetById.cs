@@ -1,5 +1,5 @@
 ﻿
-namespace IntelliBlog.FunctionalTests.ApiEndpoints;
+namespace Blogging.FunctionalTests.ApiEndpoints;
 
 [Collection("Sequential")]
 public class ContributorGetById(CustomWebApplicationFactory<Program> factory) 

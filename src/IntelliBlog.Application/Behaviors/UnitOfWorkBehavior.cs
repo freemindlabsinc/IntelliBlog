@@ -1,9 +1,7 @@
-﻿
-using System.Transactions;
-using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain;
+﻿using System.Transactions;
+using Blogging.Domain.Services;
 
-namespace IntelliBlog.Application.Behaviors;
+namespace Blogging.Application.Behaviors;
 public class UnitOfWorkBehavior<TRequest, TResponse>(
     IUnitOfWork _unitOfWork)
     : IPipelineBehavior<TRequest, TResponse>

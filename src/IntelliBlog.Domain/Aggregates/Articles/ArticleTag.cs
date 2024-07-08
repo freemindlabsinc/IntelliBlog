@@ -1,6 +1,6 @@
-﻿namespace IntelliBlog.Domain.Aggregates.Articles;
+﻿namespace Blogging.Domain.Aggregates.Articles;
 
-public class ArticleTag : Tag
+public sealed class ArticleTag : Tag
 {
     internal static ArticleTag CreateNew(string name, string? description = default)
     {

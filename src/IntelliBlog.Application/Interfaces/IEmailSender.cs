@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Application.Interfaces;
+﻿namespace Blogging.Application.Interfaces;
 
 public interface IEmailSender
 {

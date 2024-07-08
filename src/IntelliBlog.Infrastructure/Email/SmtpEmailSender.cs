@@ -1,9 +1,9 @@
 ﻿using System.Net.Mail;
-using IntelliBlog.Application.Interfaces;
+using Blogging.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace IntelliBlog.Infrastructure.Email;
+namespace Blogging.Infrastructure.Email;
 
 /// <summary>
 /// MimeKit is recommended over this now:

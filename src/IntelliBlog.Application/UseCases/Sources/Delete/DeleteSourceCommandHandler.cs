@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Sources;
+﻿using Blogging.Domain.Aggregates.Sources;
 
-namespace IntelliBlog.Application.UseCases.Sources.Delete;
+namespace Blogging.Application.UseCases.Sources.Delete;
 
 public class DeleteSourceCommandHandler(
     IRepository<Source> _repository

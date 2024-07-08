@@ -17,8 +17,6 @@
     <Using Include="Ardalis.SharedKernel" />
     <Using Include="Ardalis.GuardClauses" />
     <Using Include="Ardalis.Specification" />
-    <Using Include="MediatR" />
-    <Using Include="IntelliBlog.Domain.Utilities" />
-    <Using Include="IntelliBlog.Domain.Aggregates" />
+    <Using Include="MediatR" />    
   </ItemGroup>
 </Project>

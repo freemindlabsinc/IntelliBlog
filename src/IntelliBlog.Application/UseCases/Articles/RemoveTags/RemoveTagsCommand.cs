@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Application.UseCases.Articles.RemoveTags;
+﻿namespace Blogging.Application.UseCases.Articles.RemoveTags;
 public readonly record struct RemoveTagsCommand(
     ArticleId Id,
     string[] TagsToRemove

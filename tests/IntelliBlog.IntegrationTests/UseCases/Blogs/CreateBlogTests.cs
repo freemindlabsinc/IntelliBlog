@@ -1,10 +1,10 @@
 ﻿using Ardalis.Result;
 using FluentValidation;
-using IntelliBlog.Application.UseCases.Blogs.Create;
-using IntelliBlog.Domain.Aggregates;
+using Blogging.Application.UseCases.Blogs.Create;
+using Blogging.Domain.Aggregates;
 using Xunit.Abstractions;
 
-namespace IntelliBlog.IntegrationTests.UseCases.Blogs;
+namespace Blogging.IntegrationTests.UseCases.Blogs;
 
 public class CreateBlogTests : IClassFixture<UnitOfWorkFixture>
 {

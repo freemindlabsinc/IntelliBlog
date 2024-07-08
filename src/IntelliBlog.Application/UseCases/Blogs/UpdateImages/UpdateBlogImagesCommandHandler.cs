@@ -1,7 +1,7 @@
-﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain.Aggregates.Blogs;
+﻿using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Services;
 
-namespace IntelliBlog.Application.UseCases.Blogs.UpdateImages;
+namespace Blogging.Application.UseCases.Blogs.UpdateImages;
 
 public class UpdateBlogImagesCommandHandler(IUnitOfWork _unitOfWork)
     : ICommandHandler<UpdateBlogImagesCommand, Result>

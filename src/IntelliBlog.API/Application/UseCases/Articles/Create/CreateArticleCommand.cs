@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.API.Application.UseCases.Articles.Create;
+﻿namespace Blogging.API.Application.UseCases.Articles.Create;
 
 public readonly record struct CreateArticleCommand(    
     int BlogId,

@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.API.Application.UseCases.Articles.List;
+﻿namespace Blogging.API.Application.UseCases.Articles.List;
 
 public interface IListArticlesQueryService
 {

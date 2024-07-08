@@ -1,8 +1,8 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Domain.Aggregates.Sources;
+﻿using Blogging.Domain.Aggregates.Articles;
+using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Aggregates.Sources;
 
-namespace IntelliBlog.UnitTests.Domain;
+namespace Blogging.UnitTests.Domain;
 
 public class ArticleTests
 {

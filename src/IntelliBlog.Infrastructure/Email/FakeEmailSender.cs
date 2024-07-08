@@ -1,7 +1,7 @@
-﻿using IntelliBlog.Application.Interfaces;
+﻿using Blogging.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace IntelliBlog.Infrastructure.Email;
+namespace Blogging.Infrastructure.Email;
 
 public class FakeEmailSender(ILogger<FakeEmailSender> _logger) : IEmailSender
 {

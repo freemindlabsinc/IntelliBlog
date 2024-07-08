@@ -1,7 +1,7 @@
 ﻿using FastEndpoints;
-using IntelliBlog.API.Application.UseCases.Articles.List;
+using Blogging.API.Application.UseCases.Articles.List;
 
-namespace IntelliBlog.API.Endpoints.Articles;
+namespace Blogging.API.Endpoints.Articles;
 
 public class List(IMediator _mediator)
     : Endpoint<ListArticlesRequest, ListArticlesResponse>

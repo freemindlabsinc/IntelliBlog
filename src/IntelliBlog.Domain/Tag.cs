@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Domain;
+﻿namespace Blogging.Domain;
 
 public abstract class Tag : Entity<int>
 {

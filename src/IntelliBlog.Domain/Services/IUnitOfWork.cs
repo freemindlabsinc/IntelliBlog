@@ -1,4 +1,4 @@
-﻿namespace IntelliBlog.Application.Interfaces;
+﻿namespace Blogging.Domain.Services;
 
 // Inspired by
 //  https://medium.com/@josiahmahachi/how-to-use-iunitofwork-single-responsibility-principle-2821398addee

@@ -16,8 +16,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\IntelliBlog.Domain\IntelliBlog.Domain.csproj" />
-    <ProjectReference Include="..\IntelliBlog.Application\IntelliBlog.Application.csproj" />
+    <ProjectReference Include="..\IntelliBlog.Domain\Blogging.Domain.csproj" />
+    <ProjectReference Include="..\IntelliBlog.Application\Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,8 +27,7 @@
     <Using Include="Ardalis.GuardClauses" />
     <Using Include="Ardalis.Specification" />
     <Using Include="MediatR" />
-    <Using Include="IntelliBlog.Domain.Utilities" />
-    <Using Include="IntelliBlog.Domain" />
+    <Using Include="Blogging.Domain" />
 
     <Using Include="Microsoft.EntityFrameworkCore" />
     <Using Include="Microsoft.EntityFrameworkCore.Metadata.Builders" />

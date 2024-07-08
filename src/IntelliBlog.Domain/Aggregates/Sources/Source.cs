@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Sources.Events;
+﻿using Blogging.Domain.Aggregates.Sources.Events;
 
-namespace IntelliBlog.Domain.Aggregates.Sources;
+namespace Blogging.Domain.Aggregates.Sources;
 
 public class Source : TrackedEntity<SourceId>, IAggregateRoot
 {

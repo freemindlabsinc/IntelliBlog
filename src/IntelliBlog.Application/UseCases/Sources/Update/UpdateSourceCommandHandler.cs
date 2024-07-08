@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Sources;
+﻿using Blogging.Domain.Aggregates.Sources;
 
-namespace IntelliBlog.Application.UseCases.Sources.Update;
+namespace Blogging.Application.UseCases.Sources.Update;
 
 public class UpdateSourceCommandHandler(
     IRepository<Source> _repository

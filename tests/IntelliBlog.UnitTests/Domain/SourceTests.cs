@@ -1,7 +1,7 @@
-﻿using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Domain.Aggregates.Sources;
+﻿using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Domain.Aggregates.Sources;
 
-namespace IntelliBlog.UnitTests.Domain;
+namespace Blogging.UnitTests.Domain;
 
 public class SourceTests
 {

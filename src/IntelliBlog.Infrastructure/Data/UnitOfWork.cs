@@ -1,7 +1,6 @@
-﻿using IntelliBlog.Application.Interfaces;
-using IntelliBlog.Domain;
+﻿using Blogging.Domain.Services;
 
-namespace IntelliBlog.Infrastructure.Data;
+namespace Blogging.Infrastructure.Data;
 public class UnitOfWork(
     AppDbContext _dbContext,
     IMediator _mediator) 

@@ -1,8 +1,8 @@
-﻿using IntelliBlog.Domain.Aggregates;
-using IntelliBlog.Domain.Aggregates.Articles;
-using IntelliBlog.Domain.Aggregates.Sources;
+﻿using Blogging.Domain.Aggregates;
+using Blogging.Domain.Aggregates.Articles;
+using Blogging.Domain.Aggregates.Sources;
 
-namespace IntelliBlog.Infrastructure.Data.Config.Articles;
+namespace Blogging.Infrastructure.Data.Config.Articles;
 
 public partial class ArticleSourceConfiguration : IEntityTypeConfiguration<ArticleSource>
 {

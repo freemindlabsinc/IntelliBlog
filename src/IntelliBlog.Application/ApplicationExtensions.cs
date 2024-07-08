@@ -1,9 +1,9 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
+﻿using Blogging.Domain.Aggregates.Articles;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
-using IntelliBlog.Domain.Aggregates.Blogs;
-using IntelliBlog.Application.UseCases.Blogs.Create;
-using IntelliBlog.Application.Behaviors;
+using Blogging.Domain.Aggregates.Blogs;
+using Blogging.Application.UseCases.Blogs.Create;
+using Blogging.Application.Behaviors;
 using FluentValidation;
 
 namespace Microsoft.Extensions.DependencyInjection;

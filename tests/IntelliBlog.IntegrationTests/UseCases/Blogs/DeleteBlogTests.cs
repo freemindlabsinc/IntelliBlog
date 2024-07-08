@@ -1,8 +1,8 @@
-﻿using IntelliBlog.Application.UseCases.Blogs.Create;
-using IntelliBlog.Application.UseCases.Blogs.Delete;
+﻿using Blogging.Application.UseCases.Blogs.Create;
+using Blogging.Application.UseCases.Blogs.Delete;
 using Xunit.Abstractions;
 
-namespace IntelliBlog.IntegrationTests.UseCases.Blogs;
+namespace Blogging.IntegrationTests.UseCases.Blogs;
 
 public class DeleteBlogTests : IClassFixture<UnitOfWorkFixture>
 {

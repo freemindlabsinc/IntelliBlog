@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Articles;
+﻿using Blogging.Domain.Aggregates.Articles;
 
-namespace IntelliBlog.Infrastructure.Data.Config.Articles;
+namespace Blogging.Infrastructure.Data.Config.Articles;
 
 public class ArticleTagConfiguration : IEntityTypeConfiguration<ArticleTag>
 {

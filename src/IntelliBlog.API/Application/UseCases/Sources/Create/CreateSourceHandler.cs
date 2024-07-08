@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Sources;
+﻿using Blogging.Domain.Aggregates.Sources;
 
-namespace IntelliBlog.API.Application.UseCases.Sources.Create;
+namespace Blogging.API.Application.UseCases.Sources.Create;
 
 public class CreateSourceHandler(IRepository<Source> _repository) 
     : ICommandHandler<CreateSourceCommand, Result<int>>

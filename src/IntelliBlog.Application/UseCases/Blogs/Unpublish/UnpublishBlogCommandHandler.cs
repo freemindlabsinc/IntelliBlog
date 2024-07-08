@@ -1,6 +1,6 @@
-﻿using IntelliBlog.Domain.Aggregates.Blogs;
+﻿using Blogging.Domain.Aggregates.Blogs;
 
-namespace IntelliBlog.Application.UseCases.Blogs.Unpublish;
+namespace Blogging.Application.UseCases.Blogs.Unpublish;
 
 public class UnpublishBlogCommandHandler(IRepository<Blog> _repository) 
     : ICommandHandler<UnpublishBlogCommand, Result>
