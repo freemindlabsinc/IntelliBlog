@@ -25,23 +25,23 @@ public class UnitOfWork(
         return changes;
     }
 
-    public IRepository<TAGGREGATE> GetRepository<TAGGREGATE>()
-        where TAGGREGATE : class, IAggregateRoot
-    {
-        if (_repositories.TryGetValue(typeof(TAGGREGATE), out var repo))
-        {
-            return (IRepository<TAGGREGATE>)repo;
-        }
+    //public IRepository<TAGGREGATE> GetRepository<TAGGREGATE>()
+    //    where TAGGREGATE : class, IAggregateRoot
+    //{
+    //    if (_repositories.TryGetValue(typeof(TAGGREGATE), out var repo))
+    //    {
+    //        return (IRepository<TAGGREGATE>)repo;
+    //    }
 
-        var repositoryType = typeof(EfRepository<>);
-        var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TAGGREGATE)), _dbContext);
-        if (repositoryInstance == null)
-        {
-            throw new InvalidOperationException($"Could not create repository of type {repositoryType.MakeGenericType(typeof(TAGGREGATE))}");
-        }
+    //    var repositoryType = typeof(EfRepository<>);
+    //    var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TAGGREGATE)), _dbContext);
+    //    if (repositoryInstance == null)
+    //    {
+    //        throw new InvalidOperationException($"Could not create repository of type {repositoryType.MakeGenericType(typeof(TAGGREGATE))}");
+    //    }
 
-        _repositories.Add(typeof(TAGGREGATE), repositoryInstance);
+    //    _repositories.Add(typeof(TAGGREGATE), repositoryInstance);
         
-        return (IRepository<TAGGREGATE>)repositoryInstance;
-    }
+    //    return (IRepository<TAGGREGATE>)repositoryInstance;
+    //}
 }

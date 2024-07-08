@@ -1,5 +1,8 @@
-﻿using Blogging.Application.UseCases.Blogs.Create;
+﻿using System.Configuration;
+using System.Security.Permissions;
+using Blogging.Application.UseCases.Blogs.Create;
 using Blogging.Application.UseCases.Blogs.Delete;
+using MediatR;
 using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.UseCases.Blogs;
@@ -7,7 +10,7 @@ namespace Blogging.IntegrationTests.UseCases.Blogs;
 public class DeleteBlogTests : IClassFixture<UnitOfWorkFixture>
 {
     readonly UnitOfWorkFixture _fixture;
-
+    
     public DeleteBlogTests(UnitOfWorkFixture fixture, ITestOutputHelper outputHelper)
         : base()
     {
