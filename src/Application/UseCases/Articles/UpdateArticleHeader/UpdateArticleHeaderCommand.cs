@@ -1,7 +1,9 @@
-﻿namespace Blogging.Application.UseCases.Articles.Update;
+﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
+namespace Blogging.Application.UseCases.Articles.Update;
 
 public readonly record struct UpdateArticleHeaderCommand(
-    BlogId Id,
+    ArticleId ArticleId,
     string NewTitle,
-    string NewDescription
-    ) : ICommand<Result<BlogId>>;
+    string NewDescription    
+    ) : ICommand<Result>;
