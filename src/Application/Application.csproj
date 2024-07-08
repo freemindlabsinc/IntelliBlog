@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Result" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Blogging.Domain.csproj" />
+  </ItemGroup>
+  
+
+  <ItemGroup>
+    <!-- These are referenced by most files in this project -->
+    <Using Include="Ardalis.Result" />
+    <Using Include="Ardalis.SharedKernel" />
+    <Using Include="Ardalis.GuardClauses" />
+    <Using Include="Ardalis.Specification" />
+    <Using Include="MediatR" />
+    <Using Include="FluentValidation" />
+    <Using Include="Blogging.Domain.Aggregates" />
+    <Using Include="Blogging.Domain.Specifications" />
+  </ItemGroup>
+    
+</Project>
