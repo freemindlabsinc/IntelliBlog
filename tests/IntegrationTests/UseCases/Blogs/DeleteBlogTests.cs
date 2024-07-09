@@ -1,8 +1,6 @@
-﻿using System.Configuration;
-using System.Security.Permissions;
+﻿using Ardalis.Result;
 using Blogging.Application.UseCases.Blogs.Create;
 using Blogging.Application.UseCases.Blogs.Delete;
-using MediatR;
 using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.UseCases.Blogs;
@@ -24,8 +22,7 @@ public class DeleteBlogTests : IClassFixture<UnitOfWorkFixture>
         var cmd = new DeleteBlogCommand(1);
         var result = await _fixture.Sender.Send(cmd);
 
-        result.IsSuccess.Should().BeFalse();
-        result.Errors.Should().HaveCount(1); // Blog not found
+        result.IsNotFound();
     }
 
     [Fact]

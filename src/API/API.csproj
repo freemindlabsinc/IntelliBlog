@@ -12,6 +12,7 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.ListStartupServices" />
     <PackageReference Include="Ardalis.Result" />
+    <PackageReference Include="Ardalis.SharedKernel" />
     <PackageReference Include="Ardalis.Result.AspNetCore" />
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />    
     <PackageReference Include="FastEndpoints" />

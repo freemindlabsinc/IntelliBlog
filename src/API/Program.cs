@@ -32,18 +32,20 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
-// Adds FastEndpoints
-builder.Services.AddFastEndpoints()
-                .SwaggerDocument(o =>
-                {
-                  o.ShortSchemaNames = true;
-                });
-
 // Adds:FluentValidation, MediatR, IDomainEventDispatcher
 builder.Services.AddApplicationServices();
 
 // Adds: DbContext, repositories, mail server configuration
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+// Adds FastEndpoints
+builder.Services.AddFastEndpoints()
+                .SwaggerDocument(o =>
+                {
+                    o.ShortSchemaNames = true;
+                });
+
+
 
 // Mail
 if (builder.Environment.IsDevelopment())

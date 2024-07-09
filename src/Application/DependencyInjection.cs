@@ -16,7 +16,6 @@ public static class ApplicationDependencies
             cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()); // this assembly
 
             // Behaviors (MediatR pipeline)
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
 
