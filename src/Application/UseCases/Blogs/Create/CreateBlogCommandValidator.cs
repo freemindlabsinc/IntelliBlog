@@ -4,7 +4,7 @@ public class CreateBlogCommandValidator : AbstractValidator<CreateBlogCommand>
 {
     public CreateBlogCommandValidator()
     {
-        RuleFor(c => c.Name)
+        this.RuleFor(c => c.Name)
             .NotEmpty();
         
     }

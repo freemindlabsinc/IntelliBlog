@@ -31,9 +31,9 @@ public abstract class FixtureBase
 
     private void ConfigureServices(IServiceCollection services)
     {
-        var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
-        services.AddSingleton(_fakeEventDispatcher);
-        services.AddApplicationServices(_config);
+        //var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
+        //services.AddSingleton<IDomainEventDispatcher>(_fakeEventDispatcher);
+        services.AddApplicationServices();
         services.AddInfrastructureServices(_config);
     }
 

@@ -1,15 +1,12 @@
-﻿using System.Reflection;
-using Ardalis.ListStartupServices;
-using Blogging.Infrastructure;
+﻿using Ardalis.ListStartupServices;
+using Blogging.Application.Interfaces;
 using Blogging.Infrastructure.Data;
 using Blogging.Infrastructure.Email;
 using FastEndpoints;
 using FastEndpoints.Swagger;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Extensions.Logging;
-using Blogging.Application.Interfaces;
-using Blogging.Domain.Aggregates.Articles;
-using System.Runtime.CompilerServices;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
@@ -20,6 +17,10 @@ logger.Information("Starting web host");
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Adds Aspire Telemetry and other common stuff
+builder.AddServiceDefaults();
+
+// Serilog
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 var microsoftLogger = new SerilogLoggerFactory(logger)
     .CreateLogger<Program>();
@@ -31,33 +32,35 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
   options.MinimumSameSitePolicy = SameSiteMode.None;
 });
 
+// Adds FastEndpoints
 builder.Services.AddFastEndpoints()
                 .SwaggerDocument(o =>
                 {
                   o.ShortSchemaNames = true;
                 });
 
-ConfigureMediatR();
+// Adds:FluentValidation, MediatR, IDomainEventDispatcher
+builder.Services.AddApplicationServices();
 
-builder.Services.AddApplicationServices(builder.Configuration);
+// Adds: DbContext, repositories, mail server configuration
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
+// Mail
 if (builder.Environment.IsDevelopment())
 {
-  // Use a local test email server
-  // See: https://ardalis.com/configuring-a-local-test-email-server/
-  builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
-
-  // Otherwise use this:
-  //builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
-  AddShowAllServicesSupport();
+    // See: https://ardalis.com/configuring-a-local-test-email-server/
+    builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
 }
 else
 {
-  builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
+    builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
 }
 
+//builder.AddSqlServerDbContext<AppDbContext>("IntelliBlogDb");
+
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
@@ -96,30 +99,6 @@ static async Task SeedDatabase(WebApplication app)
     var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
   }
-}
-
-void ConfigureMediatR()
-{
-  var mediatRAssemblies = new[]
-{
-  Assembly.GetAssembly(typeof(Article)), // Core
-  Assembly.GetAssembly(typeof(Program)) // UseCases
-};
-  builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(mediatRAssemblies!));
-  builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
-  builder.Services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
-}
-
-void AddShowAllServicesSupport()
-{
-  // add list services for diagnostic purposes - see https://github.com/ardalis/AspNetCoreStartupServices
-  builder.Services.Configure<ServiceConfig>(config =>
-  {
-    config.Services = new List<ServiceDescriptor>(builder.Services);
-
-    // optional - default path to view services is /listallservices - recommended to choose your own path
-    config.Path = "/listservices";
-  });
 }
 
 // Make the implicit Program.cs class public, so integration tests can reference the correct assembly for host building

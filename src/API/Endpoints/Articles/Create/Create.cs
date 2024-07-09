@@ -22,7 +22,7 @@ public class Create(ISender _sender)
                 Title = "Article Title",
                 Description = "An optional description for the article",
                 Text = "### Article Content",
-                Tags = new[] { "Tag1", "Tag2" }
+                Tags = ["Tag1", "Tag2"]
             };
         });
     }
@@ -38,7 +38,7 @@ public class Create(ISender _sender)
             Text: request.Text,
             Tags: request.Tags);
 
-        var result = await _sender.Send(command);
+        var result = await _sender.Send(command, cancellationToken);
 
         if (result.IsSuccess)
         {

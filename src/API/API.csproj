@@ -13,6 +13,7 @@
     <PackageReference Include="Ardalis.ListStartupServices" />
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.Result.AspNetCore" />
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />    
     <PackageReference Include="FastEndpoints" />
     <PackageReference Include="FastEndpoints.Swagger" />
     <PackageReference Include="MediatR" />
@@ -28,6 +29,7 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Domain\Blogging.Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Blogging.Infrastructure.csproj" />
+    <ProjectReference Include="..\IntelliBlog.ServiceDefaults\IntelliBlog.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>
