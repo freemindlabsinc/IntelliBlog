@@ -3,7 +3,7 @@ using Blogging.Application.Behaviors;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class ApplicationDependencies
+public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
