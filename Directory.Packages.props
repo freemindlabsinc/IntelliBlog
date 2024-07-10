@@ -9,6 +9,7 @@
     <PackageVersion Include="Ardalis.SmartEnum" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification" Version="8.0.0" />
     <PackageVersion Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
+    <PackageVersion Include="Aspire.Hosting.Redis" Version="8.0.2" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="8.0.2" />
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
