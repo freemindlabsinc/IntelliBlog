@@ -1,12 +1,12 @@
-﻿using Ardalis.ListStartupServices;
+﻿using System.Reflection;
+using Ardalis.ListStartupServices;
 using Blogging.Application.Interfaces;
 using Blogging.Infrastructure.Data;
 using Blogging.Infrastructure.Email;
 using FastEndpoints;
 using FastEndpoints.Swagger;
-using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Extensions.Logging;
 
 var logger = Log.Logger = new LoggerConfiguration()
   .Enrich.FromLogContext()
@@ -22,8 +22,6 @@ builder.AddServiceDefaults();
 
 // Serilog
 builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
-var microsoftLogger = new SerilogLoggerFactory(logger)
-    .CreateLogger<Program>();
 
 // Configure Web Behavior
 builder.Services.Configure<CookiePolicyOptions>(options =>
@@ -34,9 +32,25 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 
 // Adds:FluentValidation, MediatR, IDomainEventDispatcher
 builder.Services.AddApplicationServices();
-
-// Adds: DbContext, repositories, mail server configuration
+// Adds: AppDbContext, IRepository, IUnitOfWork, MailserverConfiguration
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+// Replaces AppDbContext
+ServiceDescriptor? existingSvc = builder.Services.FirstOrDefault(x => x.ServiceType == typeof(DbContextOptions<AppDbContext>));
+if (existingSvc != null)
+{
+    builder.Services.Remove(existingSvc!);
+}
+
+// Use containerized database
+builder.AddSqlServerDbContext<AppDbContext>("IntelliBlogDb",
+    sqlServerSetting => 
+    {
+        //sqlServerSetting.DisableRetry = true;            
+    },
+    dbCtxOpts => 
+    {             
+    });        
 
 // Adds FastEndpoints
 builder.Services.AddFastEndpoints()
@@ -46,19 +60,11 @@ builder.Services.AddFastEndpoints()
                 });
 
 
-
-// Mail
 if (builder.Environment.IsDevelopment())
 {
-    // See: https://ardalis.com/configuring-a-local-test-email-server/
-    builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
+    // Mail: we don't send real emails in development
+    builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
 }
-else
-{
-    builder.Services.AddScoped<IEmailSender, MimeKitEmailSender>();
-}
-
-//builder.AddSqlServerDbContext<AppDbContext>("IntelliBlogDb");
 
 var app = builder.Build();
 
@@ -86,21 +92,21 @@ app.Run();
 
 static async Task SeedDatabase(WebApplication app)
 {
-  using var scope = app.Services.CreateScope();
-  var services = scope.ServiceProvider;
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
 
-  try
-  {
-    var context = services.GetRequiredService<AppDbContext>();
-    //          context.Database.Migrate();
-    context.Database.EnsureCreated();
-    await SeedData.PopulateTestData(context);
-  }
-  catch (Exception ex)
-  {
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
-  }
+    try
+    {
+      var context = services.GetRequiredService<AppDbContext>();
+      //          context.Database.Migrate();
+      context.Database.EnsureCreated();
+      await SeedData.PopulateTestData(context);
+    }
+    catch (Exception ex)
+    {
+      var logger = services.GetRequiredService<ILogger<Program>>();
+      logger.LogError(ex, "An error occurred seeding the DB. {exceptionMessage}", ex.Message);
+    }
 }
 
 // Make the implicit Program.cs class public, so integration tests can reference the correct assembly for host building

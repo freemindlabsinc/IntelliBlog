@@ -1,24 +1,33 @@
 ﻿using System.Transactions;
 using Blogging.Domain.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Blogging.Application.Behaviors;
+
 public class UnitOfWorkBehavior<TRequest, TResponse>(
-    IUnitOfWork _unitOfWork)
+    IUnitOfWork _unitOfWork,
+    ILogger<UnitOfWorkBehavior<TRequest, TResponse>> _logger)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ICommand<TResponse>
 {    
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
-    {
-        TResponse response;
-        using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-        {            
-            response = await next();
+    {        
+        try 
+        {
+            Func<Task<object>> act2 = async () =>
+            {
+                TResponse nextResult = await next();
+                return nextResult!;
+            };
 
-            await _unitOfWork.CompleteAsync(cancellationToken);
-            
-            transactionScope.Complete();
+            _unitOfWork.Setup(act2);            
+            var nextInUow = (TResponse)await _unitOfWork.CompleteAsync(cancellationToken);
+            return nextInUow;
         }
-
-        return response;
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error handling {CommandName}", typeof(TRequest).Name);
+            throw;
+        }       
     }
 }

@@ -5,5 +5,6 @@
 //  https://steven-giesel.com/blogPost/ae55581a-9722-4735-8d0e-bfcfe4f6ad5a
 public interface IUnitOfWork
 {
-    public Task<int> CompleteAsync(CancellationToken cancellationToken = default);    
+    public void Setup(Func<Task<object>> work);
+    public Task<object> CompleteAsync(CancellationToken cancellationToken = default);    
 }
