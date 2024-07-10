@@ -1,7 +1,4 @@
-﻿using Azure;
-using Blogging.Domain.Services;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.EntityFrameworkCore.Storage;
+﻿using Blogging.Domain.Services;
 using Microsoft.Extensions.Logging;
 
 namespace Blogging.Infrastructure.Data;

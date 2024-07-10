@@ -21,7 +21,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
 
 // Serilog
-builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
+// To integrate right look at https://stackoverflow.com/questions/78369387/how-to-wire-up-serilog-to-net-aspire
+//builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
 
 // Configure Web Behavior
 builder.Services.Configure<CookiePolicyOptions>(options =>
