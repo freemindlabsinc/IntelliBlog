@@ -8,6 +8,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddFluentUIComponents();
 
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IntelliBlogAPI.Client>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

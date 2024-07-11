@@ -1,0 +1,74 @@
+﻿@page "/articles"
+@using IntelliBlogAPI
+@rendermode InteractiveServer
+@inject IntelliBlogAPI.Client Client
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Articles</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (articles == null)
+{
+    <p><em>Loading Articles...</em></p>
+}
+else
+{
+    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
+    <FluentDataGrid Id="articlegrid" Items="@articles" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="ArticleDTO">
+        <PropertyColumn Title="Id" Property="@(c => c!.Id)" Align="Align.Start"/>
+        <PropertyColumn Title="Title" Property="@(c => c!.Title)" Align="Align.Center" Sortable="true"/>
+        <PropertyColumn Title="Description" Property="@(c => c!.Description)" Align="Align.Center" Sortable="true" />
+        <!--PropertyColumn Title="Tags" Property="@(c => FormatTags(c!.Tags))" Align="Align.End"/-->
+
+        <TemplateColumn Title="Actions">
+            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Like(context))">Like</FluentButton>
+            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Unlike(context))">Unlike</FluentButton>
+        </TemplateColumn>
+    </FluentDataGrid>
+}
+<p><strong>@message</strong></p>
+
+<FluentDataGrid Items="@people">
+    <PropertyColumn Property="@(p => p.PersonId)" Sortable="true" />
+    <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+    <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
+</FluentDataGrid>
+
+@code {
+    string message = "Click a button...";
+    private IQueryable<ArticleDTO>? articles;
+
+    string FormatTags(IEnumerable<string> tags)
+    {
+        return string.Join(',', tags);
+    }
+
+    void Like(ArticleDTO a) => message = $"You want to LIKE {a.Id} {a.Title}";
+
+    void Unlike(ArticleDTO a) => message = $"You want to UNLIKE {a.Id} {a.Title}";
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        //var cmd = new CreateBlogRequest();
+        //await Client.CreateBlogAsync(cmd);
+        var response = await Client.ListArticlesAsync();
+        
+        articles = response.Articles.AsQueryable();
+    }    
+
+    record Person(int PersonId, string Name, DateOnly BirthDate);
+
+    IQueryable<Person> people = new[]
+    {
+        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)),
+        new Person(10944, "António Langa", new DateOnly(1991, 12, 1)),
+        new Person(11203, "Julie Smith", new DateOnly(1958, 10, 10)),
+        new Person(11205, "Nur Sari", new DateOnly(1922, 4, 27)),
+        new Person(11898, "Jose Hernandez", new DateOnly(2011, 5, 3)),
+        new Person(12130, "Kenji Sato", new DateOnly(2004, 1, 9)),
+    }.AsQueryable();
+}
