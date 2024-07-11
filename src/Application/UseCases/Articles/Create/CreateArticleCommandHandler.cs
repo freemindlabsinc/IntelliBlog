@@ -2,20 +2,15 @@
 
 namespace Blogging.Application.UseCases.Articles.Create;
 
-public class CreateArticleCommandHandler : ICommandHandler<CreateArticleCommand, Result<ArticleId>>
+public class CreateArticleCommandHandler(IRepository<Article> _repository) : 
+    ICommandHandler<CreateArticleCommand, Result<ArticleId>>
 {
-    private readonly IRepository<Article> _repository;
-
-    public CreateArticleCommandHandler(IRepository<Article> repository)
-    {
-        _repository = repository;
-    }
-
     public async Task<Result<ArticleId>> Handle(CreateArticleCommand command, CancellationToken cancellationToken)
     {
         var article = Article.CreateNew(command.BlogId, command.Title, command.Description);
         
         article.UpdateText(command.Text);
+        
         if (command.Tags != null)
         {
             article.AddTags(command.Tags);

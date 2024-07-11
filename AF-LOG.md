@@ -1,3 +1,28 @@
+### 7/11/2024
+
+- I've completed a large number of things. Big update.
+- I finally finalized how the dependency injection extensions should work and who calls who.
+    - Blogging.Domain
+        - references: NOTHING
+    - Application 
+        - (references) -> Blogging.Domain
+        - (exposes) AddApplicationServices()        
+    - Blogging.Infrastructure 
+        - (references) -> Application
+        - (exposes) AddInfrastructureServices()
+        - (registers) AppDbContext using ConnectionString
+    - API
+        - (references) -> Application, Blogging.Infrastructure
+        - (registers) -> Aspire's DbContext (after removing the prior one)
+        - (calls) -> AddApplicationServices() and AddInfrastructureServices()
+    - FrondEnd 
+        - references: NOTHING
+        - NSWAG API client (IntelliBlogAPIClient.cs)
+
+    - I wired up 3 endpoints: CreateArticle, ListArticles, CreateBlog
+        - The endpoints have request, response, handler and validator
+        - 
+
 ### 7/4/2024
 
 - I think the Domain is done, at least for now. 

@@ -8,15 +8,17 @@ public class List(IMediator _mediator)
 {
     public override void Configure()
     {
-        Get("/Articles");//ListArticlesRequest.Route);
+        Get("/Articles");
         Description(x => x.WithName("ListArticles"));
         AllowAnonymous();
         Summary(s =>
         {
             // XML Docs are used by default but are overridden by these properties:
             //s.Summary = "List Articles.";
-            //s.Description = "List Articles. A valid title is required.";
+            //s.Description = "List Articles. A valid title is required.";            
             s.ExampleRequest = new ListArticlesRequest { Skip = 0, Take = 10 };
+            s.ExampleRequest = new ListArticlesRequest { Skip = null, Take = null };
+            s.ExampleRequest = new ListArticlesRequest { Skip = 10, Take = null };
         });
     }
 
@@ -30,7 +32,10 @@ public class List(IMediator _mediator)
 
         if (result.IsSuccess)
         {
-            Response = new ListArticlesResponse(result.Value);
+            var records = result.Value
+                .Select(x => ArticleResult.FromArticleDTO(x));                    
+
+            Response = new ListArticlesResponse(records);
             return;
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCases.Articles.List;
 
-public record ArticleDTO(
+public readonly record struct ArticleDTO(
     int Id, 
     string Title, 
     string? Description, 

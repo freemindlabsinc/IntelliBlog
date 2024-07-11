@@ -6,7 +6,14 @@ public class ListArticlesValidator : AbstractValidator<ListArticlesRequest>
 {
     public ListArticlesValidator()
     {
-        RuleFor(x => x.Skip).GreaterThanOrEqualTo(0);
-        RuleFor(x => x.Take).GreaterThanOrEqualTo(1);
+        When(x => x.Skip.HasValue, () =>
+        {
+            RuleFor(x => x.Skip).GreaterThanOrEqualTo(0);
+        });
+        
+        When(x => x.Take.HasValue, () =>
+        {
+            RuleFor(x => x.Take).GreaterThanOrEqualTo(1);
+        });        
     }
 }

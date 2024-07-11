@@ -55,7 +55,7 @@ else
         // Simulate asynchronous loading to demonstrate streaming rendering
         //var cmd = new CreateBlogRequest();
         //await Client.CreateBlogAsync(cmd);
-        var response = await Client.ListArticlesAsync();
+        var response = await Client.ListArticlesAsync(0, 0);
         
         articles = response.Articles.AsQueryable();
     }    
