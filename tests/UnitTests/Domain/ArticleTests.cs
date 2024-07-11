@@ -28,7 +28,7 @@ public class ArticleTests
     [Fact]
     public void Can_add_tags()
     {
-        var article = NewArticle();
+        var article = Article.CreateNew(1, "Test Title");
 
         const string tag1 = "Tag 1";
         const string tag2 = "Tag 2";

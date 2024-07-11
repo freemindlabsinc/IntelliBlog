@@ -9,6 +9,7 @@ public class List(IMediator _mediator)
     public override void Configure()
     {
         Get("/Articles");//ListArticlesRequest.Route);
+        Description(x => x.WithName("ListArticles"));
         AllowAnonymous();
         Summary(s =>
         {

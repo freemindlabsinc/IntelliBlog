@@ -1,4 +1,5 @@
-﻿using Blogging.Application.UseCases.Sources.Create;
+﻿using Azure;
+using Blogging.Application.UseCases.Sources.Create;
 using FastEndpoints;
 
 namespace API.Endpoints.Sources.Create;
@@ -8,7 +9,8 @@ public class Create(ISender _sender)
 {
     public override void Configure()
     {
-        Post("/Sources");//CreateArticleRequest.Route);
+        Post("/Sources");//CreateArticleRequest.Route);        
+        Description(x => x.WithName("CreateSource"));
         AllowAnonymous();
         Summary(s =>
         {

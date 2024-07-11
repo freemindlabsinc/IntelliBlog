@@ -9,6 +9,7 @@ public class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogRes
     public override void Configure()
     {
         Post("/Blog");
+        Description(x => x.WithName("CreateBlog"));
         AllowAnonymous();
         Summary(s =>
         {

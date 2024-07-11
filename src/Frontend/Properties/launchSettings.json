@@ -26,4 +26,4 @@
       "commandLineArgs": "watch run debug --launch-profile https"
     }
   }
-  }
+}

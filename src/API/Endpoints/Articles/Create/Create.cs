@@ -10,6 +10,7 @@ public class Create(ISender _sender)
     public override void Configure()
     {
         Post("/Articles");//CreateArticleRequest.Route);
+        Description(x => x.WithName("CreateArticle"));
         AllowAnonymous();
         Summary(s =>
         {
