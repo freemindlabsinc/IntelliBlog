@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Articles.Delete;
 
-public readonly record struct DeleteArticleCommand(ArticleId Id) : ICommand<Result>;
+public readonly record struct DeleteArticleCommand(int Id) : ICommand<Result>;
 
 public class DeleteArticleCommandHandler(IRepository<Article> _repository) : ICommandHandler<DeleteArticleCommand, Result>
 {

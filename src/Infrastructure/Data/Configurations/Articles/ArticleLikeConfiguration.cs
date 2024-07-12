@@ -9,9 +9,9 @@ public partial class ArticleLikeConfiguration : IEntityTypeConfiguration<Article
     {
         builder.ToTable(nameof(ArticleLike) + "s");
 
-        builder
-            .Property(like => like.ArticleId)
-            .HasConversion(id => id.Value, value => new ArticleId(value));
+        //builder
+        //    .Property(like => like.ArticleId)
+        //    .HasConversion(id => id.Value, value => new ArticleId(value));
         // TODO: try using implicit ops
 
         builder

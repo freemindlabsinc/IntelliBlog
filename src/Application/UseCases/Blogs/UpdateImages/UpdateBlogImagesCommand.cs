@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Blogs.UpdateImages;
 
-public readonly record struct UpdateBlogImagesCommand(BlogId Id, string Image, string SmallImage)
+public readonly record struct UpdateBlogImagesCommand(int Id, string Image, string SmallImage)
     : ICommand<Result>;
 
 

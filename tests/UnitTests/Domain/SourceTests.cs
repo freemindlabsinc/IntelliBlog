@@ -18,7 +18,7 @@ public class SourceTests
             description: description,
             url: url);
 
-        source.BlogId.Value.Should().Be(101);
+        source.BlogId.Should().Be(101);
         source.Name.Should().Be(name);
         source.Description.Should().Be(description);
         source.Url.Should().Be(url);        

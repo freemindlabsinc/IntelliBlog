@@ -2,7 +2,7 @@
 
 public sealed class ArticleLike : Entity<int> 
 {
-    internal static ArticleLike CreateNew(ArticleId articleId, string likedBy)
+    internal static ArticleLike CreateNew(int articleId, string likedBy)
     {
         var like = new ArticleLike();
         like.ArticleId = articleId; // Once-setter
@@ -10,7 +10,7 @@ public sealed class ArticleLike : Entity<int>
         return like;
     }
 
-    public ArticleId ArticleId { get; private set; } = default!;
+    public int ArticleId { get; private set; } = default!;
     public string LikedBy { get; private set; } = default!; 
 
     public void UpdateLikedBy(string likedBy)

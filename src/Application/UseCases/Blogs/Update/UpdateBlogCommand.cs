@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Blogs.Update;
 
-public readonly record struct UpdateBlogCommand(BlogId Id, string Name, string? Description, string? Notes)
+public readonly record struct UpdateBlogCommand(int Id, string Name, string? Description, string? Notes)
     : ICommand<Result>;
 
 internal class UpdateBlogCommandHandler(IRepository<Blog> _repository)

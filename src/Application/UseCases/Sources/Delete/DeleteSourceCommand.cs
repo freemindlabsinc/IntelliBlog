@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Sources.Delete;
 
-public readonly record struct DeleteSourceCommand(SourceId SourceId) : ICommand<Result>;
+public readonly record struct DeleteSourceCommand(int SourceId) : ICommand<Result>;
 
 internal class DeleteSourceCommandHandler(
     IRepository<Source> _repository

@@ -24,14 +24,14 @@ public class CreateBlogTests : IClassFixture<UnitOfWorkFixture>
         var result = await _fixture.Sender.Send(cmd);
 
         result.IsSuccess.Should().BeTrue();
-        result.Value.Value.Should().BeGreaterThan(0);
+        result.Value.Should().BeGreaterThan(0);
     }
 
     [Fact]
     public async Task Cannot_create_invalid_blog()
     {
         var cmd = new CreateBlogCommand(); //
-        Func<Task<Result<BlogId>>> func = () => _fixture.Sender.Send(cmd);
+        Func<Task<Result<int>>> func = () => _fixture.Sender.Send(cmd);
 
         await func.Should().ThrowAsync<ValidationException>();
     }    

@@ -1,7 +1,7 @@
 ﻿using Blogging.Domain.Aggregates.Articles;
 
 namespace Application.UseCases.Articles.Publish;
-public readonly record struct PublishArticleCommand(ArticleId ArticleId) : ICommand<Result>;
+public readonly record struct PublishArticleCommand(int ArticleId) : ICommand<Result>;
 
 
 public class PublishArticleCommandHandler(

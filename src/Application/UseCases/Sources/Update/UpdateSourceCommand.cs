@@ -3,7 +3,7 @@
 namespace Application.UseCases.Sources.Update;
 
 public readonly record struct UpdateSourceCommand(
-    SourceId SourceId,
+    int SourceId,
     string Name,
     string? Url = default,
     string? Description = default) : ICommand<Result>;

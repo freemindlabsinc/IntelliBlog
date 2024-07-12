@@ -5,7 +5,7 @@ namespace Blogging.Domain.Specifications;
 
 public class ArticleByIdSpec : Specification<Article>, ISingleResultSpecification<Article>
 {
-    public ArticleByIdSpec(ArticleId articleId)
+    public ArticleByIdSpec(int articleId)
     {
         Query
             .Where(article => article.Id == articleId);

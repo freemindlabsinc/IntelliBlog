@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Articles.RemoveTags;
 public readonly record struct RemoveTagsCommand(
-    ArticleId Id,
+    int Id,
     string[] TagsToRemove
     ) : ICommand<Result<int>>;
 

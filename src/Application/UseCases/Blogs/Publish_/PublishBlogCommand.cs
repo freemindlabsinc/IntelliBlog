@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Blogs.ChangeStatus;
 
-public readonly record struct PublishBlogCommand(BlogId Id)
+public readonly record struct PublishBlogCommand(int Id)
     : ICommand<Result>;
 
 

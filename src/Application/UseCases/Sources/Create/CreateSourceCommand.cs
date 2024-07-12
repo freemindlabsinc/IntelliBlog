@@ -2,23 +2,23 @@
 
 namespace Application.UseCases.Sources.Create;
 public readonly record struct CreateSourceCommand(
-    BlogId BlogId,
+    int BlogId,
     string Name,
     string? Url = default,
     string? Description = default,
-    string[]? Tags = default) : ICommand<Result<SourceId>>;
+    string[]? Tags = default) : ICommand<Result<int>>;
 
 internal class CreateSourceCommandHandler(
     IRepository<Source> _repository
-    ) : ICommandHandler<CreateSourceCommand, Result<SourceId>>
+    ) : ICommandHandler<CreateSourceCommand, Result<int>>
 {
-    public async Task<Result<SourceId>> Handle(CreateSourceCommand command, CancellationToken cancellationToken)
+    public async Task<Result<int>> Handle(CreateSourceCommand command, CancellationToken cancellationToken)
     {
         var source = Source.CreateNew(command.BlogId, command.Name, command.Url, command.Description);
 
         await _repository.AddAsync(source, cancellationToken);
 
-        return Result<SourceId>.Success(source.Id);
+        return Result<int>.Success(source.Id);
     }
 }
 

@@ -11,15 +11,14 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
     {
         builder
             .Property(source => source.Id)
-            .ValueGeneratedOnAdd()
-            .HasConversion(id => id.Value, value => new(value));
+            .ValueGeneratedOnAdd();
 
         builder.HasOne<Blog>()
                .WithMany()
                .HasForeignKey(p => p.BlogId);
 
-        builder.Property(p => p.BlogId)
-            .HasConversion(new ValueConverter<BlogId, int>(id => id.Value, value => new(value)));
+        //builder.Property(p => p.BlogId)
+        //    .HasConversion(new ValueConverter<BlogId, int>(id => id.Value, value => new(value)));
 
         builder.Property(p => p.Name)
             .HasMaxLength(DataSchemaConstants.DEFAULT_SOURCE_NAME_LENGTH)

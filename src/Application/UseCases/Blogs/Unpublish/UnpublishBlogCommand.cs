@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Blogs.Unpublish;
 
-public readonly record struct UnpublishBlogCommand(BlogId Id)
+public readonly record struct UnpublishBlogCommand(int Id)
     : ICommand<Result>;
 
 

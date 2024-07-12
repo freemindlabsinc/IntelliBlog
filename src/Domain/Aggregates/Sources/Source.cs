@@ -2,10 +2,10 @@
 
 namespace Blogging.Domain.Aggregates.Sources;
 
-public class Source : TrackedEntity<SourceId>, IAggregateRoot
+public class Source : TrackedEntity<int>, IAggregateRoot
 {
     public static Source CreateNew(
-        BlogId blogId,
+        int blogId,
         string name,
         string? url = default,
         string? description = default)
@@ -22,7 +22,7 @@ public class Source : TrackedEntity<SourceId>, IAggregateRoot
         return source;
     }
 
-    public BlogId BlogId { get; private set; } = default!;
+    public int BlogId { get; private set; } = default!;
     public string Name { get; private set; } = default!;
     public string? Description { get; private set; } = default!;
     public string? Url { get; private set; } = default!;

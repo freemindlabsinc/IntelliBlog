@@ -2,16 +2,16 @@
 
 namespace Application.UseCases.Articles.Create;
 public readonly record struct CreateArticleCommand(
-    BlogId BlogId,
+    int BlogId,
     string Title,
     string? Description = default,
     string? Text = default,
-    string[]? Tags = default) : ICommand<Result<ArticleId>>;
+    string[]? Tags = default) : ICommand<Result<int>>;
 
 internal class CreateArticleCommandHandler(IRepository<Article> _repository) :
-    ICommandHandler<CreateArticleCommand, Result<ArticleId>>
+    ICommandHandler<CreateArticleCommand, Result<int>>
 {
-    public async Task<Result<ArticleId>> Handle(CreateArticleCommand command, CancellationToken cancellationToken)
+    public async Task<Result<int>> Handle(CreateArticleCommand command, CancellationToken cancellationToken)
     {
         var article = Article.CreateNew(command.BlogId, command.Title, command.Description);
 

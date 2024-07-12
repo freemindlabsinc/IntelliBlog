@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Articles.AddLike;
 public readonly record struct LikeArticleCommand(
-    ArticleId ArticleId,
+    int ArticleId,
     string LikedBy) 
     : ICommand<Result<int>>;
 

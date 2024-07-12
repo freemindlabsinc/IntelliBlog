@@ -26,7 +26,7 @@ public static class ArticleExtensions
         return article;
     }
 
-    public static Article AddSources(this Article article, params SourceId[] sourcesIds)
+    public static Article AddSources(this Article article, params int[] sourcesIds)
     {
         foreach (var id in sourcesIds)
         {
@@ -36,7 +36,7 @@ public static class ArticleExtensions
         return article;
     }
 
-    public static Article RemoveSources(this Article article, params SourceId[] sourcesIds)
+    public static Article RemoveSources(this Article article, params int[] sourcesIds)
     {
         foreach (var id in sourcesIds)
         {

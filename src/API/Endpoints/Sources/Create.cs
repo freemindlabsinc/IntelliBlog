@@ -43,7 +43,7 @@ internal class Create(ISender _sender)
 
         if (result.IsSuccess)
         {
-            Response = new CreateSourceResponse(result.Value.Value);
+            Response = new CreateSourceResponse(result.Value);
             return;
         }
     }

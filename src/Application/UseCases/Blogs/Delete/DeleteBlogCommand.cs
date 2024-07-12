@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Blogs.Delete;
 
-public readonly record struct DeleteBlogCommand(BlogId Id) : ICommand<Result>;
+public readonly record struct DeleteBlogCommand(int Id) : ICommand<Result>;
 
 
 internal class DeleteBlogCommandHandler(

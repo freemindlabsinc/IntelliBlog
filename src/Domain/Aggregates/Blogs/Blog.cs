@@ -1,7 +1,7 @@
 ﻿using Blogging.Domain.Aggregates.Blogs.Events;
 
 namespace Blogging.Domain.Aggregates.Blogs;
-public sealed class Blog : TrackedEntity<BlogId>, IAggregateRoot
+public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
     public static Blog CreateNew(
         string name,

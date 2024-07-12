@@ -49,7 +49,7 @@ internal class Create(
 
         if (result.IsSuccess)
         {
-            Response = new CreateBlogResponse(result.Value.Value);
+            Response = new CreateBlogResponse(result.Value);
             return;
         }
 

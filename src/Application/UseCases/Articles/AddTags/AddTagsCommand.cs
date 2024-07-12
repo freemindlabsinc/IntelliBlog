@@ -8,7 +8,7 @@ namespace Application.UseCases.Articles.AddTags;
 /// <param name="Id"></param>
 /// <param name="NewTags"></param>
 public readonly record struct AddTagsCommand(
-    ArticleId Id,
+    int Id,
     string[] NewTags)
     : ICommand<Result<int>>;
 

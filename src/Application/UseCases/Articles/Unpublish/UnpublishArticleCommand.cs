@@ -2,7 +2,7 @@
 
 namespace Application.UseCases.Articles.Unpublish;
 
-public readonly record struct UnpublishArticleCommand(ArticleId ArticleId) : ICommand<Result>;
+public readonly record struct UnpublishArticleCommand(int ArticleId) : ICommand<Result>;
 
 internal class UnpublishArticleCommandHandler(
     IRepository<Article> _repository

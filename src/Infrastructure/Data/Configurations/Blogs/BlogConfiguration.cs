@@ -8,10 +8,9 @@ public class BlogConfiguration : IEntityTypeConfiguration<Blog>
     public void Configure(EntityTypeBuilder<Blog> builder)
     {
         // Common
-        builder.AddSequenceForId<Blog, BlogId>()
-               .HasConversion(id => id.Value, value => new(value));
+        builder.AddSequenceForId<Blog, int>();
 
-        builder.AddTrackedEntityConfiguration<Blog, BlogId>();
+        builder.AddTrackedEntityConfiguration<Blog, int>();
 
         // Entity
         builder.Property(p => p.Name)

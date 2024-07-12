@@ -57,7 +57,7 @@ internal class Create(ISender _sender)
 
         if (result.IsSuccess)
         {
-            Response = new CreateArticleResponse(result.Value.Value);
+            Response = new CreateArticleResponse(result.Value);
         }
         // TODO Handle errors
     }

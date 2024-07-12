@@ -54,9 +54,9 @@ public class ArticleTests
         article.Sources.Should().HaveCount(2);
         var arr = article.Sources.ToArray();
         arr[0].ArticleId.Should().Be(article.Id);
-        arr[0].SourceId.Value.Should().Be(source1);
+        arr[0].SourceId.Should().Be(source1);
         arr[1].ArticleId.Should().Be(article.Id);
-        arr[1].SourceId.Value.Should().Be(source2);
+        arr[1].SourceId.Should().Be(source2);
     }
 
     [Fact]

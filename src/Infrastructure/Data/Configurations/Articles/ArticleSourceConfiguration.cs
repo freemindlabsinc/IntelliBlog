@@ -15,12 +15,12 @@ public partial class ArticleSourceConfiguration : IEntityTypeConfiguration<Artic
             .OnDelete(DeleteBehavior.Restrict)
             .HasForeignKey(articleSource => articleSource.SourceId);            
 
-        builder
-            .Property(tag => tag.ArticleId)
-            .HasConversion(id => id.Value, value => new ArticleId(value));
+        //builder
+        //    .Property(tag => tag.ArticleId)
+        //    .HasConversion(id => id.Value, value => new ArticleId(value));
 
-        builder
-            .Property(tag => tag.SourceId)
-            .HasConversion(id => id.Value, value => new SourceId(value));
+        //builder
+        //    .Property(tag => tag.SourceId)
+        //    .HasConversion(id => id.Value, value => new SourceId(value));
     }
 }

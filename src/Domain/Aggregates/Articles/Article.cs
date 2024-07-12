@@ -2,10 +2,10 @@
 
 namespace Blogging.Domain.Aggregates.Articles;
 
-public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
+public sealed class Article : TrackedEntity<int>, IAggregateRoot
 {
     public static Article CreateNew(
-        BlogId blogId,
+        int blogId,
         string title,
         string? description = default,
         string? text = default)
@@ -23,7 +23,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
         return article;
     }
 
-    public BlogId BlogId { get; private set; } = default!;
+    public int BlogId { get; private set; } = default!;
     public string Title { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Text { get; private set; }
@@ -121,7 +121,7 @@ public sealed class Article : TrackedEntity<ArticleId>, IAggregateRoot
         RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Tags)));
     }
 
-    public void AddSource(SourceId sourceId)
+    public void AddSource(int sourceId)
     {
         var src = ArticleSource.CreateNew(Id, sourceId);
         _sources.Add(src);

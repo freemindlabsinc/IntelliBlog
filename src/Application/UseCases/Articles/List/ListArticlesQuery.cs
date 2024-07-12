@@ -18,7 +18,7 @@ public class ListArticlesQueryHandler(IRepository<Article> _repository)
 
 
         var articleDTOs = articles.Select(a => new ArticleDTO(
-            a.Id.Value,
+            a.Id,
             a.Title,
             "Author",
             a.Created,

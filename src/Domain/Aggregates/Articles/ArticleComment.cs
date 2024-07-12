@@ -3,7 +3,7 @@
 public sealed class ArticleComment : Entity<int>
 {
     internal static ArticleComment CreateNew(        
-        ArticleId articleId,
+        int articleId,
         string text,
         string commentedBy)
         //,CommentId parentId = default)
@@ -16,7 +16,7 @@ public sealed class ArticleComment : Entity<int>
         return comment;
     }
 
-    public ArticleId ArticleId { get; private set; } = default!;
+    public int ArticleId { get; private set; } = default!;
     public string Text { get; private set; } = default!;
     public string CommentedBy { get; private set; } = default!;
     // public CommentId? ParentId { get; private set; }

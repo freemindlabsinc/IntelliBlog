@@ -4,7 +4,7 @@ using Blogging.Domain.Aggregates.Articles;
 namespace Application.UseCases.Articles.RemoveLike;
 
 public readonly record struct UnlikeCommand(
-    ArticleId ArticleId,
+    int ArticleId,
     string likedBy)
     : ICommand<Result<int>>;
 
