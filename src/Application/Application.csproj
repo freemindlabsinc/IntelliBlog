@@ -2,7 +2,9 @@
 
   <ItemGroup>
     <PackageReference Include="Ardalis.Result" />
+    <PackageReference Include="Mapster" />
     <PackageReference Include="MediatR" />
+    <!--PackageReference Include="Mapster" /-->
     <PackageReference Include="FluentValidation" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />

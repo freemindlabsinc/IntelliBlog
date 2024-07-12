@@ -1,21 +1,20 @@
-﻿using System.Reflection;
-using Ardalis.ListStartupServices;
+﻿using Ardalis.ListStartupServices;
 using Blogging.Application.Interfaces;
 using Blogging.Infrastructure.Data;
 using Blogging.Infrastructure.Email;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+//using Serilog;
 
-var logger = Log.Logger = new LoggerConfiguration()
-  .Enrich.FromLogContext()
-  .WriteTo.Console()
-  .CreateLogger();
+//var logger = Log.Logger = new LoggerConfiguration()
+//  .Enrich.FromLogContext()
+//  .WriteTo.Console()
+//  .CreateLogger();
 
-logger.Information("Starting web host");
+//logger.Information("Starting web host");
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Adds Aspire Telemetry and other common stuff
 builder.AddServiceDefaults();
@@ -34,24 +33,8 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 // Adds:FluentValidation, MediatR, IDomainEventDispatcher
 builder.Services.AddApplicationServices();
 // Adds: AppDbContext, IRepository, IUnitOfWork, MailserverConfiguration
-builder.Services.AddInfrastructureServices(builder.Configuration);
-
-// Replaces AppDbContext
-ServiceDescriptor? existingSvc = builder.Services.FirstOrDefault(x => x.ServiceType == typeof(DbContextOptions<AppDbContext>));
-if (existingSvc != null)
-{
-    builder.Services.Remove(existingSvc!);
-}
-
-// Use containerized database
-builder.AddSqlServerDbContext<AppDbContext>("IntelliBlogDb",
-    sqlServerSetting => 
-    {
-        //sqlServerSetting.DisableRetry = true;            
-    },
-    dbCtxOpts => 
-    {             
-    });        
+//builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.AddInfrastructureServices();
 
 // Adds FastEndpoints
 builder.Services.AddFastEndpoints()

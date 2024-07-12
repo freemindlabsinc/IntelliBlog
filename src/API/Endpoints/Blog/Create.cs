@@ -1,9 +1,24 @@
 ﻿using Blogging.Application.UseCases.Blogs.Create;
 using FastEndpoints;
+using Mapster;
 
-namespace API.Endpoints.Blog.Create;
+namespace API.Endpoints.Blog;
 
-public class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogResponse>
+
+/// <summary>
+/// Creates a new blog.
+/// </summary>
+/// <param name="Name">The name of the blog.</param>
+/// <param name="Description">A description (optional).</param>
+public readonly record struct CreateBlogRequest(string Name, string? Description);
+
+/// <summary>
+/// Returned by <see cref="CreateBlogRequest"/>.
+/// </summary>
+/// <param name="BlogId">The id of the created blog.</param>
+public readonly record struct CreateBlogResponse(int BlogId);
+
+internal class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogResponse>
 {
     public override void Configure()
     {
@@ -21,9 +36,7 @@ public class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogRes
         CreateBlogRequest request,
         CancellationToken cancellationToken)
     {
-        var command = new CreateBlogCommand(
-            Name: request.Name,
-            Description: request.Description);
+        var command = request.Adapt<CreateBlogCommand>();
 
         var result = await _sender.Send(command);
 
@@ -32,7 +45,7 @@ public class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogRes
             Response = new CreateBlogResponse(result.Value.Value);
             return;
         }
-        
+
         // TODO Handle errors
     }
 }
