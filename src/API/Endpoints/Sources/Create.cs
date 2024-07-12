@@ -12,7 +12,7 @@ public readonly record struct CreateSourceRequest(
 public readonly record struct CreateSourceResponse(int Id);
 
 
-public class Create(ISender _sender)
+internal class Create(ISender _sender)
     : Endpoint<CreateSourceRequest, CreateSourceResponse>
 {
     public override void Configure()
