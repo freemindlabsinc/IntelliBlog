@@ -1,5 +1,4 @@
-﻿
-namespace API.Endpoints.Articles;
+﻿namespace API.Endpoints.Articles.List;
 
 public readonly record struct ArticleResult(
     int Id,

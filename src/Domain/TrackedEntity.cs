@@ -3,11 +3,11 @@
 public abstract class TrackedEntity<TId>(): Entity<TId>
     where TId : struct, IEquatable<TId>
 {
-    public DateTime Created { get; private set; } = DateTime.UtcNow;
+    public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
 
     public string? CreatedBy { get; private set; } = default!;
 
-    public DateTime? LastModified { get; private set; }    
+    public DateTime? LastModifiedOn { get; private set; }    
 
     public string? LastModifiedBy { get; private set; }    
 }

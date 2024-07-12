@@ -1,3 +1,20 @@
+### 7/12/2024
+
+- I did some more clean up of directory structure and file separation. 
+    - I was not happy with having a file per class in commands (app) and requests (api): it was too much.
+      - I used all possible strategies: one file per class, one file group of things , with and without subfolders.
+      - Ultimately I think I have found the perfect mix for app and api:
+        - Application/Features/Blogs/Commands/Create
+            - CreateBlogCommand.cs (includes Validator)
+            - CreateBlogCommandHandler.cs
+        - API/EndPoints/Blogs/Create
+            - CreateBlogEndpoint.cs
+            - CreateBlogRequest.cs (includes Validator)
+            - CreateBlogResponse.cs                        
+
+- Strongly typed ids ended up being a problem with Mapster and I had to remove them.
+
+
 ### 7/11/2024
 
 - I've completed a large number of things. Big update.

@@ -1,7 +1,9 @@
 ﻿namespace API.Endpoints.Sources;
 
 public readonly record struct SourceResult(
+    int Id,
     string Name,
-    string Url,
-    DateTime CreatedAt,
-    DateTime UpdatedAt);
+    string? Url,
+    string? Description,
+    DateTime CreatedOn,
+    DateTime LastModifiedOn);

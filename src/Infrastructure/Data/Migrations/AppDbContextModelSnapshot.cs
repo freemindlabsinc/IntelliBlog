@@ -35,13 +35,13 @@ namespace Blogging.Infrastructure.Data.Migrations
                     b.Property<int>("BlogId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(300)
@@ -50,11 +50,11 @@ namespace Blogging.Infrastructure.Data.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
@@ -183,13 +183,13 @@ namespace Blogging.Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasDefaultValueSql("NEXT VALUE FOR General_seq");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasMaxLength(-1)
@@ -202,11 +202,11 @@ namespace Blogging.Infrastructure.Data.Migrations
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -237,21 +237,21 @@ namespace Blogging.Infrastructure.Data.Migrations
                     b.Property<int>("BlogId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasMaxLength(-1)
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()

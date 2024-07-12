@@ -1,36 +1,15 @@
-﻿using Blogging.Domain.Aggregates.Blogs;
-
-namespace Application.Features.Blogs.Commands.Unpublish;
+﻿namespace Application.Features.Blogs.Commands.Unpublish;
 
 public readonly record struct UnpublishBlogCommand(int Id)
-    : ICommand<Result>;
-
-
-internal class UnpublishBlogCommandHandler(IRepository<Blog> _repository)
-    : ICommandHandler<UnpublishBlogCommand, Result>
+    : ICommand<Result>
 {
-    public async Task<Result> Handle(UnpublishBlogCommand command, CancellationToken cancellationToken)
+    internal class UnpublishBlogCommandValidator : AbstractValidator<UnpublishBlogCommand>
     {
-        var spec = new BlogByIdSpec(command.Id);
-        var blog = await _repository.SingleOrDefaultAsync(spec, cancellationToken);
-
-        if (blog == null)
+        public UnpublishBlogCommandValidator()
         {
-            return Result.NotFound();
+            RuleFor(x => x.Id)
+                .NotEmpty();
         }
-
-        blog.Unpublish();
-        await _repository.UpdateAsync(blog, cancellationToken);
-
-        return Result.Success();
     }
 }
 
-internal class UnpublishBlogCommandValidator : AbstractValidator<UnpublishBlogCommand>
-{
-    public UnpublishBlogCommandValidator()
-    {
-        RuleFor(x => x.Id)
-            .NotEmpty();
-    }
-}

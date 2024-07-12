@@ -15,7 +15,7 @@ public static class EntityConfigurationExtensions
         where TId : struct, IEquatable<TId>
         where TEntity : TrackedEntity<TId>
     {
-        builder.Property(p => p.Created)
+        builder.Property(p => p.CreatedOn)
             .ValueGeneratedOnAdd()
             .HasDefaultValueSql("GETUTCDATE()");
 

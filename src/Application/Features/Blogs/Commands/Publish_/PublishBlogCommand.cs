@@ -1,35 +1,14 @@
-﻿using Blogging.Domain.Aggregates.Blogs;
-
-namespace Application.Features.Blogs.Commands.Publish_;
+﻿namespace Application.Features.Blogs.Commands.Publish_;
 
 public readonly record struct PublishBlogCommand(int Id)
-    : ICommand<Result>;
-
-
-internal class PublishBlogCommandHandler(IRepository<Blog> _repository) : ICommandHandler<PublishBlogCommand, Result>
+    : ICommand<Result>
 {
-    public async Task<Result> Handle(PublishBlogCommand command, CancellationToken cancellationToken)
+    internal class PublishBlogCommandValidator : AbstractValidator<PublishBlogCommand>
     {
-        var spec = new BlogByIdSpec(command.Id);
-        var blog = await _repository.SingleOrDefaultAsync(spec, cancellationToken);
-
-        if (blog == null)
+        public PublishBlogCommandValidator()
         {
-            return Result.NotFound();
+            RuleFor(x => x.Id)
+                .NotEmpty();
         }
-
-        blog.Publish();
-
-        return Result.Success();
-
-    }
-}
-
-internal class PublishBlogCommandValidator : AbstractValidator<PublishBlogCommand>
-{
-    public PublishBlogCommandValidator()
-    {
-        RuleFor(x => x.Id)
-            .NotEmpty();
     }
 }

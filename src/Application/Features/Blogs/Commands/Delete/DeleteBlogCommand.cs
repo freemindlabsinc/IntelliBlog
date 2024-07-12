@@ -1,36 +1,15 @@
-﻿using Blogging.Domain.Aggregates.Blogs;
+﻿namespace Application.Features.Blogs.Commands.Delete;
 
-namespace Application.Features.Blogs.Commands.Delete;
-
-public readonly record struct DeleteBlogCommand(int Id) : ICommand<Result>;
-
-
-internal class DeleteBlogCommandHandler(
-    IRepository<Blog> _repository)
-    : ICommandHandler<DeleteBlogCommand, Result>
+public readonly record struct DeleteBlogCommand(int Id) : ICommand<Result>
 {
-    public async Task<Result> Handle(DeleteBlogCommand command, CancellationToken cancellationToken)
+    internal class DeleteBlogCommandValidator : AbstractValidator<DeleteBlogCommand>
     {
-        var spec = new BlogByIdSpec(command.Id);
-        var blog = await _repository.SingleOrDefaultAsync(spec, cancellationToken);
-
-        if (blog == null)
+        public DeleteBlogCommandValidator()
         {
-            return Result.NotFound();
+            RuleFor(x => x.Id)
+                .NotEmpty();
         }
-
-        blog.MarkDeleted(); // TODO implement marking in repository
-        await _repository.DeleteAsync(blog, cancellationToken);
-
-        return Result.Success();
     }
 }
 
-internal class DeleteBlogCommandValidator : AbstractValidator<DeleteBlogCommand>
-{
-    public DeleteBlogCommandValidator()
-    {
-        RuleFor(x => x.Id)
-            .NotEmpty();
-    }
-}
+

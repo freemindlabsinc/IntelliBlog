@@ -2,7 +2,8 @@
 
 public readonly record struct SourceDTO(
     int Id,
-    string Title,
+    string Name,
+    string? Url,
     string? Description,
     DateTime CreatedOn,
     DateTime? LastModifiedOn);

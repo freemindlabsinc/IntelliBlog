@@ -32,6 +32,8 @@ internal class ListBlogsEndpoint(IMediator _mediator)
 
         if (result.IsSuccess)
         {
+            var first = result.Value.First().Adapt<BlogResult>();
+
             var records = result.Value.Adapt<IEnumerable<BlogResult>>();
 
             Response = new ListBlogsResponse(records);

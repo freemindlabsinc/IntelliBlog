@@ -21,8 +21,8 @@ public class ListArticlesQueryHandler(IRepository<Article> _repository)
             a.Id,
             a.Title,
             "Author",
-            a.Created,
-            a.LastModified,
+            a.CreatedOn,
+            a.LastModifiedOn,
             a.Tags.Select(t => t.Name)));
 
         return Result<IEnumerable<ArticleDTO>>.Success(articleDTOs);
