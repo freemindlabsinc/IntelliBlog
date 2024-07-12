@@ -1,11 +1,29 @@
-# For more info on HTTP files go to https://aka.ms/vs/httpfile
-@host=https://localhost
-@port=57679
+// Creates a blog
+POST {{host}}:{{port}}/Blogs
+Content-Type: application/json
 
-// List all contributors
-GET {{host}}:{{port}}/Contributors
+{
+  "name": "New Blog",
+  "description": "The description of the new blog"
+}
+
+### Create an article
+POST {{host}}:{{port}}/Articles
+Content-Type: application/json
+
+{
+  "blogId": 8,
+  "title": "New Article",
+  "description": "The description of the new article"
+}
 
 ###
+
+// Get all articles
+GET {{host}}:{{port}}/Articles
+
+###
+
 
 // Get a specific contributor
 @id_to_get=1

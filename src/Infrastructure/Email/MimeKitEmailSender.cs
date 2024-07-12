@@ -1,4 +1,4 @@
-﻿using Blogging.Application.Interfaces;
+﻿using Application.Interfaces;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;

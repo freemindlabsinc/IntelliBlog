@@ -1,6 +1,6 @@
-﻿using Blogging.Application.UseCases.Blogs.Create;
+﻿using Application.UseCases.Blogs.Create;
 
-namespace API.Endpoints.Blog;
+namespace API.Endpoints.Blogs;
 
 /// <summary>
 /// Creates a new blog.
@@ -29,7 +29,7 @@ internal class Create(
 {
     public override void Configure()
     {
-        Post("/Blog");
+        Post("/Blogs");
         Description(x => x.WithName("CreateBlog"));
         AllowAnonymous();
         Summary(s =>

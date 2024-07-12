@@ -1,4 +1,4 @@
-﻿using Blogging.Application.Interfaces;
+﻿using Application.Interfaces;
 using Microsoft.Extensions.Logging;
 
 namespace Blogging.Infrastructure.Email;

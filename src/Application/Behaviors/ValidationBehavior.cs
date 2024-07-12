@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Blogging.Application.Behaviors;
+﻿namespace Application.Behaviors;
 
 public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
      where TRequest : notnull

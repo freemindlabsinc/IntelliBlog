@@ -1,4 +1,4 @@
-﻿using Blogging.Application.Interfaces;
+﻿using Application.Interfaces;
 using Blogging.Domain.Services;
 using Blogging.Infrastructure.Data;
 using Blogging.Infrastructure.Email;

@@ -1,7 +1,6 @@
-﻿using Blogging.Application.Interfaces;
+﻿using Application.Interfaces;
 using Blogging.Infrastructure.Data;
 using Blogging.Infrastructure.Email;
-using FastEndpoints;
 using FastEndpoints.Swagger;
 //using Serilog;
 
@@ -35,11 +34,15 @@ builder.Services.AddApplicationServices();
 builder.AddInfrastructureServices();
 
 // Adds FastEndpoints
-builder.Services.AddFastEndpoints()
-                .SwaggerDocument(o =>
-                {
-                    o.ShortSchemaNames = true;
-                });
+builder.Services.AddFastEndpoints(
+    xx =>
+    { 
+        xx.IncludeAbstractValidators = true;        
+    })
+    .SwaggerDocument(o =>
+    {
+        o.ShortSchemaNames = true;
+    });
 
 
 if (builder.Environment.IsDevelopment())

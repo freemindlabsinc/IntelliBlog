@@ -10,6 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="http-client.env.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="http-client.env.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!--PackageReference Include="Ardalis.ListStartupServices" /-->
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.SharedKernel" />

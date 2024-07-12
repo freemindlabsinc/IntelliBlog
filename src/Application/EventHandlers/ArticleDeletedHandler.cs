@@ -1,8 +1,8 @@
-﻿using Blogging.Application.Interfaces;
+﻿using Application.Interfaces;
 using Blogging.Domain.Aggregates.Articles.Events;
 using Microsoft.Extensions.Logging;
 
-namespace Blogging.Application.EventHandlers;
+namespace Application.EventHandlers;
 
 internal class ArticleDeletedHandler(ILogger<ArticleDeletedHandler> logger, IEmailSender emailSender) 
     : INotificationHandler<ArticleDeletedEvent>

@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
-using Blogging.Application.UseCases.Blogs.Create;
-using Blogging.Application.UseCases.Blogs.Delete;
+using Application.UseCases.Blogs.Create;
+using Application.UseCases.Blogs.Delete;
 using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.UseCases.Blogs;

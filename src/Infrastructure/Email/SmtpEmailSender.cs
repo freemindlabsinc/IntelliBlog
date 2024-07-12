@@ -1,5 +1,5 @@
 ﻿using System.Net.Mail;
-using Blogging.Application.Interfaces;
+using Application.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

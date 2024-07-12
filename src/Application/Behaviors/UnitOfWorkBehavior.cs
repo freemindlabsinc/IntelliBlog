@@ -1,8 +1,7 @@
-﻿using System.Transactions;
-using Blogging.Domain.Services;
+﻿using Blogging.Domain.Services;
 using Microsoft.Extensions.Logging;
 
-namespace Blogging.Application.Behaviors;
+namespace Application.Behaviors;
 
 public class UnitOfWorkBehavior<TRequest, TResponse>(
     IUnitOfWork _unitOfWork,

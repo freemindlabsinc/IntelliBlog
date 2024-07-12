@@ -1,4 +1,4 @@
-﻿using Blogging.Application.UseCases.Articles.Create;
+﻿using Application.UseCases.Articles.Create;
 
 namespace API.Endpoints.Articles;
 
@@ -67,6 +67,7 @@ internal class CreateArticleRequestValidator : Validator<CreateArticleRequest>
 {
     public CreateArticleRequestValidator()
     {
+        RuleFor(x => x.BlogId).NotEmpty();
         RuleFor(x => x.Title).NotEmpty();
     }
 }

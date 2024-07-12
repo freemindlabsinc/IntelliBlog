@@ -1,4 +1,4 @@
-﻿using Blogging.Application.UseCases.Sources.Create;
+﻿using Application.UseCases.Sources.Create;
 
 namespace API.Endpoints.Sources;
 
@@ -10,7 +10,6 @@ public readonly record struct CreateSourceRequest(
     string[]? Tags);
 
 public readonly record struct CreateSourceResponse(int Id);
-
 
 internal class Create(ISender _sender)
     : Endpoint<CreateSourceRequest, CreateSourceResponse>

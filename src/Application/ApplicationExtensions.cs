@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Blogging.Application.Behaviors;
+using Application.Behaviors;
 //using Microsoft.Extensions.Hosting;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -9,7 +9,9 @@ public static class ApplicationExtensions
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         // FluentValidation 
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()); // this assembly
+        services.AddValidatorsFromAssembly(            
+            Assembly.GetExecutingAssembly(),
+            includeInternalTypes: true); // this assembly
 
         // Mediator
         services.AddMediatR(cfg =>
