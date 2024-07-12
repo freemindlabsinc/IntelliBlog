@@ -1,0 +1,31 @@
+// Get all sources
+GET {{host}}:{{port}}/Sources
+
+###
+
+// Get second and third source
+GET {{host}}:{{port}}/Sources?Skip=1&Take=2
+
+###
+
+// Creates a source
+POST {{host}}:{{port}}/Sources
+Content-Type: application/json
+
+{  
+  "blogId": 5,
+  "name": "New Source",
+  "url": "https://youtu.be",
+  "description": "The description of the new blog"
+}
+
+### 
+
+// Tries to creates an invalid source
+POST {{host}}:{{port}}/Sources
+Content-Type: application/json
+
+{
+  "name": null,
+  "description": "Cannot create without a name"
+}

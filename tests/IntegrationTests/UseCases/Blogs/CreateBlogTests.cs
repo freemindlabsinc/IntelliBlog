@@ -1,7 +1,6 @@
-﻿using Ardalis.Result;
+﻿using Application.UseCases.Blogs.Commands.Create;
+using Ardalis.Result;
 using FluentValidation;
-using Application.UseCases.Blogs.Create;
-using Blogging.Domain.Aggregates;
 using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.UseCases.Blogs;

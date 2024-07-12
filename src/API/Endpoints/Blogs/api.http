@@ -1,3 +1,13 @@
+// Get all blogs
+GET {{host}}:{{port}}/Blogs
+
+###
+
+// Get second and third blog
+GET {{host}}:{{port}}/Blogs?Skip=1&Take=2
+
+###
+
 // Creates a blog
 POST {{host}}:{{port}}/Blogs
 Content-Type: application/json
@@ -7,55 +17,13 @@ Content-Type: application/json
   "description": "The description of the new blog"
 }
 
-### Create an article
-POST {{host}}:{{port}}/Articles
+### 
+
+// Tries to creates an invalid blog
+POST {{host}}:{{port}}/Blogs
 Content-Type: application/json
 
 {
-  "blogId": 8,
-  "title": "New Article",
-  "description": "The description of the new article"
+  "name": null,
+  "description": "Cannot create without a name"
 }
-
-###
-
-// Get all articles
-GET {{host}}:{{port}}/Articles
-
-###
-
-
-// Get a specific contributor
-@id_to_get=1
-GET {{host}}:{{port}}/Contributors/{{id_to_get}}
-
-###
-
-// Add a new contributor
-POST {{host}}:{{port}}/Contributors
-Content-Type: application/json
-
-{
-  "name": "John Doe 2",
-  "email": "test@test.com",
-  "phoneNumber": "1234567890"
-}
-
-###
-
-// Update a contributor
-@id_to_update=1
-PUT {{host}}:{{port}}/Contributors/{{id_to_update}}
-Content-Type: application/json
-
-{
-  "id": {{id_to_update}},
-  "name": "ardalis2"
-}
-
-###
-
-// Delete a contributor
-@id_to_delete=1
-DELETE {{host}}:{{port}}/Contributors/{{id_to_delete}}
-

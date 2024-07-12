@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Blogs.Create;
+﻿using Application.UseCases.Blogs.Commands.Create;
 
 namespace API.Endpoints.Blogs;
 

@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Articles.Create;
+﻿using Application.UseCases.Articles.Commands.Create;
 
 namespace API.Endpoints.Articles;
 

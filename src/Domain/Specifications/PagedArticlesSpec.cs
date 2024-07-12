@@ -14,7 +14,7 @@ public class PagedArticlesSpec : Specification<Article>
         All      = Tags | Sources | Comments
     }
 
-    public PagedArticlesSpec(int? skip, int? take = 10, ArticleIncludes articleIncludes = ArticleIncludes.None)
+    public PagedArticlesSpec(int? skip, int? take = 10, string? filter = default, ArticleIncludes includes = ArticleIncludes.None)
     {
         if (skip.HasValue)
             Query.Skip(skip.Value);
@@ -22,14 +22,15 @@ public class PagedArticlesSpec : Specification<Article>
         if (take.HasValue)
             Query.Take(take.Value);
 
-        if (articleIncludes.HasFlag(ArticleIncludes.Tags))
+        if (includes.HasFlag(ArticleIncludes.Tags))
             Query.Include(article => article.Tags);
 
-        if (articleIncludes.HasFlag(ArticleIncludes.Sources))
+        if (includes.HasFlag(ArticleIncludes.Sources))
             Query.Include(article => article.Sources);
 
-        if (articleIncludes.HasFlag(ArticleIncludes.Comments))
+        if (includes.HasFlag(ArticleIncludes.Comments))
             Query.Include(article => article.Comments);
 
+        // TODO implement filter
     }
 }

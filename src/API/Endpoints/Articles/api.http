@@ -1,0 +1,33 @@
+// Get all articles
+GET {{host}}:{{port}}/Articles
+
+###
+
+// Get second and third articles
+GET {{host}}:{{port}}/Articles?Skip=1&Take=2
+
+###
+
+// Creates an article
+POST {{host}}:{{port}}/Articles
+Content-Type: application/json
+
+{
+  "blogId": "5",
+  "title": "New Article",
+  "description": "The description of the new article"
+}
+
+### 
+
+// Tries to creates an invalid article
+POST {{host}}:{{port}}/Articles
+Content-Type: application/json
+
+{
+  "blogId": "5",
+  "title": null,
+  "description": "Cannot create without a name"
+}
+
+###

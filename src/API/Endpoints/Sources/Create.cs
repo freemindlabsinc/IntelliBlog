@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Sources.Create;
+﻿using Application.UseCases.Sources.Commands.Create;
 
 namespace API.Endpoints.Sources;
 
@@ -46,5 +46,14 @@ internal class Create(ISender _sender)
             Response = new CreateSourceResponse(result.Value);
             return;
         }
+    }
+}
+
+internal class CreateSourceRequestValidator : AbstractValidator<CreateSourceRequest>
+{
+    public CreateSourceRequestValidator()
+    {
+        RuleFor(x => x.BlogId).NotEmpty();
+        RuleFor(x => x.Name).NotEmpty();
     }
 }

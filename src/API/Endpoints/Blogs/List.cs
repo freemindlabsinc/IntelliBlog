@@ -1,77 +1,77 @@
-﻿using Application.UseCases.Articles.Queries.List;
+﻿using Application.UseCases.Blogs.Queries.List;
 
-namespace API.Endpoints.Articles;
+namespace API.Endpoints.Blogs;
 
 /// <summary>
 /// Returns a list of articles according to the specified parameters.
 /// </summary>
-public sealed class ListArticlesRequest() : IQuery<ListArticlesResponse>
+public sealed class ListBlogsRequest() : IQuery<ListBlogsResponse>
 {
     /// <summary>
-    /// The number of articles to skip.
+    /// The number of items to skip.
     /// </summary>
     [QueryParam]
     public int? Skip { get; init; }
 
     /// <summary>
-    /// The number of articles to return.
+    /// The number of items to return.
     /// </summary>    
     [QueryParam]
     public int? Take { get; init; }
 
     /// <summary>
-    /// An optional filter to apply to the articles.
+    /// An optional filter to apply to the items.
     /// </summary>
     [QueryParam]
     public string? Filter { get; init; }
 }
 
 /// <summary>
-/// The response to the <see cref="ListArticlesQuery" />.
+/// The response to the <see cref="ListBlogsQuery" />.
 /// </summary>
-/// <param name="Articles">The list of articles.</param>
-public readonly record struct ListArticlesResponse(
-     IEnumerable<ArticleResult> Articles);
+/// <param name="Articles">The list of blog.</param>
+public readonly record struct ListBlogsResponse(
+     IEnumerable<BlogResult> Articles);
 
 
-internal class ListXX(IMediator _mediator)
-    : Endpoint<ListArticlesRequest, ListArticlesResponse>
+internal class List(IMediator _mediator)
+    : Endpoint<ListBlogsRequest, ListBlogsResponse>
 {
     public override void Configure()
     {
-        Get("/Articles");
-        Description(x => x.WithName("ListArticles"));
+        Get("/Blogs");
+        Description(x => x.WithName("ListBlogs"));
         AllowAnonymous();
         Summary(s =>
         {
             // XML Docs are used by default but are overridden by these properties:
             //s.Summary = "List Articles.";
             //s.Description = "List Articles. A valid title is required.";            
-            s.ExampleRequest = new ListArticlesRequest { Skip = 0, Take = 10 };
-            s.ExampleRequest = new ListArticlesRequest { Skip = null, Take = null };
-            s.ExampleRequest = new ListArticlesRequest { Skip = 10, Take = null };
+            s.ExampleRequest = new ListBlogsRequest { Skip = 0, Take = 10 };
+            s.ExampleRequest = new ListBlogsRequest { Skip = null, Take = null };
+            s.ExampleRequest = new ListBlogsRequest { Skip = 10, Take = null };
         });
     }
 
     public override async Task HandleAsync(
-        ListArticlesRequest request,
+        ListBlogsRequest request,
         CancellationToken cancellationToken)
     {
-        var query = request.Adapt<ListArticlesQuery>();
+        var query = request.Adapt<ListBlogsQuery>();
 
         var result = await _mediator.Send(query, cancellationToken);
 
         if (result.IsSuccess)
         {
-            var records = result.Value.Adapt<IEnumerable<ArticleResult>>();
-
-            Response = new ListArticlesResponse(records);
+            var records = result.Value.Adapt<IEnumerable<BlogResult>>();
+                
+            Response = new ListBlogsResponse(records);
             return;
         }
     }
 }
 
-internal class ListArticlesRequestValidator : Validator<ListArticlesQuery>
+internal class ListArticlesRequestValidator : Validator<ListBlogsRequest>
 {
     public ListArticlesRequestValidator()
     {
