@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Articles.Queries.List;
+﻿using Application.Features.Articles.Queries.List;
 
 namespace API.Endpoints.Articles;
 

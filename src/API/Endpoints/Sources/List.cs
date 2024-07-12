@@ -1,5 +1,6 @@
-﻿using API.Endpoints.Sources;
-using Application.UseCases.Sources.Queries.List;
+﻿using API.Endpoints.Blogs.List;
+using API.Endpoints.Sources;
+using Application.Features.Sources.Queries.List;
 
 namespace API.Endpoints.Blogs;
 

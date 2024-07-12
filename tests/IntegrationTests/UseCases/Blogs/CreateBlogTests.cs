@@ -1,4 +1,4 @@
-﻿using Application.UseCases.Blogs.Commands.Create;
+﻿using Application.Features.Blogs.Commands.Create;
 using Ardalis.Result;
 using FluentValidation;
 using Xunit.Abstractions;

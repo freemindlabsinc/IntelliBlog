@@ -24,6 +24,7 @@
     <Using Include="Blogging.Domain.Aggregates" />
     <Using Include="Blogging.Domain.Specifications" />
     <Using Include="Mapster" />
+    <Using Include="Microsoft.Extensions.Logging" />
   </ItemGroup>
     
 </Project>
