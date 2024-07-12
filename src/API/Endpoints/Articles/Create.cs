@@ -15,7 +15,7 @@ public readonly record struct CreateArticleRequest(
     string Title,
     string? Description,
     string? Text,
-    string[]? Tags);
+    string[]? Tags) : IRequest<CreateArticleResponse>;
 
 /// <summary>
 /// The response for the create article endpoint.

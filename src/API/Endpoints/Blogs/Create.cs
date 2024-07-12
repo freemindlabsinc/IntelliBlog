@@ -9,7 +9,7 @@ namespace API.Endpoints.Blogs;
 /// <param name="Description">A description (optional).</param>
 public readonly record struct CreateBlogRequest(
     string Name, 
-    string? Description);
+    string? Description) : ICommand<CreateBlogResponse>;
 
 /// <summary>
 /// The response to <see cref="CreateBlogRequest"/>.

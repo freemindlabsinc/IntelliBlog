@@ -5,7 +5,7 @@ namespace API.Endpoints.Articles;
 /// <summary>
 /// Returns a list of articles according to the specified parameters.
 /// </summary>
-public sealed class ListArticlesRequest() : IQuery<ListArticlesResponse>
+public sealed class ListArticlesRequest() : ICommand<ListArticlesResponse>
 {
     /// <summary>
     /// The number of articles to skip.
@@ -34,7 +34,7 @@ public readonly record struct ListArticlesResponse(
      IEnumerable<ArticleResult> Articles);
 
 
-internal class ListXX(IMediator _mediator)
+internal class List(IMediator _mediator)
     : Endpoint<ListArticlesRequest, ListArticlesResponse>
 {
     public override void Configure()

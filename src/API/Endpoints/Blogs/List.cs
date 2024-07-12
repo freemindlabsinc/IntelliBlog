@@ -5,7 +5,7 @@ namespace API.Endpoints.Blogs;
 /// <summary>
 /// Returns a list of articles according to the specified parameters.
 /// </summary>
-public sealed class ListBlogsRequest() : IQuery<ListBlogsResponse>
+public sealed class ListBlogsRequest() : ICommand<ListBlogsResponse>
 {
     /// <summary>
     /// The number of items to skip.
