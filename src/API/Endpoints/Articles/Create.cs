@@ -1,7 +1,4 @@
 ﻿using Blogging.Application.UseCases.Articles.Create;
-using Blogging.Domain.Aggregates;
-using FastEndpoints;
-using FluentValidation;
 
 namespace API.Endpoints.Articles;
 
@@ -26,8 +23,7 @@ public readonly record struct CreateArticleRequest(
 /// <param name="Id">The id of the created article.</param>
 public readonly record struct CreateArticleResponse(int Id);
 
-
-public class Create(ISender _sender)
+internal class Create(ISender _sender)
   : Endpoint<CreateArticleRequest, CreateArticleResponse>
 {
     public override void Configure()
@@ -55,12 +51,7 @@ public class Create(ISender _sender)
       CreateArticleRequest request,
       CancellationToken cancellationToken)
     {
-        var command = new CreateArticleCommand(
-            BlogId: request.BlogId,
-            Title: request.Title,
-            Description: request.Description,
-            Text: request.Text,
-            Tags: request.Tags);
+        var command = request.Adapt<CreateArticleCommand>();            
 
         var result = await _sender.Send(command, cancellationToken);
 
@@ -72,9 +63,9 @@ public class Create(ISender _sender)
     }
 }
 
-internal class CreateArticleValidator : Validator<CreateArticleRequest>
+internal class CreateArticleRequestValidator : Validator<CreateArticleRequest>
 {
-    public CreateArticleValidator()
+    public CreateArticleRequestValidator()
     {
         RuleFor(x => x.Title).NotEmpty();
     }

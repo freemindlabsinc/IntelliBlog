@@ -1,8 +1,6 @@
-﻿using Azure;
-using Blogging.Application.UseCases.Sources.Create;
-using FastEndpoints;
+﻿using Blogging.Application.UseCases.Sources.Create;
 
-namespace API.Endpoints.Sources.Create;
+namespace API.Endpoints.Sources;
 
 public readonly record struct CreateSourceRequest(
     int BlogId,

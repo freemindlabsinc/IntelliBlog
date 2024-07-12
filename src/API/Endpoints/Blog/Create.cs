@@ -7,19 +7,25 @@ namespace API.Endpoints.Blog;
 /// </summary>
 /// <param name="Name">The name of the blog.</param>
 /// <param name="Description">A description (optional).</param>
-public readonly record struct CreateBlogRequest(string Name, string? Description);
+public readonly record struct CreateBlogRequest(
+    string Name, 
+    string? Description);
 
 /// <summary>
 /// The response to <see cref="CreateBlogRequest"/>.
 /// </summary>
 /// <param name="BlogId">The id of the created blog.</param>
-public readonly record struct CreateBlogResponse(int BlogId);
+public readonly record struct CreateBlogResponse(
+    int BlogId);
 
 /// <summary>
 /// The handler for <see cref="CreateBlogRequest"/>.
 /// </summary>
 /// <param name="_sender"></param>
-internal class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogResponse>
+internal class Create(
+    ISender _sender) 
+    
+    : Endpoint<CreateBlogRequest, CreateBlogResponse>
 {
     public override void Configure()
     {
@@ -48,5 +54,13 @@ internal class Create(ISender _sender) : Endpoint<CreateBlogRequest, CreateBlogR
         }
 
         // TODO Handle errors
+    }
+}
+
+internal class CreateBlogRequestValidator : AbstractValidator<CreateBlogRequest>
+{
+    public CreateBlogRequestValidator()
+    {
+        RuleFor(x => x.Name).NotEmpty();
     }
 }
