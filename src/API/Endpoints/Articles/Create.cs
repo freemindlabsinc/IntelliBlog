@@ -1,8 +1,31 @@
 ﻿using Blogging.Application.UseCases.Articles.Create;
 using Blogging.Domain.Aggregates;
 using FastEndpoints;
+using FluentValidation;
 
-namespace API.Endpoints.Articles.Create;
+namespace API.Endpoints.Articles;
+
+/// <summary>
+/// Creates a new blog article.
+/// </summary>
+/// <param name="BlogId">The id of the blog to create the article in.</param>
+/// <param name="Title">The title of the article.</param>
+/// <param name="Description">The description of the article (optional).</param>
+/// <param name="Text">The text of the article (optional).</param>
+/// <param name="Tags">A list of tags for the article (optional).</param>
+public readonly record struct CreateArticleRequest(
+    int BlogId,
+    string Title,
+    string? Description,
+    string? Text,
+    string[]? Tags);
+
+/// <summary>
+/// The response for the create article endpoint.
+/// </summary>
+/// <param name="Id">The id of the created article.</param>
+public readonly record struct CreateArticleResponse(int Id);
+
 
 public class Create(ISender _sender)
   : Endpoint<CreateArticleRequest, CreateArticleResponse>
@@ -46,5 +69,13 @@ public class Create(ISender _sender)
             Response = new CreateArticleResponse(result.Value.Value);
         }
         // TODO Handle errors
+    }
+}
+
+internal class CreateArticleValidator : Validator<CreateArticleRequest>
+{
+    public CreateArticleValidator()
+    {
+        RuleFor(x => x.Title).NotEmpty();
     }
 }
