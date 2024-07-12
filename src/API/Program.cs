@@ -1,10 +1,8 @@
-﻿using Ardalis.ListStartupServices;
-using Blogging.Application.Interfaces;
+﻿using Blogging.Application.Interfaces;
 using Blogging.Infrastructure.Data;
 using Blogging.Infrastructure.Email;
 using FastEndpoints;
 using FastEndpoints.Swagger;
-using Microsoft.EntityFrameworkCore;
 //using Serilog;
 
 //var logger = Log.Logger = new LoggerConfiguration()
@@ -56,8 +54,7 @@ app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
-  app.UseDeveloperExceptionPage();
-  app.UseShowAllServicesMiddleware(); // see https://github.com/ardalis/AspNetCoreStartupServices
+  app.UseDeveloperExceptionPage();  
 }
 else
 {

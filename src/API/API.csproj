@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.ListStartupServices" />
+    <!--PackageReference Include="Ardalis.ListStartupServices" /-->
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.SharedKernel" />
     <PackageReference Include="Ardalis.Result.AspNetCore" />
@@ -39,7 +39,9 @@
     <Using Include="Ardalis.SharedKernel" />
     <Using Include="Ardalis.GuardClauses" />
     <Using Include="Ardalis.Specification" />
-    <Using Include="MediatR" />    
+    <Using Include="MediatR" />
+    <Using Include="FastEndpoints" />
+    <Using Include="Mapster" />
   </ItemGroup>
 
 </Project>

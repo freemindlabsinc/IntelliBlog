@@ -4,10 +4,8 @@
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Mapster" />
     <PackageReference Include="MediatR" />
-    <!--PackageReference Include="Mapster" /-->
     <PackageReference Include="FluentValidation" />
-    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />    
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +23,7 @@
     <Using Include="FluentValidation" />
     <Using Include="Blogging.Domain.Aggregates" />
     <Using Include="Blogging.Domain.Specifications" />
+    <Using Include="Mapster" />
   </ItemGroup>
     
 </Project>
