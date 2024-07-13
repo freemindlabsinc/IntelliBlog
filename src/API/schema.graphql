@@ -1,0 +1,568 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+enum OrderBy {
+  ASC
+  DESC
+}
+
+input DefaultValue {
+  Byte: Byte
+  Short: Short
+  Int: Int
+  Long: Long
+  String: String
+  Boolean: Boolean
+  Single: Single
+  Float: Float
+  Decimal: Decimal
+  DateTime: DateTime
+  ByteArray: ByteArray
+  LocalTime: LocalTime
+}
+
+type Blogs {
+  Id: Int!
+  Name: String!
+  Description: String
+  Notes: String
+  Image: String
+  SmallImage: String
+  IsPublished: Boolean!
+  CreatedOn: DateTime!
+  CreatedBy: String
+  LastModifiedOn: DateTime
+  LastModifiedBy: String
+}
+
+type Articles {
+  Id: Int!
+  BlogId: Int!
+  Title: String!
+  Description: String
+  Text: String
+  IsPublished: Boolean!
+  State: Int!
+  CreatedOn: DateTime!
+  CreatedBy: String
+  LastModifiedOn: DateTime
+  LastModifiedBy: String
+}
+
+type Sources {
+  Id: Int!
+  BlogId: Int!
+  Name: String!
+  Description: String
+  Url: String
+  CreatedOn: DateTime!
+  CreatedBy: String
+  LastModifiedOn: DateTime
+  LastModifiedBy: String
+}
+
+type DbOperationResult {
+  "Contains result for mutation execution"
+  result: String
+}
+
+"Order by input for Blogs GraphQL type"
+input BlogsOrderByInput {
+  "Order by options for Id"
+  Id: OrderBy
+  "Order by options for Name"
+  Name: OrderBy
+  "Order by options for Description"
+  Description: OrderBy
+  "Order by options for Notes"
+  Notes: OrderBy
+  "Order by options for Image"
+  Image: OrderBy
+  "Order by options for SmallImage"
+  SmallImage: OrderBy
+  "Order by options for IsPublished"
+  IsPublished: OrderBy
+  "Order by options for CreatedOn"
+  CreatedOn: OrderBy
+  "Order by options for CreatedBy"
+  CreatedBy: OrderBy
+  "Order by options for LastModifiedOn"
+  LastModifiedOn: OrderBy
+  "Order by options for LastModifiedBy"
+  LastModifiedBy: OrderBy
+  "Conditions to be treated as AND operations"
+  and: [BlogsOrderByInput]
+  "Conditions to be treated as OR operations"
+  or: [BlogsOrderByInput]
+}
+
+"Input type for adding Int filters"
+input IntFilterInput {
+  "Equals"
+  eq: Int
+  "Greater Than"
+  gt: Int
+  "Greater Than or Equal To"
+  gte: Int
+  "Less Than"
+  lt: Int
+  "Less Than or Equal To"
+  lte: Int
+  "Not Equals"
+  neq: Int
+  "Not null test"
+  isNull: Boolean
+}
+
+"Input type for adding String filters"
+input StringFilterInput {
+  "Equals"
+  eq: String
+  "Contains"
+  contains: String
+  "Not Contains"
+  notContains: String
+  "Starts With"
+  startsWith: String
+  "Ends With"
+  endsWith: String
+  "Not Equals"
+  neq: String
+  "Case Insensitive"
+  caseInsensitive: Boolean = false
+  "Is null test"
+  isNull: Boolean
+}
+
+"Input type for adding Boolean filters"
+input BooleanFilterInput {
+  "Equals"
+  eq: Boolean
+  "Not Equals"
+  neq: Boolean
+  "Not null test"
+  isNull: Boolean
+}
+
+"Input type for adding DateTime filters"
+input DateTimeFilterInput {
+  "Equals"
+  eq: DateTime
+  "Greater Than"
+  gt: DateTime
+  "Greater Than or Equal To"
+  gte: DateTime
+  "Less Than"
+  lt: DateTime
+  "Less Than or Equal To"
+  lte: DateTime
+  "Not Equals"
+  neq: DateTime
+  "Not null test"
+  isNull: Boolean
+}
+
+"Filter input for Blogs GraphQL type"
+input BlogsFilterInput {
+  "Filter options for Id"
+  Id: IntFilterInput
+  "Filter options for Name"
+  Name: StringFilterInput
+  "Filter options for Description"
+  Description: StringFilterInput
+  "Filter options for Notes"
+  Notes: StringFilterInput
+  "Filter options for Image"
+  Image: StringFilterInput
+  "Filter options for SmallImage"
+  SmallImage: StringFilterInput
+  "Filter options for IsPublished"
+  IsPublished: BooleanFilterInput
+  "Filter options for CreatedOn"
+  CreatedOn: DateTimeFilterInput
+  "Filter options for CreatedBy"
+  CreatedBy: StringFilterInput
+  "Filter options for LastModifiedOn"
+  LastModifiedOn: DateTimeFilterInput
+  "Filter options for LastModifiedBy"
+  LastModifiedBy: StringFilterInput
+  "Conditions to be treated as AND operations"
+  and: [BlogsFilterInput]
+  "Conditions to be treated as OR operations"
+  or: [BlogsFilterInput]
+}
+
+"Order by input for Articles GraphQL type"
+input ArticlesOrderByInput {
+  "Order by options for Id"
+  Id: OrderBy
+  "Order by options for BlogId"
+  BlogId: OrderBy
+  "Order by options for Title"
+  Title: OrderBy
+  "Order by options for Description"
+  Description: OrderBy
+  "Order by options for Text"
+  Text: OrderBy
+  "Order by options for IsPublished"
+  IsPublished: OrderBy
+  "Order by options for State"
+  State: OrderBy
+  "Order by options for CreatedOn"
+  CreatedOn: OrderBy
+  "Order by options for CreatedBy"
+  CreatedBy: OrderBy
+  "Order by options for LastModifiedOn"
+  LastModifiedOn: OrderBy
+  "Order by options for LastModifiedBy"
+  LastModifiedBy: OrderBy
+  "Conditions to be treated as AND operations"
+  and: [ArticlesOrderByInput]
+  "Conditions to be treated as OR operations"
+  or: [ArticlesOrderByInput]
+}
+
+"Filter input for Articles GraphQL type"
+input ArticlesFilterInput {
+  "Filter options for Id"
+  Id: IntFilterInput
+  "Filter options for BlogId"
+  BlogId: IntFilterInput
+  "Filter options for Title"
+  Title: StringFilterInput
+  "Filter options for Description"
+  Description: StringFilterInput
+  "Filter options for Text"
+  Text: StringFilterInput
+  "Filter options for IsPublished"
+  IsPublished: BooleanFilterInput
+  "Filter options for State"
+  State: IntFilterInput
+  "Filter options for CreatedOn"
+  CreatedOn: DateTimeFilterInput
+  "Filter options for CreatedBy"
+  CreatedBy: StringFilterInput
+  "Filter options for LastModifiedOn"
+  LastModifiedOn: DateTimeFilterInput
+  "Filter options for LastModifiedBy"
+  LastModifiedBy: StringFilterInput
+  "Conditions to be treated as AND operations"
+  and: [ArticlesFilterInput]
+  "Conditions to be treated as OR operations"
+  or: [ArticlesFilterInput]
+}
+
+"Order by input for Sources GraphQL type"
+input SourcesOrderByInput {
+  "Order by options for Id"
+  Id: OrderBy
+  "Order by options for BlogId"
+  BlogId: OrderBy
+  "Order by options for Name"
+  Name: OrderBy
+  "Order by options for Description"
+  Description: OrderBy
+  "Order by options for Url"
+  Url: OrderBy
+  "Order by options for CreatedOn"
+  CreatedOn: OrderBy
+  "Order by options for CreatedBy"
+  CreatedBy: OrderBy
+  "Order by options for LastModifiedOn"
+  LastModifiedOn: OrderBy
+  "Order by options for LastModifiedBy"
+  LastModifiedBy: OrderBy
+  "Conditions to be treated as AND operations"
+  and: [SourcesOrderByInput]
+  "Conditions to be treated as OR operations"
+  or: [SourcesOrderByInput]
+}
+
+"Filter input for Sources GraphQL type"
+input SourcesFilterInput {
+  "Filter options for Id"
+  Id: IntFilterInput
+  "Filter options for BlogId"
+  BlogId: IntFilterInput
+  "Filter options for Name"
+  Name: StringFilterInput
+  "Filter options for Description"
+  Description: StringFilterInput
+  "Filter options for Url"
+  Url: StringFilterInput
+  "Filter options for CreatedOn"
+  CreatedOn: DateTimeFilterInput
+  "Filter options for CreatedBy"
+  CreatedBy: StringFilterInput
+  "Filter options for LastModifiedOn"
+  LastModifiedOn: DateTimeFilterInput
+  "Filter options for LastModifiedBy"
+  LastModifiedBy: StringFilterInput
+  "Conditions to be treated as AND operations"
+  and: [SourcesFilterInput]
+  "Conditions to be treated as OR operations"
+  or: [SourcesFilterInput]
+}
+
+type Query {
+  "Get a list of all the Blogs items from the database"
+  blogs("The number of items to return from the page start point" first: Int "A pagination token from a previous query to continue through a paginated list" after: String "Filter options for query" filter: BlogsFilterInput "Ordering options for query" orderBy: BlogsOrderByInput): BlogsConnection!
+  "Get a Blogs from the database by its ID\/primary key"
+  blogs_by_pk(Id: Int!): Blogs
+  "Get a list of all the Articles items from the database"
+  articles("The number of items to return from the page start point" first: Int "A pagination token from a previous query to continue through a paginated list" after: String "Filter options for query" filter: ArticlesFilterInput "Ordering options for query" orderBy: ArticlesOrderByInput): ArticlesConnection!
+  "Get a Articles from the database by its ID\/primary key"
+  articles_by_pk(Id: Int!): Articles
+  "Get a list of all the Sources items from the database"
+  sources("The number of items to return from the page start point" first: Int "A pagination token from a previous query to continue through a paginated list" after: String "Filter options for query" filter: SourcesFilterInput "Ordering options for query" orderBy: SourcesOrderByInput): SourcesConnection!
+  "Get a Sources from the database by its ID\/primary key"
+  sources_by_pk(Id: Int!): Sources
+}
+
+"The return object from a filter query that supports a pagination token for paging through results"
+type BlogsConnection {
+  "The list of items that matched the filter"
+  items: [Blogs!]!
+  "A pagination token to provide to subsequent pages of a query"
+  endCursor: String
+  "Indicates if there are more pages of items to return"
+  hasNextPage: Boolean!
+}
+
+"The return object from a filter query that supports a pagination token for paging through results"
+type ArticlesConnection {
+  "The list of items that matched the filter"
+  items: [Articles!]!
+  "A pagination token to provide to subsequent pages of a query"
+  endCursor: String
+  "Indicates if there are more pages of items to return"
+  hasNextPage: Boolean!
+}
+
+"The return object from a filter query that supports a pagination token for paging through results"
+type SourcesConnection {
+  "The list of items that matched the filter"
+  items: [Sources!]!
+  "A pagination token to provide to subsequent pages of a query"
+  endCursor: String
+  "Indicates if there are more pages of items to return"
+  hasNextPage: Boolean!
+}
+
+type Mutation {
+  "Creates a new Blogs"
+  createBlogs("Input representing all the fields for creating Blogs" item: CreateBlogsInput!): Blogs
+  "Updates a Blogs"
+  updateBlogs("The ID of the item being updated." Id: Int! "Input representing all the fields for updating Blogs" item: UpdateBlogsInput!): Blogs
+  "Delete a Blogs"
+  deleteBlogs("The ID of the item being deleted." Id: Int!): Blogs
+  "Creates a new Articles"
+  createArticles("Input representing all the fields for creating Articles" item: CreateArticlesInput!): Articles
+  "Updates a Articles"
+  updateArticles("The ID of the item being updated." Id: Int! "Input representing all the fields for updating Articles" item: UpdateArticlesInput!): Articles
+  "Delete a Articles"
+  deleteArticles("The ID of the item being deleted." Id: Int!): Articles
+  "Creates a new Sources"
+  createSources("Input representing all the fields for creating Sources" item: CreateSourcesInput!): Sources
+  "Updates a Sources"
+  updateSources("The ID of the item being updated." Id: Int! "Input representing all the fields for updating Sources" item: UpdateSourcesInput!): Sources
+  "Delete a Sources"
+  deleteSources("The ID of the item being deleted." Id: Int!): Sources
+}
+
+"Input type for creating Blogs"
+input CreateBlogsInput {
+  "Input for field Id on type CreateBlogsInput"
+  Id: Int = "(NEXT VALUE FOR [General_seq])"
+  "Input for field Name on type CreateBlogsInput"
+  Name: String!
+  "Input for field Description on type CreateBlogsInput"
+  Description: String
+  "Input for field Notes on type CreateBlogsInput"
+  Notes: String
+  "Input for field Image on type CreateBlogsInput"
+  Image: String
+  "Input for field SmallImage on type CreateBlogsInput"
+  SmallImage: String
+  "Input for field IsPublished on type CreateBlogsInput"
+  IsPublished: Boolean!
+  "Input for field CreatedOn on type CreateBlogsInput"
+  CreatedOn: DateTime = "(getutcdate())"
+  "Input for field CreatedBy on type CreateBlogsInput"
+  CreatedBy: String
+  "Input for field LastModifiedOn on type CreateBlogsInput"
+  LastModifiedOn: DateTime
+  "Input for field LastModifiedBy on type CreateBlogsInput"
+  LastModifiedBy: String
+}
+
+"Input type for updating Blogs"
+input UpdateBlogsInput {
+  "Input for field Id on type UpdateBlogsInput"
+  Id: Int
+  "Input for field Name on type UpdateBlogsInput"
+  Name: String
+  "Input for field Description on type UpdateBlogsInput"
+  Description: String
+  "Input for field Notes on type UpdateBlogsInput"
+  Notes: String
+  "Input for field Image on type UpdateBlogsInput"
+  Image: String
+  "Input for field SmallImage on type UpdateBlogsInput"
+  SmallImage: String
+  "Input for field IsPublished on type UpdateBlogsInput"
+  IsPublished: Boolean
+  "Input for field CreatedOn on type UpdateBlogsInput"
+  CreatedOn: DateTime
+  "Input for field CreatedBy on type UpdateBlogsInput"
+  CreatedBy: String
+  "Input for field LastModifiedOn on type UpdateBlogsInput"
+  LastModifiedOn: DateTime
+  "Input for field LastModifiedBy on type UpdateBlogsInput"
+  LastModifiedBy: String
+}
+
+"Input type for creating Articles"
+input CreateArticlesInput {
+  "Input for field Id on type CreateArticlesInput"
+  Id: Int = "(NEXT VALUE FOR [General_seq])"
+  "Input for field BlogId on type CreateArticlesInput"
+  BlogId: Int!
+  "Input for field Title on type CreateArticlesInput"
+  Title: String!
+  "Input for field Description on type CreateArticlesInput"
+  Description: String
+  "Input for field Text on type CreateArticlesInput"
+  Text: String
+  "Input for field IsPublished on type CreateArticlesInput"
+  IsPublished: Boolean!
+  "Input for field State on type CreateArticlesInput"
+  State: Int!
+  "Input for field CreatedOn on type CreateArticlesInput"
+  CreatedOn: DateTime = "(getutcdate())"
+  "Input for field CreatedBy on type CreateArticlesInput"
+  CreatedBy: String
+  "Input for field LastModifiedOn on type CreateArticlesInput"
+  LastModifiedOn: DateTime
+  "Input for field LastModifiedBy on type CreateArticlesInput"
+  LastModifiedBy: String
+}
+
+"Input type for updating Articles"
+input UpdateArticlesInput {
+  "Input for field Id on type UpdateArticlesInput"
+  Id: Int
+  "Input for field BlogId on type UpdateArticlesInput"
+  BlogId: Int
+  "Input for field Title on type UpdateArticlesInput"
+  Title: String
+  "Input for field Description on type UpdateArticlesInput"
+  Description: String
+  "Input for field Text on type UpdateArticlesInput"
+  Text: String
+  "Input for field IsPublished on type UpdateArticlesInput"
+  IsPublished: Boolean
+  "Input for field State on type UpdateArticlesInput"
+  State: Int
+  "Input for field CreatedOn on type UpdateArticlesInput"
+  CreatedOn: DateTime
+  "Input for field CreatedBy on type UpdateArticlesInput"
+  CreatedBy: String
+  "Input for field LastModifiedOn on type UpdateArticlesInput"
+  LastModifiedOn: DateTime
+  "Input for field LastModifiedBy on type UpdateArticlesInput"
+  LastModifiedBy: String
+}
+
+"Input type for creating Sources"
+input CreateSourcesInput {
+  "Input for field BlogId on type CreateSourcesInput"
+  BlogId: Int!
+  "Input for field Name on type CreateSourcesInput"
+  Name: String!
+  "Input for field Description on type CreateSourcesInput"
+  Description: String
+  "Input for field Url on type CreateSourcesInput"
+  Url: String
+  "Input for field CreatedOn on type CreateSourcesInput"
+  CreatedOn: DateTime!
+  "Input for field CreatedBy on type CreateSourcesInput"
+  CreatedBy: String
+  "Input for field LastModifiedOn on type CreateSourcesInput"
+  LastModifiedOn: DateTime
+  "Input for field LastModifiedBy on type CreateSourcesInput"
+  LastModifiedBy: String
+}
+
+"Input type for updating Sources"
+input UpdateSourcesInput {
+  "Input for field BlogId on type UpdateSourcesInput"
+  BlogId: Int
+  "Input for field Name on type UpdateSourcesInput"
+  Name: String
+  "Input for field Description on type UpdateSourcesInput"
+  Description: String
+  "Input for field Url on type UpdateSourcesInput"
+  Url: String
+  "Input for field CreatedOn on type UpdateSourcesInput"
+  CreatedOn: DateTime
+  "Input for field CreatedBy on type UpdateSourcesInput"
+  CreatedBy: String
+  "Input for field LastModifiedOn on type UpdateSourcesInput"
+  LastModifiedOn: DateTime
+  "Input for field LastModifiedBy on type UpdateSourcesInput"
+  LastModifiedBy: String
+}
+
+enum ApplyPolicy {
+  BEFORE_RESOLVER
+  AFTER_RESOLVER
+}
+
+"The `Byte` scalar type represents non-fractional whole numeric values. Byte can represent values between 0 and 255."
+scalar Byte
+
+"The `Short` scalar type represents non-fractional signed whole 16-bit numeric values. Short can represent values between -(2^15) and 2^15 - 1."
+scalar Short
+
+"The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+"IEEE 754 32 bit float"
+scalar Single
+
+"The built-in `Decimal` scalar type."
+scalar Decimal
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+scalar ByteArray
+
+"LocalTime is an immutable struct representing a time of day, with no reference to a particular calendar, time zone or date."
+scalar LocalTime
+
+"The `@oneOf` directive is used within the type system definition language\n to indicate:\n\n - an Input Object is a Oneof Input Object, or\n - an Object Type's Field is a Oneof Field."
+directive @oneOf on INPUT_OBJECT
+
+directive @authorize("The name of the authorization policy that determines access to the annotated resource." policy: String "Roles that are allowed to access the annotated resource." roles: [String!] "Defines when when the resolver shall be executed.By default the resolver is executed after the policy has determined that the current user is allowed to access the field." apply: ApplyPolicy! = BEFORE_RESOLVER) repeatable on SCHEMA | OBJECT | FIELD_DEFINITION
+
+"A directive to indicate the type maps to a storable entity not a nested entity."
+directive @model("Underlying name of the database entity." name: String) on OBJECT | FIELD_DEFINITION
+
+"A directive to indicate the relationship between two tables"
+directive @relationship("The name of the GraphQL type the relationship targets" target: String "The relationship cardinality" cardinality: String) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+"A directive to indicate the primary key field of an item."
+directive @primaryKey("The underlying database type." databaseType: String) on FIELD_DEFINITION
+
+"When present on a field in a database table, indicates that the field is a referencing field to some field in the same\/another database table."
+directive @dab_referencingField on FIELD_DEFINITION
+
+"The default value to be used when creating an item."
+directive @defaultValue(value: DefaultValue) on FIELD_DEFINITION
+
+"Indicates that a field is auto generated by the database."
+directive @autoGenerated on FIELD_DEFINITION

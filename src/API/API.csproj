@@ -14,6 +14,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <GraphQL Remove="DBAPI\GetArticles.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="DBAPI\GetArticles.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="GetArticles.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="http-client.env.json" />
   </ItemGroup>
 
@@ -33,6 +45,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" />
     <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="StrawberryShake.Server" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +61,10 @@
     <Using Include="FastEndpoints" />
     <Using Include="Mapster" />
     <Using Include="FluentValidation" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DBAPI\" />
   </ItemGroup>
 
 </Project>
