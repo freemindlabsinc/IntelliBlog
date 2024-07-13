@@ -83,7 +83,7 @@ static async Task SeedDatabase(WebApplication app)
     {
       var context = services.GetRequiredService<AppDbContext>();
         //          context.Database.Migrate();
-        context.Database.EnsureDeleted();
+        //context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
       await SeedData.PopulateTestData(context);
     }
