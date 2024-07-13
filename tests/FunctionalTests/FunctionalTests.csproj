@@ -1,5 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Sdk Name="Microsoft.Build.CentralPackageVersions" Version="2.1.3" />
+  <ItemGroup>
+    <Compile Remove="ApiEndpoints\ContributorGetById.cs" />
+    <Compile Remove="ApiEndpoints\ContributorList.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ApiEndpoints\ContributorGetById.cs" />
+    <None Include="ApiEndpoints\ContributorList.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" />
