@@ -8,6 +8,8 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services
     .AddGraphQLServer()
+    .AddFiltering()
+    .AddSorting()
     //.AddQueryType<Query>()
     .RegisterDbContext<AppDbContext>(DbContextKind.Resolver)
     .AddTestGQLTypes()

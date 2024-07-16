@@ -23,6 +23,9 @@ public class Query
     public IQueryable<Person> GetPeople()
         => _persons.AsQueryable();
 
+    [UsePaging]
+    [HotChocolate.Data.UseFiltering]
+    [HotChocolate.Data.UseSorting]
     public IQueryable<Article> GetArticles([Service(ServiceKind.Synchronized)] AppDbContext db)
         => db.Articles.Include(x => x.Sources).Include(x => x.Comments);
 }
