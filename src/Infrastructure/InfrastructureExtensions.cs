@@ -25,7 +25,7 @@ public static class InfrastructureExtensions
         string? connectionString = config.GetConnectionString(DbConnectionName);
         Guard.Against.Null(connectionString);
         
-        services.AddDbContextPool<AppDbContext>(
+        services.AddDbContext<AppDbContext>(
             options => options.UseSqlServer(connectionString));        
 
         // Repositories

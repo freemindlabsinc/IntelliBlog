@@ -20,11 +20,11 @@ public static class ApplicationExtensions
 
             // Behaviors (MediatR pipeline)
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
-            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));
-
-            // Domain Event Dispatcher (DDD)
-            services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+            cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(UnitOfWorkBehavior<,>));            
         });
+
+        // Domain Event Dispatcher (DDD)
+        services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
 
         return services;
     }

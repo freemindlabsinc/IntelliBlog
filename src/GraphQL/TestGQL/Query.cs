@@ -1,4 +1,8 @@
-﻿namespace TestGQL;
+﻿using Blogging.Domain.Aggregates.Articles;
+using Blogging.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace TestGQL;
 
 public class Person(string name, int age)
 {
@@ -18,4 +22,7 @@ public class Query
     
     public IQueryable<Person> GetPeople()
         => _persons.AsQueryable();
+
+    public IQueryable<Article> GetArticles([Service(ServiceKind.Synchronized)] AppDbContext db)
+        => db.Articles.Include(x => x.Sources).Include(x => x.Comments);
 }
