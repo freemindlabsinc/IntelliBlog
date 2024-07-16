@@ -21,6 +21,12 @@
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.27.0" />
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
     <PackageVersion Include="FluentAssertions" Version="7.0.0-alpha.4" />
+    <PackageVersion Include="HotChocolate.AspNetCore" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Filters" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Selections" Version="10.5.5" />
     <PackageVersion Include="MailKit" Version="4.7.1" />
     <PackageVersion Include="Mapster" Version="7.4.1-pre01" />
     <PackageVersion Include="Mapster.DependencyInjection" Version="1.0.1" />

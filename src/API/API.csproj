@@ -25,6 +25,11 @@
     
     <PackageReference Include="FastEndpoints" />
     <PackageReference Include="FastEndpoints.Swagger" />
+    <PackageReference Include="HotChocolate.AspNetCore" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" />
+    <PackageReference Include="HotChocolate.Types" />
+    <PackageReference Include="HotChocolate.Types.Analyzers" />
+    <PackageReference Include="HotChocolate.Types.Selections" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="Mapster" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">

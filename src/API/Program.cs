@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using API.GraphQL;
+using Application.Interfaces;
 using Blogging.Infrastructure.Data;
 using Blogging.Infrastructure.Email;
 using FastEndpoints.Swagger;
@@ -33,6 +34,16 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 //builder.AddInfrastructureServices();
 
+builder.Services
+    .AddGraphQLServer()    
+    .AddAPITypes()
+    .RegisterDbContext<AppDbContext>()        
+    .AddFiltering()
+    .AddSorting()
+    ;
+
+
+
 // Adds FastEndpoints
 builder.Services.AddFastEndpoints(
     xx =>
@@ -51,8 +62,9 @@ if (builder.Environment.IsDevelopment())
     builder.Services.AddScoped<IEmailSender, FakeEmailSender>();
 }
 
-var app = builder.Build();
 
+var app = builder.Build();
+app.MapGraphQL();
 app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
