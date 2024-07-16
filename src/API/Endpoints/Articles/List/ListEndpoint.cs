@@ -28,14 +28,14 @@ internal class ListEndpoint(IMediator _mediator)
     {
         var query = request.Adapt<ListArticlesQuery>();
 
-        var result = await _mediator.Send(query, cancellationToken);
-
+        var result = await _mediator.Send(query, cancellationToken);        
+        
         if (result.IsSuccess)
         {
             var records = result.Value.Adapt<IEnumerable<ArticleResult>>();
-
+        
             Response = new ListArticlesResponse(records);
             return;
-        }
+        }        
     }
 }

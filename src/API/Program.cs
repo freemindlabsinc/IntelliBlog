@@ -30,8 +30,8 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 // Adds:FluentValidation, MediatR, IDomainEventDispatcher
 builder.Services.AddApplicationServices();
 // Adds: AppDbContext, IRepository, IUnitOfWork, MailserverConfiguration
-//builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+//builder.AddInfrastructureServices();
 
 // Adds FastEndpoints
 builder.Services.AddFastEndpoints(

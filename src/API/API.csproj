@@ -7,20 +7,12 @@
     <WebProjectMode>true</WebProjectMode>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <UserSecretsId>6d7770b3-25d1-481e-995d-168348e62bb0</UserSecretsId>
-  </PropertyGroup>
+  </PropertyGroup>  
 
   <ItemGroup>
     <Content Remove="http-client.env.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <GraphQL Remove="DBAPI\GetArticles.graphql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="DBAPI\GetArticles.graphql" />
-  </ItemGroup>
-
+  </ItemGroup>  
+  
   <ItemGroup>
     <None Include="http-client.env.json" />
   </ItemGroup>
@@ -42,9 +34,6 @@
     <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" PrivateAssets="All" />
     <PackageReference Include="Serilog.AspNetCore" />
-    <PackageReference Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" />
-    <PackageReference Include="StrawberryShake.Server" />
-    <PackageReference Include="StrawberryShake.Transport.Http" />
   </ItemGroup>
 
   <ItemGroup>
@@ -60,10 +49,6 @@
     <Using Include="FastEndpoints" />
     <Using Include="Mapster" />
     <Using Include="FluentValidation" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="DBAPI\" />
   </ItemGroup>
 
 </Project>
