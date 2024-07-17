@@ -1,0 +1,19 @@
+﻿query GetData($maxRows: Int=10) {
+  articles(first: $maxRows) {
+    nodes {
+      id
+      createdOn
+      title
+      description
+      sources {
+        id
+        linkedOn
+        articleId
+      }
+      comments {
+        text
+      }
+      text
+    }
+  }
+}

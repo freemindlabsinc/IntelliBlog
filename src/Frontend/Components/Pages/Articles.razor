@@ -2,12 +2,9 @@
 @using IntelliBlogAPI
 @rendermode InteractiveServer
 @inject IntelliBlogAPI.Client Client
+@inject TestGQL.GraphQL.GetDataQuery Query
 
-<PageTitle>Weather</PageTitle>
-
-<h1>Articles</h1>
-
-<p>This component demonstrates showing data.</p>
+<PageTitle>Articles</PageTitle>
 
 @if (articles == null)
 {
@@ -16,59 +13,29 @@
 else
 {
     <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
-    <FluentDataGrid Id="articlegrid" Items="@articles" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="ArticleDTO">
+    <FluentDataGrid Id="articlegrid" Items="@articles" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="TestGQL.GraphQL.IGetData_Articles_Nodes">
         <PropertyColumn Title="Id" Property="@(c => c!.Id)" Align="Align.Start"/>
         <PropertyColumn Title="Title" Property="@(c => c!.Title)" Align="Align.Center" Sortable="true"/>
         <PropertyColumn Title="Description" Property="@(c => c!.Description)" Align="Align.Center" Sortable="true" />
         <!--PropertyColumn Title="Tags" Property="@(c => FormatTags(c!.Tags))" Align="Align.End"/-->
 
-        <TemplateColumn Title="Actions">
+        <!--TemplateColumn Title="Actions">
             <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Like(context))">Like</FluentButton>
             <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Unlike(context))">Unlike</FluentButton>
-        </TemplateColumn>
+        </TemplateColumn-->
     </FluentDataGrid>
 }
-<p><strong>@message</strong></p>
 
-<FluentDataGrid Items="@people">
-    <PropertyColumn Property="@(p => p.PersonId)" Sortable="true" />
-    <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
-    <PropertyColumn Property="@(p => p.BirthDate)" Format="yyyy-MM-dd" Sortable="true" />
-</FluentDataGrid>
+<p>This component demonstrates showing data.</p>
 
 @code {
-    string message = "Click a button...";
-    private IQueryable<ArticleDTO>? articles;
-
-    string FormatTags(IEnumerable<string> tags)
-    {
-        return string.Join(',', tags);
-    }
-
-    void Like(ArticleDTO a) => message = $"You want to LIKE {a.Id} {a.Title}";
-
-    void Unlike(ArticleDTO a) => message = $"You want to UNLIKE {a.Id} {a.Title}";
-
+    IQueryable<TestGQL.GraphQL.IGetData_Articles_Nodes> articles = default!;
 
     protected override async Task OnInitializedAsync()
     {
-        // Simulate asynchronous loading to demonstrate streaming rendering
-        //var cmd = new CreateBlogRequest();
-        //await Client.CreateBlogAsync(cmd);
-        var response = await Client.ListArticlesAsync(0, 0);
+        var res = await Query.ExecuteAsync(4);
         
-        articles = response.Articles.AsQueryable();
-    }    
+        this.articles = res!.Data!.Articles!.Nodes!.AsQueryable();
 
-    record Person(int PersonId, string Name, DateOnly BirthDate);
-
-    IQueryable<Person> people = new[]
-    {
-        new Person(10895, "Jean Martin", new DateOnly(1985, 3, 16)),
-        new Person(10944, "António Langa", new DateOnly(1991, 12, 1)),
-        new Person(11203, "Julie Smith", new DateOnly(1958, 10, 10)),
-        new Person(11205, "Nur Sari", new DateOnly(1922, 4, 27)),
-        new Person(11898, "Jose Hernandez", new DateOnly(2011, 5, 3)),
-        new Person(12130, "Kenji Sato", new DateOnly(2004, 1, 9)),
-    }.AsQueryable();
+    }
 }

@@ -1,0 +1,272 @@
+schema {
+  query: Query
+}
+
+type Query {
+  people: [Person!]!
+  articles("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ArticleFilterInput order: [ArticleSortInput!]): ArticlesConnection
+}
+
+input ArticleFilterInput {
+  and: [ArticleFilterInput!]
+  or: [ArticleFilterInput!]
+  blogId: IntOperationFilterInput
+  title: StringOperationFilterInput
+  description: StringOperationFilterInput
+  text: StringOperationFilterInput
+  isPublished: BooleanOperationFilterInput
+  state: ArticleStateOperationFilterInput
+  tags: ListFilterInputTypeOfArticleTagFilterInput
+  sources: ListFilterInputTypeOfArticleSourceFilterInput
+  comments: ListFilterInputTypeOfArticleCommentFilterInput
+  likes: ListFilterInputTypeOfArticleLikeFilterInput
+  createdOn: DateTimeOperationFilterInput
+  createdBy: StringOperationFilterInput
+  lastModifiedOn: DateTimeOperationFilterInput
+  lastModifiedBy: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input ArticleSortInput {
+  blogId: SortEnumType
+  title: SortEnumType
+  description: SortEnumType
+  text: SortEnumType
+  isPublished: SortEnumType
+  state: SortEnumType
+  createdOn: SortEnumType
+  createdBy: SortEnumType
+  lastModifiedOn: SortEnumType
+  lastModifiedBy: SortEnumType
+  id: SortEnumType
+}
+
+"A connection to a list of items."
+type ArticlesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [ArticlesEdge!]
+  "A flattened list of the nodes."
+  nodes: [Article!]
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input ArticleStateOperationFilterInput {
+  eq: ArticleState
+  neq: ArticleState
+  in: [ArticleState!]
+  nin: [ArticleState!]
+}
+
+input ListFilterInputTypeOfArticleTagFilterInput {
+  all: ArticleTagFilterInput
+  none: ArticleTagFilterInput
+  some: ArticleTagFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfArticleSourceFilterInput {
+  all: ArticleSourceFilterInput
+  none: ArticleSourceFilterInput
+  some: ArticleSourceFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfArticleCommentFilterInput {
+  all: ArticleCommentFilterInput
+  none: ArticleCommentFilterInput
+  some: ArticleCommentFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfArticleLikeFilterInput {
+  all: ArticleLikeFilterInput
+  none: ArticleLikeFilterInput
+  some: ArticleLikeFilterInput
+  any: Boolean
+}
+
+input DateTimeOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime]
+  nin: [DateTime]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+type Article {
+  blogId: Int!
+  title: String!
+  description: String
+  text: String
+  isPublished: Boolean!
+  state: ArticleState!
+  tags: [ArticleTag!]!
+  sources: [ArticleSource!]!
+  comments: [ArticleComment!]!
+  likes: [ArticleLike!]!
+  createdOn: DateTime!
+  createdBy: String
+  lastModifiedOn: DateTime
+  lastModifiedBy: String
+  id: Int!
+}
+
+"An edge in a connection."
+type ArticlesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Article!
+}
+
+input ArticleTagFilterInput {
+  and: [ArticleTagFilterInput!]
+  or: [ArticleTagFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input ArticleSourceFilterInput {
+  and: [ArticleSourceFilterInput!]
+  or: [ArticleSourceFilterInput!]
+  id: IntOperationFilterInput
+  articleId: IntOperationFilterInput
+  sourceId: IntOperationFilterInput
+  linkedOn: DateTimeOperationFilterInput
+  domainEvents: ListFilterInputTypeOfDomainEventBaseFilterInput
+}
+
+input ArticleCommentFilterInput {
+  and: [ArticleCommentFilterInput!]
+  or: [ArticleCommentFilterInput!]
+  articleId: IntOperationFilterInput
+  text: StringOperationFilterInput
+  commentedBy: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input ArticleLikeFilterInput {
+  and: [ArticleLikeFilterInput!]
+  or: [ArticleLikeFilterInput!]
+  articleId: IntOperationFilterInput
+  likedBy: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+input ListFilterInputTypeOfDomainEventBaseFilterInput {
+  all: DomainEventBaseFilterInput
+  none: DomainEventBaseFilterInput
+  some: DomainEventBaseFilterInput
+  any: Boolean
+}
+
+input DomainEventBaseFilterInput {
+  and: [DomainEventBaseFilterInput!]
+  or: [DomainEventBaseFilterInput!]
+  dateOccurred: DateTimeOperationFilterInput
+}
+
+enum ArticleState {
+  DRAFT
+  COMPLETE
+}
+
+type Person {
+  name: String!
+  age: Int!
+}
+
+type ArticleTag {
+  name: String!
+  description: String
+  id: Int!
+}
+
+type ArticleSource {
+  id: Int!
+  articleId: Int!
+  sourceId: Int!
+  linkedOn: DateTime!
+  domainEvents: [DomainEventBase!]!
+}
+
+type ArticleComment {
+  articleId: Int!
+  text: String!
+  commentedBy: String!
+  id: Int!
+}
+
+type ArticleLike {
+  articleId: Int!
+  likedBy: String!
+  id: Int!
+}
+
+type DomainEventBase {
+  dateOccurred: DateTime!
+}

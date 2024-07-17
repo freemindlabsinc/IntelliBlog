@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <GraphQL Remove="GetArticles.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
+    <PackageReference Include="StrawberryShake.Blazor" />
   </ItemGroup>
 </Project>

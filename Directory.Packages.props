@@ -54,6 +54,7 @@
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="ReportGenerator" Version="5.3.7" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageVersion Include="StrawberryShake.Blazor" Version="13.9.7" />
     <PackageVersion Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="12.22.4" />
     <PackageVersion Include="StrawberryShake.Server" Version="13.9.7" />
     <PackageVersion Include="StrawberryShake.Transport.Http" Version="13.9.7" />

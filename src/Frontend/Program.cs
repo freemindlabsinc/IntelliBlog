@@ -11,6 +11,10 @@ builder.Services.AddFluentUIComponents();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IntelliBlogAPI.Client>();
 
+builder.Services
+    .AddTestGQLClient()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:6001/graphql"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
