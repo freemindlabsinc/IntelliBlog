@@ -1,8 +1,7 @@
 ﻿query GetData($maxRows: Int=10) {
   articles(first: $maxRows) {
     nodes {
-      id
-      createdOn
+      id      
       title
       description
       sources {

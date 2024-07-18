@@ -3,9 +3,9 @@
   "documents": "**/*.graphql",
   "extensions": {
     "strawberryShake": {
-      "name": "TestGQLClient",
-      "namespace": "TestGQL.GraphQL",
-      "url": "https://localhost:7052/graphql",
+      "name": "GraphQLClient",
+      "namespace": "GraphQLServer",
+      "url": "https://localhost:6001/graphql",
       "records": {
         "inputs": false,
         "entities": false

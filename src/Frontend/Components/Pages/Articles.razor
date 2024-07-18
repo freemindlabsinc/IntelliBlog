@@ -1,10 +1,8 @@
 ﻿@page "/articles"
-@using IntelliBlogAPI
 @rendermode InteractiveServer
-@inject IntelliBlogAPI.Client Client
-@inject TestGQL.GraphQL.GetDataQuery Query
+@inject GraphQLServer.GetDataQuery Query
 
-<PageTitle>Articles</PageTitle>
+<PageTitle>My Articles</PageTitle>
 
 @if (articles == null)
 {
@@ -12,30 +10,50 @@
 }
 else
 {
-    <!-- This page is rendered in SSR mode, so the FluentDataGrid component does not offer any interactivity (like sorting). -->
-    <FluentDataGrid Id="articlegrid" Items="@articles" GridTemplateColumns="1fr 1fr 1fr 2fr" TGridItem="TestGQL.GraphQL.IGetData_Articles_Nodes">
-        <PropertyColumn Title="Id" Property="@(c => c!.Id)" Align="Align.Start"/>
-        <PropertyColumn Title="Title" Property="@(c => c!.Title)" Align="Align.Center" Sortable="true"/>
-        <PropertyColumn Title="Description" Property="@(c => c!.Description)" Align="Align.Center" Sortable="true" />
-        <!--PropertyColumn Title="Tags" Property="@(c => FormatTags(c!.Tags))" Align="Align.End"/-->
+    <FluentNumberField @bind-Value="_maxArticles" Label="Max Articles" />
+    <FluentButton OnClick="@FetchData">Refresh</FluentButton>
 
-        <!--TemplateColumn Title="Actions">
-            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Like(context))">Like</FluentButton>
-            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Unlike(context))">Unlike</FluentButton>
-        </TemplateColumn-->
-    </FluentDataGrid>
+       @foreach (var a in articles!)
+       {                
+           <FluentCard MinimalStyle="true" Height="200px">                    
+               <FluentBadge Appearance="Appearance.Accent">
+                   @a.Id
+               </FluentBadge>
+
+               <FluentBadge Appearance="Appearance.Lightweight">
+                   @a.Title
+               </FluentBadge>
+
+               <FluentBadge Appearance="Appearance.Neutral">
+                   @(a.Description ?? "this is a description")
+               </FluentBadge>
+               
+               <FluentDivider />
+
+               <img src="https://www.worksheetsplanet.com/wp-content/uploads/2023/03/What-is-an-article.jpg" 
+                    height="100px" width="200px" />
+               
+           </FluentCard>                
+           
+           <FluentDivider />
+       }
 }
 
 <p>This component demonstrates showing data.</p>
 
 @code {
-    IQueryable<TestGQL.GraphQL.IGetData_Articles_Nodes> articles = default!;
+    IEnumerable<GraphQLServer.IGetData_Articles_Nodes> articles = default!;
+    int _maxArticles = 30;
 
     protected override async Task OnInitializedAsync()
     {
-        var res = await Query.ExecuteAsync(4);
-        
-        this.articles = res!.Data!.Articles!.Nodes!.AsQueryable();
+        await FetchData();
+    }
 
+    public async Task FetchData()
+    {
+        var res = await Query.ExecuteAsync(_maxArticles);
+
+        this.articles = res!.Data!.Articles!.Nodes!;    
     }
 }

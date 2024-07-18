@@ -14,7 +14,7 @@ public class ListArticlesQueryHandler(IRepository<Article> _repository)
     public async Task<Result<IEnumerable<ArticleDTO>>> Handle(ListArticlesQuery query, CancellationToken cancellationToken)
     {
         var spec = new PagedArticlesSpec(query.Skip, query.Take, query.Filter, PagedArticlesSpec.ArticleIncludes.Tags);
-
+        
         var articles = await _repository.ListAsync(spec, cancellationToken);
 
         var articleDTOs = articles.Select(a => new ArticleDTO(

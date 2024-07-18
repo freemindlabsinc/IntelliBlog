@@ -1,10 +1,20 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 type Query {
-  people: [Person!]!
   articles("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: ArticleFilterInput order: [ArticleSortInput!]): ArticlesConnection
+  articleById(id: ID): Article
+  blogs("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: BlogFilterInput order: [BlogSortInput!]): BlogsConnection
+  blogById(id: ID): Blog
+  sources("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: SourceFilterInput order: [SourceSortInput!]): SourcesConnection
+  sourceById(id: ID): Source
+}
+
+type Mutation {
+  createBlog(name: String! description: String): Int!
+  updateBlog(id: Int! name: String! description: String): Result!
 }
 
 input ArticleFilterInput {
@@ -49,6 +59,83 @@ type ArticlesConnection {
   edges: [ArticlesEdge!]
   "A flattened list of the nodes."
   nodes: [Article!]
+}
+
+input BlogFilterInput {
+  and: [BlogFilterInput!]
+  or: [BlogFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  notes: StringOperationFilterInput
+  image: StringOperationFilterInput
+  smallImage: StringOperationFilterInput
+  isPublished: BooleanOperationFilterInput
+  createdOn: DateTimeOperationFilterInput
+  createdBy: StringOperationFilterInput
+  lastModifiedOn: DateTimeOperationFilterInput
+  lastModifiedBy: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input BlogSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  notes: SortEnumType
+  image: SortEnumType
+  smallImage: SortEnumType
+  isPublished: SortEnumType
+  createdOn: SortEnumType
+  createdBy: SortEnumType
+  lastModifiedOn: SortEnumType
+  lastModifiedBy: SortEnumType
+  id: SortEnumType
+}
+
+"A connection to a list of items."
+type BlogsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [BlogsEdge!]
+  "A flattened list of the nodes."
+  nodes: [Blog!]
+}
+
+input SourceFilterInput {
+  and: [SourceFilterInput!]
+  or: [SourceFilterInput!]
+  blogId: IntOperationFilterInput
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  url: StringOperationFilterInput
+  tags: ListFilterInputTypeOfSourceTagFilterInput
+  createdOn: DateTimeOperationFilterInput
+  createdBy: StringOperationFilterInput
+  lastModifiedOn: DateTimeOperationFilterInput
+  lastModifiedBy: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input SourceSortInput {
+  blogId: SortEnumType
+  name: SortEnumType
+  description: SortEnumType
+  url: SortEnumType
+  createdOn: SortEnumType
+  createdBy: SortEnumType
+  lastModifiedOn: SortEnumType
+  lastModifiedBy: SortEnumType
+  id: SortEnumType
+}
+
+"A connection to a list of items."
+type SourcesConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [SourcesEdge!]
+  "A flattened list of the nodes."
+  nodes: [Source!]
 }
 
 input IntOperationFilterInput {
@@ -154,7 +241,6 @@ type PageInfo {
 }
 
 type Article {
-  blogId: Int!
   title: String!
   description: String
   text: String
@@ -164,11 +250,9 @@ type Article {
   sources: [ArticleSource!]!
   comments: [ArticleComment!]!
   likes: [ArticleLike!]!
-  createdOn: DateTime!
-  createdBy: String
   lastModifiedOn: DateTime
   lastModifiedBy: String
-  id: Int!
+  id: ID
 }
 
 "An edge in a connection."
@@ -177,6 +261,56 @@ type ArticlesEdge {
   cursor: String!
   "The item at the end of the edge."
   node: Article!
+}
+
+type Blog {
+  name: String!
+  description: String
+  notes: String
+  image: String
+  smallImage: String
+  isPublished: Boolean!
+  createdOn: DateTime!
+  createdBy: String
+  lastModifiedOn: DateTime
+  lastModifiedBy: String
+  id: ID
+}
+
+"An edge in a connection."
+type BlogsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Blog!
+}
+
+input ListFilterInputTypeOfSourceTagFilterInput {
+  all: SourceTagFilterInput
+  none: SourceTagFilterInput
+  some: SourceTagFilterInput
+  any: Boolean
+}
+
+type Source {
+  blogId: Int!
+  name: String!
+  description: String
+  url: String
+  tags: [SourceTag!]!
+  createdOn: DateTime!
+  createdBy: String
+  lastModifiedOn: DateTime
+  lastModifiedBy: String
+  id: ID
+}
+
+"An edge in a connection."
+type SourcesEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Source!
 }
 
 input ArticleTagFilterInput {
@@ -217,6 +351,14 @@ input ArticleLikeFilterInput {
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."
 scalar DateTime
 
+input SourceTagFilterInput {
+  and: [SourceTagFilterInput!]
+  or: [SourceTagFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
 input ListFilterInputTypeOfDomainEventBaseFilterInput {
   all: DomainEventBaseFilterInput
   none: DomainEventBaseFilterInput
@@ -230,22 +372,6 @@ input DomainEventBaseFilterInput {
   dateOccurred: DateTimeOperationFilterInput
 }
 
-enum ArticleState {
-  DRAFT
-  COMPLETE
-}
-
-type Person {
-  name: String!
-  age: Int!
-}
-
-type ArticleTag {
-  name: String!
-  description: String
-  id: Int!
-}
-
 type ArticleSource {
   id: Int!
   articleId: Int!
@@ -254,19 +380,108 @@ type ArticleSource {
   domainEvents: [DomainEventBase!]!
 }
 
+enum ArticleState {
+  DRAFT
+  COMPLETE
+}
+
+type Result {
+  toPagedResult(pagedInfo: PagedInfoInput): PagedResultOfResult
+  value: Result
+  status: ResultStatus!
+  isSuccess: Boolean!
+  successMessage: String
+  correlationId: String
+  location: String
+  errors: [String]
+  validationErrors: [ValidationError]
+}
+
+type ArticleTag {
+  name: String!
+  description: String
+  id: ID
+}
+
 type ArticleComment {
-  articleId: Int!
   text: String!
   commentedBy: String!
-  id: Int!
+  id: ID
 }
 
 type ArticleLike {
   articleId: Int!
   likedBy: String!
-  id: Int!
+  id: ID
+}
+
+type SourceTag {
+  name: String!
+  description: String
+  id: ID
+}
+
+type ValidationError {
+  identifier: String
+  errorMessage: String
+  errorCode: String
+  severity: ValidationSeverity!
+}
+
+enum ResultStatus {
+  OK
+  CREATED
+  ERROR
+  FORBIDDEN
+  UNAUTHORIZED
+  INVALID
+  NOT_FOUND
+  NO_CONTENT
+  CONFLICT
+  CRITICAL_ERROR
+  UNAVAILABLE
+}
+
+input PagedInfoInput {
+  pageNumber: Long!
+  pageSize: Long!
+  totalPages: Long!
+  totalRecords: Long!
+}
+
+type PagedResultOfResult {
+  toPagedResult(pagedInfo: PagedInfoInput): PagedResultOfResult
+  pagedInfo: PagedInfo
+  value: Result
+  status: ResultStatus!
+  isSuccess: Boolean!
+  successMessage: String
+  correlationId: String
+  location: String
+  errors: [String]
+  validationErrors: [ValidationError]
 }
 
 type DomainEventBase {
   dateOccurred: DateTime!
+}
+
+type PagedInfo {
+  setPageNumber(pageNumber: Long!): PagedInfo
+  setPageSize(pageSize: Long!): PagedInfo
+  setTotalPages(totalPages: Long!): PagedInfo
+  setTotalRecords(totalRecords: Long!): PagedInfo
+  pageNumber: Long!
+  pageSize: Long!
+  totalPages: Long!
+  totalRecords: Long!
+}
+
+"The `Long` scalar type represents non-fractional signed whole 64-bit numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+enum ValidationSeverity {
+  ERROR
+  WARNING
+  INFO
 }

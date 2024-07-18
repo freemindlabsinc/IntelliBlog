@@ -9,10 +9,9 @@ builder.Services.AddRazorComponents()
 builder.Services.AddFluentUIComponents();
 
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IntelliBlogAPI.Client>();
 
 builder.Services
-    .AddTestGQLClient()
+    .AddGraphQLClient()
     .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:6001/graphql"));
 
 var app = builder.Build();

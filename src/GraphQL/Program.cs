@@ -1,5 +1,4 @@
 ﻿using Blogging.Infrastructure.Data;
-using TestGQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +9,8 @@ builder.Services
     .AddGraphQLServer()
     .AddFiltering()
     .AddSorting()
-    //.AddQueryType<Query>()
     .RegisterDbContext<AppDbContext>(DbContextKind.Resolver)
-    .AddTestGQLTypes()
+    .AddGraphQLTypes()
 
     //.AddTestGQLTypes()
     ;
