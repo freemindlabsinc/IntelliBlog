@@ -1,3 +1,8 @@
+### 7/19/2024
+
+- GraphQL, Blazor and Identity courses. Frank Liu. WOW
+- 
+
 ### 7/12/2024
 
 - I did some more clean up of directory structure and file separation. 

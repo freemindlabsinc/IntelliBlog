@@ -4,6 +4,7 @@ using Blogging.Infrastructure.Data;
 using Blogging.Infrastructure.Email;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -69,5 +70,17 @@ public static class InfrastructureExtensions
             });
 
         return builder;
+    }
+
+    public static async Task SeedDataAsync(this IHost host)
+    {
+        using var scope = host.Services.CreateScope();
+        var services = scope.ServiceProvider;
+                
+        var context = services.GetRequiredService<AppDbContext>();
+        //          context.Database.Migrate();
+        //context.Database.EnsureDeleted();
+        context.Database.EnsureCreated();
+        await SeedData.PopulateTestData(context);        
     }
 }

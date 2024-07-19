@@ -1,10 +1,13 @@
 ﻿using Blogging.Domain.Aggregates.Articles;
+using Blogging.Infrastructure.Data;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
-namespace GraphQL.Articles;
+namespace GraphQL.Types;
 
 [Node]
-public class ArticleExtensions : ObjectTypeExtension<Article>
+//[ExtendObjectType<Article>]
+public class ArticleNode : ObjectTypeExtension<Article>
 {
     protected override void Configure(IObjectTypeDescriptor<Article> descriptor)
     {
@@ -20,5 +23,25 @@ public class ArticleExtensions : ObjectTypeExtension<Article>
         descriptor.Ignore(x => x.BlogId);
         descriptor.Ignore(x => x.CreatedBy);
         descriptor.Ignore(x => x.CreatedOn);
+        descriptor.Field("Number")
+                  .Resolve((ctx, ct) => 
+                  {
+                      return GetNumber(ctx.Parent<Article>());
+                  });
     }
+
+    [BindMember("Number")]
+    public static int GetNumber([Parent] Article article)
+    {
+        return article.Id * 10000;
+    }
+
+    [DataLoader]
+    internal static async Task<IReadOnlyDictionary<int, Article>> GetArticleByIdAsync(
+        IReadOnlyList<int> ids,
+        AppDbContext context,
+        CancellationToken cancellationToken) 
+        => await context.Articles
+            .Where(a => ids.Contains(a.Id))
+            .ToDictionaryAsync(x => x.Id, cancellationToken);
 }

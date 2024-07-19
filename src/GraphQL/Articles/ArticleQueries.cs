@@ -1,21 +1,29 @@
 ﻿using Blogging.Domain.Aggregates.Articles;
+using Blogging.Domain.Specifications;
 using Blogging.Infrastructure.Data;
+using GraphQL.Types;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphQL.Articles;
 
 [QueryType]
-public class ArticleQueries
+public static class ArticleQueries
 {
     [UsePaging]
     [HotChocolate.Data.UseFiltering]
     [HotChocolate.Data.UseSorting]
-    public IQueryable<Article> GetArticles(
+    public static IQueryable<Article> GetArticles(
         [Service(ServiceKind.Synchronized)] AppDbContext db)
-        => db.Articles.Include(x => x.Sources).Include(x => x.Comments);
+    {
+        PagedArticlesSpec spec = new PagedArticlesSpec(null, null, null, PagedArticlesSpec.ArticleIncludes.All);
+        
 
-    public Task<Article?> GetArticleById(
-        [Service(ServiceKind.Synchronized)] AppDbContext db,
-        [GraphQLType(typeof(IdType))] int id)
-        => db.Articles.Include(x => x.Sources).Include(x => x.Comments).FirstOrDefaultAsync(x => x.Id == id);
+        return db.Articles.Include(x => x.Sources).Include(x => x.Comments);
+    }
+    
+    public static async Task<Article?> GetArticleById(
+        int id,
+        IArticleByIdDataLoader articleById,
+        CancellationToken cancellationToken)
+        => await articleById.LoadAsync(id, cancellationToken);
 }
