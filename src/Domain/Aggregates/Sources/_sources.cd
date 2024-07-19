@@ -15,10 +15,17 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Blogging.Domain.Aggregates.Sources.SourceTag">
-    <Position X="5.75" Y="2.25" Width="2.5" />
+    <Position X="6.25" Y="2.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Aggregates\Sources\SourceTag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Tag">
+    <Position X="10.25" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Tag.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="10" />
