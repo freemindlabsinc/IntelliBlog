@@ -11,7 +11,4 @@ public sealed class ArticleLike : Entity<int>
     public int ArticleId { get; private set; } = default!;
     public string LikedBy { get; private set; } = default!; 
     public DateTime LikedOn { get; private set; } = DateTime.UtcNow;
-
-    // For Entity Framework
-    private ArticleLike() { }
 }

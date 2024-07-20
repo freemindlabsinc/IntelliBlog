@@ -88,29 +88,40 @@ public sealed class Article : TrackedEntity<int>, IAggregateRoot
 
         RaiseEvent(new Events.ArticleUpdated(this, nameof(Text)));
     }    
-    public void AddTag(string tag)
+    public void AddTags(params string[] tags)
     {
-        Guard.Against.NullOrWhiteSpace(tag, nameof(tag));
+        var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
-        if (Tags.Add(tag)) RaiseEvent(new Events.ArticleUpdated(this, nameof(Tags)));
+        foreach (var item in goodTags)
+        {
+            Tags.Add(item);
+        }
+
+        RaiseEvent(new Events.ArticleUpdated(this, nameof(Tags)));
     }
 
-    public void RemoveTag(string tag)
+    public void RemoveTags(params string[] tags)
     {
-        Guard.Against.NullOrWhiteSpace(tag, nameof(tag));
-
-        if (Tags.Remove(tag)) RaiseEvent(new Events.ArticleUpdated(this, nameof(Tags)));
+        foreach (var tag in tags)
+        {
+            Tags.Remove(tag);
+        }
+        
+        RaiseEvent(new Events.ArticleUpdated(this, nameof(Tags)));
     }
 
-    public void AddSource(int sourceId)
+    public void AddSources(params int[] sourceIds)
     {
-        var src = new ArticleSource(Id, sourceId);
-        _sources.Add(src);
-
+        foreach (var sourceId in sourceIds)
+        {
+            var src = new ArticleSource(Id, sourceId);
+            _sources.Add(src);
+        }
+        
         RaiseEvent(new Events.ArticleUpdated(this, nameof(Sources)));
     }
 
-    public void RemoveSource(ArticleSource sourceId)
+    public void RemoveSources(ArticleSource sourceId)
     {
         _sources.Remove(sourceId);
 

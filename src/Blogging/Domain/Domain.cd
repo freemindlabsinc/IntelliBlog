@@ -1,12 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
   <Class Name="Blogging.Domain.Blog">
-    <Position X="0.5" Y="1.25" Width="2.5" />
+    <Position X="1.75" Y="1" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AgAgAAAAACAgAAAAAEAEAAQAAAAAAFAAAAAAABAAIAQ=</HashCode>
+      <HashCode>AAAiAAAABCAgAAAAAAAAAAQAAACAAFAAAAAAAAAAoAQ=</HashCode>
       <FileName>Domain\Blog.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
+  <Class Name="Blogging.Domain.Aggregates.Articles.ArticleComment">
+    <Position X="24.25" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAACgAAAAgABAAA=</HashCode>
+      <FileName>Domain\ArticleComment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Likes" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.ArticleLike">
+    <Position X="10.5" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAgAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ArticleLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Article">
+    <Position X="6.75" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAjCghAFAgAEAMAAAAAAAQBEACAAAADhEBAAA=</HashCode>
+      <FileName>Domain\Article.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Likes" />
+      <Property Name="Sources" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.ArticleSource">
+    <Position X="6" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ArticleSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Source">
+    <Position X="16.75" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAhAAEAAAAIAAQAAAAAAEAyCQAAAgABAAQ=</HashCode>
+      <FileName>Domain\Source.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Likes" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.SourceComment">
+    <Position X="28" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\SourceComment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.Base.CommentBase&lt;TId&gt;">
+    <Position X="26" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAgAAAAAAAAAAAAAQAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Domain\Base\CommentBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Aggregates.Articles.ArticleCommentLike">
+    <Position X="23.5" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAgAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ArticleCommentLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.SourceLike">
+    <Position X="16.75" Y="8.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAgAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\SourceLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Blogging.Domain.ArticleState">
+    <Position X="11.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\ArticleState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Blogging.Domain.SourceType">
+    <Position X="19.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Domain\SourceType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="10" />
 </ClassDiagram>

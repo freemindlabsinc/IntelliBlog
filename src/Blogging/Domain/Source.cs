@@ -15,11 +15,14 @@ public class Source : TrackedEntity<int>, IAggregateRoot
     }
 
     public int BlogId { get; private set; } = default!;
-    public string Name { get; private set; } = default!;
+    public string Name { get; private set; } = default!;    
+    public SourceType Type { get; private set; } = SourceType.Unspecified;
     public string? Description { get; private set; } = default!;
     public string? Url { get; private set; } = default!;
 
     public HashSet<string> Tags { get; private set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+    public IReadOnlyCollection<SourceLike> Likes => _likes.AsReadOnly();
 
     public void AddTag(string tag)
     {
@@ -33,6 +36,15 @@ public class Source : TrackedEntity<int>, IAggregateRoot
         Guard.Against.NullOrWhiteSpace(tag, nameof(tag));
 
         if (Tags.Remove(tag)) RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
+    }
+
+    public void SetType(SourceType type)
+    {
+        if (Type == type) return;
+
+        Type = type;
+
+        RaiseEvent(new Events.SourceUpdated(this, nameof(Type)));
     }
 
     public void UpdateName(string name)
@@ -61,6 +73,32 @@ public class Source : TrackedEntity<int>, IAggregateRoot
 
         RaiseEvent(new Events.SourceUpdated(this, nameof(Description)));
     }
+
+    public void Like(string likedBy)
+    {
+        Guard.Against.NullOrWhiteSpace(likedBy, nameof(likedBy));
+
+        if (_likes.Any(l => l.LikedBy == likedBy)) return;
+
+        _likes.Add(new SourceLike(Id, likedBy));
+
+        //RaiseEvent(new Events.SourceLiked(this, likedBy));
+    }
+
+    public void Unlike(string likedBy)
+    {
+        Guard.Against.NullOrWhiteSpace(likedBy, nameof(likedBy));
+
+        var like = _likes.FirstOrDefault(l => l.LikedBy == likedBy);
+
+        if (like is null) return;
+
+        _likes.Remove(like);
+
+        //RaiseEvent(new Events.SourceUnliked(this, likedBy));
+    }
+
+    private readonly List<SourceLike> _likes = new List<SourceLike>();
 
     // For Entity Framework
     private Source() { }

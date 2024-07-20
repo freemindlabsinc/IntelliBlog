@@ -18,21 +18,29 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public string? Description { get; private set; }
     public string? Notes { get; private set; }
     public string? Image { get; private set; }
-    public bool IsPublished { get; private set; }
+    public bool IsOnline { get; private set; }
     public ISet<string> Tags { get; private set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-    public void AddTags(string tag)
+    public void AddTags(params string[] tags)
     {
-        Guard.Against.NullOrWhiteSpace(tag, nameof(tag));
+        var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
-        if (Tags.Add(tag)) RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
+        foreach (var item in goodTags)
+        {
+            Tags.Add(item);
+        }
+
+        RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
 
-    public void RemoveTag(string tag)
+    public void RemoveTags(params string[] tags)
     {
-        Guard.Against.NullOrWhiteSpace(tag, nameof(tag));
+        foreach (var tag in tags)
+        {
+            Tags.Remove(tag);
+        }
 
-        if (Tags.Remove(tag)) RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
+        RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
 
     public void UpdateName(string name)
@@ -62,24 +70,24 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         RaiseEvent(new Events.BlogUpdated(this, nameof(Notes)));
     }
 
-    public void Publish()
+    public void GoOnline()
     {
-        if (IsPublished) return;
+        if (IsOnline) return;
 
-        IsPublished = true;
+        IsOnline = true;
 
-        RaiseEvent(new Events.BlogPlublished(this));
-        RaiseEvent(new Events.BlogUpdated(this, nameof(IsPublished)));
+        RaiseEvent(new Events.BlogUpdated(this, nameof(IsOnline)));
+        RaiseEvent(new Events.BlogOnline(this));
     }
 
-    public void Unpublish()
+    public void GoOffline()
     {
-        if (IsPublished == false) return;
+        if (IsOnline == false) return;
 
-        IsPublished = false;
+        IsOnline = false;
 
-        RaiseEvent(new Events.BlogPlublished(this));
-        RaiseEvent(new Events.BlogUpdated(this, nameof(IsPublished)));
+        RaiseEvent(new Events.BlogUpdated(this, nameof(IsOnline)));
+        RaiseEvent(new Events.BlogOffline(this));
     }
 
     public void UpdateImage(string? image)
