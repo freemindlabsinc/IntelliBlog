@@ -1,5 +1,5 @@
-﻿using Application.Features.Blogs.Commands.Create;
-using Application.Features.Blogs.Commands.Delete;
+﻿using Application.Blogs.Commands.Create;
+using Application.Blogs.Commands.Delete;
 using Ardalis.Result;
 using Xunit.Abstractions;
 

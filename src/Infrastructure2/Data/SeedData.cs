@@ -1,4 +1,4 @@
-﻿namespace Blogging.Infrastructure.Data;
+﻿namespace Infrastructure2.Data;
 
 public static class SeedData
 {
@@ -30,23 +30,23 @@ public static class SeedData
         await dbContext.SaveChangesAsync();
 
         // Technical blog articles
-        Article techArticle1 = new Article(techBlog.Id, "Learning EF 8");
+        Post techArticle1 = new Post(techBlog.Id, "Learning EF 8");
         techArticle1.AddTags("CSharp", "Programming");
         techArticle1.AddSources(techSource1.Id);
 
-        Article techArticle2 = new Article(techBlog.Id, "Learning Test Driven Development");
+        Post techArticle2 = new Post(techBlog.Id, "Learning Test Driven Development");
         techArticle2.AddTags("TDD", "Programming");
         techArticle2.AddSources(techSource1.Id);
 
-        Article techArticle3 = new Article(techBlog.Id, "Designing Aggregates");
+        Post techArticle3 = new Post(techBlog.Id, "Designing Aggregates");
         techArticle3.AddTags("DDD", "Design");
         techArticle3.AddSources(techSource1.Id);
 
-        Article techArticle4 = new Article(techBlog.Id, "Designing Value Objects");
+        Post techArticle4 = new Post(techBlog.Id, "Designing Value Objects");
         techArticle4.AddTags("DDD", "Design");
         techArticle4.AddSources(techSource1.Id);
 
-        dbContext.Articles.AddRange(techArticle1, techArticle2, techArticle3, techArticle4);
+        dbContext.Posts.AddRange(techArticle1, techArticle2, techArticle3, techArticle4);
         await dbContext.SaveChangesAsync();
     }
 
@@ -64,15 +64,15 @@ public static class SeedData
         await dbContext.SaveChangesAsync();
 
         // Lovable blog articles
-        Article lovalbleArticle1 = new Article(lovableBlog.Id, "How to groom a pug");
+        Post lovalbleArticle1 = new Post(lovableBlog.Id, "How to groom a pug");
         lovalbleArticle1.AddTags("PUG");
         lovalbleArticle1.AddSources(lovalbleSource1.Id);
 
-        Article lovalbleArticle2 = new Article(lovableBlog.Id, "How to pamper a pug");
+        Post lovalbleArticle2 = new Post(lovableBlog.Id, "How to pamper a pug");
         lovalbleArticle2.AddTags("PUG");
         lovalbleArticle1.AddSources(lovalbleSource2.Id);
 
-        var articles = dbContext.Articles.AddRangeAsync(new[] { lovalbleArticle1, lovalbleArticle2 });
+        var articles = dbContext.Posts.AddRangeAsync(new[] { lovalbleArticle1, lovalbleArticle2 });
         await dbContext.SaveChangesAsync();
     }
 }

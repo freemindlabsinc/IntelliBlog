@@ -1,5 +1,5 @@
-﻿using Blogging.Domain.Aggregates.Blogs;
-using Blogging.Infrastructure.Data;
+﻿using Blogging.Domain;
+using Infrastructure2.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphQL.Blogs;

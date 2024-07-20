@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Blogging.Infrastructure.Data;
+namespace Infrastructure2.Data;
 public class AppDbContext : DbContext
 {
     public const string GlobalSequenceName = "General_seq"; // TODO: temporary
@@ -15,8 +15,15 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Blog> Blogs => Set<Blog>();
-    public DbSet<Article> Articles => Set<Article>();
+    public DbSet<Post> Posts => Set<Post>();        
+    public DbSet<PostComment> PostComments => Set<PostComment>();
+    public DbSet<PostCommentLike> PostCommentsLikes => Set<PostCommentLike>();
+    public DbSet<PostLike> PostLikes => Set<PostLike>();
+    public DbSet<PostSource> PostSources => Set<PostSource>();
     public DbSet<Source> Sources => Set<Source>();
+    public DbSet<SourceLike> SourceLikes => Set<SourceLike>();
+    public DbSet<SourceComment> SourceComments => Set<SourceComment>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

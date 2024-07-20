@@ -8,29 +8,29 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Blogging.Domain.Aggregates.Articles.ArticleComment">
+  <Class Name="Blogging.Domain.Aggregates.Posts.PostComment">
     <Position X="24.25" Y="4.5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAACgAAAAgABAAA=</HashCode>
-      <FileName>Domain\ArticleComment.cs</FileName>
+      <FileName>Domain\PostComment.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Likes" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Blogging.Domain.ArticleLike">
+  <Class Name="Blogging.Domain.PostLike">
     <Position X="10.5" Y="8.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAgAAAAAAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
-      <FileName>Domain\ArticleLike.cs</FileName>
+      <FileName>Domain\PostLike.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Blogging.Domain.Article">
+  <Class Name="Blogging.Domain.Post">
     <Position X="6.75" Y="0.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAjCghAFAgAEAMAAAAAAAQBEACAAAADhEBAAA=</HashCode>
-      <FileName>Domain\Article.cs</FileName>
+      <FileName>Domain\Post.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Likes" />
@@ -38,11 +38,11 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Blogging.Domain.ArticleSource">
+  <Class Name="Blogging.Domain.PostSource">
     <Position X="6" Y="8.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAgAAAAAAAAAA=</HashCode>
-      <FileName>Domain\ArticleSource.cs</FileName>
+      <FileName>Domain\PostSource.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Blogging.Domain.Source">
@@ -71,11 +71,11 @@
       <FileName>Domain\Base\CommentBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Blogging.Domain.Aggregates.Articles.ArticleCommentLike">
+  <Class Name="Blogging.Domain.Aggregates.Posts.PostCommentLike">
     <Position X="23.5" Y="8.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAABAAgAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Domain\ArticleCommentLike.cs</FileName>
+      <FileName>Domain\PostCommentLike.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Blogging.Domain.SourceLike">
@@ -85,11 +85,11 @@
       <FileName>Domain\SourceLike.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Enum Name="Blogging.Domain.ArticleState">
+  <Enum Name="Blogging.Domain.PostState">
     <Position X="11.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Domain\ArticleState.cs</FileName>
+      <FileName>Domain\PostState.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Blogging.Domain.SourceType">

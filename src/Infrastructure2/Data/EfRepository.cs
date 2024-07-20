@@ -1,7 +1,7 @@
 ﻿using Ardalis.SharedKernel;
 using Ardalis.Specification.EntityFrameworkCore;
 
-namespace Blogging.Infrastructure.Data;
+namespace Infrastructure2.Data;
 
 // inherit from Ardalis.Specification type
 public class EfRepository<T> : RepositoryBase<T>, IReadRepository<T>, IRepository<T> where T : class, IAggregateRoot

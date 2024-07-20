@@ -19,10 +19,19 @@ public class Source : TrackedEntity<int>, IAggregateRoot
     public SourceType Type { get; private set; } = SourceType.Unspecified;
     public string? Description { get; private set; } = default!;
     public string? Url { get; private set; } = default!;
-
+    public string? Image { get; private set; }
     public HashSet<string> Tags { get; private set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
     public IReadOnlyCollection<SourceLike> Likes => _likes.AsReadOnly();
+
+    public void UpdateImage(string? image)
+    {
+        if (Image == image) return;
+
+        Image = image;
+
+        RaiseEvent(new Events.SourceUpdated(this, nameof(Image)));
+    }
 
     public void AddTag(string tag)
     {

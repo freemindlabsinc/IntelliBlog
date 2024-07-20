@@ -1,4 +1,6 @@
-﻿namespace Blogging.Domain;
+﻿using System.Transactions;
+
+namespace Blogging.Domain;
 
 public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
@@ -70,24 +72,28 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         RaiseEvent(new Events.BlogUpdated(this, nameof(Notes)));
     }
 
-    public void GoOnline()
+    public bool GoOnline()
     {
-        if (IsOnline) return;
+        if (IsOnline) return false;
 
         IsOnline = true;
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(IsOnline)));
         RaiseEvent(new Events.BlogOnline(this));
+
+        return true;
     }
 
-    public void GoOffline()
+    public bool GoOffline()
     {
-        if (IsOnline == false) return;
+        if (IsOnline == false) return false;
 
         IsOnline = false;
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(IsOnline)));
         RaiseEvent(new Events.BlogOffline(this));
+
+        return true;
     }
 
     public void UpdateImage(string? image)

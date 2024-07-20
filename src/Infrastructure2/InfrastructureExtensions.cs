@@ -1,6 +1,6 @@
-﻿using Application.Interfaces;
-using Blogging.Infrastructure.Data;
-using Blogging.Infrastructure.Email;
+﻿using Blogging.Application.Interfaces;
+using Infrastructure2.Data;
+using Infrastructure2.Email;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 

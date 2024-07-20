@@ -11,6 +11,8 @@
     <PackageReference Include="Ardalis.Result" />
     <PackageReference Include="Ardalis.SharedKernel" />
     <PackageReference Include="MediatR.Contracts" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Blogging.Application.Interfaces;
+using Microsoft.Extensions.Logging;
 
-namespace Blogging.Infrastructure.Data;
+namespace Infrastructure2.Data;
 public class UnitOfWork(
     AppDbContext _dbContext,
     IMediator _mediator,

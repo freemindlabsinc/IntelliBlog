@@ -1,6 +1,4 @@
-﻿using Blogging.Domain.Aggregates.Sources;
-using Blogging.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace GraphQL.Sources;
 

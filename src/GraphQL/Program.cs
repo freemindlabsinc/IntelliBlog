@@ -1,6 +1,4 @@
-﻿using Blogging.Infrastructure.Data;
-
-[assembly: Module("Types")]
+﻿[assembly: Module("Types")]
 [assembly: DataLoaderDefaults(
     ServiceScope = DataLoaderServiceScope.DataLoaderScope,
     AccessModifier = DataLoaderAccessModifier.PublicInterface
@@ -15,8 +13,8 @@ builder.Services
     .AddGraphQLServer()
     .AddTypes()
     .AddFiltering()
-    .AddSorting()
-    .RegisterDbContext<AppDbContext>(DbContextKind.Resolver);
+    .AddSorting();
+    //.RegisterDbContext<AppDbContext>(DbContextKind.Resolver);
 
 var app = builder.Build();
 
