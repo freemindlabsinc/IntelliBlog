@@ -1,6 +1,6 @@
-﻿using Application.Articles.Commands.Create;
-using Application.Blogs.Commands.Create;
-using Ardalis.Result;
+﻿using Ardalis.Result;
+using Blogging.Application.Blogs.Commands;
+using Blogging.Application.Posts.Commands;
 using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.UseCases.Articles;
@@ -27,7 +27,7 @@ public partial class CreateArticleTests : IClassFixture<UnitOfWorkFixture>
     {
         var blogId = await CreateBlogAsync();
 
-        var cmd2 = new CreateArticleCommand(blogId, "A valid article", "A valid description", "A valid text");
+        var cmd2 = new CreatePostCommand(blogId, "A valid article", "A valid description", "A valid text");
         var result = await _fixture.Sender.Send(cmd2);
 
 

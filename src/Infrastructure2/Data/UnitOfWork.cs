@@ -32,7 +32,7 @@ public class UnitOfWork(
 
                 // --------
                 var entityEvents = _dbContext.ChangeTracker
-                    .Entries<DomainEventProducer>()
+                    .Entries<IDomainEventContainer>()
                     .Where(e => e.Entity.DomainEvents.Any())
                     .SelectMany(e => e.Entity.DomainEvents)
                     .ToArray();
@@ -59,7 +59,7 @@ public class UnitOfWork(
     public async Task<int> CompleteAsyncOLD(CancellationToken cancellationToken = default)
     {        
         var entityEvents = _dbContext.ChangeTracker
-            .Entries<DomainEventProducer>()
+            .Entries<IDomainEventContainer>()
             .Where(e => e.Entity.DomainEvents.Any())
             .SelectMany(e => e.Entity.DomainEvents)
             .ToArray();

@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Infrastructure2.Data.Migrations
+namespace Blogging.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240720190746_CreateDatabase")]
+    [Migration("20240720220053_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -38,9 +38,9 @@ namespace Infrastructure2.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
+                    b.Property<DateTimeOffset>("CreatedOn")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
                         .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("Description")
@@ -57,8 +57,8 @@ namespace Infrastructure2.Data.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -67,10 +67,6 @@ namespace Infrastructure2.Data.Migrations
 
                     b.Property<string>("Notes")
                         .HasMaxLength(-1)
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -91,9 +87,9 @@ namespace Infrastructure2.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
+                    b.Property<DateTimeOffset>("CreatedOn")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
                         .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("Description")
@@ -109,15 +105,11 @@ namespace Infrastructure2.Data.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<int>("State")
                         .HasColumnType("int");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
                         .HasMaxLength(-1)
@@ -200,9 +192,6 @@ namespace Infrastructure2.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ArticleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("LikedBy")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -211,7 +200,7 @@ namespace Infrastructure2.Data.Migrations
                     b.Property<DateTime>("LikedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PostId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -229,13 +218,10 @@ namespace Infrastructure2.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ArticleId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("LinkedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PostId")
+                    b.Property<int>("PostId")
                         .HasColumnType("int");
 
                     b.Property<int>("SourceId")
@@ -263,9 +249,9 @@ namespace Infrastructure2.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
+                    b.Property<DateTimeOffset>("CreatedOn")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetimeoffset")
                         .HasDefaultValueSql("GETUTCDATE()");
 
                     b.Property<string>("Description")
@@ -278,17 +264,13 @@ namespace Infrastructure2.Data.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset?>("LastModifiedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Tags")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -392,14 +374,18 @@ namespace Infrastructure2.Data.Migrations
                 {
                     b.HasOne("Blogging.Domain.Post", null)
                         .WithMany("Likes")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Blogging.Domain.PostSource", b =>
                 {
                     b.HasOne("Blogging.Domain.Post", null)
                         .WithMany("Sources")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Blogging.Domain.Source", null)
                         .WithMany()

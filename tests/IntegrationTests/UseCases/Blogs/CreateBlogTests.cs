@@ -1,5 +1,5 @@
-﻿using Application.Blogs.Commands.Create;
-using Ardalis.Result;
+﻿using Ardalis.Result;
+using Blogging.Application.Blogs.Commands;
 using FluentValidation;
 using Xunit.Abstractions;
 

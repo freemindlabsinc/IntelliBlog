@@ -9,6 +9,7 @@ public class BlogConfiguration : IEntityTypeConfiguration<Blog>
 
         builder.AddTrackedEntityConfiguration<Blog, int>();
 
+        
         // Entity
         builder.Property(p => p.Name)
                .HasMaxLength(DataSchemaConstants.DEFAULT_BLOG_NAME_LENGTH)

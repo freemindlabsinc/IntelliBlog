@@ -2,6 +2,7 @@
 using Ardalis.SharedKernel;
 using Blogging.Infrastructure;
 using Blogging.Infrastructure.Data;
+using Infrastructure2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

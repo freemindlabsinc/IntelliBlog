@@ -1,12 +1,10 @@
-﻿using Blogging.Domain.Aggregates.Articles;
-using Blogging.Domain.Aggregates.Blogs;
-using Blogging.Domain.Aggregates.Sources;
+﻿using Blogging.Domain;
 
 namespace Blogging.UnitTests.Domain;
 
 public class ArticleTests
 {
-    Article NewArticle() => Article.CreateNew(1, "Test Title");
+    Post NewArticle() => new Post(1, "Test Title");
 
     [Fact]
     public void Can_create_new_article()
@@ -14,7 +12,7 @@ public class ArticleTests
         const string title = "Test Title";
         const string description = "Test Description";
         const string text = "Test Text";
-        var article = Article.CreateNew(1, title, description, text);
+        var article = new Post(1, title, description, text);
 
         article.Title.Should().Be(title);
         article.Description.Should().Be(description);
@@ -28,7 +26,7 @@ public class ArticleTests
     [Fact]
     public void Can_add_tags()
     {
-        var article = Article.CreateNew(1, "Test Title");
+        var article = new Post(1, "Test Title");
 
         const string tag1 = "Tag 1";
         const string tag2 = "Tag 2";
@@ -36,8 +34,8 @@ public class ArticleTests
         article.AddTags(tag1, tag2);
 
         article.Tags.Should().HaveCount(2);
-        article.Tags.First().Name.Should().Be(tag1);
-        article.Tags.Last().Name.Should().Be(tag2);
+        article.Tags.First().Should().Be(tag1);
+        article.Tags.Last().Should().Be(tag2);
     }
 
     [Fact]
@@ -48,14 +46,14 @@ public class ArticleTests
         var source1 = 100;
         var source2 = 101;
 
-        article.AddSource(source1);
-        article.AddSource(source2);
+        article.AddSources(source1);
+        article.AddSources(source2);
         
         article.Sources.Should().HaveCount(2);
         var arr = article.Sources.ToArray();
-        arr[0].ArticleId.Should().Be(article.Id);
+        arr[0].PostId.Should().Be(article.Id);
         arr[0].SourceId.Should().Be(source1);
-        arr[1].ArticleId.Should().Be(article.Id);
+        arr[1].PostId.Should().Be(article.Id);
         arr[1].SourceId.Should().Be(source2);
     }
 
@@ -74,7 +72,7 @@ public class ArticleTests
     [Fact]
     public void Cannot_create_article_with_empty_title()
     {
-        Action action = () => Article.CreateNew(1, string.Empty);
+        Action action = () => new Post(1, string.Empty);
         
         action.Should().Throw<ArgumentException>();
     }
@@ -94,7 +92,7 @@ public class ArticleTests
     {
         var article = NewArticle();
         
-        var comment1 = ArticleComment.CreateNew(article.Id, "Comment 1", "user1");
+        var comment1 = new PostComment(article.Id, "Comment 1", "user1");
         
 
     }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Infrastructure2.Data.Migrations
+namespace Blogging.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
     public partial class CreateDatabase : Migration
@@ -25,10 +25,9 @@ namespace Infrastructure2.Data.Migrations
                     Notes = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     IsOnline = table.Column<bool>(type: "bit", nullable: false),
-                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -48,10 +47,9 @@ namespace Infrastructure2.Data.Migrations
                     IsPublished = table.Column<bool>(type: "bit", nullable: false),
                     State = table.Column<int>(type: "int", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -76,10 +74,9 @@ namespace Infrastructure2.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
                     Url = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETUTCDATE()"),
+                    CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -122,10 +119,9 @@ namespace Infrastructure2.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    PostId = table.Column<int>(type: "int", nullable: false),
                     LikedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LikedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: true)
+                    LikedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,7 +130,8 @@ namespace Infrastructure2.Data.Migrations
                         name: "FK_PostLikes_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -143,10 +140,9 @@ namespace Infrastructure2.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ArticleId = table.Column<int>(type: "int", nullable: false),
+                    PostId = table.Column<int>(type: "int", nullable: false),
                     SourceId = table.Column<int>(type: "int", nullable: false),
-                    LinkedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: true)
+                    LinkedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,7 +151,8 @@ namespace Infrastructure2.Data.Migrations
                         name: "FK_PostSources_Posts_PostId",
                         column: x => x.PostId,
                         principalTable: "Posts",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PostSources_Sources_SourceId",
                         column: x => x.SourceId,

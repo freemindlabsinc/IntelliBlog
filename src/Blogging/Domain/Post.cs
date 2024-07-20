@@ -23,7 +23,7 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
     public PostState State { get; private set; }
     public string? Image { get; private set; }
 
-    public ISet<string> Tags { get; private set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    public IReadOnlyCollection<string> Tags => _tags.AsReadOnly();
 
     public IReadOnlyCollection<PostSource> Sources => _sources.AsReadOnly();    
     public IReadOnlyCollection<PostLike> Likes => _likes.AsReadOnly();
@@ -88,33 +88,23 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
         Text = text;
 
         RaiseEvent(new Events.PostUpdated(this, nameof(Text)));
-    }    
-    public int AddTags(params string[] tags)
+    }
+    public void AddTags(params string[] tags)
     {
-        var result = 0;
         var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
-        foreach (var item in goodTags)
-        {
-            if (Tags.Add(item)) result++;
-        }
+        _tags = _tags.Union(goodTags)
+                     .Distinct(StringComparer.OrdinalIgnoreCase)
+                     .ToList();
 
         RaiseEvent(new Events.PostUpdated(this, nameof(Tags)));
-
-        return result;
     }
 
-    public int RemoveTags(params string[] tags)
+    public void RemoveTags(params string[] tags)
     {
-        var result = 0;
-        foreach (var tag in tags)
-        {
-            if (Tags.Remove(tag)) result++;
-        }
-        
-        RaiseEvent(new Events.PostUpdated(this, nameof(Tags)));
+        _tags = _tags.Except(tags, StringComparer.OrdinalIgnoreCase).ToList();
 
-        return result;
+        RaiseEvent(new Events.PostUpdated(this, nameof(Tags)));
     }
 
     public void AddSources(params int[] sourceIds)
@@ -169,6 +159,7 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
 
     private readonly List<PostSource> _sources = new List<PostSource>();
     private readonly List<PostLike> _likes = new List<PostLike>();
+    private IList<string> _tags = new List<string>();
 
     private Post() { } // For Entity Framework
 }

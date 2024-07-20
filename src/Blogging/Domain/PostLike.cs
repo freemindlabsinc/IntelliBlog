@@ -5,7 +5,7 @@ public sealed class PostLike : Entity<int>
     internal PostLike(int postId, string likedBy)
     {
         PostId = postId; // Once-setter
-        LikedBy = Guard.Against.NullOrEmpty(LikedBy, nameof(likedBy)); // Once-setter
+        LikedBy = Guard.Against.NullOrEmpty(likedBy, nameof(likedBy)); // Once-setter
     }
 
     public int PostId { get; private set; } = default!;

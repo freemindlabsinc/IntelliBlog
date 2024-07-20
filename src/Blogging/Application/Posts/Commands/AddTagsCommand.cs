@@ -23,7 +23,7 @@ internal class AddTagsCommandHandler(IRepository<Post> _repository)
             return Result.NotFound();
         }
 
-        var removedTags = Post.RemoveTags(command.NewTags);
+        Post.RemoveTags(command.NewTags);
 
         await _repository.UpdateAsync(Post, cancellationToken);
 

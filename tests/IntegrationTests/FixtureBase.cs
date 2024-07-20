@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using Xunit.Abstractions;
-using Blogging.Infrastructure;
 using Blogging.IntegrationTests._garbage;
 using MediatR;
 

@@ -1,6 +1,4 @@
 ﻿using Ardalis.SharedKernel;
-using Blogging.Domain.Aggregates.Articles;
-using Blogging.Domain.Aggregates.Blogs;
 using Blogging.Infrastructure.Data;
 using Blogging.IntegrationTests.UseCases;
 using MediatR;

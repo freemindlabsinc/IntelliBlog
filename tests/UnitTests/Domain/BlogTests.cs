@@ -1,4 +1,4 @@
-﻿using Blogging.Domain.Aggregates.Blogs;
+﻿using Blogging.Domain;
 
 namespace Blogging.UnitTests.Domain;
 
@@ -9,22 +9,19 @@ public class BlogTests
     {
         const string name = "Test Blog";
         const string description = "Test Description";
-        const string smallImage = "Test Small Image";
         const string image = "Test Image";
         const string notes = "Test Notes";
 
-        var blog = Blog.CreateNew(
+        var blog = new Blog(
             name: name,
             description: description,
-            smallImage: smallImage,
-            image: image,
+            image: image,            
             notes: notes);
 
         blog.Name.Should().Be(name);
         blog.Description.Should().Be(description);
-        blog.SmallImage.Should().Be(smallImage);
         blog.Image.Should().Be(image);
-        blog.IsPublished.Should().Be(false);
+        blog.IsOnline.Should().Be(false);
         blog.Notes.Should().Be(notes);       
     }    
 }

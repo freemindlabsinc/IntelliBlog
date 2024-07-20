@@ -1,4 +1,4 @@
-﻿using Blogging.Domain.Services;
+﻿using Blogging.Application.Interfaces;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 

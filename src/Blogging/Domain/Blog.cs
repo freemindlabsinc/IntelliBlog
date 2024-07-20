@@ -1,6 +1,4 @@
-﻿using System.Transactions;
-
-namespace Blogging.Domain;
+﻿namespace Blogging.Domain;
 
 public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
@@ -21,34 +19,22 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public string? Notes { get; private set; }
     public string? Image { get; private set; }
     public bool IsOnline { get; private set; }
-    public ISet<string> Tags { get; private set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    public IReadOnlyCollection<string> Tags => _tags.AsReadOnly();
 
-    public int AddTags(params string[] tags)
+    public void AddTags(params string[] tags)
     {
-        var result = 0;
         var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
-        foreach (var item in goodTags)
-        {
-            if (Tags.Add(item)) result++;            
-        }
+        _tags = _tags.Intersect(goodTags, StringComparer.OrdinalIgnoreCase).ToList();
 
-        if (result > 0) RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
-
-        return result;
+        RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
 
-    public int RemoveTags(params string[] tags)
+    public void RemoveTags(params string[] tags)
     {
-        var result = 0;
-        foreach (var tag in tags)
-        {
-            if (Tags.Remove(tag)) result++;            
-        }
-
-        if (result > 0) RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
-
-        return result;
+        _tags = _tags.Except(tags, StringComparer.OrdinalIgnoreCase).ToList();
+        
+        RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
 
     public void UpdateName(string name)
@@ -110,6 +96,8 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(Image)));
     }
+
+    private IList<string> _tags = new List<string>();
 
     //private Blog() { } // For Entity Framework
 }

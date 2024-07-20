@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Blogging.Infrastructure.Data;
+using Infrastructure2.Data;
 
 namespace Blogging.IntegrationTests.Data;
 

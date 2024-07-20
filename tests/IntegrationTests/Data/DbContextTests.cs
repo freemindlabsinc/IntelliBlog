@@ -1,8 +1,4 @@
-﻿using Blogging.Domain.Aggregates.Articles;
-using Blogging.Domain.Aggregates.Blogs;
-using Blogging.Domain.Aggregates.Sources;
-using Blogging.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Infrastructure2.Data;
 using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.Data;

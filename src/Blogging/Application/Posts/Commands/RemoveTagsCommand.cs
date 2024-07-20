@@ -15,11 +15,11 @@ public class RemoveTagsCommandHandler(IRepository<Post> _repository)
             return Result.NotFound();
         }
         
-        var removedTagsCount = post.RemoveTags(command.TagsToRemove);
+        post.RemoveTags(command.TagsToRemove);
 
         await _repository.UpdateAsync(post, cancellationToken);
 
-        return Result.Success(removedTagsCount);
+        return Result.Success();
     }
 }
 

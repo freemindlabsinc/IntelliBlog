@@ -20,9 +20,27 @@ public class Source : TrackedEntity<int>, IAggregateRoot
     public string? Description { get; private set; } = default!;
     public string? Url { get; private set; } = default!;
     public string? Image { get; private set; }
-    public HashSet<string> Tags { get; private set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
+    
     public IReadOnlyCollection<SourceLike> Likes => _likes.AsReadOnly();
+
+    public IReadOnlyCollection<string> Tags => _tags.AsReadOnly();
+
+    public void AddTags(params string[] tags)
+    {
+        var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
+
+        _tags = _tags.Intersect(goodTags, StringComparer.OrdinalIgnoreCase).ToList();
+
+        RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
+    }
+
+    public void RemoveTags(params string[] tags)
+    {
+        _tags = _tags.Except(tags, StringComparer.OrdinalIgnoreCase).ToList();
+
+        RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
+    }
+
 
     public void UpdateImage(string? image)
     {
@@ -31,38 +49,7 @@ public class Source : TrackedEntity<int>, IAggregateRoot
         Image = image;
 
         RaiseEvent(new Events.SourceUpdated(this, nameof(Image)));
-    }
-
-    public int AddTags(params string[] tags)
-    {
-        var result = 0;
-        var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
-        foreach (var item in goodTags)
-        {
-            if (Tags.Add(item)) 
-                result++;
-        }
-
-        if (result > 0)
-            RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
-
-        return result;
-    }
-
-    public int RemoveTags(params string[] tags)
-    {
-        var result = 0;
-        foreach (var tag in tags)
-        {
-            if (Tags.Remove(tag)) 
-                result++;
-        }
-
-        if (result > 0) 
-            RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
-
-        return result;
-    }
+    }  
 
     public void SetType(SourceType type)
     {
@@ -125,6 +112,7 @@ public class Source : TrackedEntity<int>, IAggregateRoot
     }
 
     private readonly List<SourceLike> _likes = new List<SourceLike>();
+    private IList<string> _tags = new List<string>();
 
     // For Entity Framework
     private Source() { }
