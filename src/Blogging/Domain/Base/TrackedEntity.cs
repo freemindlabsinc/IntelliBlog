@@ -1,15 +1,15 @@
-﻿namespace Blogging.Domain;
+﻿namespace Blogging.Domain.Base;
 
-public abstract class TrackedEntity<TId>(): Entity<TId>
+public abstract class TrackedEntity<TId>() : Entity<TId>
     where TId : struct, IEquatable<TId>
 {
     public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
 
     public string? CreatedBy { get; private set; } = default!;
 
-    public DateTime? LastModifiedOn { get; private set; }    
+    public DateTime? LastModifiedOn { get; private set; }
 
-    public string? LastModifiedBy { get; private set; }    
+    public string? LastModifiedBy { get; private set; }
 }
 
 // I thought about adding a SetCreatedBy( and ), SetLastModifiedBy(), etc. methods to the TrackedEntity

@@ -1,6 +1,6 @@
-﻿namespace Blogging.Domain;
+﻿namespace Blogging.Domain.Base;
 
-public abstract class DomainEventNotifier
+public abstract class DomainEventProducer
 {
     private List<INotification> _domainEvents = new();
 
