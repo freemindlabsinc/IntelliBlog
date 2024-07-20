@@ -2,7 +2,6 @@
 global using Ardalis.GuardClauses;
 global using Ardalis.SharedKernel;
 global using MediatR;
-global using System.Collections.Generic;
 global using Blogging.Domain.Base;
 global using FluentValidation;
 global using Microsoft.Extensions.Logging;

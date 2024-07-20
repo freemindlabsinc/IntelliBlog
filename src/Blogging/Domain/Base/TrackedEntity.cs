@@ -1,22 +1,34 @@
 ﻿namespace Blogging.Domain.Base;
 
-public abstract class TrackedEntity<TId>() : Entity<TId>
+public abstract class TrackedEntity<TId>() : Entity<TId>, ITrackedEntity
     where TId : struct, IEquatable<TId>
 {
-    public DateTime CreatedOn { get; private set; } = DateTime.UtcNow;
+    public DateTimeOffset CreatedOn { get; private set; }
 
-    public string? CreatedBy { get; private set; } = default!;
+    public string? CreatedBy { get; private set; }
 
-    public DateTime? LastModifiedOn { get; private set; }
+    public DateTimeOffset? LastModifiedOn { get; private set; }
 
     public string? LastModifiedBy { get; private set; }
+
+    void ITrackedEntity.SetCreated(DateTimeOffset createdOn, string createdBy)
+    {
+        CreatedBy = Guard.Against.NullOrEmpty(createdBy, nameof(createdBy));
+        CreatedOn = createdOn;
+
+        // Resets the other properties
+        LastModifiedBy = null;
+        LastModifiedOn = null;
+    }
+
+    void ITrackedEntity.SetLastModified(DateTimeOffset lastModifiedOn, string lastModifiedBy)
+    {
+        if (CreatedOn == default || CreatedBy == null)
+        {
+            throw new InvalidOperationException($"{nameof(ITrackedEntity.SetCreated)} must be called before {nameof(ITrackedEntity.SetLastModified)}.");
+        }
+        
+        LastModifiedBy = Guard.Against.NullOrEmpty(lastModifiedBy, nameof(lastModifiedBy));
+        LastModifiedOn = lastModifiedOn;
+    }
 }
-
-// I thought about adding a SetCreatedBy( and ), SetLastModifiedBy(), etc. methods to the TrackedEntity
-// class, but I don't believe that's the right place for them.
-// We want date-stamps to be generated at the repository-level so that
-// the values are consistent across all containers.
-// In addition, CreatedBy and LastModifiedBy can be populated by taking the current user's
-// identity from the HttpContext.
-// Either the Mediator pipeline or EF mappings will handle this.
-

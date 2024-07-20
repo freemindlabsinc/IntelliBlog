@@ -23,26 +23,32 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public bool IsOnline { get; private set; }
     public ISet<string> Tags { get; private set; } = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-    public void AddTags(params string[] tags)
+    public int AddTags(params string[] tags)
     {
+        var result = 0;
         var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
         foreach (var item in goodTags)
         {
-            Tags.Add(item);
+            if (Tags.Add(item)) result++;            
         }
 
-        RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
+        if (result > 0) RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
+
+        return result;
     }
 
-    public void RemoveTags(params string[] tags)
+    public int RemoveTags(params string[] tags)
     {
+        var result = 0;
         foreach (var tag in tags)
         {
-            Tags.Remove(tag);
+            if (Tags.Remove(tag)) result++;            
         }
 
-        RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
+        if (result > 0) RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
+
+        return result;
     }
 
     public void UpdateName(string name)

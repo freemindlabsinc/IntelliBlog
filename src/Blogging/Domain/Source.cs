@@ -33,18 +33,35 @@ public class Source : TrackedEntity<int>, IAggregateRoot
         RaiseEvent(new Events.SourceUpdated(this, nameof(Image)));
     }
 
-    public void AddTag(string tag)
+    public int AddTags(params string[] tags)
     {
-        Guard.Against.NullOrWhiteSpace(tag, nameof(tag));
+        var result = 0;
+        var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
+        foreach (var item in goodTags)
+        {
+            if (Tags.Add(item)) 
+                result++;
+        }
 
-        if (Tags.Add(tag)) RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
+        if (result > 0)
+            RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
+
+        return result;
     }
 
-    public void RemoveTag(string tag)
+    public int RemoveTags(params string[] tags)
     {
-        Guard.Against.NullOrWhiteSpace(tag, nameof(tag));
+        var result = 0;
+        foreach (var tag in tags)
+        {
+            if (Tags.Remove(tag)) 
+                result++;
+        }
 
-        if (Tags.Remove(tag)) RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
+        if (result > 0) 
+            RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
+
+        return result;
     }
 
     public void SetType(SourceType type)

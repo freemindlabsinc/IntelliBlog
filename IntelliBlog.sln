@@ -32,11 +32,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frontend", "src\Frontend\Fr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aspire", "aspire", "{DFE86AB0-C876-4C1C-AE22-3632188A3FCC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQL", "src\GraphQL\GraphQL.csproj", "{473BFAFF-F334-4825-90F9-4575E9C48250}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "src\GraphQL\API.csproj", "{473BFAFF-F334-4825-90F9-4575E9C48250}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogging", "src\Blogging\Blogging.csproj", "{A91F42AD-41EE-4950-A0AB-D91544EC2D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure2", "src\Infrastructure2\Infrastructure2.csproj", "{89F820C7-B6C8-4AA6-87A2-4DBC1D95F8EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogging.Infrastructure", "src\Infrastructure2\Blogging.Infrastructure.csproj", "{89F820C7-B6C8-4AA6-87A2-4DBC1D95F8EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

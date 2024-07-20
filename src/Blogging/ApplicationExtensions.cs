@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.InteropServices;
 using Blogging.Application.Behaviors;
 using FluentValidation;
 //using Microsoft.Extensions.Hosting;
@@ -26,7 +27,18 @@ public static class ApplicationExtensions
 
         // Domain Event Dispatcher (DDD)
         services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
+        services.AddSingleton(TimeProvider.System);
+
+        services.AddScoped<IUser>(sp => 
+        {             
+            return new User("APPLICATION");
+        });
 
         return services;
+    }
+
+    internal class User(string? id) : IUser
+    {
+        public string? Id { get; } = id;
     }
 }

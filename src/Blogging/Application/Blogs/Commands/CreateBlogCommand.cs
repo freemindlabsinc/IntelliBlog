@@ -7,7 +7,9 @@
 /// <param name="Description"></param>
 public readonly record struct CreateBlogCommand(
     string Name,
-    string? Description = default)
+    string? Description = default,
+    string? Image = default,
+    string? Notes = default)
 
     : ICommand<Result<int>>
 {
