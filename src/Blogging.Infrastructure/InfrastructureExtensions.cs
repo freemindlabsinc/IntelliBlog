@@ -1,4 +1,5 @@
 ﻿using Blogging.Application.Interfaces;
+using Blogging.Domain.Interfaces;
 using Infrastructure2.Data;
 using Infrastructure2.Email;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,8 @@ public static class InfrastructureExtensions
         // Repositories
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
         services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+
+        services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
 
         // Unit of work
         services.AddScoped<IUnitOfWork, UnitOfWork>();

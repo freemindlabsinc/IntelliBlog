@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 using Blogging.Application.Behaviors;
+using Blogging.Domain.Interfaces;
 using FluentValidation;
 //using Microsoft.Extensions.Hosting;
 

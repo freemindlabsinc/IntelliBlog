@@ -14,7 +14,7 @@ internal class CreateBlogCommandHandler(
             image: command.Image,
             notes: command.Notes);
 
-        await _repository.AddAsync(blog, cancellationToken);        
+        await _repository.AddAsync(blog, cancellationToken);
 
         return Result.Success(blog.Id);
     }

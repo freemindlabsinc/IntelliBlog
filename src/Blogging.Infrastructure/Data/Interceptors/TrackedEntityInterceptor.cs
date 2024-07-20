@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using Blogging.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
