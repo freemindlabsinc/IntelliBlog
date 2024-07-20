@@ -14,10 +14,6 @@
     <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" />
     <!--PackageReference Include="SQLite" /-->
   </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-  </ItemGroup>
 
   <ItemGroup>
     <!-- These are referenced by most files in this project -->
