@@ -32,7 +32,7 @@ public sealed class Article : TrackedEntity<int>, IAggregateRoot
 
     public IReadOnlyCollection<ArticleTag> Tags => _tags.AsReadOnly();
     public IReadOnlyCollection<ArticleSource> Sources => _sources.AsReadOnly();
-    public IReadOnlyCollection<ArticleComment> Comments => _comments.AsReadOnly();
+    //public IReadOnlyCollection<ArticleComment> Comments => _comments.AsReadOnly();
     public IReadOnlyCollection<ArticleLike> Likes => _likes.AsReadOnly();
 
     public void MarkDeleted()
@@ -136,20 +136,20 @@ public sealed class Article : TrackedEntity<int>, IAggregateRoot
         RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Sources)));
     }
 
-    public void AddComment(string text, string commentedBy)
-    {
-        var comment = ArticleComment.CreateNew(Id, text, commentedBy);
-        _comments.Add(comment);
-
-        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Comments)));
-    }
-
-    public void RemoveComment(ArticleComment comment)
-    {
-        _comments.Remove(comment);
-
-        RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Comments)));
-    }
+    //public void AddComment(string text, string commentedBy)
+    //{
+    //    var comment = ArticleComment.CreateNew(Id, text, commentedBy);
+    //    _comments.Add(comment);
+    //
+    //    RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Comments)));
+    //}
+    //
+    //public void RemoveComment(ArticleComment comment)
+    //{
+    //    _comments.Remove(comment);
+    //
+    //    RegisterDomainEvent(new ArticleUpdatedEvent(this, nameof(Comments)));
+    //}
 
     public void Like(string likeUserId)
     {

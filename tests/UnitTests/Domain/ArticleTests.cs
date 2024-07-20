@@ -88,4 +88,14 @@ public class ArticleTests
 
         action.Should().Throw<ArgumentException>();
     }
+
+    [Fact]
+    public void Can_add_comment()
+    {
+        var article = NewArticle();
+        
+        var comment1 = ArticleComment.CreateNew(article.Id, "Comment 1", "user1");
+        
+
+    }
 }

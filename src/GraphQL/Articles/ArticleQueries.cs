@@ -16,9 +16,9 @@ public static class ArticleQueries
         [Service(ServiceKind.Synchronized)] AppDbContext db)
     {
         PagedArticlesSpec spec = new PagedArticlesSpec(null, null, null, PagedArticlesSpec.ArticleIncludes.All);
-        
 
-        return db.Articles.Include(x => x.Sources).Include(x => x.Comments);
+
+        return db.Articles.Include(x => x.Sources);//.Include(x => x.Comments);
     }
     
     public static async Task<Article?> GetArticleById(

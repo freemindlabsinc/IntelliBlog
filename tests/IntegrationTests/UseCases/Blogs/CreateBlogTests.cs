@@ -19,7 +19,7 @@ public class CreateBlogTests : IClassFixture<UnitOfWorkFixture>
     [Fact]
     public async Task Can_create_valid_blog()
     {
-        var cmd = new CreateBlogCommand("A valid blog"); 
+        var cmd = new CreateBlogCommand("A valid blog");
         var result = await _fixture.Sender.Send(cmd);
 
         result.IsSuccess.Should().BeTrue();
@@ -33,5 +33,5 @@ public class CreateBlogTests : IClassFixture<UnitOfWorkFixture>
         Func<Task<Result<int>>> func = () => _fixture.Sender.Send(cmd);
 
         await func.Should().ThrowAsync<ValidationException>();
-    }    
+    }
 }

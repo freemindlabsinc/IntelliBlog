@@ -1,6 +1,4 @@
-﻿using Blogging.Domain.Aggregates.Blogs.Events;
-
-namespace Blogging.Domain.Aggregates.Blogs;
+﻿namespace Blogging.Domain.Blogs;
 public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
     public static Blog CreateNew(
@@ -17,8 +15,8 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         blog.UpdateImage(image);
         blog.UpdateNotes(notes);
 
-        blog.ClearDomainEvents();
-        blog.RegisterDomainEvent(new BlogCreatedEvent(blog));
+        //blog.ClearDomainEvents();
+        blog.RaiseEvent(new BlogCreatedEvent(blog));
         return blog;
     }
 
@@ -29,11 +27,10 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public string? Image { get; private set; }
     public string? SmallImage { get; private set; }
     public bool IsPublished { get; private set; }
-    public ISet<string> Tags { get; private set; } = new HashSet<string>();
 
     public void MarkDeleted()
     {
-        RegisterDomainEvent(new BlogDeletedEvent(this));
+        RaiseEvent(new BlogDeletedEvent(this));
     }
     public void UpdateName(string name)
     {
@@ -43,7 +40,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         Name = name;
 
-        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Name)));
+        RaiseEvent(new BlogUpdatedEvent(this, nameof(Name)));
     }
 
     public void UpdateDescription(string? description)
@@ -52,7 +49,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         Description = description;
 
-        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Description)));
+        RaiseEvent(new BlogUpdatedEvent(this, nameof(Description)));
     }
 
     public void UpdateNotes(string? notes)
@@ -61,7 +58,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         Notes = notes;
 
-        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Notes)));
+        RaiseEvent(new BlogUpdatedEvent(this, nameof(Notes)));
     }
 
     public void Publish()
@@ -70,7 +67,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         IsPublished = true;
 
-        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(IsPublished)));
+        RaiseEvent(new BlogUpdatedEvent(this, nameof(IsPublished)));
     }
 
     public void Unpublish()
@@ -79,7 +76,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         IsPublished = false;
 
-        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(IsPublished)));
+        RaiseEvent(new BlogUpdatedEvent(this, nameof(IsPublished)));
     }
 
     public void UpdateImage(string? image)
@@ -88,7 +85,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         Image = image;
 
-        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(Image)));
+        RaiseEvent(new BlogUpdatedEvent(this, nameof(Image)));
     }
 
     public void UpdateSmallImage(string? smallImage)
@@ -97,7 +94,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         SmallImage = smallImage;
 
-        RegisterDomainEvent(new BlogUpdatedEvent(this, nameof(SmallImage)));
+        RaiseEvent(new BlogUpdatedEvent(this, nameof(SmallImage)));
     }
 
     private Blog() { } // For Entity Framework

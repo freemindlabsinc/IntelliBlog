@@ -28,8 +28,8 @@ public class PagedArticlesSpec : Specification<Article>
         if (includes.HasFlag(ArticleIncludes.Sources))
             Query.Include(article => article.Sources);
 
-        if (includes.HasFlag(ArticleIncludes.Comments))
-            Query.Include(article => article.Comments);
+        //if (includes.HasFlag(ArticleIncludes.Comments))
+        //    Query.Include(article => article.Comments);
 
         // TODO implement filter
     }

@@ -2,7 +2,7 @@
 
 public sealed class ArticleComment : CommentBase
 {
-    internal static ArticleComment CreateNew(        
+    public static ArticleComment CreateNew(        
         int articleId,
         string text,
         string commentedBy)
