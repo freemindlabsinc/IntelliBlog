@@ -8,7 +8,7 @@ internal class CreateSourceCommandHandler(
     {
         var source = new Source(command.BlogId, command.Name, command.Url, command.Description);
 
-        await _repository.CreateAsync(source, cancellationToken);
+        await _repository.AddAsync(source, cancellationToken);
 
         return Result<int>.Success(source.Id);
     }

@@ -15,7 +15,7 @@ internal class CreatePostCommandHandler(
             Post.AddTags(command.Tags);
         }
 
-        await _repository.CreateAsync(Post, cancellationToken);
+        await _repository.AddAsync(Post, cancellationToken);
 
         return Result.Success(Post.Id);
     }

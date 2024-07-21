@@ -13,7 +13,7 @@ public interface IEntityRepository<TAggregateRoot>
     IQueryable<TAggregateRoot> Source { get; }
 
     /// <summary>
-    /// Gets an aggregate by its id.
+    /// Gets an aggregate root by its id.
     /// </summary>
     /// <typeparam name="TId"></typeparam>
     /// <param name="id"></param>
@@ -23,15 +23,15 @@ public interface IEntityRepository<TAggregateRoot>
         where TId : struct, IEquatable<TId>;
 
     /// <summary>
-    /// Persists a new aggregate.
+    /// Persists a new aggregate root.
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<TAggregateRoot> CreateAsync(TAggregateRoot entity, CancellationToken cancellationToken = default);
+    Task<TAggregateRoot> AddAsync(TAggregateRoot entity, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Updates an existing aggregate.
+    /// Updates an existing aggregate root.
     /// </summary>
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
@@ -39,19 +39,12 @@ public interface IEntityRepository<TAggregateRoot>
     Task<Result<TAggregateRoot>> UpdateAsync(TAggregateRoot entity, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Deletes an existing aggregate.
+    /// Deletes an existing aggregate root.
     /// </summary>
     /// <typeparam name="TId"></typeparam>
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     Task<Result<int>> DeleteAsync<TId>(TId entity, CancellationToken cancellationToken = default)
-        where TId : struct;
-
-    /// <summary>
-    /// Persists all changes made to the aggregate.
-    /// </summary>
-    /// <param name="cancellationToken"></param>
-    /// <returns></returns>
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        where TId : struct;    
 }

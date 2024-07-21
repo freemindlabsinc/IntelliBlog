@@ -3,21 +3,14 @@ using Blogging.Domain.Interfaces;
 
 namespace Blogging.Infrastructure.Data;
 
-public class EntityRepository<T> : IEntityRepository<T>
+public sealed class EntityRepository<T>(BloggingDbContext _dbContext) : IEntityRepository<T>
     where T : Entity, IAggregateRoot
 {
-    private readonly BloggingDbContext _dbContext;
-    
-    public EntityRepository(BloggingDbContext dbContext)
-    {
-        _dbContext = dbContext;        
-    }
-
     public IQueryable<T> Source => _dbContext.Set<T>();
 
     public async Task<Result<T>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct, IEquatable<TId>
     {
-        var entity = await _dbContext.Set<T>().FindAsync(id);
+        var entity = await _dbContext.Set<T>().FindAsync(id, cancellationToken);
 
         if (entity == null)
             return Result.NotFound();
@@ -25,12 +18,12 @@ public class EntityRepository<T> : IEntityRepository<T>
         return Result<T>.Success(entity);
     }
 
-    public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken)
+    public async Task<T> AddAsync(T entity, CancellationToken cancellationToken)
     {
         _dbContext.Set<T>()
                   .Add(entity);
 
-        await SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         return entity;
     }
@@ -38,7 +31,7 @@ public class EntityRepository<T> : IEntityRepository<T>
     public async Task<Result<int>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken)
         where TId : struct
     {
-        var entity = await _dbContext.Set<T>().FindAsync(id);
+        var entity = await _dbContext.Set<T>().FindAsync(id, cancellationToken);
 
         if (entity == null) 
             return Result.NotFound();
@@ -46,7 +39,7 @@ public class EntityRepository<T> : IEntityRepository<T>
         _dbContext.Set<T>()
                   .Remove(entity);
 
-        var changes = await SaveChangesAsync(cancellationToken);
+        var changes = await _dbContext.SaveChangesAsync(cancellationToken);
 
         return Result.Success(changes);
     }
@@ -58,13 +51,8 @@ public class EntityRepository<T> : IEntityRepository<T>
         if (entity == null)
             return Result.NotFound();
 
-        await SaveChangesAsync(cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
 
         return Result<T>.Success(entity);
-    }
-
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        return _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

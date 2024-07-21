@@ -1,5 +1,6 @@
 ﻿namespace Blogging.Infrastructure.Data;
 
+// TODO messy. 
 public static class EntityConfigurationExtensions
 {
     public static PropertyBuilder<TId> AddSequenceForId<TEntity, TId>(this EntityTypeBuilder<TEntity> builder)

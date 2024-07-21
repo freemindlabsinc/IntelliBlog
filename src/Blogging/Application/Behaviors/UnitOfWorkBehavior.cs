@@ -1,6 +1,4 @@
-﻿using Blogging.Application.Interfaces;
-
-namespace Blogging.Application.Behaviors;
+﻿namespace Blogging.Application.Behaviors;
 
 public class UnitOfWorkBehavior<TRequest, TResponse>(
     IUnitOfWork _unitOfWork,
@@ -24,6 +22,7 @@ public class UnitOfWorkBehavior<TRequest, TResponse>(
         }
         catch (Exception ex)
         {
+            // TODO improve this
             _logger.LogError(ex, "Error handling {CommandName}", typeof(TRequest).Name);
             throw;
         }

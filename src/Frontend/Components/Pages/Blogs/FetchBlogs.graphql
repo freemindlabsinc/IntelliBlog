@@ -1,0 +1,20 @@
+query FetchBlogs(
+  $first: Int = 5, 
+  $after: String, 
+  $where: BlogFilterInput, 
+  $order: [BlogSortInput!]) {
+  blogs(first: $first, after: $after, where: $where, order: $order) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      id
+      name
+      description
+      image
+      isOnline
+      tags      
+    }
+  }
+}

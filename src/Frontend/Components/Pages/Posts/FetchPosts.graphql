@@ -1,4 +1,4 @@
-﻿query GetData($maxRows: Int=10) {
+﻿query FetchPosts($maxRows: Int=10) {
   posts(first: $maxRows) {
     nodes {
       id      

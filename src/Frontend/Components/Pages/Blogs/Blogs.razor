@@ -1,19 +1,19 @@
-﻿@page "/articles"
+﻿@page "/blogs"
 @rendermode InteractiveServer
-@inject GraphQLServer.GetDataQuery Query
+@inject Frontend.FetchBlogsQuery Query
 
-<PageTitle>My Articles</PageTitle>
+<PageTitle>My Blogs</PageTitle>
 
-@if (articles == null)
+@if (blogs == null)
 {
-    <p><em>Loading Articles...</em></p>
+    <p><em>Loading Blogs...</em></p>
 }
 else
 {
-    <FluentNumberField @bind-Value="_maxArticles" Label="Max Articles" />
+    <FluentNumberField @bind-Value="_max" Label="Max Blogs" />
     <FluentButton OnClick="@FetchData">Refresh</FluentButton>
 
-       @foreach (var a in articles!)
+       @foreach (var a in blogs!)
        {                
            <FluentCard MinimalStyle="true" Height="200px">                    
                <FluentBadge Appearance="Appearance.Accent">
@@ -21,7 +21,7 @@ else
                </FluentBadge>
 
                <FluentBadge Appearance="Appearance.Lightweight">
-                   @a.Title
+                   @a.Name
                </FluentBadge>
 
                <FluentBadge Appearance="Appearance.Neutral">
@@ -30,8 +30,8 @@ else
                
                <FluentDivider />
 
-               <img src="https://www.worksheetsplanet.com/wp-content/uploads/2023/03/What-is-an-article.jpg" 
-                    height="100px" width="200px" />
+            <img src="https://i.ytimg.com/vi/3H_-Mjq9OsA/maxresdefault.jpg"
+                 height="100px" width="200px" />
                
            </FluentCard>                
            
@@ -42,8 +42,8 @@ else
 <p>This component demonstrates showing data.</p>
 
 @code {
-    IEnumerable<GraphQLServer.IGetData_Posts_Nodes> articles = default!;
-    int _maxArticles = 30;
+    IEnumerable<Frontend.IFetchBlogs_Blogs_Nodes> blogs = default!;
+    int _max = 3;
 
     protected override async Task OnInitializedAsync()
     {
@@ -52,8 +52,18 @@ else
 
     public async Task FetchData()
     {
-        var res = await Query.ExecuteAsync(_maxArticles);
+        var first = _max;
+        string? after = null;
+        BlogSortInput[]? order = null;
+        BlogFilterInput? filter = null;
 
-        this.articles = res!.Data!.Posts!.Nodes!;    
+        IOperationResult<IFetchBlogsResult> response = await Query.ExecuteAsync(
+            first, after, filter, order, default);
+        response.EnsureNoErrors();
+
+        var results = response.Data!.Blogs!;
+        var nodes = results.Nodes!;
+                
+        this.blogs = nodes;        
     }
 }

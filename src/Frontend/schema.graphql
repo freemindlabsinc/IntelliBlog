@@ -263,8 +263,6 @@ type PostsEdge {
 }
 
 type Blog {
-  goOnline: Boolean!
-  goOffline: Boolean!
   name: String!
   description: String
   notes: String

@@ -64,28 +64,27 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         RaiseEvent(new Events.BlogUpdated(this, nameof(Notes)));
     }
 
-    public bool GoOnline()
+    //public bool GoOnline()
+    public void GoOnline()
     {
-        if (IsOnline) return false;
+        if (IsOnline) return;
 
         IsOnline = true;
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(IsOnline)));
         RaiseEvent(new Events.BlogOnline(this));
-
-        return true;
     }
 
-    public bool GoOffline()
+
+    //public bool GoOffline()
+    public void GoOffline()
     {
-        if (IsOnline == false) return false;
+        if (IsOnline == false) return;
 
         IsOnline = false;
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(IsOnline)));
         RaiseEvent(new Events.BlogOffline(this));
-
-        return true;
     }
 
     public void UpdateImage(string? image)

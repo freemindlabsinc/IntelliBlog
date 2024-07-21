@@ -1,0 +1,59 @@
+﻿@page "/articles"
+@rendermode InteractiveServer
+@inject Frontend.FetchPostsQuery Query
+
+<PageTitle>My Posts</PageTitle>
+
+@if (posts == null)
+{
+    <p><em>Loading Posts...</em></p>
+}
+else
+{
+    <FluentNumberField @bind-Value="_maxArticles" Label="Max Posts" />
+    <FluentButton OnClick="@FetchData">Refresh</FluentButton>
+
+       @foreach (var a in posts!)
+       {                
+           <FluentCard MinimalStyle="true" Height="200px">                    
+               <FluentBadge Appearance="Appearance.Accent">
+                   @a.Id
+               </FluentBadge>
+
+               <FluentBadge Appearance="Appearance.Lightweight">
+                   @a.Title
+               </FluentBadge>
+
+               <FluentBadge Appearance="Appearance.Neutral">
+                   @(a.Description ?? "this is a description")
+               </FluentBadge>
+               
+               <FluentDivider />
+
+               <img src="https://www.worksheetsplanet.com/wp-content/uploads/2023/03/What-is-an-article.jpg" 
+                    height="100px" width="200px" />
+               
+           </FluentCard>                
+           
+           <FluentDivider />
+       }
+}
+
+<p>This component demonstrates showing data.</p>
+
+@code {
+    IEnumerable<Frontend.IFetchPosts_Posts_Nodes> posts = default!;
+    int _maxArticles = 30;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchData();
+    }
+
+    public async Task FetchData()
+    {
+        var res = await Query.ExecuteAsync(_maxArticles);
+
+        this.posts = res!.Data!.Posts!.Nodes!;    
+    }
+}

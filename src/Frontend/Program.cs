@@ -1,5 +1,6 @@
 ﻿using Frontend.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +12,7 @@ builder.Services.AddFluentUIComponents();
 builder.Services.AddHttpClient();
 
 builder.Services
-    .AddGraphQLClient()
+    .AddBloggingClient()        
     .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:6001/graphql"));
 
 var app = builder.Build();
