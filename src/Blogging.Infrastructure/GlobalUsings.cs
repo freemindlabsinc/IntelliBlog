@@ -1,6 +1,4 @@
-﻿global using Ardalis.SharedKernel;
-global using Ardalis.GuardClauses;
-global using Ardalis.Specification;
+﻿global using Ardalis.GuardClauses;
 global using MediatR;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;

@@ -1,11 +1,7 @@
-﻿using Ardalis.SharedKernel;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NSubstitute;
 using Xunit.Abstractions;
-using Blogging.IntegrationTests._garbage;
-using MediatR;
 
 namespace Blogging.IntegrationTests;
 
@@ -24,7 +20,7 @@ public abstract class FixtureBase
     {
         return new ConfigurationBuilder()
             .AddJsonFile("appsettings.testing.json")
-            .AddUserSecrets<BaseEfRepoTestFixture>()
+            .AddUserSecrets<FixtureBase>()
             .Build();
     }
 

@@ -1,5 +1,4 @@
 ﻿using Blogging.Application.Interfaces;
-using Microsoft.Extensions.Logging;
 
 namespace Blogging.Application.Behaviors;
 

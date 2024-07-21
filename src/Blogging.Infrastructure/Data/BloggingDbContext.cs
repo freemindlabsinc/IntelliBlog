@@ -5,14 +5,9 @@ public class BloggingDbContext : DbContext
 {
     public const string GlobalSequenceName = "General_seq"; // TODO: remove this global sequence and create as many as needed
 
-    private readonly IDomainEventDispatcher? _dispatcher;
-
-    public BloggingDbContext(DbContextOptions<BloggingDbContext> options,
-      IDomainEventDispatcher? dispatcher)
+    public BloggingDbContext(DbContextOptions<BloggingDbContext> options)
         : base(options)
-    {
-        _dispatcher = dispatcher;
-    }
+    { }
 
     public DbSet<Blog> Blogs => Set<Blog>();
     public DbSet<Post> Posts => Set<Post>();        
@@ -37,24 +32,24 @@ public class BloggingDbContext : DbContext
             .IncrementsBy(1);
     }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-    {
-        int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    //public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    //{
+    //    int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    //
+    //    // ignore events if no dispatcher provided
+    //    if (_dispatcher == null) return result;
+    //
+    //    // dispatch events only if save was successful
+    //    var entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
+    //        .Select(e => e.Entity)
+    //        .Where(e => e.DomainEvents.Any())
+    //        .ToArray();
+    //
+    //    await _dispatcher.DispatchAndClearEvents(entitiesWithEvents);
+    //
+    //    return result;
+    //}
 
-        // ignore events if no dispatcher provided
-        if (_dispatcher == null) return result;
-
-        // dispatch events only if save was successful
-        var entitiesWithEvents = ChangeTracker.Entries<EntityBase>()
-            .Select(e => e.Entity)
-            .Where(e => e.DomainEvents.Any())
-            .ToArray();
-
-        await _dispatcher.DispatchAndClearEvents(entitiesWithEvents);
-
-        return result;
-    }
-
-    public override int SaveChanges() =>
-          SaveChangesAsync().GetAwaiter().GetResult();
+    //public override int SaveChanges() =>
+    //      SaveChangesAsync().GetAwaiter().GetResult();
 }

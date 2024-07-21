@@ -27,7 +27,6 @@ public static class ApplicationExtensions
         });
 
         // Domain Event Dispatcher (DDD)
-        services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
         services.AddSingleton(TimeProvider.System);
 
         services.AddScoped<IUser>(sp => 
