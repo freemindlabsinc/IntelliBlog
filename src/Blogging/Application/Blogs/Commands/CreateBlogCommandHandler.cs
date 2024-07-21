@@ -2,7 +2,7 @@
 
 internal class CreateBlogCommandHandler(
     //IDomainEventDispatcher _dispatcher,
-    IRepository<Blog> _repository)
+    IEntityRepository<Blog> _repository)
 
     : ICommandHandler<CreateBlogCommand, Result<int>>
 {
@@ -14,8 +14,8 @@ internal class CreateBlogCommandHandler(
             image: command.Image,
             notes: command.Notes);
 
-        await _repository.AddAsync(blog, cancellationToken);
+        var created = await _repository.CreateAsync(blog, cancellationToken);
 
-        return Result.Success(blog.Id);
+        return Result.Success(created.Id);
     }
 }

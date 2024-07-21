@@ -1,5 +1,5 @@
 ﻿namespace Blogging.Application.Posts.Commands;
-public readonly record struct CreatePostCommand(
+public record CreatePostCommand(
     int BlogId,
     string Title,
     string? Description = default,

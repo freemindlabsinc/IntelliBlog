@@ -1,5 +1,5 @@
 ﻿namespace Blogging.Application.Posts.Commands;
-public readonly record struct LikePostCommand(
+public record LikePostCommand(
     int PostId,
     string LikedBy)
     : ICommand<Result<int>>;

@@ -33,5 +33,5 @@ public class DbContextTests
         await dbContext.Database.EnsureCreatedAsync();
 
         await SeedData.PopulateTestData(dbContext);
-    }   
+    }    
 }

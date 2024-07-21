@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Posts.Commands;
 
-public readonly record struct UpdatePostHeaderCommand(
+public record UpdatePostHeaderCommand(
     int PostId,
     string NewTitle,
     string NewDescription

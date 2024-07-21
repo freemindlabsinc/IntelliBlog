@@ -8,9 +8,9 @@ namespace Infrastructure2.Data;
 public class EntityRepository<T> : IEntityRepository<T>
     where T : Entity, IAggregateRoot
 {
-    private readonly DbContext _dbContext;
+    private readonly AppDbContext _dbContext;
     
-    public EntityRepository(DbContext dbContext)
+    public EntityRepository(AppDbContext dbContext)
     {
         _dbContext = dbContext;        
     }
@@ -27,7 +27,7 @@ public class EntityRepository<T> : IEntityRepository<T>
         return Result<T>.Success(entity);
     }
 
-    public async Task<T> Add(T entity, CancellationToken cancellationToken)
+    public async Task<T> CreateAsync(T entity, CancellationToken cancellationToken)
     {
         _dbContext.Set<T>()
                   .Add(entity);

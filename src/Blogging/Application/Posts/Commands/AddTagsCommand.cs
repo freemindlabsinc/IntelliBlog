@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="Id"></param>
 /// <param name="NewTags"></param>
-public readonly record struct AddTagsCommand(
+public record AddTagsCommand(
     int Id,
     string[] NewTags)
     : ICommand<Result<int>>;

@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Posts.Commands;
 
-public readonly record struct DeletePostCommand(int Id) : ICommand<Result>;
+public record DeletePostCommand(int Id) : ICommand<Result>;
 
 public class DeletePostCommandHandler(IRepository<Post> _repository) : ICommandHandler<DeletePostCommand, Result>
 {

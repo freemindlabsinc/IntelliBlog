@@ -1,5 +1,5 @@
 ﻿namespace Blogging.Application.Sources.Commands;
-public readonly record struct CreateSourceCommand(
+public record CreateSourceCommand(
     int BlogId,
     string Name,
     string? Url = default,

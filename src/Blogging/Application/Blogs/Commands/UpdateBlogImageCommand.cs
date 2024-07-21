@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Blogs.Commands;
 
-public readonly record struct UpdateBlogImageCommand(int Id, string Image, string SmallImage)
+public record UpdateBlogImageCommand(int Id, string Image, string SmallImage)
     : ICommand<Result>
 {
     internal class UpdateBlogImageValidator : AbstractValidator<UpdateBlogImageCommand>

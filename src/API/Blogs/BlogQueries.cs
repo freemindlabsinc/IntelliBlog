@@ -1,19 +1,19 @@
-﻿using Blogging.Domain;
-using Infrastructure2.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Blogging.Domain.Interfaces;
 
 namespace GraphQL.Blogs;
 
 [QueryType]
-public class BlogQueries
+public static class BlogQueries
 {
     [UsePaging]
     [HotChocolate.Data.UseFiltering]
     [HotChocolate.Data.UseSorting]
-    public IQueryable<Blog> GetBlogs([Service(ServiceKind.Synchronized)] AppDbContext db)
-        => db.Blogs;
+    public static IQueryable<Blog> GetBlogs([Service(ServiceKind.Synchronized)] IEntityRepository<Blog> repository)
+        => repository.Source;
 
-    public Task<Blog?> GetBlogById([Service(ServiceKind.Synchronized)] AppDbContext db,
+    public static async Task<Ardalis.Result.Result<Blog>> GetBlogByIdAsync(
+        [Service(ServiceKind.Synchronized)] IEntityRepository<Blog> repository,
         [GraphQLType(typeof(IdType))] int id)
-        => db.Blogs.FirstOrDefaultAsync(x => x.Id == id);
+        => await repository.FindAsync(id);
+                
 }

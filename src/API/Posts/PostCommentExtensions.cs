@@ -1,4 +1,4 @@
-﻿namespace GraphQL.Articles;
+﻿namespace GraphQL.Posts;
 
 public class PostCommentExtensions : ObjectTypeExtension<PostComment>
 {

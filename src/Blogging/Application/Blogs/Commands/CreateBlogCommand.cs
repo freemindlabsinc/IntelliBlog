@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="Name"></param>
 /// <param name="Description"></param>
-public readonly record struct CreateBlogCommand(
+public record CreateBlogCommand(
     string Name,
     string? Description = default,
     string? Image = default,

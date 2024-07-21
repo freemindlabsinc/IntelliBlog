@@ -1,5 +1,5 @@
 ﻿namespace Blogging.Application.Posts.Commands;
-public readonly record struct RemoveTagsCommand(
+public record RemoveTagsCommand(
     int Id,
     string[] TagsToRemove
     ) : ICommand<Result<int>>;

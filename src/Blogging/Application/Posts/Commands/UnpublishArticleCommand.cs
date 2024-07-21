@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Posts.Commands;
 
-public readonly record struct UnpublishPostCommand(int PostId) : ICommand<Result>;
+public record UnpublishPostCommand(int PostId) : ICommand<Result>;
 
 internal class UnpublishPostCommandHandler(
     IRepository<Post> _repository

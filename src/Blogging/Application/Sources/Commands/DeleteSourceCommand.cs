@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Sources.Commands;
 
-public readonly record struct DeleteSourceCommand(int SourceId) : ICommand<Result>
+public record DeleteSourceCommand(int SourceId) : ICommand<Result>
 {
     internal class DeleteSourceCommandValidator : AbstractValidator<DeleteSourceCommand>
     {

@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Posts.Commands;
 
-public readonly record struct UpdatePostTextCommand(
+public record UpdatePostTextCommand(
     int PostId,
     string Description,
     string Text

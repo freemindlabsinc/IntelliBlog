@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Blogs.Commands;
 
-public readonly record struct PublishBlogCommand(int Id)
+public record PublishBlogCommand(int Id)
     : ICommand<Result>
 {
     internal class PublishBlogCommandValidator : AbstractValidator<PublishBlogCommand>

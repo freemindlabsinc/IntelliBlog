@@ -1,5 +1,7 @@
 ﻿using Ardalis.Result;
+using Ardalis.SharedKernel;
 using Blogging.Application.Blogs.Commands;
+using Blogging.Domain.Base;
 using FluentValidation;
 using Xunit.Abstractions;
 
@@ -29,9 +31,11 @@ public class CreateBlogTests : IClassFixture<UnitOfWorkFixture>
     [Fact]
     public async Task Cannot_create_invalid_blog()
     {
-        var cmd = new CreateBlogCommand(); //
+        var cmd = new CreateBlogCommand(string.Empty);
         Func<Task<Result<int>>> func = () => _fixture.Sender.Send(cmd);
 
         await func.Should().ThrowAsync<ValidationException>();
     }
+
+    
 }

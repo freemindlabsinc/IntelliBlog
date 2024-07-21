@@ -6,3 +6,4 @@ global using Blogging.Domain.Base;
 global using FluentValidation;
 global using Microsoft.Extensions.Logging;
 global using Blogging.Domain;
+global using Blogging.Domain.Interfaces;

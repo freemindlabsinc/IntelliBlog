@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Blogs.Commands;
 
-public readonly record struct DeleteBlogCommand(int Id) : ICommand<Result>
+public record DeleteBlogCommand(int Id) : ICommand<Result>
 {
     internal class DeleteBlogCommandValidator : AbstractValidator<DeleteBlogCommand>
     {

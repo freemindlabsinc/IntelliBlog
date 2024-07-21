@@ -1,19 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Blogging.Domain.Interfaces;
 
 namespace GraphQL.Sources;
 
 [QueryType]
-public class SourceQueries
+public static class SourceQueries
 {
     [UsePaging]
     [HotChocolate.Data.UseFiltering]
     [HotChocolate.Data.UseSorting]
-    public IQueryable<Source> GetSources(
-        [Service(ServiceKind.Synchronized)] AppDbContext db)
-        => db.Sources;
+    public static IQueryable<Source> GetSources(
+        [Service(ServiceKind.Synchronized)] IEntityRepository<Source> repository)
+        => repository.Source;
 
-    public Task<Source?> GetSourceById(
-        [Service(ServiceKind.Synchronized)] AppDbContext db,
+    public static async Task<Ardalis.Result.Result<Source>> GetSourceByIdAsync(
+        [Service(ServiceKind.Synchronized)] IEntityRepository<Source> repository,
         [GraphQLType(typeof(IdType))] int id)
-        => db.Sources.FirstOrDefaultAsync(x => x.Id == id);
+        => await repository.FindAsync(id);
 }

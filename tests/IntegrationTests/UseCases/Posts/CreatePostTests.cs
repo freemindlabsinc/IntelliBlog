@@ -5,11 +5,11 @@ using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.UseCases.Articles;
 
-public partial class CreateArticleTests : IClassFixture<UnitOfWorkFixture>
+public partial class CreatePostTests : IClassFixture<UnitOfWorkFixture>
 {
     readonly UnitOfWorkFixture _fixture;
 
-    public CreateArticleTests(UnitOfWorkFixture fixture, ITestOutputHelper outputHelper)
+    public CreatePostTests(UnitOfWorkFixture fixture, ITestOutputHelper outputHelper)
         : base()
     {
         _fixture = fixture;

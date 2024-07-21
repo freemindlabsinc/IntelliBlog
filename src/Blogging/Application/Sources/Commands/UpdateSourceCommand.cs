@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Sources.Commands;
 
-public readonly record struct UpdateSourceCommand(
+public record UpdateSourceCommand(
     int SourceId,
     string Name,
     string? Url = default,

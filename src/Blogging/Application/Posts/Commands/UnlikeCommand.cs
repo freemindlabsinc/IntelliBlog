@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Posts.Commands;
 
-public readonly record struct UnlikeCommand(
+public record UnlikeCommand(
     int PostId,
     string likedBy)
     : ICommand<Result<int>>;

@@ -1,4 +1,6 @@
 ﻿using Blogging.Application.Interfaces;
+using Blogging.Domain.Interfaces;
+using Blogging.Domain;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,4 +16,7 @@ public class UnitOfWorkFixture : FixtureBase, IDisposable
 
     public IUnitOfWork Uow => GetServiceProvider().GetService<IUnitOfWork>()!;
     public ISender Sender => GetServiceProvider().GetService<ISender>()!;
+
+    public IEntityRepository<Blog> BlogRepository => GetServiceProvider().GetService<IEntityRepository<Blog>>()!;
+
 }

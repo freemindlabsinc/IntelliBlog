@@ -1,5 +1,5 @@
 ﻿namespace Blogging.Application.Posts.Commands;
-public readonly record struct PublishPostCommand(int PostId) : ICommand<Result>;
+public record PublishPostCommand(int PostId) : ICommand<Result>;
 
 
 public class PublishPostCommandHandler(

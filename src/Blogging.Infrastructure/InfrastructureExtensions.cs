@@ -1,7 +1,9 @@
 ﻿using Blogging.Application.Interfaces;
 using Blogging.Domain.Interfaces;
+using Blogging.Infrastructure.Data.Interceptors;
 using Infrastructure2.Data;
 using Infrastructure2.Email;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
@@ -24,9 +26,16 @@ public static class InfrastructureExtensions
         // DbContext
         string? connectionString = config.GetConnectionString(DbConnectionName);
         Guard.Against.Null(connectionString);
-        
+
+        services.AddScoped<ISaveChangesInterceptor, TrackedEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
         services.AddDbContext<AppDbContext>(
-            options => options.UseSqlServer(connectionString));        
+            (sp, options) =>
+            {
+                options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+                options.UseSqlServer(connectionString);                
+            });        
 
         // Repositories
         services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
