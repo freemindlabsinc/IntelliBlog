@@ -4,33 +4,16 @@ public record CreatePostCommand(
     string Title,
     string? Description = default,
     string? Text = default,
-    string[]? Tags = default) : ICommand<Result<int>>;
-
-internal class CreatePostCommandHandler(IRepository<Post> _repository) :
-    ICommandHandler<CreatePostCommand, Result<int>>
+    string[]? Tags = default) : ICommand<Result<int>>
 {
-    public async Task<Result<int>> Handle(CreatePostCommand command, CancellationToken cancellationToken)
+    internal class CreatePostCommandValidator : AbstractValidator<CreatePostCommand>
     {
-        var Post = new Post(command.BlogId, command.Title, command.Description);
-
-        Post.UpdateText(command.Text);
-
-        if (command.Tags != null)
+        public CreatePostCommandValidator()
         {
-            Post.AddTags(command.Tags);
+            RuleFor(x => x.BlogId).NotEmpty();
+            RuleFor(x => x.Title).NotEmpty();
         }
-
-        await _repository.AddAsync(Post, cancellationToken);
-
-        return Result.Success(Post.Id);
     }
+
 }
 
-internal class CreatePostCommandValidator : AbstractValidator<CreatePostCommand>
-{
-    public CreatePostCommandValidator()
-    {
-        RuleFor(x => x.BlogId).NotEmpty();
-        RuleFor(x => x.Title).NotEmpty();
-    }
-}

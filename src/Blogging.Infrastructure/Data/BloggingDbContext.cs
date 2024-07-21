@@ -3,7 +3,7 @@
 namespace Blogging.Infrastructure.Data;
 public class BloggingDbContext : DbContext
 {
-    public const string GlobalSequenceName = "General_seq"; // TODO: temporary
+    public const string GlobalSequenceName = "General_seq"; // TODO: remove this global sequence and create as many as needed
 
     private readonly IDomainEventDispatcher? _dispatcher;
 
@@ -30,6 +30,8 @@ public class BloggingDbContext : DbContext
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
                 
+        // TODO: create multiple sequences instead of just one
+        // TODO: make sure each configuration type gets the right sequence automagically somehow
         modelBuilder.HasSequence<int>(GlobalSequenceName)
             .StartsAt(0)
             .IncrementsBy(1);

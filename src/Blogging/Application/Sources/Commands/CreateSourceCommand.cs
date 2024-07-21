@@ -11,6 +11,8 @@ public record CreateSourceCommand(
         public CreateSourceCommandValidator()
         {
             RuleFor(x => x.BlogId).NotEmpty();
+
+            // TODO review length            
             RuleFor(x => x.Name).NotEmpty();
         }
     }

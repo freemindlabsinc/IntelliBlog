@@ -2,12 +2,12 @@
 
 namespace Blogging.UnitTests.Domain;
 
-public class ArticleTests
+public class PostTests
 {
-    Post NewArticle() => new Post(1, "Test Title");
+    Post NewPost() => new Post(1, "Test Title");
 
     [Fact]
-    public void Can_create_new_article()
+    public void Can_create_new_post()
     {        
         const string title = "Test Title";
         const string description = "Test Description";
@@ -41,7 +41,7 @@ public class ArticleTests
     [Fact]
     public void Can_add_sources()
     {                
-        var article = NewArticle();
+        var article = NewPost();
 
         var source1 = 100;
         var source2 = 101;
@@ -60,7 +60,7 @@ public class ArticleTests
     [Fact]
     public void Cannot_add_duplicate_like()
     {
-        var article = NewArticle();
+        var article = NewPost();
         
         article.Like("user1");
         article.Like("user2");
@@ -78,9 +78,9 @@ public class ArticleTests
     }
 
     [Fact]
-    public void Cannot_create_article_with_empty_tags()
+    public void Cannot_create_post_with_empty_tags()
     { 
-        var article = NewArticle();
+        var article = NewPost();
 
         Action action = () => article.AddTags("");
 
@@ -90,7 +90,7 @@ public class ArticleTests
     [Fact]
     public void Can_add_comment()
     {
-        var article = NewArticle();
+        var article = NewPost();
         
         var comment1 = new PostComment(article.Id, "Comment 1", "user1");
         

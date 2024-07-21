@@ -3,7 +3,7 @@ using Blogging.Application.Blogs.Commands;
 using Blogging.Application.Posts.Commands;
 using Xunit.Abstractions;
 
-namespace Blogging.IntegrationTests.UseCases.Articles;
+namespace Blogging.IntegrationTests.UseCases.Posts;
 
 public partial class CreatePostTests : IClassFixture<UnitOfWorkFixture>
 {

@@ -1,7 +1,20 @@
+### 7/21/2024
+
+- GQL: Lots of thoughts after learning how Data Loaders work and after
+seeing DAB
+- I tried DAB and played with it. It is very good. I think it would be the perfect software for CODY to look at but it's not the right solution for INTB. 
+    - WHat we need to do is expose our GQL stuff following the starnards (e.g. Relay)
+    that HotChocolate supports. That is the way.
+    - I am gonna concentrate on how to do clean DDD, CQRS but with a GLQ focus!!! 
+    - There ain't much info on this stuff out there.
+- TODO: at some point I need to list the conventions I am using. For instance, record for commands instead of the old readonly-record-struct approach I used before
+- TODO: Strongly typed ids might work fine with GQL.. I should reintroduce them...
+
 ### 7/19/2024
 
 - GraphQL, Blazor and Identity courses. Frank Liu. WOW
-- 
+- Did a lot of video watching and learning.
+    - [TODO] Put the links here
 
 ### 7/12/2024
 

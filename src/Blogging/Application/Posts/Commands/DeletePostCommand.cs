@@ -1,28 +1,13 @@
 ﻿namespace Blogging.Application.Posts.Commands;
 
-public record DeletePostCommand(int Id) : ICommand<Result>;
-
-public class DeletePostCommandHandler(IRepository<Post> _repository) : ICommandHandler<DeletePostCommand, Result>
+public record DeletePostCommand(int Id) : ICommand<Result>
 {
-    public async Task<Result> Handle(DeletePostCommand command, CancellationToken cancellationToken)
+
+    internal class DeletePostCommandValidator : AbstractValidator<DeletePostCommand>
     {
-        var Post = await _repository.GetByIdAsync(command.Id, cancellationToken);
-        if (Post == null)
+        public DeletePostCommandValidator()
         {
-            return Result.NotFound("Post not found");
+            RuleFor(x => x.Id).NotEmpty();
         }
-
-        await _repository.DeleteAsync(Post);
-
-        return Result.Success();
     }
 }
-
-public class DeletePostCommandValidator : AbstractValidator<DeletePostCommand>
-{
-    public DeletePostCommandValidator()
-    {
-        RuleFor(x => x.Id).NotEmpty();
-    }
-}
-
