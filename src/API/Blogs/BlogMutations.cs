@@ -1,26 +1,21 @@
 ﻿using Ardalis.Result;
+using Blogging.Application.Blogs.Commands;
 using MediatR;
 
 namespace GraphQL.Blogs;
 
 [MutationType]
-public class BlogMutations
+public static class BlogMutations
 {
-    public Task<int> CreateBlog([Service] ISender _sender, string name, string? description)
+    public static Task<Ardalis.Result.Result<int>> CreateBlog([Service] ISender _sender, string name, string? description = default, string? image = default, string? notes = default)
     {
-        //var cmd = new CreateBlogCommand(name, description);
-        //var newBlogId = await _sender.Send(cmd, default);
-        //
-        //return newBlogId;
-        return Task.FromResult(0);
+        var cmd = new CreateBlogCommand(name, description, image, notes);
+        return _sender.Send(cmd, default);
     }
 
-    public Task<Result> UpdateBlog([Service] ISender _sender, int id, string name, string? description)
+    public static Task<Result> UpdateBlog([Service] ISender _sender, int id, string name, string? description = default, string? notes = default)
     {
-        //var cmd = new UpdateBlogCommand(id, name, description, null);
-        //var updatedBlogId = await _sender.Send(cmd, default);
-        //
-        //return updatedBlogId;
-        return Task.FromResult(Result.Success());
+        var cmd = new UpdateBlogCommand(id, name, description, notes);
+        return _sender.Send(cmd, default);
     }
 }

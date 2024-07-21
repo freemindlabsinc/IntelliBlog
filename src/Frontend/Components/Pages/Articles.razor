@@ -42,7 +42,7 @@ else
 <p>This component demonstrates showing data.</p>
 
 @code {
-    IEnumerable<GraphQLServer.IGetData_Articles_Nodes> articles = default!;
+    IEnumerable<GraphQLServer.IGetData_Posts_Nodes> articles = default!;
     int _maxArticles = 30;
 
     protected override async Task OnInitializedAsync()
@@ -54,6 +54,6 @@ else
     {
         var res = await Query.ExecuteAsync(_maxArticles);
 
-        this.articles = res!.Data!.Articles!.Nodes!;    
+        this.articles = res!.Data!.Posts!.Nodes!;    
     }
 }

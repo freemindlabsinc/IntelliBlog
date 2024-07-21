@@ -1,5 +1,5 @@
 ﻿query GetData($maxRows: Int=10) {
-  articles(first: $maxRows) {
+  posts(first: $maxRows) {
     nodes {
       id      
       title
@@ -7,11 +7,8 @@
       sources {
         id
         linkedOn
-        articleId
-      }
-      comments {
-        text
-      }
+        postId
+      }      
       text
     }
   }
