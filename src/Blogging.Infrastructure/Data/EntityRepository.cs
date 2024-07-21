@@ -1,16 +1,22 @@
 ﻿using Ardalis.Result;
 using Blogging.Domain.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Blogging.Infrastructure.Data;
 
-public sealed class EntityRepository<T>(BloggingDbContext _dbContext) : IEntityRepository<T>
+public sealed class EntityRepository<T>(
+    BloggingDbContext _dbContext
+    //,IServiceProvider _serviceProvider
+    ) : IEntityRepository<T>
+
     where T : Entity, IAggregateRoot
 {
     public IQueryable<T> Source => _dbContext.Set<T>();
 
     public async Task<Result<T>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct, IEquatable<TId>
     {
-        var entity = await _dbContext.Set<T>().FindAsync(id, cancellationToken);
+        var entity = await _dbContext.Set<T>()
+            .FindAsync(id, cancellationToken);
 
         if (entity == null)
             return Result.NotFound();
@@ -38,6 +44,8 @@ public sealed class EntityRepository<T>(BloggingDbContext _dbContext) : IEntityR
 
         _dbContext.Set<T>()
                   .Remove(entity);
+
+        //var xx = _serviceProvider.GetService<IServiceProvider>();
 
         var changes = await _dbContext.SaveChangesAsync(cancellationToken);
 

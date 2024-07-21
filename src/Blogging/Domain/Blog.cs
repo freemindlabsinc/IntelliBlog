@@ -2,16 +2,21 @@
 
 public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
+    private StringComparer TagComparer = StringComparer.OrdinalIgnoreCase;
+    private ISet<string> _tags { get; set; }
+
     public Blog(
         string name,
         string? description = default,
         string? image = default,
-        string? notes = default)
+        string? notes = default,
+        string[]? tags = default)
     {
-        UpdateName(name);
-        UpdateDescription(description);
-        UpdateNotes(notes);
-        UpdateImage(image);
+        this.Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        this.Description = description;
+        this.Notes = notes;
+        this.Image = image;
+        this._tags = tags?.ToHashSet(TagComparer) ?? new(TagComparer);
     }
 
     public string Name { get; private set; } = default!;
@@ -19,22 +24,23 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public string? Notes { get; private set; }
     public string? Image { get; private set; }
     public bool IsOnline { get; private set; }
-    public string[] Tags { get { return _tags.ToArray(); }  set { _tags = value!.ToList(); } }
+    public string[]? Tags { get { return _tags.ToArray(); } private set { /* For EF8 */ } }
 
     public void AddTags(params string[] tags)
-    {
-        var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
-
-        _tags = _tags.Union(goodTags, StringComparer.OrdinalIgnoreCase)
-            .Distinct(StringComparer.OrdinalIgnoreCase)
-            .ToList();
+    {        
+        _tags = tags
+            .Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)))
+            .Union(_tags)
+            .ToHashSet(TagComparer);
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
 
     public void RemoveTags(params string[] tags)
     {
-        _tags = _tags.Except(tags, StringComparer.OrdinalIgnoreCase).ToList();
+        _tags = _tags
+            .Except(tags)
+            .ToHashSet(TagComparer);
         
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
@@ -66,7 +72,6 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         RaiseEvent(new Events.BlogUpdated(this, nameof(Notes)));
     }
 
-    //public bool GoOnline()
     public void GoOnline()
     {
         if (IsOnline) return;
@@ -78,7 +83,6 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     }
 
 
-    //public bool GoOffline()
     public void GoOffline()
     {
         if (IsOnline == false) return;
@@ -97,8 +101,4 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(Image)));
     }
-
-    private IList<string> _tags { get; set; } = new List<string>();
-
-    //private Blog() { } // For Entity Framework
 }

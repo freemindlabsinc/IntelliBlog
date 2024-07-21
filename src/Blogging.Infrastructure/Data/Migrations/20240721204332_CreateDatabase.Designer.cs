@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blogging.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(BloggingDbContext))]
-    [Migration("20240721195317_CreateDatabase")]
+    [Migration("20240721204332_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -70,7 +70,6 @@ namespace Blogging.Infrastructure.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tags")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

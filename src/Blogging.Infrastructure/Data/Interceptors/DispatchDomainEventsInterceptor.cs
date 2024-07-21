@@ -11,7 +11,7 @@ namespace Blogging.Infrastructure.Data.Interceptors;
 /// We could implement the Outbox pattern here.
 /// </remarks>
 public class DispatchDomainEventsInterceptor(
-        IMediator _mediator,
+        //IMediator _mediator,
         ILogger<DispatchDomainEventsInterceptor> _logger) 
     : SaveChangesInterceptor
 {
@@ -29,9 +29,10 @@ public class DispatchDomainEventsInterceptor(
         return await base.SavedChangesAsync(eventData, result, cancellationToken);
     }    
     
-    public async Task DispatchDomainEvents(DbContext? context)
+    public Task DispatchDomainEvents(DbContext? context)
     {
-        if (context == null) return;
+        if (context == null)
+            return Task.CompletedTask;
 
         var entities = context.ChangeTracker
             .Entries<IDomainEventContainer>()
@@ -48,7 +49,6 @@ public class DispatchDomainEventsInterceptor(
             domainEvents.Count,
             domainEvents);
 
-        foreach (var domainEvent in domainEvents)
-            await _mediator.Publish(domainEvent);
+        return Task.CompletedTask;
     }
 }

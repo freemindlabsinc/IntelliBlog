@@ -29,6 +29,7 @@ public static class InfrastructureExtensions
 
         services.AddScoped<ISaveChangesInterceptor, TrackedEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, GenerateCreateUpdateDeleteEventsInterceptor>();
 
         services.AddDbContext<BloggingDbContext>(
             (sp, options) =>
