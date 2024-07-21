@@ -25,6 +25,7 @@ namespace Blogging.Infrastructure.Data.Migrations
                     Notes = table.Column<string>(type: "nvarchar(max)", maxLength: -1, nullable: true),
                     Image = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     IsOnline = table.Column<bool>(type: "bit", nullable: false),
+                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValueSql: "GETUTCDATE()"),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModifiedOn = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),

@@ -85,9 +85,9 @@ public static class InfrastructureExtensions
         var services = scope.ServiceProvider;
                 
         var context = services.GetRequiredService<BloggingDbContext>();
-        //          context.Database.Migrate();
-        //context.Database.EnsureDeleted();
+        
+        context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
-        await SeedData.PopulateTestData(context);        
+        await SeedData.PopulateTestData(context);
     }
 }

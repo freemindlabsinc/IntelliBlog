@@ -7,6 +7,8 @@ public static class SeedData
 
     public static async Task PopulateTestData(BloggingDbContext dbContext)
     {
+        if (dbContext.Blogs.Any()) return;
+        
         // ----------- Technical blog -----------
         await CreateTechBlog(dbContext);
 
@@ -17,6 +19,8 @@ public static class SeedData
     static async Task CreateTechBlog(BloggingDbContext dbContext)
     {
         Blog techBlog = new Blog(TechBlogName, "A blog where I discuss topics I find interesting.");
+        techBlog.UpdateImage("https://user-images.githubusercontent.com/63902621/82149019-72a07200-9873-11ea-8e58-b5b88dd58236.jpg");
+        techBlog.AddTags("TECH", "WORK");
 
         dbContext.Blogs.Add(techBlog);
         await dbContext.SaveChangesAsync();
@@ -53,6 +57,8 @@ public static class SeedData
     static async Task CreateLovableBlog(BloggingDbContext dbContext)
     {
         Blog lovableBlog = new Blog(LovableBlogName, "A blog with lovely topics such as puppies and kittens.");
+        lovableBlog.UpdateImage("https://4.bp.blogspot.com/-ixcfzBt0T5c/WKtt5MPCrVI/AAAAAAAABU8/URO5TXbUCGQnRb_XzEIzrUV3L5AG5hJKwCK4B/s1600/llb1.JPG");
+        lovableBlog.AddTags("HOME");
         dbContext.Blogs.Add(lovableBlog);
         await dbContext.SaveChangesAsync();
 

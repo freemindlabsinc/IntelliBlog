@@ -19,13 +19,15 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public string? Notes { get; private set; }
     public string? Image { get; private set; }
     public bool IsOnline { get; private set; }
-    public IReadOnlyCollection<string> Tags => _tags.AsReadOnly();
+    public string[] Tags { get { return _tags.ToArray(); }  set { _tags = value!.ToList(); } }
 
     public void AddTags(params string[] tags)
     {
         var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
-        _tags = _tags.Intersect(goodTags, StringComparer.OrdinalIgnoreCase).ToList();
+        _tags = _tags.Union(goodTags, StringComparer.OrdinalIgnoreCase)
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
@@ -96,7 +98,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         RaiseEvent(new Events.BlogUpdated(this, nameof(Image)));
     }
 
-    private IList<string> _tags = new List<string>();
+    private IList<string> _tags { get; set; } = new List<string>();
 
     //private Blog() { } // For Entity Framework
 }

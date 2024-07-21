@@ -23,5 +23,7 @@ public class BlogConfiguration : IEntityTypeConfiguration<Blog>
 
         builder.Property(p => p.Image)
             .HasMaxLength(DbSchemaConstants.DEFAULT_URL_LENGTH);
+
+        
     }
 }
