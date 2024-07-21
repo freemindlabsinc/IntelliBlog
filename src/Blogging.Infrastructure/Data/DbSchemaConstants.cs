@@ -1,6 +1,6 @@
-﻿namespace Infrastructure2.Data;
+﻿namespace Blogging.Infrastructure.Data;
 
-public static class DataSchemaConstants
+public static class DbSchemaConstants
 {
     public const int NO_MAX_LENGTH = -1;
     public const int DEFAULT_IDENTITY_ID = 100;

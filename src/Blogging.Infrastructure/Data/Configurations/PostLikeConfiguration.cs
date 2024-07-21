@@ -1,4 +1,4 @@
-﻿namespace Infrastructure2.Data.Configurations;
+﻿namespace Blogging.Infrastructure.Data.Configurations;
 
 public partial class PostLikeConfiguration : IEntityTypeConfiguration<PostLike>
 {
@@ -13,6 +13,6 @@ public partial class PostLikeConfiguration : IEntityTypeConfiguration<PostLike>
 
         builder
             .Property(like => like.LikedBy)
-            .HasMaxLength(DataSchemaConstants.DEFAULT_IDENTITY_ID);
+            .HasMaxLength(DbSchemaConstants.DEFAULT_IDENTITY_ID);
     }
 }

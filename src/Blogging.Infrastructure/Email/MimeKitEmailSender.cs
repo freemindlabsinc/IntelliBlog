@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
-namespace Infrastructure2.Email;
+namespace Blogging.Infrastructure.Email;
 
 public class MimeKitEmailSender : IEmailSender
 {

@@ -1,4 +1,4 @@
-﻿namespace Infrastructure2.Data.Configurations;
+﻿namespace Blogging.Infrastructure.Data.Configurations;
 
 public partial class PostConfiguration : IEntityTypeConfiguration<Post>
 {
@@ -18,11 +18,11 @@ public partial class PostConfiguration : IEntityTypeConfiguration<Post>
         //       .HasConversion(new ValueConverter<BlogId, int>(id => id.Value, value => new(value)));
 
         builder.Property(p => p.Title)
-               .HasMaxLength(DataSchemaConstants.DEFAULT_TITLE_LENGTH);
+               .HasMaxLength(DbSchemaConstants.DEFAULT_TITLE_LENGTH);
         //.IsRequired();
 
         builder.Property(p => p.Description)
-               .HasMaxLength(DataSchemaConstants.DEFAULT_DESCRIPTION_LENGTH);
+               .HasMaxLength(DbSchemaConstants.DEFAULT_DESCRIPTION_LENGTH);
 
         builder.Property(p => p.Text)
                .HasMaxLength(-1);

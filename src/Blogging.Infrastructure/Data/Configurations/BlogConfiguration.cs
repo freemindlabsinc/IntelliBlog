@@ -1,4 +1,4 @@
-﻿namespace Infrastructure2.Data.Configurations;
+﻿namespace Blogging.Infrastructure.Data.Configurations;
 
 public class BlogConfiguration : IEntityTypeConfiguration<Blog>
 {
@@ -12,16 +12,16 @@ public class BlogConfiguration : IEntityTypeConfiguration<Blog>
         
         // Entity
         builder.Property(p => p.Name)
-               .HasMaxLength(DataSchemaConstants.DEFAULT_BLOG_NAME_LENGTH)
+               .HasMaxLength(DbSchemaConstants.DEFAULT_BLOG_NAME_LENGTH)
                .IsRequired();
 
         builder.Property(p => p.Description)
-               .HasMaxLength(DataSchemaConstants.NO_MAX_LENGTH);
+               .HasMaxLength(DbSchemaConstants.NO_MAX_LENGTH);
 
         builder.Property(p => p.Notes)
-               .HasMaxLength(DataSchemaConstants.NO_MAX_LENGTH);
+               .HasMaxLength(DbSchemaConstants.NO_MAX_LENGTH);
 
         builder.Property(p => p.Image)
-            .HasMaxLength(DataSchemaConstants.DEFAULT_URL_LENGTH);
+            .HasMaxLength(DbSchemaConstants.DEFAULT_URL_LENGTH);
     }
 }

@@ -1,4 +1,4 @@
-﻿using Infrastructure2.Data;
+﻿using Blogging.Infrastructure.Data;
 using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.Data;

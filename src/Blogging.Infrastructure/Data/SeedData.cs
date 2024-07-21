@@ -1,11 +1,11 @@
-﻿namespace Infrastructure2.Data;
+﻿namespace Blogging.Infrastructure.Data;
 
 public static class SeedData
 {
     const string TechBlogName = "A technical blog";
     const string LovableBlogName = "A lovable Blog";
 
-    public static async Task PopulateTestData(AppDbContext dbContext)
+    public static async Task PopulateTestData(BloggingDbContext dbContext)
     {
         // ----------- Technical blog -----------
         await CreateTechBlog(dbContext);
@@ -14,7 +14,7 @@ public static class SeedData
         await CreateLovableBlog(dbContext);
     }
 
-    static async Task CreateTechBlog(AppDbContext dbContext)
+    static async Task CreateTechBlog(BloggingDbContext dbContext)
     {
         Blog techBlog = new Blog(TechBlogName, "A blog where I discuss topics I find interesting.");
 
@@ -50,7 +50,7 @@ public static class SeedData
         await dbContext.SaveChangesAsync();
     }
 
-    static async Task CreateLovableBlog(AppDbContext dbContext)
+    static async Task CreateLovableBlog(BloggingDbContext dbContext)
     {
         Blog lovableBlog = new Blog(LovableBlogName, "A blog with lovely topics such as puppies and kittens.");
         dbContext.Blogs.Add(lovableBlog);

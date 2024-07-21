@@ -1,5 +1,4 @@
 ﻿using Blogging.Infrastructure.Data;
-using Infrastructure2.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +29,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     using (var scope = serviceProvider.CreateScope())
     {
       var scopedServices = scope.ServiceProvider;
-      var db = scopedServices.GetRequiredService<AppDbContext>();
+      var db = scopedServices.GetRequiredService<BloggingDbContext>();
 
       var logger = scopedServices
           .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();

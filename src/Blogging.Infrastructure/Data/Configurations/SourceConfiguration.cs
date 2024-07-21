@@ -1,4 +1,4 @@
-﻿namespace Infrastructure2.Data.Configurations;
+﻿namespace Blogging.Infrastructure.Data.Configurations;
 
 public class SourceConfiguration : IEntityTypeConfiguration<Source>
 {
@@ -17,11 +17,11 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
         //    .HasConversion(new ValueConverter<BlogId, int>(id => id.Value, value => new(value)));
 
         builder.Property(p => p.Name)
-            .HasMaxLength(DataSchemaConstants.DEFAULT_SOURCE_NAME_LENGTH)
+            .HasMaxLength(DbSchemaConstants.DEFAULT_SOURCE_NAME_LENGTH)
             .IsRequired();
 
         builder.Property(p => p.Url)
-            .HasMaxLength(DataSchemaConstants.DEFAULT_URL_LENGTH);
+            .HasMaxLength(DbSchemaConstants.DEFAULT_URL_LENGTH);
 
         builder.Property(p => p.Description)
             .HasMaxLength(-1);

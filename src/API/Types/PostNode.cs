@@ -36,7 +36,7 @@ public class PostNode : ObjectTypeExtension<Post>
     [DataLoader]
     internal static async Task<IReadOnlyDictionary<int, Post>> GetArticleByIdAsync(
         IReadOnlyList<int> ids,
-        AppDbContext context,
+        BloggingDbContext context,
         CancellationToken cancellationToken) 
         => await context.Posts
             .Where(a => ids.Contains(a.Id))

@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
 
-namespace Infrastructure2.Data;
-public class AppDbContext : DbContext
+namespace Blogging.Infrastructure.Data;
+public class BloggingDbContext : DbContext
 {
     public const string GlobalSequenceName = "General_seq"; // TODO: temporary
 
     private readonly IDomainEventDispatcher? _dispatcher;
 
-    public AppDbContext(DbContextOptions<AppDbContext> options,
+    public BloggingDbContext(DbContextOptions<BloggingDbContext> options,
       IDomainEventDispatcher? dispatcher)
         : base(options)
     {

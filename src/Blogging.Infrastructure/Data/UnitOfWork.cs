@@ -1,9 +1,9 @@
 ﻿using Blogging.Application.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace Infrastructure2.Data;
+namespace Blogging.Infrastructure.Data;
 public class UnitOfWork(
-    AppDbContext _dbContext,
+    BloggingDbContext _dbContext,
     IMediator _mediator,
     ILogger<UnitOfWork> _logger) 
     : IUnitOfWork

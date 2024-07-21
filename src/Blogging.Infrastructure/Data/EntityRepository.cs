@@ -3,14 +3,14 @@ using System.Xml.Linq;
 using Ardalis.Result;
 using Blogging.Domain.Interfaces;
 
-namespace Infrastructure2.Data;
+namespace Blogging.Infrastructure.Data;
 
 public class EntityRepository<T> : IEntityRepository<T>
     where T : Entity, IAggregateRoot
 {
-    private readonly AppDbContext _dbContext;
+    private readonly BloggingDbContext _dbContext;
     
-    public EntityRepository(AppDbContext dbContext)
+    public EntityRepository(BloggingDbContext dbContext)
     {
         _dbContext = dbContext;        
     }

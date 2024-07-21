@@ -2,7 +2,6 @@
 using Ardalis.SharedKernel;
 using Blogging.Infrastructure;
 using Blogging.Infrastructure.Data;
-using Infrastructure2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,17 +12,17 @@ namespace Blogging.IntegrationTests._garbage;
 
 public abstract class BaseEfRepoTestFixture
 {
-    protected AppDbContext _dbContext;
+    protected BloggingDbContext _dbContext;
 
     protected BaseEfRepoTestFixture()
     {
         var options = CreateNewContextOptions();
         var _fakeEventDispatcher = Substitute.For<IDomainEventDispatcher>();
 
-        _dbContext = new AppDbContext(options, _fakeEventDispatcher);
+        _dbContext = new BloggingDbContext(options, _fakeEventDispatcher);
     }
 
-    protected static DbContextOptions<AppDbContext> CreateNewContextOptions()
+    protected static DbContextOptions<BloggingDbContext> CreateNewContextOptions()
     {
         // Create a fresh service provider        
         var config = new ConfigurationBuilder()
@@ -46,7 +45,7 @@ public abstract class BaseEfRepoTestFixture
 
         // Create a new options instance telling the context to use an
         // InMemory database and the new service provider.
-        var builder = new DbContextOptionsBuilder<AppDbContext>();
+        var builder = new DbContextOptionsBuilder<BloggingDbContext>();
         builder.UseSqlServer(connString)
                .UseInternalServiceProvider(serviceProvider);
 

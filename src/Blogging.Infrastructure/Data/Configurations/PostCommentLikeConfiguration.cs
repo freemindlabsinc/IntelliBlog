@@ -1,4 +1,4 @@
-﻿namespace Infrastructure2.Data.Configurations;
+﻿namespace Blogging.Infrastructure.Data.Configurations;
 
 public class PostCommentLikeConfiguration : IEntityTypeConfiguration<PostCommentLike>
 {

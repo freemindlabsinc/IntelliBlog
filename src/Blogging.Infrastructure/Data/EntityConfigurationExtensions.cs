@@ -1,4 +1,4 @@
-﻿namespace Infrastructure2.Data;
+﻿namespace Blogging.Infrastructure.Data;
 
 public static class EntityConfigurationExtensions
 {
@@ -8,7 +8,7 @@ public static class EntityConfigurationExtensions
     {
         return builder.Property(p => p.Id)
             .ValueGeneratedOnAdd()
-            .HasDefaultValueSql($"NEXT VALUE FOR {AppDbContext.GlobalSequenceName}");
+            .HasDefaultValueSql($"NEXT VALUE FOR {BloggingDbContext.GlobalSequenceName}");
     }
 
     public static void AddTrackedEntityConfiguration<TEntity, TId>(this EntityTypeBuilder<TEntity> builder)
