@@ -1,15 +1,16 @@
 ﻿namespace Blogging.Domain.Interfaces;
 
-public interface IEntityRepository<TEntity>
-    where TEntity : Entity, IAggregateRoot    
+public interface IEntityRepository<TAggregateRoot>
+    where TAggregateRoot : Entity, IAggregateRoot    
 {
-    Task<Result<TEntity>> FindAsync<TId>(TId id, CancellationToken cancellationToken = default)
+    Task<Result<TAggregateRoot>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default)
         where TId : struct, IEquatable<TId>;
-    IQueryable<TEntity> Source { get; }
+    IQueryable<TAggregateRoot> Source { get; }
 
-    Task<TEntity> CreateAsync(TEntity entity, CancellationToken cancellationToken = default);
-    Task<Result<TEntity>> UpdateAsync(TEntity entity, CancellationToken cancellationToken = default);
-    Task<Result<int>> DeleteAsync<TId>(TId entity, CancellationToken cancellationToken = default);    
+    Task<TAggregateRoot> CreateAsync(TAggregateRoot entity, CancellationToken cancellationToken = default);
+    Task<Result<TAggregateRoot>> UpdateAsync(TAggregateRoot entity, CancellationToken cancellationToken = default);
+    Task<Result<int>> DeleteAsync<TId>(TId entity, CancellationToken cancellationToken = default)
+        where TId : struct;    
 
     public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

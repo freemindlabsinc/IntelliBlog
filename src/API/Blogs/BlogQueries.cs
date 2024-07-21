@@ -14,6 +14,6 @@ public static class BlogQueries
     public static async Task<Ardalis.Result.Result<Blog>> GetBlogByIdAsync(
         [Service(ServiceKind.Synchronized)] IEntityRepository<Blog> repository,
         [GraphQLType(typeof(IdType))] int id)
-        => await repository.FindAsync(id);
+        => await repository.GetByIdAsync(id);
                 
 }

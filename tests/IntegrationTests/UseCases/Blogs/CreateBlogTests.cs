@@ -21,7 +21,7 @@ public class CreateBlogTests : IClassFixture<UnitOfWorkFixture>
     [Fact]
     public async Task Can_create_valid_blog()
     {
-        var cmd = new CreateBlogCommand("A valid blog");
+        var cmd = new CreateBlogCommand("A valid blog", Description: "");
         var result = await _fixture.Sender.Send(cmd);
 
         result.IsSuccess.Should().BeTrue();

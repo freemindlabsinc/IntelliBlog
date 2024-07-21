@@ -1,7 +1,7 @@
 ﻿namespace Blogging.Application.Blogs.Commands;
 
 internal class UnpublishBlogCommandHandler(
-    IRepository<Blog> _repository)
+    IEntityRepository<Blog> _repository)
     : ICommandHandler<UnpublishBlogCommand, Result>
 {
     public async Task<Result> Handle(UnpublishBlogCommand command, CancellationToken cancellationToken)
@@ -10,7 +10,7 @@ internal class UnpublishBlogCommandHandler(
 
         if (blog == null) return Result.NotFound();
 
-        blog.GoOffline();
+        blog.Value.GoOffline();
 
         await _repository.UpdateAsync(blog, cancellationToken);
 

@@ -1,16 +1,16 @@
 ﻿namespace Blogging.Application.Blogs.Commands;
 
 internal class UpdateBlogImagesCommandHandler(
-    IRepository<Blog> _repository
+    IEntityRepository<Blog> _repository
     )
     : ICommandHandler<UpdateBlogImageCommand, Result>
 {
     public async Task<Result> Handle(UpdateBlogImageCommand command, CancellationToken cancellationToken)
     {
-        var blog = await _repository.GetByIdAsync(command.Id, cancellationToken);
-        if (blog == null) return Result.NotFound();
+        var blogResult = await _repository.GetByIdAsync(command.Id, cancellationToken);
+        if (blogResult == null) return Result.NotFound();
 
-        blog.UpdateImage(command.Image);
+        blogResult.Value.UpdateImage(command.Image);
 
         return Result.Success();
     }

@@ -1,22 +1,24 @@
 ﻿namespace Blogging.Application.Posts.Commands;
 
 public class LikePostCommandHandler(
-    IRepository<Post> _repository)
+    IEntityRepository<Post> _repository)
     : ICommandHandler<LikePostCommand, Result<int>>
 {
     public async Task<Result<int>> Handle(LikePostCommand command, CancellationToken cancellationToken)
     {
-        var Post = await _repository.GetByIdAsync(command.PostId, cancellationToken);
-        if (Post == null)
+        var result = await _repository.GetByIdAsync(command.PostId, cancellationToken);
+        if (result == null)
         {
             return Result<int>.NotFound("Post not found");
         }
 
-        Post.Like(command.LikedBy);
+        result.Value.Like(command.LikedBy);
 
-        await _repository.UpdateAsync(Post, cancellationToken);
+        // HACK Interesting how I can pass either the result or the result.Value to the UpdateAsync method
+        // Should I be clearer/consistent?
+        await _repository.UpdateAsync(result, cancellationToken);
 
-        return Result<int>.Success(Post.Likes.Count);
+        return Result<int>.Success(result.Value.Likes.Count);
     }
 }
 

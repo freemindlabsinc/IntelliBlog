@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Xml.Linq;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using Blogging.Domain.Interfaces;
 
 namespace Blogging.Infrastructure.Data;
@@ -17,7 +15,7 @@ public class EntityRepository<T> : IEntityRepository<T>
 
     public IQueryable<T> Source => _dbContext.Set<T>();
 
-    public async Task<Result<T>> FindAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct, IEquatable<TId>
+    public async Task<Result<T>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken) where TId : struct, IEquatable<TId>
     {
         var entity = await _dbContext.Set<T>().FindAsync(id);
 
@@ -38,6 +36,7 @@ public class EntityRepository<T> : IEntityRepository<T>
     }
 
     public async Task<Result<int>> DeleteAsync<TId>(TId id, CancellationToken cancellationToken)
+        where TId : struct
     {
         var entity = await _dbContext.Set<T>().FindAsync(id);
 

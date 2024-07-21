@@ -30,7 +30,7 @@ public class UpdateBlogTests : IClassFixture<UnitOfWorkFixture>
         result.IsSuccess.Should().BeTrue();
 
         //
-        var updatedBlog = await _fixture.BlogRepository.FindAsync(blogId.Value);
+        var updatedBlog = await _fixture.BlogRepository.GetByIdAsync(blogId.Value);
 
         updatedBlog.IsSuccess.Should().BeTrue();
         updatedBlog.Value.Name.Should().Be("An updated blog");

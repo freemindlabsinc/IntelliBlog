@@ -15,5 +15,5 @@ public static class SourceQueries
     public static async Task<Ardalis.Result.Result<Source>> GetSourceByIdAsync(
         [Service(ServiceKind.Synchronized)] IEntityRepository<Source> repository,
         [GraphQLType(typeof(IdType))] int id)
-        => await repository.FindAsync(id);
+        => await repository.GetByIdAsync(id);
 }

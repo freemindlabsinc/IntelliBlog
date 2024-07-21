@@ -1,6 +1,7 @@
 ﻿namespace Blogging.Application.Posts.Commands;
 
-internal class CreatePostCommandHandler(IRepository<Post> _repository) :
+internal class CreatePostCommandHandler(
+    IEntityRepository<Post> _repository) :
     ICommandHandler<CreatePostCommand, Result<int>>
 {
     public async Task<Result<int>> Handle(CreatePostCommand command, CancellationToken cancellationToken)
@@ -14,7 +15,7 @@ internal class CreatePostCommandHandler(IRepository<Post> _repository) :
             Post.AddTags(command.Tags);
         }
 
-        await _repository.AddAsync(Post, cancellationToken);
+        await _repository.CreateAsync(Post, cancellationToken);
 
         return Result.Success(Post.Id);
     }

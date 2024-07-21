@@ -1,29 +1,13 @@
 ﻿namespace Blogging.Application.Posts.Commands;
-public record PublishPostCommand(int PostId) : ICommand<Result>;
-
-
-public class PublishPostCommandHandler(
-    IRepository<Post> _repository
-    ) : ICommandHandler<PublishPostCommand, Result>
+public record PublishPostCommand(int PostId) : ICommand<Result>
 {
-    public async Task<Result> Handle(PublishPostCommand command, CancellationToken cancellationToken)
+    public class PublishPostCommandValidator : AbstractValidator<PublishPostCommand>
     {
-        var Post = await _repository.GetByIdAsync(command.PostId, cancellationToken);
-        if (Post == null)
+        public PublishPostCommandValidator()
         {
-            return Result.NotFound("Post not found");
+            RuleFor(x => x.PostId).NotEmpty();
         }
-
-        Post.Publish();
-
-        return Result.Success();
     }
+
 }
 
-public class PublishPostCommandValidator : AbstractValidator<PublishPostCommand>
-{
-    public PublishPostCommandValidator()
-    {
-        RuleFor(x => x.PostId).NotEmpty();
-    }
-}

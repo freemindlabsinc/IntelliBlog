@@ -1,7 +1,7 @@
 ﻿namespace Blogging.Application.Sources.Commands;
 
 internal class UpdateSourceCommandHandler(
-    IRepository<Source> _repository
+    IEntityRepository<Source> _repository
     ) : ICommandHandler<UpdateSourceCommand, Result>
 {
     public async Task<Result> Handle(UpdateSourceCommand request, CancellationToken cancellationToken)
@@ -13,9 +13,9 @@ internal class UpdateSourceCommandHandler(
             return Result.NotFound();
         }
 
-        source.UpdateName(request.Name);
-        source.UpdateURL(request.Url);
-        source.UpdateDescription(request.Description);
+        source.Value.UpdateName(request.Name);
+        source.Value.UpdateURL(request.Url);
+        source.Value.UpdateDescription(request.Description);
 
         await _repository.UpdateAsync(source, cancellationToken);
 

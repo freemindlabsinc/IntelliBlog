@@ -1,7 +1,7 @@
 ﻿namespace Blogging.Application.Sources.Commands;
 
 internal class DeleteSourceCommandHandler(
-    IRepository<Source> _repository
+    IEntityRepository<Source> _repository
     ) : ICommandHandler<DeleteSourceCommand, Result>
 {
     public async Task<Result> Handle(DeleteSourceCommand request, CancellationToken cancellationToken)
@@ -13,7 +13,7 @@ internal class DeleteSourceCommandHandler(
             return Result.NotFound("Source not found");
         }
 
-        await _repository.DeleteAsync(source, cancellationToken);
+        await _repository.DeleteAsync(source.Value.Id, cancellationToken);
 
         return Result.Success();
     }
