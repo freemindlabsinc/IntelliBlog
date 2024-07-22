@@ -6,8 +6,8 @@ namespace API.Posts;
 public static class PostsQueries
 {
     [UsePaging]
-    [HotChocolate.Data.UseFiltering]
-    [HotChocolate.Data.UseSorting]    
+    [UseFiltering]
+    [UseSorting]    
     public static IQueryable<Post> GetPosts(
         [Service] 
         IEntityRepository<Post> repository)

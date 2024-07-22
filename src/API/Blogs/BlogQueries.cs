@@ -6,8 +6,8 @@ namespace API.Blogs;
 public static class BlogQueries
 {
     [UsePaging]
-    [HotChocolate.Data.UseFiltering]
-    [HotChocolate.Data.UseSorting]
+    [UseFiltering]
+    [UseSorting]
     public static IQueryable<Blog> GetBlogs(
         [Service] 
         IEntityRepository<Blog> repository)

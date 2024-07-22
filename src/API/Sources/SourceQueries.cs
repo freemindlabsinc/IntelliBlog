@@ -6,8 +6,8 @@ namespace API.Sources;
 public static class SourceQueries
 {
     [UsePaging]
-    [HotChocolate.Data.UseFiltering]
-    [HotChocolate.Data.UseSorting]
+    [UseFiltering]
+    [UseSorting]
     public static IQueryable<Source> GetSources(
         [Service] 
         IEntityRepository<Source> repository)
