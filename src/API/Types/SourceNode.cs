@@ -1,7 +1,7 @@
 ﻿using Blogging.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Sources;
+namespace API.Types;
 
 public class SourceNode : ObjectTypeExtension<Source>
 {
