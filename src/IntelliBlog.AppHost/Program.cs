@@ -12,8 +12,8 @@ var sqldb = sql.AddDatabase("IntelliBlogDb");
 var cache = builder.AddRedis("cache", port: 12001);
 
 // References
-builder.AddProject<Projects.API>("api")
-       .WithReference(cache)
-       .WithReference(sqldb);
+//builder.AddProject<Projects.API>("api")
+//       .WithReference(cache)
+//       .WithReference(sqldb);
 
 builder.Build().Run();
