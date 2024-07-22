@@ -29,21 +29,19 @@ public class BlogNode : ObjectTypeExtension<Blog>
     }
 
     [DataLoader]
-    internal static async Task<IReadOnlyDictionary<int, Blog>> GetBlogByIdAsync(
-        IReadOnlyList<int> ids,
-        IEntityRepository<Blog> repository,
+    internal static async Task<Blog> GetBlogByIdAsync(
+        [ID(nameof(Blog))] int id,
+        IBlogByIdDataLoader blogById,
         CancellationToken cancellationToken)
 
-        => await repository.Source
-            .Where(a => ids.Contains(a.Id))
-            .ToDictionaryAsync(x => x.Id, cancellationToken);
+        => await blogById.LoadAsync(id, cancellationToken);
 
-    //[DataLoader]
-    //internal static ILookup<int, Blog> GetBlogsssById(
-    //    IReadOnlyList<int> ids,
-    //    IEntityRepository<Blog> repository)
-
-    //=> repository.Source
-    //    .Where(a => ids.Contains(a.Id))
-    //    .ToLookup(x => x.Id);//, cancellationToken);
+    [DataLoader]
+    internal static async Task<IEnumerable<Blog>> GetBlogsById(
+        [ID(nameof(Blog))] int[] ids,
+        IBlogByIdDataLoader blogById,
+        IEntityRepository<Blog> repository,
+        CancellationToken cancellationToken)
+    
+        => await blogById.LoadAsync(ids, cancellationToken);
 }

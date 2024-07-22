@@ -29,12 +29,19 @@ public class PostNode : ObjectTypeExtension<Post>
     }
 
     [DataLoader]
-    internal static async Task<IReadOnlyDictionary<int, Post>> GetPostsByIdAsync(
-        IReadOnlyList<int> ids,
-        IEntityRepository<Post> repository,
-        CancellationToken cancellationToken) 
+    internal static async Task<Post> GetPostByIdAsync(
+        [ID(nameof(Post))] int id,
+        IPostByIdDataLoader postById,
+        CancellationToken cancellationToken)
 
-        => await repository.Source
-            .Where(a => ids.Contains(a.Id))
-            .ToDictionaryAsync(x => x.Id, cancellationToken);
+        => await postById.LoadAsync(id, cancellationToken);
+
+    [DataLoader]
+    internal static async Task<IEnumerable<Post>> GetPostsById(
+        [ID(nameof(Post))] int[] ids,
+        IPostByIdDataLoader postById,
+        IEntityRepository<Post> repository,
+        CancellationToken cancellationToken)
+
+        => await postById.LoadAsync(ids, cancellationToken);
 }
