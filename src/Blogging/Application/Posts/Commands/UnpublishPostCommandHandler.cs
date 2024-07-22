@@ -12,7 +12,7 @@ internal class UnpublishPostCommandHandler(
             return Result.NotFound("Post not found");
         }
 
-        Post.Value.Unpublish();
+        Post.Unpublish();
 
         return Result.Success();
     }

@@ -12,8 +12,8 @@ public class UpdatePostHeaderCommandHandler(
             return Result.NotFound();
         }
 
-        Post.Value.UpdateTitle(command.NewTitle);
-        Post.Value.UpdateDescription(command.NewDescription);
+        Post.UpdateTitle(command.NewTitle);
+        Post.UpdateDescription(command.NewDescription);
 
         await _repository.UpdateAsync(Post, cancellationToken);
 

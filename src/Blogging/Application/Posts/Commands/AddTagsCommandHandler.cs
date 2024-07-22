@@ -13,10 +13,10 @@ internal class AddTagsCommandHandler(
             return Result.NotFound();
         }
 
-        result.Value.RemoveTags(command.NewTags);
+        result.RemoveTags(command.NewTags);
 
         await _repository.UpdateAsync(result, cancellationToken);
 
-        return Result.Success(result.Value.Tags.Count);
+        return Result.Success(result.Tags.Count);
     }
 }

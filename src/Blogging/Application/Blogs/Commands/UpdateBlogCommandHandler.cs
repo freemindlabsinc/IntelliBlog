@@ -9,10 +9,9 @@ internal class UpdateBlogCommandHandler(
 {
     public async Task<Result> Handle(UpdateBlogCommand command, CancellationToken cancellationToken)
     {
-        Result<Blog> result = await _repository.GetByIdAsync(command.Id, cancellationToken);
-        if (result.IsNotFound()) return Result.NotFound();
+        Blog? blog = await _repository.GetByIdAsync(command.Id, cancellationToken);
+        if (blog == null) return Result.NotFound();
 
-        var blog = result.Value;
         if (command.Name != null) blog.UpdateName(command.Name);
         if (command.Description != null) blog.UpdateDescription(command.Description);
         if (command.Notes != null) blog.UpdateNotes(command.Notes);

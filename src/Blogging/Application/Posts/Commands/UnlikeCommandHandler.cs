@@ -11,11 +11,11 @@ public class UnlikeCommandHandler(
             return Result.NotFound();
         }
 
-        response.Value.Unlike(command.likedBy);
+        response.Unlike(command.likedBy);
 
         await _repository.UpdateAsync(response, cancellationToken);
 
-        return Result<int>.Success(response.Value.Likes.Count);
+        return Result<int>.Success(response.Likes.Count);
     }
 }
 

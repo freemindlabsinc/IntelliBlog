@@ -39,7 +39,7 @@ public static class InfrastructureExtensions
             });        
 
         // Repositories
-        services.AddScoped(typeof(IEntityRepository<>), typeof(EntityRepository<>));
+        services.AddScoped(typeof(IEntityRepository<>), typeof(EntityFrameworkEntityRepository<>));
 
         // Unit of work
         services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -12,7 +12,7 @@ public class PublishPostCommandHandler(
             return Result.NotFound("Post not found");
         }
 
-        Post.Value.Publish();
+        Post.Publish();
 
         return Result.Success();
     }

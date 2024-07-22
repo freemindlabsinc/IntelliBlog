@@ -19,8 +19,8 @@ public interface IEntityRepository<TAggregateRoot>
     /// <param name="id"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<Result<TAggregateRoot>> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default)
-        where TId : struct, IEquatable<TId>;
+    Task<TAggregateRoot?> GetByIdAsync<TId>(TId id, CancellationToken cancellationToken = default)
+        where TId : struct;
 
     /// <summary>
     /// Persists a new aggregate root.
@@ -36,15 +36,15 @@ public interface IEntityRepository<TAggregateRoot>
     /// <param name="entity"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<Result<TAggregateRoot>> UpdateAsync(TAggregateRoot entity, CancellationToken cancellationToken = default);
+    Task<TAggregateRoot> UpdateAsync(TAggregateRoot entity, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Deletes an existing aggregate root.
     /// </summary>
     /// <typeparam name="TId"></typeparam>
-    /// <param name="entity"></param>
+    /// <param name="entityId"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    Task<Result<int>> DeleteAsync<TId>(TId entity, CancellationToken cancellationToken = default)
+    Task<bool> DeleteAsync<TId>(TId entityId, CancellationToken cancellationToken = default)
         where TId : struct;    
 }

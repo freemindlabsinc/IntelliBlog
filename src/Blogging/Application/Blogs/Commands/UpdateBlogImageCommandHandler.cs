@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Application.Blogs.Commands;
 
-internal class UpdateBlogImagesCommandHandler(
+internal class UpdateBlogImageCommandHandler(
     IEntityRepository<Blog> _repository
     )
     : ICommandHandler<UpdateBlogImageCommand, Result>
@@ -10,7 +10,7 @@ internal class UpdateBlogImagesCommandHandler(
         var blogResult = await _repository.GetByIdAsync(command.Id, cancellationToken);
         if (blogResult == null) return Result.NotFound();
 
-        blogResult.Value.UpdateImage(command.Image);
+        blogResult.UpdateImage(command.Image);
 
         return Result.Success();
     }

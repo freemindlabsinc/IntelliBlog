@@ -1,6 +1,6 @@
 ﻿using Blogging.Domain.Interfaces;
 
-namespace GraphQL.Sources;
+namespace API.Sources;
 
 [QueryType]
 public static class SourceQueries
@@ -9,11 +9,17 @@ public static class SourceQueries
     [HotChocolate.Data.UseFiltering]
     [HotChocolate.Data.UseSorting]
     public static IQueryable<Source> GetSources(
-        [Service(ServiceKind.Synchronized)] IEntityRepository<Source> repository)
+        [Service] 
+        IEntityRepository<Source> repository)
+        
         => repository.Source;
 
-    public static async Task<Ardalis.Result.Result<Source>> GetSourceByIdAsync(
-        [Service(ServiceKind.Synchronized)] IEntityRepository<Source> repository,
-        [GraphQLType(typeof(IdType))] int id)
+    public static async Task<Source?> GetSourceByIdAsync(
+        [Service] 
+        IEntityRepository<Source> repository,
+
+        [GraphQLType(typeof(IdType))] 
+        int id)
+
         => await repository.GetByIdAsync(id);
 }

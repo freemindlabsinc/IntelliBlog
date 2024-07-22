@@ -10,7 +10,7 @@ internal class UnpublishBlogCommandHandler(
 
         if (blog == null) return Result.NotFound();
 
-        blog.Value.GoOffline();
+        blog.GoOffline();
 
         await _repository.UpdateAsync(blog, cancellationToken);
 

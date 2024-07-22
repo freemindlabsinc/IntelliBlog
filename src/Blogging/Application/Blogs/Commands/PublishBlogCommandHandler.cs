@@ -10,7 +10,7 @@ internal class PublishBlogCommandHandler(
 
         if (blog == null) return Result.NotFound();
 
-        blog.Value.GoOnline();
+        blog.GoOnline();
 
         await _repository.UpdateAsync(blog, cancellationToken);
 

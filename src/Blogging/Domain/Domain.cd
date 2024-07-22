@@ -3,7 +3,7 @@
   <Class Name="Blogging.Domain.Blog">
     <Position X="1.75" Y="1" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAiAAAABCAgAAAAAAAAAAQAAACAAFAAAAAAAAAAoAQ=</HashCode>
+      <HashCode>AAAiAAAABCAgAAAAAAAAAAQAAACAAFAAAAAAAAAAoIQ=</HashCode>
       <FileName>Domain\Blog.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -86,14 +86,14 @@
     </TypeIdentifier>
   </Class>
   <Interface Name="Blogging.Domain.Interfaces.IEntityRepository&lt;TAggregateRoot&gt;">
-    <Position X="0.75" Y="7" Width="3.5" />
+    <Position X="30.75" Y="0.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAEAAAAAAAAAAAAAAAAgAAAAAAIAAIIA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAEAAAAAAAgAAAAAAAAAIIA=</HashCode>
       <FileName>Domain\Interfaces\IEntityRepository.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="Blogging.Domain.Interfaces.IUser">
-    <Position X="1.75" Y="10.25" Width="1.5" />
+    <Position X="32" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Domain\Interfaces\IUser.cs</FileName>

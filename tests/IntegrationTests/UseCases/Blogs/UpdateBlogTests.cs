@@ -32,9 +32,9 @@ public class UpdateBlogTests : IClassFixture<UnitOfWorkFixture>
         //
         var updatedBlog = await _fixture.BlogRepository.GetByIdAsync(blogId.Value);
 
-        updatedBlog.IsSuccess.Should().BeTrue();
-        updatedBlog.Value.Name.Should().Be("An updated blog");
-        updatedBlog.Value.Description.Should().Be("DescriptionA");
-        updatedBlog.Value.Notes.Should().Be("NotesA");
+        updatedBlog.Should().NotBeNull();
+        updatedBlog.Name.Should().Be("An updated blog");
+        updatedBlog.Description.Should().Be("DescriptionA");
+        updatedBlog.Notes.Should().Be("NotesA");
     }
 }

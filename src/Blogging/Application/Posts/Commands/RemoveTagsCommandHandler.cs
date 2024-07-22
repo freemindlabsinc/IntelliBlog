@@ -11,7 +11,7 @@ public class RemoveTagsCommandHandler(IEntityRepository<Post> _repository)
             return Result.NotFound();
         }
         
-        post.Value.RemoveTags(command.TagsToRemove);
+        post.RemoveTags(command.TagsToRemove);
 
         await _repository.UpdateAsync(post, cancellationToken);
 

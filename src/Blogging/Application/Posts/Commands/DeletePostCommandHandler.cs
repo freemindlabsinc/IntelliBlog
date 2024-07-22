@@ -12,7 +12,7 @@ public class DeletePostCommandHandler(
             return Result.NotFound("Post not found");
         }
 
-        await _repository.DeleteAsync(result.Value.Id);
+        await _repository.DeleteAsync(result.Id);
 
         return Result.Success();
     }

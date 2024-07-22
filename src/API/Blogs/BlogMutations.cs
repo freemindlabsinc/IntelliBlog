@@ -2,7 +2,7 @@
 using Blogging.Application.Blogs.Commands;
 using MediatR;
 
-namespace GraphQL.Blogs;
+namespace API.Blogs;
 
 [MutationType]
 public static class BlogMutations

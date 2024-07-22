@@ -13,7 +13,7 @@ internal class DeleteSourceCommandHandler(
             return Result.NotFound("Source not found");
         }
 
-        await _repository.DeleteAsync(source.Value.Id, cancellationToken);
+        await _repository.DeleteAsync(source.Id, cancellationToken);
 
         return Result.Success();
     }

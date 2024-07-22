@@ -10,8 +10,8 @@ internal class UpdatePostTextCommandHandler(
         if (post == null)
             return Result.NotFound();
 
-        post.Value.UpdateText(command.Description);
-        post.Value.UpdateText(command.Text);
+        post.UpdateText(command.Description);
+        post.UpdateText(command.Text);
         await _repository.UpdateAsync(post, cancellationToken);
 
         return Result.Success();

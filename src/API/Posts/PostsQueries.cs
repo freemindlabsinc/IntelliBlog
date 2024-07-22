@@ -1,18 +1,25 @@
 ﻿using Blogging.Domain.Interfaces;
 
-namespace GraphQL.Posts;
+namespace API.Posts;
 
 [QueryType]
 public static class PostsQueries
 {
     [UsePaging]
     [HotChocolate.Data.UseFiltering]
-    [HotChocolate.Data.UseSorting]
-    public static IQueryable<Post> GetPosts([Service(ServiceKind.Synchronized)] IEntityRepository<Post> repository)
-        => repository.Source;
+    [HotChocolate.Data.UseSorting]    
+    public static IQueryable<Post> GetPosts(
+        [Service] 
+        IEntityRepository<Post> repository)
 
-    public static async Task<Ardalis.Result.Result<Post>> GetPostByIdAsync(
-        [Service(ServiceKind.Synchronized)] IEntityRepository<Post> repository,
-        [GraphQLType(typeof(IdType))] int id)
+        => repository.Source;
+    
+    public static async Task<Post?> GetPostByIdAsync(
+        [Service] 
+        IEntityRepository<Post> repository,
+
+        [GraphQLType<IdType>] 
+        int id)
+
         => await repository.GetByIdAsync(id);
 }

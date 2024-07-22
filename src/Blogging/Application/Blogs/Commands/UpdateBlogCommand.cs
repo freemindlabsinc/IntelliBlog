@@ -1,6 +1,10 @@
 ﻿namespace Blogging.Application.Blogs.Commands;
 
-public record UpdateBlogCommand(int Id, string Name, string? Description = default, string? Notes = default)
+public record UpdateBlogCommand(
+    int Id, 
+    string Name, 
+    string? Description = default, 
+    string? Notes = default)
     : ICommand<Result>
 {
     internal class UpdateBlogCommandValidator : AbstractValidator<UpdateBlogCommand>

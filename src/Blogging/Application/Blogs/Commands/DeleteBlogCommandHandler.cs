@@ -8,9 +8,9 @@ internal class DeleteBlogCommandHandler(
     {
         var result = await _repository.GetByIdAsync(command.Id, cancellationToken);
 
-        if (result.IsNotFound()) return Result.NotFound();
+        if (result == null) return Result.NotFound();
 
-        await _repository.DeleteAsync(result.Value.Id, cancellationToken);
+        await _repository.DeleteAsync(result.Id, cancellationToken);
 
         return Result.Success();
     }

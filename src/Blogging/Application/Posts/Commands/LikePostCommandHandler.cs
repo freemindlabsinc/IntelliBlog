@@ -12,13 +12,13 @@ public class LikePostCommandHandler(
             return Result<int>.NotFound("Post not found");
         }
 
-        result.Value.Like(command.LikedBy);
+        result.Like(command.LikedBy);
 
         // HACK Interesting how I can pass either the result or the result.Value to the UpdateAsync method
         // Should I be clearer/consistent?
         await _repository.UpdateAsync(result, cancellationToken);
 
-        return Result<int>.Success(result.Value.Likes.Count);
+        return Result<int>.Success(result.Likes.Count);
     }
 }
 

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Blogging.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
-namespace GraphQL.Types;
+namespace API.Types;
 
-[Node]
-//[ExtendObjectType<Article>]
+//[ExtendObjectType<Post>]
 public class PostNode : ObjectTypeExtension<Post>
 {
     protected override void Configure(IObjectTypeDescriptor<Post> descriptor)
@@ -15,30 +15,26 @@ public class PostNode : ObjectTypeExtension<Post>
         // Surprisingly calling BindFieldsExplicitly maps all publish stuff anyway
         // but without the INotification problems. Ignore() can then be called afterwards.
 
+        base.Configure(descriptor);
         descriptor.BindFieldsExplicitly();
-        descriptor.Field(x => x.Id).Type<IdType>();
-        descriptor.Ignore(x => x.BlogId);
-        descriptor.Ignore(x => x.CreatedBy);
-        descriptor.Ignore(x => x.CreatedOn);
-        descriptor.Field("Number")
-                  .Resolve((ctx, ct) => 
-                  {
-                      return GetNumber(ctx.Parent<Post>());
-                  });
-    }
-
-    [BindMember("Number")]
-    public static int GetNumber([Parent] Post article)
-    {
-        return article.Id * 10000;
+        //descriptor.Field(x => x.Id).Type<IdType>();
+        //descriptor.Ignore(x => x.BlogId);
+        //descriptor.Ignore(x => x.CreatedBy);
+        //descriptor.Ignore(x => x.CreatedOn);
+        //descriptor.Field("Number")
+        //          .Resolve((ctx, ct) => 
+        //          {
+        //              return GetNumber(ctx.Parent<Post>());
+        //          });
     }
 
     [DataLoader]
-    internal static async Task<IReadOnlyDictionary<int, Post>> GetArticleByIdAsync(
+    internal static async Task<IReadOnlyDictionary<int, Post>> GetPostsByIdAsync(
         IReadOnlyList<int> ids,
-        BloggingDbContext context,
+        IEntityRepository<Post> repository,
         CancellationToken cancellationToken) 
-        => await context.Posts
+
+        => await repository.Source
             .Where(a => ids.Contains(a.Id))
             .ToDictionaryAsync(x => x.Id, cancellationToken);
 }
