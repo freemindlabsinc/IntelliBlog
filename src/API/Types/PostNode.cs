@@ -37,11 +37,41 @@ public class PostNode : ObjectTypeExtension<Post>
         => await postById.LoadAsync(id, cancellationToken);
 
     [DataLoader]
-    internal static async Task<IEnumerable<Post>> GetPostsById(
+    internal static async Task<IEnumerable<Post>> GetPostsByIdAsync(
         [ID(nameof(Post))] int[] ids,
         IPostByIdDataLoader postById,
         IEntityRepository<Post> repository,
         CancellationToken cancellationToken)
 
         => await postById.LoadAsync(ids, cancellationToken);
+
+    [DataLoader]
+    internal static async Task<IEnumerable<Post>> GetPostsByBlogIdAsync(
+        [ID(nameof(Blog))] int blogId,
+        IEntityRepository<Post> postRepository,
+        PostsByIdDataLoader postsById,
+        CancellationToken cancellationToken)
+    {
+        int[] postIds = await postRepository.Source
+            .Where(p => p.BlogId == blogId)
+            .Select(p => p.Id)
+            .ToArrayAsync();
+
+        return await postsById.LoadAsync(postIds, cancellationToken);
+    }
+
+    [DataLoader]
+    internal static async Task<IEnumerable<Post>> GetPostsByBlogIdsAsync(
+            [ID(nameof(Blog))] int[] blogIds,
+            IEntityRepository<Post> postRepository,
+            PostsByIdDataLoader postsById,
+            CancellationToken cancellationToken)
+    {
+        int[] postIds = await postRepository.Source
+            .Where(p => blogIds.Contains(p.BlogId))
+            .Select(p => p.Id)
+            .ToArrayAsync();
+
+        return await postsById.LoadAsync(postIds, cancellationToken);
+    }
 }

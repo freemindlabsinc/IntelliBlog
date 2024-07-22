@@ -11,6 +11,7 @@
     <PackageReference Include="HotChocolate.AspNetCore" />
     <PackageReference Include="HotChocolate.Server" />
     <PackageReference Include="HotChocolate.Data" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" />
     <PackageReference Include="HotChocolate.Types.Analyzers" />    
     <PackageReference Include="System.Text.Json" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">

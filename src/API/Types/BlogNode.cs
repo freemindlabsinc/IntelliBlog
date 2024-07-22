@@ -3,29 +3,37 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Types;
 
-public class BlogNode : ObjectTypeExtension<Blog>
+// https://github.com/ChilliCream/graphql-workshop/blob/master/code/session-8/GraphQL/Types/AttendeeType.cs
+
+[Node]
+[ExtendObjectType<Blog>]
+public static class BlogNode
 {
     //[UsePaging]
-    //[HotChocolate.Types.UseFiltering]
-    //[HotChocolate.Types.UseSorting]
-    //public IQueryable<Post> GetPosts(
-    //        [Parent] 
-    //        Blog blog,  
-
-    //        [Service(ServiceKind.Synchronized)]
-    //        IEntityRepository<Post> repository)
+    //[UseFiltering]
+    //[UseSorting]
+    //public static async Task<IEnumerable<Post>> GetPostsXXX(
+    //        [ID(nameof(Blog))] int id,
+    //
+    //        //[Service]
+    //        IPostsByBlogIdDataLoader postsLoader)
     //{
-    //    return repository.Source
-    //        .Where(p => p.BlogId == blog.Id);
+    //    return await postsLoader.LoadAsync(id);
     //}
 
-    protected override void Configure(IObjectTypeDescriptor<Blog> descriptor)
+    public static async Task<IEnumerable<Post>> GetPostsByBlogIdAsync(
+            [ID(nameof(Blog))] int id,
+            [Service]IEntityRepository<Post> postRepository,
+            IPostsByBlogIdsDataLoader postsByBlogId,
+            CancellationToken cancellationToken)
     {
-        base.Configure(descriptor);
+        int[] postIds = await postRepository.Source
+            .Where(p => p.Id == id)
+            .Select(p => p.Id)
+            .ToArrayAsync();
 
-        descriptor.BindFieldsExplicitly();
-        //descriptor.Field("DummyField")
-        //          .Resolve(() => "Blog-DummyFieldValue");
+        var x = await postsByBlogId.LoadAsync(postIds, cancellationToken);
+        return x;
     }
 
     [DataLoader]
@@ -40,8 +48,8 @@ public class BlogNode : ObjectTypeExtension<Blog>
     internal static async Task<IEnumerable<Blog>> GetBlogsById(
         [ID(nameof(Blog))] int[] ids,
         IBlogByIdDataLoader blogById,
-        IEntityRepository<Blog> repository,
         CancellationToken cancellationToken)
     
         => await blogById.LoadAsync(ids, cancellationToken);
+
 }
