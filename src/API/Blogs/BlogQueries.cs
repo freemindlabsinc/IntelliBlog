@@ -19,7 +19,7 @@ public static class BlogQueries
         [Service] 
         IEntityRepository<Blog> repository,
 
-        [GraphQLType(typeof(IdType))] 
+        [GraphQLType<IdType>] 
         int id)
 
         => await repository.GetByIdAsync(id);

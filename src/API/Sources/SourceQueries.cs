@@ -15,12 +15,12 @@ public static class SourceQueries
         
         => repository.Source;
 
-    //public static async Task<Source?> GetSourceByIdAsync(
-    //    [Service] 
-    //    IEntityRepository<Source> repository,
+    public static async Task<Source?> GetSourceByIdAsync(
+        [Service] 
+        IEntityRepository<Source> repository,
 
-    //    [GraphQLType(typeof(IdType))] 
-    //    int id)
+        [GraphQLType<IdType>] 
+        int id)
 
-    //    => await repository.GetByIdAsync(id);
+        => await repository.GetByIdAsync(id);
 }

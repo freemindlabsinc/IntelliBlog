@@ -1,4 +1,5 @@
-﻿using Blogging.Domain.Interfaces;
+﻿using API.DataLoaders;
+using Blogging.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Types;
@@ -7,7 +8,17 @@ public class SourceType : ObjectType<Source>
 {
     protected override void Configure(IObjectTypeDescriptor<Source> descriptor)
     {
-        
+        // problem
+        descriptor.Field(t => t.BlogId).Ignore();
+        descriptor.Field("blog")
+            .Resolve(async context =>
+            {
+                var key = context.Parent<Source>().BlogId;
+                var cancellationToken = context.RequestAborted;
+
+                return await context.DataLoader<BlogDataLoader>().LoadAsync(key, cancellationToken);
+            })
+            .Type<NonNullType<SourceType>>();
     }
 
     //[DataLoader]
