@@ -6,7 +6,7 @@ namespace API.Posts;
 public static class PostsQueries
 {
     [UsePaging]
-    //[UseProjection]
+    [UseProjection]
     [UseFiltering]
     [UseSorting]
     public static IQueryable<Post> GetPosts(

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.DataLoaders;
 
+[UsePaging]
 public class BlogPostsDataLoader(
     IBatchScheduler batchScheduler,
     IServiceProvider serviceProvider,
