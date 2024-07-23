@@ -1,4 +1,6 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using API.Types;
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
@@ -7,8 +9,10 @@ builder.Services
     .AddGraphQLServer()
     .AddTypes()
     .AddFiltering()
-    .AddSorting();
-    //.RegisterDbContext<AppDbContext>(DbContextKind.Resolver);
+    .AddSorting()
+    .AddDataLoader<BlogDataLoader>()
+    .RegisterDbContext<BloggingDbContext>(DbContextKind.Resolver)
+    .AddProjections();
 
 var app = builder.Build();
 
