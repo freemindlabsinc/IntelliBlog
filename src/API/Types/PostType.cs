@@ -7,8 +7,8 @@ public class PostType : ObjectType<Post>
     protected override void Configure(IObjectTypeDescriptor<Post> descriptor)
     {
         // problem
-        descriptor.Field(t => t.BlogId)
-            .Name("blog")
+        descriptor.Field(t => t.BlogId).Ignore();
+        descriptor.Field("blog")
             .Resolve(async context =>
             { 
                 var key = context.Parent<Post>().BlogId;
