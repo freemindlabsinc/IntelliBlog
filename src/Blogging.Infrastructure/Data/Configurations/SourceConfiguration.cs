@@ -7,8 +7,6 @@ public class SourceConfiguration : IEntityTypeConfiguration<Source>
         // Common
         builder.AddSequenceForId<Source, int>();
 
-        builder.AddTrackedEntityConfiguration<Source, int>();
-
         builder.HasOne<Blog>()
                .WithMany()
                .HasForeignKey(p => p.BlogId);

@@ -1,11 +1,11 @@
 ﻿using Blogging.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Types;
+namespace API.DataLoaders;
 
 public class BlogPostsDataLoader(
     IBatchScheduler batchScheduler,
-    IServiceProvider serviceProvider,    
+    IServiceProvider serviceProvider,
     DataLoaderOptions? options = null)
 
     : GroupedDataLoader<int, Post>(batchScheduler, options)
@@ -15,7 +15,7 @@ public class BlogPostsDataLoader(
         CancellationToken cancellationToken)
     {
         await using var scope = serviceProvider.CreateAsyncScope();
-        var postRepository = scope.ServiceProvider.GetRequiredService<IEntityRepository<Post>>(); 
+        var postRepository = scope.ServiceProvider.GetRequiredService<IEntityRepository<Post>>();
 
         var posts = await postRepository.Source
             .Where(p => keys.Contains(p.BlogId))

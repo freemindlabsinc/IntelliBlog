@@ -3,13 +3,13 @@
 public abstract class TrackedEntity<TId>() : Entity<TId>, ITrackedEntity
     where TId : struct, IEquatable<TId>
 {
-    public DateTimeOffset CreatedOn { get; private set; }
+    public DateTimeOffset CreatedOn { get; protected set; }
 
-    public string? CreatedBy { get; private set; }
+    public string? CreatedBy { get; protected set; }
 
-    public DateTimeOffset? LastModifiedOn { get; private set; }
+    public DateTimeOffset? LastModifiedOn { get; protected set; }
 
-    public string? LastModifiedBy { get; private set; }
+    public string? LastModifiedBy { get; protected set; }
 
     void ITrackedEntity.SetCreated(DateTimeOffset createdOn, string createdBy)
     {

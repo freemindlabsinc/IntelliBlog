@@ -2,7 +2,7 @@
 
 public sealed class Post : TrackedEntity<int>, IAggregateRoot
 {
-    internal Post() { /* HotChocolate */ }
+    private Post() { /* HotChocolate */ }
     public Post(
         int blogId,
         string title,

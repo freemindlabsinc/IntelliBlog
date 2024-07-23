@@ -7,9 +7,19 @@ public class BlogConfiguration : IEntityTypeConfiguration<Blog>
         // Common
         builder.AddSequenceForId<Blog, int>();
 
-        builder.AddTrackedEntityConfiguration<Blog, int>();
 
-        
+        builder.Property(p => p.CreatedBy)
+               .HasMaxLength(DbSchemaConstants.DEFAULT_IDENTITY_ID)
+               .IsRequired();
+
+        builder.Property(p => p.CreatedOn)
+               .IsRequired();
+
+        builder.Property(p => p.LastModifiedBy)
+               .HasMaxLength(DbSchemaConstants.DEFAULT_IDENTITY_ID);
+
+        builder.Property(p => p.LastModifiedOn);
+
         // Entity
         builder.Property(p => p.Name)
                .HasMaxLength(DbSchemaConstants.DEFAULT_BLOG_NAME_LENGTH)

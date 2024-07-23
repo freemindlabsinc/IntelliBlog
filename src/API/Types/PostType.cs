@@ -1,4 +1,6 @@
-﻿namespace API.Types;
+﻿using API.DataLoaders;
+
+namespace API.Types;
 
 public class PostType : ObjectType<Post>
 {

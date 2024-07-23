@@ -7,8 +7,8 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services
   .AddGraphQLServer()
-  .AddTypes()
-  //.AddProjections()
+  .AddTypes()  
+  .AddProjections()
   .AddFiltering()
   .AddSorting()    
   .RegisterDbContext<BloggingDbContext>(DbContextKind.Resolver);

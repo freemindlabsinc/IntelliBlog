@@ -1,4 +1,6 @@
-﻿namespace API.Types;
+﻿using API.DataLoaders;
+
+namespace API.Types;
 
 public class BlogType : ObjectType<Blog>
 {
@@ -6,14 +8,19 @@ public class BlogType : ObjectType<Blog>
     {
         // correct
         descriptor.Field("posts")
+            //.IsProjected(true)
+            //.UseSorting()
             .Resolve(async context =>
-            { 
-                var key = context.Parent<Blog>().Id;
+            {
+                var parent = context.Parent<Blog>();
+                var key = parent.Id;
                 var cancellationToken = context.RequestAborted;
 
-                return await context.DataLoader<BlogPostsDataLoader>().LoadAsync(key, cancellationToken);
+                Post[] results = await context.DataLoader<BlogPostsDataLoader>().LoadAsync(key, cancellationToken);
+
+                return results;
             })
-            //.Name("posts")            
+            //.Name("posts")                        
             .Type<NonNullType<ListType<PostType>>>();
 
         // correct
@@ -25,6 +32,7 @@ public class BlogType : ObjectType<Blog>
 
                 return await context.DataLoader<BlogSourcesDataLoader>().LoadAsync(key, cancellationToken);
             })
+            //.UseProjection()
             //.Name("posts")            
             .Type<NonNullType<ListType<SourceType>>>();
 

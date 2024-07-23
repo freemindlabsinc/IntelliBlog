@@ -1,11 +1,11 @@
 ﻿using Blogging.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace API.Types;
+namespace API.DataLoaders;
 
 public class BlogSourcesDataLoader(
     IBatchScheduler batchScheduler,
-    IServiceProvider serviceProvider,    
+    IServiceProvider serviceProvider,
     DataLoaderOptions? options = null)
 
     : GroupedDataLoader<int, Source>(batchScheduler, options)

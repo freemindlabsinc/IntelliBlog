@@ -19,14 +19,15 @@ public static class SeedData
     static async Task CreateTechBlog(BloggingDbContext dbContext)
     {
         Blog techBlog = new Blog(TechBlogName, "A blog where I discuss topics I find interesting.");
+        techBlog.UpdateNotes("This blog is about technical topics.");
         techBlog.UpdateImage("https://user-images.githubusercontent.com/63902621/82149019-72a07200-9873-11ea-8e58-b5b88dd58236.jpg");
-        techBlog.AddTags("TECH", "WORK");
+        techBlog.AddTags("TECH", "WORK");        
 
         dbContext.Blogs.Add(techBlog);
         await dbContext.SaveChangesAsync();
 
         // Technical blog sources
-        Source techSource1 = new Source(techBlog.Id, "YouTube", "http://youtu.be");
+        Source techSource1 = new Source(techBlog.Id, "YouTube", "http://youtu.be");        
         Source techSource2 = new Source(techBlog.Id, "The C# Guide", "http://csharpnews.org");
         Source techSource3 = new Source(techBlog.Id, "DDD Principles", "http://csharpnews.org");
 
@@ -59,6 +60,7 @@ public static class SeedData
         Blog lovableBlog = new Blog(LovableBlogName, "A blog with lovely topics such as puppies and kittens.");
         lovableBlog.UpdateImage("https://4.bp.blogspot.com/-ixcfzBt0T5c/WKtt5MPCrVI/AAAAAAAABU8/URO5TXbUCGQnRb_XzEIzrUV3L5AG5hJKwCK4B/s1600/llb1.JPG");
         lovableBlog.AddTags("HOME");
+        lovableBlog.UpdateNotes("This blog is about lovely topics such as puppies and kittens.");
         dbContext.Blogs.Add(lovableBlog);
         await dbContext.SaveChangesAsync();
 

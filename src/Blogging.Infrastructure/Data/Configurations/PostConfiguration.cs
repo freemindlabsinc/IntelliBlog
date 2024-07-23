@@ -7,8 +7,7 @@ public partial class PostConfiguration : IEntityTypeConfiguration<Post>
         // Common
         builder.AddSequenceForId<Post, int>();
 
-        builder.AddTrackedEntityConfiguration<Post, int>();
-
+        
         // Entity
         builder.HasOne<Blog>()
                .WithMany()

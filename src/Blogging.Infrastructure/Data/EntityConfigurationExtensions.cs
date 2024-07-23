@@ -12,16 +12,16 @@ public static class EntityConfigurationExtensions
             .HasDefaultValueSql($"NEXT VALUE FOR {BloggingDbContext.GlobalSequenceName}");
     }
 
-    public static void AddTrackedEntityConfiguration<TEntity, TId>(this EntityTypeBuilder<TEntity> builder)
-        where TId : struct, IEquatable<TId>
-        where TEntity : TrackedEntity<TId>
-    {
-        builder.Property(p => p.CreatedOn)
-            .ValueGeneratedOnAdd()
-            .HasDefaultValueSql("GETUTCDATE()");
+    //public static void AddTrackedEntityConfiguration<TEntity, TId>(this EntityTypeBuilder<TEntity> builder)
+    //    where TId : struct, IEquatable<TId>
+    //    where TEntity : TrackedEntity<TId>
+    //{
+    //    builder.Property(p => p.CreatedOn)
+    //        .ValueGeneratedOnAdd()
+    //        .HasDefaultValueSql("GETUTCDATE()");
 
-        //builder.Property(p => p.LastModified)
-        //    .ValueGeneratedOnUpdate()
-        //    .HasDefaultValueSql("GETUTCDATE()");
-    }
+    //    //builder.Property(p => p.LastModified)
+    //    //    .ValueGeneratedOnUpdate()
+    //    //    .HasDefaultValueSql("GETUTCDATE()");
+    //}
 }
