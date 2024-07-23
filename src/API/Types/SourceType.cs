@@ -13,7 +13,8 @@ public class SourceType : ObjectType<Source>
 [ExtendObjectType<Source>]
 public static class SourceTypeExtensions
 {
-    [UseProjection]
+    [UseSingleOrDefault] // Seems inconsequential
+    [UseProjection] // Seems inconsequential
     public static async Task<Blog> GetBlog(
         [Parent] Source source,
         BlogDataLoader blogDataLoader,

@@ -13,8 +13,8 @@ public class PostType : ObjectType<Post>
 [ExtendObjectType<Post>]
 public static class PostTypeExtensions
 {
-    [UseSingleOrDefault]
-    [UseProjection]
+    [UseSingleOrDefault] // Seems inconsequential
+    [UseProjection] // Seems inconsequential
     public static async Task<Blog> GetBlog(
         [Parent] Post post,
         BlogDataLoader blogDataLoader,
