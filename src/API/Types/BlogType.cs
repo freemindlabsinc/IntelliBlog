@@ -8,8 +8,6 @@ public class BlogType : ObjectType<Blog>
     {
         // correct
         descriptor.Field("posts")
-            //.IsProjected(true)
-            //.UseSorting()
             .Resolve(async context =>
             {
                 var parent = context.Parent<Blog>();
@@ -20,8 +18,11 @@ public class BlogType : ObjectType<Blog>
 
                 return results;
             })
-            //.Name("posts")                        
-            .Type<NonNullType<ListType<PostType>>>();
+            //.IsProjected(true)
+            //.Name("posts")            
+            .Type<NonNullType<ListType<PostType>>>()
+            //.UseSorting()
+            ;
 
         // correct
         descriptor.Field("sources")
