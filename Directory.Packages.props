@@ -29,6 +29,7 @@
     <PackageVersion Include="HotChocolate.Types" Version="13.9.7" />
     <PackageVersion Include="HotChocolate.Types.Analyzers" Version="13.9.7" />
     <PackageVersion Include="HotChocolate.Types.Filters" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Sorting" Version="13.9.7" />
     <PackageVersion Include="HotChocolate.Types.Selections" Version="10.5.5" />
     <PackageVersion Include="MailKit" Version="4.7.1.1" />
     <!--PackageVersion Include="Mapster" Version="7.4.1-pre01" / -->

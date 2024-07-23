@@ -13,16 +13,15 @@ public class BlogType : ObjectType<Blog>
                 var parent = context.Parent<Blog>();
                 var key = parent.Id;
                 var cancellationToken = context.RequestAborted;
-
+                
                 Post[] results = await context.DataLoader<BlogPostsDataLoader>().LoadAsync(key, cancellationToken);
 
                 return results;
             })
-            //.IsProjected(true)
-            //.Name("posts")            
-            .Type<NonNullType<ListType<PostType>>>()
+            //.UsePaging<PostType>()
+            //.UseFiltering<PostType>()
             //.UseSorting()
-            ;
+            .Type<NonNullType<ListType<PostType>>>();
 
         // correct
         descriptor.Field("sources")
@@ -33,8 +32,9 @@ public class BlogType : ObjectType<Blog>
 
                 return await context.DataLoader<BlogSourcesDataLoader>().LoadAsync(key, cancellationToken);
             })
-            //.UseProjection()
-            //.Name("posts")            
+            //.UsePaging<SourceType>()
+            //.UseFiltering<SourceType>()
+            //.UseSorting<SourceType>()
             .Type<NonNullType<ListType<SourceType>>>();
 
 

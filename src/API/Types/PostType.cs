@@ -5,8 +5,7 @@ namespace API.Types;
 public class PostType : ObjectType<Post>
 {
     protected override void Configure(IObjectTypeDescriptor<Post> descriptor)
-    {
-        // problem
+    {        
         descriptor.Field(t => t.BlogId).Ignore();
         descriptor.Field("blog")
             .Resolve(async context =>
@@ -26,8 +25,6 @@ public class PostType : ObjectType<Post>
 
                 return await context.DataLoader<PostSourcesDataLoader>().LoadAsync(key, cancellationToken);
             })
-            //.UseProjection()
-            //.Name("posts")            
             .Type<NonNullType<ListType<SourceType>>>();
     }
   
