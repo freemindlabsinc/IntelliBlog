@@ -19,6 +19,19 @@ public class SourceType : ObjectType<Source>
                 return await context.DataLoader<BlogDataLoader>().LoadAsync(key, cancellationToken);
             })
             .Type<NonNullType<SourceType>>();
+
+        // correct
+        descriptor.Field("posts")
+            .Resolve(async context =>
+            {
+                var key = context.Parent<Source>().Id;
+                var cancellationToken = context.RequestAborted;
+
+                return await context.DataLoader<SourcePostsDataLoader>().LoadAsync(key, cancellationToken);
+            })
+            //.UseProjection()
+            //.Name("posts")            
+            .Type<NonNullType<ListType<PostType>>>();
     }
 
     //[DataLoader]
