@@ -2,6 +2,7 @@
 
 public class Source : TrackedEntity<int>, IAggregateRoot
 {
+    internal Source() { /* For HotChocolate */ }
     public Source(
         int blogId,
         string name,
@@ -115,5 +116,5 @@ public class Source : TrackedEntity<int>, IAggregateRoot
     private IList<string> _tags = new List<string>();
 
     // For Entity Framework
-    private Source() { }
+    //private Source() { }
 }

@@ -6,6 +6,7 @@ namespace API.Sources;
 public static class SourceQueries
 {
     [UsePaging]
+    //[UseProjection]
     [UseFiltering]
     [UseSorting]
     public static IQueryable<Source> GetSources(

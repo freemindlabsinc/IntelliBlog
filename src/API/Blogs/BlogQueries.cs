@@ -6,6 +6,7 @@ namespace API.Blogs;
 public static class BlogQueries
 {
     [UsePaging]
+    //[UseProjection]
     [UseFiltering]
     [UseSorting]
     public static IQueryable<Blog> GetBlogs(

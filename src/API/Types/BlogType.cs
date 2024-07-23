@@ -4,6 +4,7 @@ public class BlogType : ObjectType<Blog>
 {
     protected override void Configure(IObjectTypeDescriptor<Blog> descriptor)
     {
+        // correct
         descriptor.Field("posts")
             .Resolve(async context =>
             { 
@@ -15,6 +16,7 @@ public class BlogType : ObjectType<Blog>
             //.Name("posts")            
             .Type<NonNullType<ListType<PostType>>>();
 
+        // correct
         descriptor.Field("sources")
             .Resolve(async context =>
             {

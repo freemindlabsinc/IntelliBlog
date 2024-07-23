@@ -2,8 +2,10 @@
 
 public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
-    private StringComparer TagComparer = StringComparer.OrdinalIgnoreCase;
-    private ISet<string> _tags { get; set; }
+    private static StringComparer TagComparer = StringComparer.OrdinalIgnoreCase;
+    private ISet<string> _tags { get; set; } = new HashSet<string>(TagComparer);
+
+    internal Blog() { /* For HotChocolate */ } 
 
     public Blog(
         string name,

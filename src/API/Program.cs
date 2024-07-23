@@ -6,15 +6,12 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
 builder.Services
-    .AddGraphQLServer()
-    .AddTypes()
-    .AddFiltering()
-    .AddSorting()
-    //.AddDataLoader<BlogDataLoader>()
-    //.AddDataLoader<BlogDataLoader>()
-    //.AddDataLoader<BlogDataLoader>()
-    .RegisterDbContext<BloggingDbContext>(DbContextKind.Resolver)
-    .AddProjections();
+  .AddGraphQLServer()
+  .AddTypes()
+  //.AddProjections()
+  .AddFiltering()
+  .AddSorting()    
+  .RegisterDbContext<BloggingDbContext>(DbContextKind.Resolver);
 
 var app = builder.Build();
 

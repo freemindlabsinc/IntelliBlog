@@ -2,6 +2,7 @@
 
 public sealed class Post : TrackedEntity<int>, IAggregateRoot
 {
+    internal Post() { /* HotChocolate */ }
     public Post(
         int blogId,
         string title,
@@ -161,5 +162,5 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
     private readonly List<PostLike> _likes = new List<PostLike>();
     private IList<string> _tags = new List<string>();
 
-    private Post() { } // For Entity Framework
+    //private Post() { } // For Entity Framework
 }

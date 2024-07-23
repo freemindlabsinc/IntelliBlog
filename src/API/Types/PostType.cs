@@ -4,6 +4,7 @@ public class PostType : ObjectType<Post>
 {
     protected override void Configure(IObjectTypeDescriptor<Post> descriptor)
     {
+        // problem
         descriptor.Field(t => t.BlogId)
             .Name("blog")
             .Resolve(async context =>
