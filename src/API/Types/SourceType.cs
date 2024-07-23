@@ -6,26 +6,33 @@ public class SourceType : ObjectType<Source>
 {
     protected override void Configure(IObjectTypeDescriptor<Source> descriptor)
     {
-        descriptor.Field(t => t.BlogId).Ignore();
-        descriptor.Field("blog")
-            .Resolve(async context =>
-            {
-                var key = context.Parent<Source>().BlogId;
-                var cancellationToken = context.RequestAborted;
-
-                return await context.DataLoader<BlogDataLoader>().LoadAsync(key, cancellationToken);
-            })
-            .Type<NonNullType<SourceType>>();
-
-        
-        descriptor.Field("posts")
-            .Resolve(async context =>
-            {
-                var key = context.Parent<Source>().Id;
-                var cancellationToken = context.RequestAborted;
-
-                return await context.DataLoader<SourcePostsDataLoader>().LoadAsync(key, cancellationToken);
-            })          
-            .Type<NonNullType<ListType<PostType>>>();
+        descriptor.Field(t => t.BlogId).Ignore();        
     }    
+}
+
+[ExtendObjectType<Source>]
+public static class SourceTypeExtensions
+{
+    [UseProjection]
+    public static async Task<Blog> GetBlog(
+        [Parent] Source source,
+        BlogDataLoader blogDataLoader,
+        CancellationToken cancellationToken)
+    {
+        return await blogDataLoader.LoadAsync(source.BlogId, cancellationToken);
+    }
+
+    [UsePaging]
+    [UseProjection]
+    [UseFiltering]
+    [UseSorting]
+    public static async Task<IEnumerable<Post>> GetPosts(
+        [Parent] Source source,
+        SourcePostsDataLoader sourcePostsDataLoader,
+        CancellationToken cancellationToken)
+    {
+        return await sourcePostsDataLoader.LoadAsync(source.Id, cancellationToken);
+    }
+
+    
 }

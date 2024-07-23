@@ -3,41 +3,33 @@
 namespace API.Types;
 
 public class BlogType : ObjectType<Blog>
+{ }
+
+[ExtendObjectType<Blog>]
+public static class BlogTypeExtensions 
 {
-    protected override void Configure(IObjectTypeDescriptor<Blog> descriptor)
+    [UsePaging]
+    [UseProjection]
+    [UseFiltering]
+    [UseSorting]
+    public static async Task<IEnumerable<Post>> GetPosts(
+        [Parent] Blog blog,
+        [Service] BlogPostsDataLoader dataLoader,
+        CancellationToken cancellationToken)
     {
-        // correct
-        descriptor.Field("posts")
-            .Resolve(async context =>
-            {
-                var parent = context.Parent<Blog>();
-                var key = parent.Id;
-                var cancellationToken = context.RequestAborted;
-                
-                Post[] results = await context.DataLoader<BlogPostsDataLoader>().LoadAsync(key, cancellationToken);
-
-                return results;
-            })
-            //.UsePaging<PostType>()
-            //.UseFiltering<PostType>()
-            //.UseSorting()
-            .Type<NonNullType<ListType<PostType>>>();
-
-        // correct
-        descriptor.Field("sources")
-            .Resolve(async context =>
-            {
-                var key = context.Parent<Blog>().Id;
-                var cancellationToken = context.RequestAborted;
-
-                return await context.DataLoader<BlogSourcesDataLoader>().LoadAsync(key, cancellationToken);
-            })
-            //.UsePaging<SourceType>()
-            //.UseFiltering<SourceType>()
-            //.UseSorting<SourceType>()
-            .Type<NonNullType<ListType<SourceType>>>();
-
-
+        return await dataLoader.LoadAsync(blog.Id, cancellationToken);
     }
 
+
+    [UsePaging]
+    [UseProjection]
+    [UseFiltering]
+    [UseSorting]
+    public static async Task<IEnumerable<Source>> GetSources(
+        [Parent] Blog blog,
+        [Service] BlogSourcesDataLoader dataLoader,
+        CancellationToken cancellationToken)
+    {
+        return await dataLoader.LoadAsync(blog.Id, cancellationToken);
+    }
 }
