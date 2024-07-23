@@ -10,7 +10,9 @@ builder.Services
     .AddTypes()
     .AddFiltering()
     .AddSorting()
-    .AddDataLoader<BlogDataLoader>()
+    //.AddDataLoader<BlogDataLoader>()
+    //.AddDataLoader<BlogDataLoader>()
+    //.AddDataLoader<BlogDataLoader>()
     .RegisterDbContext<BloggingDbContext>(DbContextKind.Resolver)
     .AddProjections();
 

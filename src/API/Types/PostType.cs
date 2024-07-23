@@ -13,7 +13,6 @@ public class PostType : ObjectType<Post>
                 
                 return await context.DataLoader<BlogDataLoader>().LoadAsync(key, cancellationToken);
             })
-            //.Serial()
             .Type<NonNullType<BlogType>>();
     }
   

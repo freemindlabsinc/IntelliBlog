@@ -3,15 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Types;
 
-public class SourceType : ObjectTypeExtension<Source>
+public class SourceType : ObjectType<Source>
 {
     protected override void Configure(IObjectTypeDescriptor<Source> descriptor)
     {
-        base.Configure(descriptor);
-
-        descriptor.BindFieldsExplicitly();
-        //descriptor.Field("BogusField")
-        //          .Resolve(() => "Source-BogusFieldValue");
+        
     }
 
     //[DataLoader]

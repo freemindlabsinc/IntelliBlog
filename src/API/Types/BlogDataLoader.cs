@@ -5,8 +5,8 @@ namespace API.Types;
 
 // https://github.com/ChilliCream/graphql-workshop/blob/master/code/session-8/GraphQL/Types/AttendeeType.cs
 public class BlogDataLoader(
-    IBatchScheduler batchScheduler, 
-    IEntityRepository<Blog> blogRepository, 
+    IBatchScheduler batchScheduler,
+    IServiceProvider serviceProvider,
     DataLoaderOptions? options = null) 
     
     : BatchDataLoader<int, Blog>(batchScheduler, options)
@@ -15,6 +15,9 @@ public class BlogDataLoader(
         IReadOnlyList<int> keys, 
         CancellationToken cancellationToken)
     {
+        await using var scope = serviceProvider.CreateAsyncScope();
+        var blogRepository = scope.ServiceProvider.GetRequiredService<IEntityRepository<Blog>>();
+
         var blogs = await blogRepository.Source
             .Where(b => keys.Contains(b.Id))
             .ToDictionaryAsync(b => b.Id, cancellationToken);
