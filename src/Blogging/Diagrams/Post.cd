@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Blogging.Domain.PostLike">
+    <Position X="11.25" Y="11" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAEgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PostLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Post">
+    <Position X="6.5" Y="7.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAjCghAFAgAEAMAAEAAACQBFACAAAADhEBAAA=</HashCode>
+      <FileName>Domain\Post.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Sources" />
+      <Property Name="Likes" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.PostSource">
+    <Position X="11.25" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PostSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Base.TrackedEntity&lt;TId&gt;">
+    <Position X="6" Y="3.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAQAACAAAAAAAAAAAAAAACBAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Domain\Base\TrackedEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="Blogging.Domain.PostState">
+    <Position X="3.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PostState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="10" />
+</ClassDiagram>
