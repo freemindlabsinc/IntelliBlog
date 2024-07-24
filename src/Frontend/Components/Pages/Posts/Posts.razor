@@ -10,37 +10,89 @@
 }
 else
 {
-    <FluentNumberField @bind-Value="_maxArticles" Label="Max Posts" />
-    <FluentButton OnClick="@FetchData">Refresh</FluentButton>
+    <FluentStack Style="margin-bottom: 20px;">
+        <FluentNumberField @bind-Value="_maxArticles" Label="Max Posts" />
+        <FluentButton OnClick="@FetchData">Refresh</FluentButton>
+    </FluentStack>
+    <div>
+        <FluentSwitch Style="width: 150px;" @bind-Value="ShowHeader">Header</FluentSwitch>
+        <FluentSwitch Style="width: 150px;" @bind-Value="ShowNavMenu">NavMenu</FluentSwitch>
+        <FluentSwitch Style="width: 150px;" @bind-Value="ShowBodyContent">BodyContent</FluentSwitch>
+        <FluentSwitch Style="width: 150px;" @bind-Value="ShowFooter">Footer</FluentSwitch>
+    </div>
 
-       @foreach (var a in posts!)
-       {                
-           <FluentCard MinimalStyle="true" Height="200px">                    
-               <FluentBadge Appearance="Appearance.Accent">
-                   @a.Id
-               </FluentBadge>
+   @foreach (var post in posts!)
+   {                
 
-               <FluentBadge Appearance="Appearance.Lightweight">
-                   @a.Title
-               </FluentBadge>
+        <FluentCard Height="Auto" Style="margin-top: 10px">
+            <FluentLayout>
+                @if (ShowHeader)
+                {
+                    <FluentHeader style="background-color: green">
+                        <div >
+                        <!-- Some Header Text -->
+                        <FluentBadge Appearance="Appearance.Neutral">@post.Title</FluentBadge>
 
-               <FluentBadge Appearance="Appearance.Neutral">
-                   @(a.Description ?? "this is a description")
-               </FluentBadge>
-               
-               <FluentDivider />
 
-               <img src="@a.Image" height="100px" width="200px" />
-               
-           </FluentCard>                
-           
-           <FluentDivider />
-       }
+                        <FluentBadge Appearance="Appearance.Lightweight">@(post.Description ?? "this is a description")</FluentBadge>
+                        <FluentSpacer />
+
+                        <!--  Aligned to the end -->
+                        <FluentBadge Appearance="Appearance.Lightweight" Style="color: gray">@post.Id</FluentBadge>
+                        </div>
+                    </FluentHeader>
+                }
+
+                <FluentStack Orientation="Orientation.Horizontal" Width="100%">
+                    @if (ShowNavMenu)
+                    {
+
+                        <FluentNavMenu Width="250">
+                            <img src="@post.Image" alt="xxx" height="160px" width="240px" />
+
+                            <!--FluentNavLink Icon="@(new Icons.Regular.Size24.Home())">Item 1</!--FluentNavLink>
+                             <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())">Item 2</FluentNavLink>
+                             <FluentNavGroup-- Title="Item 3">
+                                 <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafOne())">Item 3.1</FluentNavLink>
+                                 <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafTwo())">Item 3.2</FluentNavLink>
+                             </FluentNavGroup-->
+                            @* <FluentNavLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Disabled="false">Item 4</FluentNavLink> *@
+                        </FluentNavMenu>
+
+
+                    }
+
+                    @if (ShowBodyContent)
+                    {
+                        <FluentBodyContent Style="max-height:200px">
+                            @post.Text
+                        </FluentBodyContent>
+                    }
+                </FluentStack>
+
+                @if (ShowFooter)
+                {
+                    <FluentFooter Style="@("height: 40px; color: white; text-align: center")">
+                        <FluentLabel>
+                            This article has [X] Like(s) and [Y] comment(s)
+                        </FluentLabel>
+                    </FluentFooter>
+                }
+            </FluentLayout>
+        </FluentCard>
+       
+   }
 }
 
 <p>This component demonstrates showing data.</p>
 
 @code {
+    //string manual_url = "https://i.ytimg.com/vi/3H_-Mjq9OsA/maxresdefault.jpg";
+    bool ShowHeader = true;
+    bool ShowNavMenu = true;
+    bool ShowBodyContent = true;
+    bool ShowFooter = true;
+
     IEnumerable<Frontend.IFetchPosts_Posts_Nodes> posts = default!;
     int _maxArticles = 30;
 

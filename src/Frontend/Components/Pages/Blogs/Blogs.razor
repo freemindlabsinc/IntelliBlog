@@ -22,7 +22,7 @@ else
     <FluentSwitch Style="width: 150px;" @bind-Value="ShowFooter">Footer</FluentSwitch>
     </div>
 
-    @foreach (var a in blogs!)
+    @foreach (var blog in blogs!)
     {
         <FluentCard Height="Auto" Style="margin-top: 10px;">
             <FluentLayout>
@@ -30,13 +30,13 @@ else
                 {
                     <FluentHeader>
                         <!-- Some Header Text -->
-                        <FluentBadge Appearance="Appearance.Neutral">@a.Name</FluentBadge>
+                        <FluentBadge Appearance="Appearance.Neutral">@blog.Name</FluentBadge>
                     
-                        <FluentBadge Appearance="Appearance.Lightweight">@(a.Description ?? "this is a description")</FluentBadge>
+                        <FluentBadge Appearance="Appearance.Lightweight">@(blog.Description ?? "this is a description")</FluentBadge>
                         <FluentSpacer />
 
                         <!--  Aligned to the end -->
-                        <FluentBadge Appearance="Appearance.Lightweight" Style="color: gray">@a.Id</FluentBadge>
+                        <FluentBadge Appearance="Appearance.Lightweight" Style="color: gray">@blog.Id</FluentBadge>
 
                     </FluentHeader>
                 }
@@ -46,7 +46,7 @@ else
                {                        
 
                     <FluentNavMenu Width="250">
-                       <img src="@a.Image" alt="xxx" height="160px" width="240px" />
+                       <img src="@blog.Image" alt="xxx" height="160px" width="240px" />
 
                        <!--FluentNavLink Icon="@(new Icons.Regular.Size24.Home())">Item 1</!--FluentNavLink>
                         <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())">Item 2</FluentNavLink>

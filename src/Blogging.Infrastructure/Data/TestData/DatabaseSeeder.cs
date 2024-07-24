@@ -18,14 +18,15 @@ public static class DatabaseSeeder
     { 
         var blogs = GenerateBlogs(options.BlogsCount);
         await options.DbContext.AddRangeAsync(blogs);
-        
+        await options.DbContext.SaveChangesAsync();
+
         var sources = GenerateSources(blogs, options.SourcesCount);
         await options.DbContext.AddRangeAsync(sources);
-        
-        var posts = GeneratePosts(blogs, options.PostsCount);
-        await options.DbContext.AddRangeAsync(posts);
+        await options.DbContext.SaveChangesAsync();
 
-        // 
+        var posts = GeneratePosts(blogs, options.PostsCount);
+        await options.DbContext.AddRangeAsync(posts);        
+
         await options.DbContext.SaveChangesAsync();
     }
 
@@ -45,15 +46,22 @@ public static class DatabaseSeeder
     {
         int blogId = 100;
 
+        string[] BlogStarters = {
+            "A blog about",
+            "The blog for",
+            "The blog on"
+        };
+
         var faker = new Faker<Blog>()
             .CommonInitialization()
                     
             .CustomInstantiator(f => new Blog(
-                name: f.Lorem.Sentence(),
-                description: f.Lorem.Paragraph()))
-            .RuleFor<int>(x => x.Id, f => blogId++)            
-            .RuleFor(x => x.Name, f => f.Lorem.Sentence())
-            .RuleFor(x => x.Description, f => f.Lorem.Text())
+                name: f.Random.Word().ToUpper(),
+                description: $"{f.PickRandom(BlogStarters)} {f.Random.Words(2).ToLower()}"))
+            .Ignore(x => x.Name)
+            .Ignore(x => x.Description)
+            
+            .RuleFor<int>(x => x.Id, f => blogId++)
             .RuleFor(x => x.Notes, f => f.Lorem.Paragraph())
             .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
             .RuleFor(x => x.IsOnline, f => f.Random.Bool())
@@ -65,13 +73,22 @@ public static class DatabaseSeeder
     }
 
     static IEnumerable<Source> GenerateSources(IEnumerable<Blog> blogs, int amount)
-    { 
+    {
+        var sourceId = 3000;
         var faker = new Faker<Source>()
             .CommonInitialization()
 
             .CustomInstantiator(f => new Source(
                 blogId: f.PickRandom(blogs).Id,
-                name: f.Lorem.Sentence()))
+                name: f.Random.Word()))
+            
+            .Ignore(x => x.BlogId)
+            .Ignore(x => x.Name)
+
+            .RuleFor(x => x.Type, f => f.PickRandom<SourceType>())
+            .RuleFor(x => x.Image, f => f.Image.LoremFlickrUrl())
+
+            .RuleFor<int>(x => x.Id, f => sourceId++)
 
             .RuleFor(x => x.Url, f => f.Internet.Url())
             .RuleFor(x => x.Description, f => f.Lorem.Paragraph());
@@ -81,17 +98,36 @@ public static class DatabaseSeeder
 
     static IEnumerable<Post> GeneratePosts(IEnumerable<Blog> blogs, int amount)
     {
+        string[] TitleStarters = {
+            "Some thoughts about",
+            "My ideas for",
+            "An epiphany regarding"
+        };
+
+        string[] DescStarters = {
+            "In this post I describe",
+            "Some random thoughts about",
+            "What if we"
+        };
+
+        var postId = 1000;
+
         var faker = new Faker<Post>()
             .CommonInitialization()
 
             .CustomInstantiator(f => new Post(
                 blogId: f.PickRandom(blogs).Id,
-                title: f.Lorem.Sentence()))
-            //.RuleFor(x => x.Content, f => f.Lorem.Paragraphs(3))
-            //.RuleFor(x => x.PublishedDate, f => f.Date.Past())
-            //.RuleFor(x => x.Url, f => f.Internet.Url())
-            .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
-            .RuleFor(x => x.Description, f => f.Lorem.Sentence())
+                title: $"{f.PickRandom(TitleStarters)} {f.Random.Words(3).ToLower()}"))
+            .RuleFor(x => x.Id, f => postId++)
+            
+            .RuleFor(x => x.Description, f => $"{f.PickRandom(DescStarters)} {f.Random.Words(3).ToLower()}")
+            .Ignore(x => x.BlogId)
+            .Ignore(x => x.Title)
+
+            .RuleFor(x => x.Text, f => f.Lorem.Paragraphs(5))
+            .RuleFor(x => x.IsPublished, f => f.Random.Bool())
+            .RuleFor(x => x.State, f => f.PickRandom<PostState>())
+            .RuleFor(x => x.Image, f => f.Image.PicsumUrl())            
             ;
 
         return faker.Generate(amount);
