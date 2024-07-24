@@ -29,7 +29,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
     using (var scope = serviceProvider.CreateScope())
     {
       var scopedServices = scope.ServiceProvider;
-      var db = scopedServices.GetRequiredService<AppDbContext>();
+      var db = scopedServices.GetRequiredService<BloggingDbContext>();
 
       var logger = scopedServices
           .GetRequiredService<ILogger<CustomWebApplicationFactory<TProgram>>>();
@@ -47,7 +47,7 @@ public class CustomWebApplicationFactory<TProgram> : WebApplicationFactory<TProg
         //if (!db.ToDoItems.Any())
         //{
         // Seed the database with test data.
-        SeedData.PopulateTestData(db);
+        //SeedData.PopulateTestData(db);
         //}
       }
       catch (Exception ex)

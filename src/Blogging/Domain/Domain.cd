@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Blogging.Domain.Blog">
+    <Position X="1.5" Y="9.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAiAAAABCAgAAAAAAAAAAQAAACAAFAAAAAAAAAAoIQ=</HashCode>
+      <FileName>Domain\Blog.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.PostComment">
+    <Position X="24" Y="12.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAIAAAAAAAAAAACAAAAAgABAAA=</HashCode>
+      <FileName>Domain\PostComment.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Likes" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.PostLike">
+    <Position X="9.25" Y="18" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAEgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PostLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Post">
+    <Position X="6.5" Y="9" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAjCghAFAgAEAMAAEAAACQBFACAAAADhEBAAA=</HashCode>
+      <FileName>Domain\Post.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Sources" />
+      <Property Name="Likes" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.PostSource">
+    <Position X="5" Y="17.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PostSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Source">
+    <Position X="16.5" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAhAAAAAAAIAAQAAACAAFAyCQAAAgABAAQ=</HashCode>
+      <FileName>Domain\Source.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Likes" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.SourceComment">
+    <Position X="27.75" Y="12.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\SourceComment.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Blogging.Domain.Base.CommentBase&lt;TId&gt;">
+    <Position X="25.75" Y="9.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAgAAAAAAAAAAAAAQAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Domain\Base\CommentBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.SourceLike">
+    <Position X="16.5" Y="16.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAgAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\SourceLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.PostCommentLike">
+    <Position X="23.25" Y="16.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAgAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PostCommentLike.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Blogging.Domain.Base.TrackedEntity&lt;TId&gt;">
+    <Position X="8.75" Y="4.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAQAACAAAAAAAAAAAAAAACBAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Domain\Base\TrackedEntity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Blogging.Domain.Interfaces.IEntityRepository&lt;TAggregateRoot&gt;">
+    <Position X="30.5" Y="8.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAEAAAAAAAgAAAAAAAAAIIA=</HashCode>
+      <FileName>Domain\Interfaces\IEntityRepository.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Blogging.Domain.Interfaces.IUser">
+    <Position X="31.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\Interfaces\IUser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Blogging.Domain.PostState">
+    <Position X="11.5" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Domain\PostState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Blogging.Domain.SourceType">
+    <Position X="19.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Domain\SourceType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="10" />
+</ClassDiagram>

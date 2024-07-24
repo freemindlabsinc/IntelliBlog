@@ -4,6 +4,7 @@
 var pwd = builder.AddParameter("blogging-db-password", secret: true);
 
 var sql = builder.AddSqlServer("sql", pwd, port: 12000)
+    
                  .WithDataVolume("sql-data");
 
 var sqldb = sql.AddDatabase("IntelliBlogDb");
@@ -11,9 +12,14 @@ var sqldb = sql.AddDatabase("IntelliBlogDb");
 // REDIS
 var cache = builder.AddRedis("cache", port: 12001);
 
-// References
-builder.AddProject<Projects.API>("api")
+// Projects
+var api = builder.AddProject<Projects.API>("api")
        .WithReference(cache)
        .WithReference(sqldb);
+
+builder.AddProject<Projects.Frontend>("frontend")
+    .WithExternalHttpEndpoints()
+    .WithReference(cache)
+    .WithReference(api);
 
 builder.Build().Run();

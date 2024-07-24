@@ -2,7 +2,7 @@
   <ItemGroup>
     <PackageVersion Include="Ardalis.GuardClauses" Version="4.6.0" />
     <PackageVersion Include="Ardalis.HttpClientTestExtensions" Version="4.2.0" />
-    <PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" />
+    <!--PackageVersion Include="Ardalis.ListStartupServices" Version="1.1.4" /-->
     <PackageVersion Include="Ardalis.Result" Version="9.1.0" />
     <PackageVersion Include="Ardalis.Result.AspNetCore" Version="9.1.0" />
     <PackageVersion Include="Ardalis.SharedKernel" Version="1.5.0" />
@@ -12,6 +12,8 @@
     <PackageVersion Include="Aspire.Hosting.Redis" Version="8.0.2" />
     <PackageVersion Include="Aspire.Hosting.SqlServer" Version="8.0.2" />
     <PackageVersion Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.2" />
+    <PackageVersion Include="AutoMapper" Version="13.0.1" />
+    <PackageVersion Include="Bogus" Version="35.6.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="FluentValidation" Version="11.9.2" />
     <PackageVersion Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.2" />
@@ -19,10 +21,22 @@
     <PackageVersion Include="FastEndpoints.ApiExplorer" Version="2.2.0" />
     <PackageVersion Include="FastEndpoints.Swagger" Version="5.27.0" />
     <PackageVersion Include="FastEndpoints.Swagger.Swashbuckle" Version="2.2.0" />
-    <PackageVersion Include="FluentAssertions" Version="6.12.0" />
-    <PackageVersion Include="MailKit" Version="4.7.0" />
+    <PackageVersion Include="FluentAssertions" Version="7.0.0-alpha.4" />
+    <PackageVersion Include="HotChocolate.Abstractions" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.AspNetCore" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Data" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Data.EntityFramework" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Server" Version="10.5.5" />
+    <PackageVersion Include="HotChocolate.Types" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Analyzers" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Filters" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Sorting" Version="13.9.7" />
+    <PackageVersion Include="HotChocolate.Types.Selections" Version="10.5.5" />
+    <PackageVersion Include="MailKit" Version="4.7.1.1" />
+    <!--PackageVersion Include="Mapster" Version="7.4.1-pre01" / -->
+    <!--PackageVersion Include="Mapster.DependencyInjection" Version="1.0.1" /-->
     <PackageVersion Include="MartinCostello.Logging.XUnit" Version="0.4.0" />
-    <PackageVersion Include="MediatR" Version="12.3.0" />
+    <PackageVersion Include="MediatR" Version="12.1.1" />
     <PackageVersion Include="MediatR.Contracts" Version="2.0.1" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
@@ -34,26 +48,38 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.0-release-24352-06" />
+    <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
     <PackageVersion Include="ReportGenerator" Version="5.3.7" />
     <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageVersion Include="StrawberryShake.Blazor" Version="13.9.7" />
+    <PackageVersion Include="StrawberryShake.CodeGeneration.CSharp.Analyzers" Version="12.22.4" />
+    <PackageVersion Include="StrawberryShake.Server" Version="13.9.7" />
+    <PackageVersion Include="StrawberryShake.Transport.Http" Version="13.9.7" />
     <!--PackageVersion Include="SQLite" Version="3.13.0" /-->
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    <PackageVersion Include="System.Text.Json" Version="8.0.4" />
     <PackageVersion Include="xunit" Version="2.9.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="8.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.6.0" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="8.7.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="8.0.2" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.9.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.9.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.6" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.2" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.9.2" />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.Emoji" Version="4.6.0 " />
+    <PackageVersion Include="Microsoft.FluentUI.AspNetCore.Components.DataGrid.EntityFrameworkAdapter" Version="4.9.1" />
   </ItemGroup>
 </Project>

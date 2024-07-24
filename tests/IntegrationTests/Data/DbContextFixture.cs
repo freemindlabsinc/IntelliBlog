@@ -12,5 +12,5 @@ public class DbContextFixture : FixtureBase, IDisposable
         // Clean up the database
     }   
 
-    public AppDbContext GetDbContext() => GetServiceProvider().GetService<AppDbContext>()!;
+    public BloggingDbContext GetDbContext() => GetServiceProvider().GetService<BloggingDbContext>()!;
 }

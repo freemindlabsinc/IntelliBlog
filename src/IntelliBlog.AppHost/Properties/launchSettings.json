@@ -24,6 +24,12 @@
         "DOTNET_DASHBOARD_OTLP_ENDPOINT_URL": "http://localhost:19093",
         "DOTNET_RESOURCE_SERVICE_ENDPOINT_URL": "http://localhost:20243"
       }
+    },
+    "Watch": {
+      "commandName": "Executable",
+      "workingDirectory": "$(ProjectDir)",
+      "executablePath": "dotnet",
+      "commandLineArgs": "watch run debug --launch-profile https"
     }
   }
 }

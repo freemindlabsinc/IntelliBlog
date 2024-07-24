@@ -1,5 +1,4 @@
-﻿using Blogging.Domain.Aggregates.Blogs;
-using Blogging.Domain.Aggregates.Sources;
+﻿using Blogging.Domain;
 
 namespace Blogging.UnitTests.Domain;
 
@@ -12,13 +11,13 @@ public class SourceTests
         const string description = "Test Description";
         const string url = "http://test.com";
         
-        var source = Source.CreateNew(
+        var source = new Source(
             blogId: 101,
             name: name,
             description: description,
             url: url);
 
-        source.BlogId.Value.Should().Be(101);
+        source.BlogId.Should().Be(101);
         source.Name.Should().Be(name);
         source.Description.Should().Be(description);
         source.Url.Should().Be(url);        

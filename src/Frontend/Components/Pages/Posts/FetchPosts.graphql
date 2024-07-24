@@ -1,0 +1,25 @@
+﻿query FetchPosts($maxRows: Int=10) {
+  posts(first: $maxRows) {
+    nodes {
+      id      
+      title
+      description
+      text
+      image
+      createdOn
+      createdBy
+      lastModifiedOn
+      lastModifiedBy
+      
+      sources {
+        nodes {         
+            id      
+            name
+            url
+            type
+        }
+      }      
+      text
+    }
+  }
+}

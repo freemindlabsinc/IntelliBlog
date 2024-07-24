@@ -1,3 +1,63 @@
+### 7/21/2024
+
+- GQL: Lots of thoughts after learning how Data Loaders work and after
+seeing DAB
+- I tried DAB and played with it. It is very good. I think it would be the perfect software for CODY to look at but it's not the right solution for INTB. 
+    - WHat we need to do is expose our GQL stuff following the starnards (e.g. Relay)
+    that HotChocolate supports. That is the way.
+    - I am gonna concentrate on how to do clean DDD, CQRS but with a GLQ focus!!! 
+    - There ain't much info on this stuff out there.
+- TODO: at some point I need to list the conventions I am using. For instance, record for commands instead of the old readonly-record-struct approach I used before
+- TODO: Strongly typed ids might work fine with GQL.. I should reintroduce them...
+
+### 7/19/2024
+
+- GraphQL, Blazor and Identity courses. Frank Liu. WOW
+- Did a lot of video watching and learning.
+    - [TODO] Put the links here
+
+### 7/12/2024
+
+- I did some more clean up of directory structure and file separation. 
+    - I was not happy with having a file per class in commands (app) and requests (api): it was too much.
+      - I used all possible strategies: one file per class, one file group of things , with and without subfolders.
+      - Ultimately I think I have found the perfect mix for app and api:
+        - Application/Features/Blogs/Commands/Create
+            - CreateBlogCommand.cs (includes Validator)
+            - CreateBlogCommandHandler.cs
+        - API/EndPoints/Blogs/Create
+            - CreateBlogEndpoint.cs
+            - CreateBlogRequest.cs (includes Validator)
+            - CreateBlogResponse.cs                        
+
+- Strongly typed ids ended up being a problem with Mapster and I had to remove them.
+
+
+### 7/11/2024
+
+- I've completed a large number of things. Big update.
+- I finally finalized how the dependency injection extensions should work and who calls who.
+    - Blogging.Domain
+        - references: NOTHING
+    - Application 
+        - (references) -> Blogging.Domain
+        - (exposes) AddApplicationServices()        
+    - Blogging.Infrastructure 
+        - (references) -> Application
+        - (exposes) AddInfrastructureServices()
+        - (registers) AppDbContext using ConnectionString
+    - API
+        - (references) -> Application, Blogging.Infrastructure
+        - (registers) -> Aspire's DbContext (after removing the prior one)
+        - (calls) -> AddApplicationServices() and AddInfrastructureServices()
+    - FrondEnd 
+        - references: NOTHING
+        - NSWAG API client (IntelliBlogAPIClient.cs)
+
+    - I wired up 3 endpoints: CreateArticle, ListArticles, CreateBlog
+        - The endpoints have request, response, handler and validator
+        - 
+
 ### 7/4/2024
 
 - I think the Domain is done, at least for now. 
