@@ -2,7 +2,7 @@
 using Microsoft.FluentUI.AspNetCore.Components;
 
 // SETS ASPIRE OR NOT
-bool IsAspireApp = true;
+bool IsAspireApp = false;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults(); // Aspire

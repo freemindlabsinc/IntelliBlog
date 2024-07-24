@@ -1,5 +1,8 @@
 ﻿using System.Reflection;
+using Blogging.Infrastructure.Data.Interceptors;
 using Blogging.Infrastructure.Data.TestData;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Options;
 
 namespace Blogging.Infrastructure.Data;
 public class BloggingDbContext : DbContext
@@ -19,8 +22,7 @@ public class BloggingDbContext : DbContext
     public DbSet<Source> Sources => Set<Source>();
     public DbSet<SourceLike> SourceLikes => Set<SourceLike>();
     public DbSet<SourceComment> SourceComments => Set<SourceComment>();
-
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -31,9 +33,7 @@ public class BloggingDbContext : DbContext
         // TODO: make sure each configuration type gets the right sequence automagically somehow
         modelBuilder.HasSequence<int>(GlobalSequenceName)
             .StartsAt(1)
-            .IncrementsBy(1);
-
-        //SetupBogusData(modelBuilder);
+            .IncrementsBy(1);        
     }
 
 }

@@ -3,7 +3,8 @@
 // Partial updates patterns https://chatgpt.com/share/adbc7fac-e8ed-4317-88a2-1b46594cc673
 
 internal class UpdateBlogCommandHandler(
-    IEntityRepository<Blog> _repository
+    IEntityRepository<Blog> _repository,
+    ILogger<UpdateBlogCommandHandler> _logger
     )
     : ICommandHandler<UpdateBlogCommand, Result>
 {
@@ -17,6 +18,8 @@ internal class UpdateBlogCommandHandler(
         if (command.Notes != null) blog.UpdateNotes(command.Notes);
 
         await _repository.UpdateAsync(blog);
+
+        _logger.LogInformation("Blog {BlogId} updated", blog.Id);
 
         return Result.Success();
     }

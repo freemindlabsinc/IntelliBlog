@@ -1,11 +1,8 @@
-﻿// SETS ASPIRE OR NOT
-bool IsAspireApp = true;
-
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration, registerDbContext: !IsAspireApp);
+builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.AddServiceDefaults(); // Aspire
 
 builder.Services
@@ -16,11 +13,9 @@ builder.Services
   .AddSorting()    
   .RegisterDbContext<BloggingDbContext>(DbContextKind.Resolver);
 
-// Aspire options
-if (IsAspireApp)
-{
-    builder.AddSqlServerDbContext<BloggingDbContext>("IntelliBlogDb");
-}
+builder
+    .EnrichSqlServerDbContext<BloggingDbContext>(configureSettings: (settings) => { }); // Aspire 
+
 
 var app = builder.Build();
 
