@@ -12,14 +12,14 @@ var sqldb = sql.AddDatabase("IntelliBlogDb");
 // REDIS
 var cache = builder.AddRedis("cache", port: 12001);
 
-//// Projects
-//var api = builder.AddProject<Projects.API>("api")
-//       .WithReference(cache)
-//       .WithReference(sqldb);
+// Projects
+var api = builder.AddProject<Projects.API>("api")
+       .WithReference(cache)
+       .WithReference(sqldb);
 
-//builder.AddProject<Projects.Frontend>("frontend")
-//    .WithExternalHttpEndpoints()
-//    .WithReference(cache)
-//    .WithReference(api);
+builder.AddProject<Projects.Frontend>("frontend")
+    .WithExternalHttpEndpoints()
+    .WithReference(cache)
+    .WithReference(api);
 
 builder.Build().Run();
