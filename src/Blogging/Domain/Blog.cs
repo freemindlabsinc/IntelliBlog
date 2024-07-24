@@ -2,8 +2,7 @@
 
 public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
-    private static StringComparer TagComparer = StringComparer.OrdinalIgnoreCase;
-    private ISet<string> _tags { get; set; } = new HashSet<string>(TagComparer);
+    private IList<string> _tags = new List<string>();
 
     internal Blog() { /* For HotChocolate */ } 
 
@@ -17,8 +16,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         this.Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
         this.Description = description;
         this.Notes = notes;
-        this.Image = image;
-        this._tags = tags?.ToHashSet(TagComparer) ?? new(TagComparer);
+        this.Image = image;        
     }
 
     public string Name { get; private set; } = default!;
@@ -26,14 +24,17 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public string? Notes { get; private set; }
     public string? Image { get; private set; }
     public bool IsOnline { get; private set; }
-    public string[]? Tags { get { return _tags.ToArray(); } private set { /* For EF8 */ } }
+    public IEnumerable<string> Tags { get { return _tags.ToList(); } private set { /* For EF8 */ } }
+
+    StringComparer TagComparer = StringComparer.OrdinalIgnoreCase;
 
     public void AddTags(params string[] tags)
     {        
         _tags = tags
             .Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)))
             .Union(_tags)
-            .ToHashSet(TagComparer);
+            .Distinct(TagComparer)
+            .ToList();
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
@@ -42,7 +43,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     {
         _tags = _tags
             .Except(tags)
-            .ToHashSet(TagComparer);
+            .ToList();
         
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }

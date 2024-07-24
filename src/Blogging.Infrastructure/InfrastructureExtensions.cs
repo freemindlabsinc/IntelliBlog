@@ -6,6 +6,7 @@ using Blogging.Infrastructure.Email;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Blogging.Infrastructure.Data.TestData;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -87,8 +88,17 @@ public static class InfrastructureExtensions
                 
         var context = services.GetRequiredService<BloggingDbContext>();
         
+        // Rebuilds the DB
         context.Database.EnsureDeleted();
         context.Database.EnsureCreated();
-        await SeedData.PopulateTestData(context);
+                
+        // Bogus
+        var options = new DatabaseSeeder.GenerationOptions(
+            DbContext: context,
+            BlogsCount: 10,
+            PostsCount: 10,
+            SourcesCount: 10);
+
+        await DatabaseSeeder.GenerateAsync(options);
     }
 }

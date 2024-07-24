@@ -4,9 +4,19 @@
       id      
       title
       description
+      text
+      image
+      createdOn
+      createdBy
+      lastModifiedOn
+      lastModifiedBy
+      
       sources {
         nodes {         
-            id            
+            id      
+            name
+            url
+            type
         }
       }      
       text

@@ -1,4 +1,5 @@
 ﻿using Blogging.Infrastructure.Data;
+using Blogging.Infrastructure.Data.TestData;
 using Xunit.Abstractions;
 
 namespace Blogging.IntegrationTests.Data;
@@ -32,6 +33,10 @@ public class DbContextTests
         await dbContext.Database.EnsureDeletedAsync();
         await dbContext.Database.EnsureCreatedAsync();
 
-        await SeedData.PopulateTestData(dbContext);
+        await DatabaseSeeder.GenerateAsync(new DatabaseSeeder.GenerationOptions(
+            dbContext,
+            BlogsCount: 10,
+            PostsCount: 10,
+            SourcesCount: 10));
     }    
 }

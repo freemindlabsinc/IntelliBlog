@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Blogging.Infrastructure.Data.TestData;
 
 namespace Blogging.Infrastructure.Data;
 public class BloggingDbContext : DbContext
@@ -31,5 +32,8 @@ public class BloggingDbContext : DbContext
         modelBuilder.HasSequence<int>(GlobalSequenceName)
             .StartsAt(0)
             .IncrementsBy(1);
+
+        //SetupBogusData(modelBuilder);
     }
+
 }
