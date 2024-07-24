@@ -5,9 +5,9 @@
       title
       description
       sources {
-        id
-        linkedOn
-        postId
+        nodes {         
+            id            
+        }
       }      
       text
     }

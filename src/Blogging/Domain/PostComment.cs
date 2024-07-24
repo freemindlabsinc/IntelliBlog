@@ -36,5 +36,5 @@ public sealed class PostComment : CommentBase<int>, IAggregateRoot
 
     private readonly List<PostCommentLike> _likes = new List<PostCommentLike>();
     // For Entity Framework
-    //private PostComment() { }
+    private PostComment() : this(default, default!, default!) { }
 }

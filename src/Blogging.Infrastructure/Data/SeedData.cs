@@ -53,6 +53,12 @@ public static class SeedData
 
         dbContext.Posts.AddRange(techArticle1, techArticle2, techArticle3, techArticle4);
         await dbContext.SaveChangesAsync();
+
+        PostComment comt1 = new PostComment(techArticle1.Id, "Great article!", "susan.carol@somewhere.com");
+        PostComment comt2 = new PostComment(techArticle1.Id, "Great article, really informative!", "john.smith@somewhere.com");
+        dbContext.PostComments.AddRange(new[] { comt1, comt2 });
+
+        await dbContext.SaveChangesAsync();
     }
 
     static async Task CreateLovableBlog(BloggingDbContext dbContext)

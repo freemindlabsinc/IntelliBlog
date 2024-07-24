@@ -12,7 +12,7 @@ public sealed class SourceComment : CommentBase<int>, IAggregateRoot
     }
 
     public int SourceId { get; private set; } = default!;
-    
+
     // For Entity Framework
-    //private SourceComment() : base() { }
+    private SourceComment() : this(default, default!, default!) { }
 }
