@@ -1,9 +1,11 @@
-﻿using API.Types;
+﻿bool IsAspireApp = true;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Add services to the container.
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddInfrastructureServices(builder.Configuration, registerDbContext: !IsAspireApp);
+builder.AddServiceDefaults(); // Aspire
 
 builder.Services
   .AddGraphQLServer()
@@ -12,6 +14,11 @@ builder.Services
   .AddFiltering()
   .AddSorting()    
   .RegisterDbContext<BloggingDbContext>(DbContextKind.Resolver);
+
+if (IsAspireApp)
+{
+    builder.AddSqlServerDbContext<BloggingDbContext>("IntelliBlogDb");
+}
 
 var app = builder.Build();
 

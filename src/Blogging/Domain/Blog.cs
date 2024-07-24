@@ -2,9 +2,9 @@
 
 public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
-    private IList<string> _tags = new List<string>();
+    private string[] _tags = Array.Empty<string>();
 
-    internal Blog() { /* For HotChocolate */ } 
+    internal Blog() { /* For Entity Framework/HotChocolate */ } 
 
     public Blog(
         string name,
@@ -16,7 +16,8 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         this.Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
         this.Description = description;
         this.Notes = notes;
-        this.Image = image;        
+        this.Image = image;
+        this._tags = tags?.ToArray() ?? _tags;
     }
 
     public string Name { get; private set; } = default!;
@@ -24,7 +25,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public string? Notes { get; private set; }
     public string? Image { get; private set; }
     public bool IsOnline { get; private set; }
-    public IEnumerable<string> Tags { get { return _tags.ToList(); } private set { /* For EF8 */ } }
+    public string[] Tags { get { return _tags.ToArray(); } private set { /* For EF8 */ } }
 
     StringComparer TagComparer = StringComparer.OrdinalIgnoreCase;
 
@@ -34,7 +35,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
             .Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)))
             .Union(_tags)
             .Distinct(TagComparer)
-            .ToList();
+            .ToArray();
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
@@ -43,7 +44,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     {
         _tags = _tags
             .Except(tags)
-            .ToList();
+            .ToArray();
         
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }

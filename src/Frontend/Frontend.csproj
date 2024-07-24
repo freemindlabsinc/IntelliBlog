@@ -16,4 +16,8 @@
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
     <PackageReference Include="StrawberryShake.Blazor" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IntelliBlog.ServiceDefaults\IntelliBlog.ServiceDefaults.csproj" />
+  </ItemGroup>
 </Project>

@@ -2,17 +2,23 @@
 
 public class Source : TrackedEntity<int>, IAggregateRoot
 {
-    internal Source() { /* For HotChocolate */ }
+    private readonly List<SourceLike> _likes = new List<SourceLike>();
+    private string[] _tags = Array.Empty<string>();
+    
+    internal Source() { /* For Entity Framework/HotChocolate */ }
+
     public Source(
         int blogId,
         string name,
         string? url = default,
-        string? description = default)
+        string? description = default,
+        string[]? tags = default)
     {
         BlogId = blogId; // Once-setter
-        UpdateName(name);
-        UpdateURL(url);
-        UpdateDescription(description);        
+        this.Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        this.Url = url;
+        this.Description = description;
+        _tags = tags?.ToArray() ?? _tags;
     }
 
     public int BlogId { get; private set; } = default!;
@@ -24,20 +30,22 @@ public class Source : TrackedEntity<int>, IAggregateRoot
     
     public IReadOnlyCollection<SourceLike> Likes => _likes.AsReadOnly();
 
-    public IReadOnlyCollection<string> Tags => _tags.AsReadOnly();
+    public string[] Tags { get { return _tags.ToArray(); } private set { /* For EF8 */ } }
 
     public void AddTags(params string[] tags)
     {
         var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
-        _tags = _tags.Intersect(goodTags, StringComparer.OrdinalIgnoreCase).ToList();
+        _tags = _tags.Intersect(goodTags, StringComparer.OrdinalIgnoreCase)
+                     .ToArray();
 
         RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
     }
 
     public void RemoveTags(params string[] tags)
     {
-        _tags = _tags.Except(tags, StringComparer.OrdinalIgnoreCase).ToList();
+        _tags = _tags.Except(tags, StringComparer.OrdinalIgnoreCase)
+                     .ToArray();
 
         RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
     }
@@ -112,9 +120,5 @@ public class Source : TrackedEntity<int>, IAggregateRoot
         //RaiseEvent(new Events.SourceUnliked(this, likedBy));
     }
 
-    private readonly List<SourceLike> _likes = new List<SourceLike>();
-    private IList<string> _tags = new List<string>();
-
-    // For Entity Framework
-    //private Source() { }
+    
 }

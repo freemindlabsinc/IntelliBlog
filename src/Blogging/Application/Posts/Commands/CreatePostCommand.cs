@@ -10,7 +10,7 @@ public record CreatePostCommand(
     {
         public CreatePostCommandValidator()
         {
-            RuleFor(x => x.BlogId).NotEmpty();
+            //RuleFor(x => x.BlogId).NotEmpty();
             RuleFor(x => x.Title).NotEmpty();
         }
     }

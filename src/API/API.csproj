@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Blogging.Infrastructure\Blogging.Infrastructure.csproj" />
     <ProjectReference Include="..\Blogging\Blogging.csproj" />
+    <ProjectReference Include="..\IntelliBlog.ServiceDefaults\IntelliBlog.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

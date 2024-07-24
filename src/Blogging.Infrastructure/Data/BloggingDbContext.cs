@@ -30,7 +30,7 @@ public class BloggingDbContext : DbContext
         // TODO: create multiple sequences instead of just one
         // TODO: make sure each configuration type gets the right sequence automagically somehow
         modelBuilder.HasSequence<int>(GlobalSequenceName)
-            .StartsAt(0)
+            .StartsAt(1)
             .IncrementsBy(1);
 
         //SetupBogusData(modelBuilder);

@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\API\API.csproj" />
     <ProjectReference Include="..\Frontend\Frontend.csproj" />
+    <ProjectReference Include="..\IntelliBlog.ServiceDefaults\IntelliBlog.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

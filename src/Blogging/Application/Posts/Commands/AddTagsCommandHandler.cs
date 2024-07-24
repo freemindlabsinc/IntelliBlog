@@ -17,6 +17,6 @@ internal class AddTagsCommandHandler(
 
         await _repository.UpdateAsync(result, cancellationToken);
 
-        return Result.Success(result.Tags.Count);
+        return Result.Success(result.Tags.Length);
     }
 }

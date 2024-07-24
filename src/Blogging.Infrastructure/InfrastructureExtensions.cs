@@ -22,7 +22,7 @@ public static class InfrastructureExtensions
     /// <param name="config"></param>
     /// <returns></returns>
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,
-        IConfiguration config)
+        IConfiguration config, bool registerDbContext = true)
     {
         // DbContext
         string? connectionString = config.GetConnectionString(DbConnectionName);
@@ -32,12 +32,15 @@ public static class InfrastructureExtensions
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, GenerateCreateUpdateDeleteEventsInterceptor>();
 
-        services.AddDbContext<BloggingDbContext>(
-            (sp, options) =>
-            {
-                options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-                options.UseSqlServer(connectionString);                
-            });        
+        if (registerDbContext)
+        {
+            services.AddDbContext<BloggingDbContext>(
+                (sp, options) =>
+                {
+                    options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+                    options.UseSqlServer(connectionString);
+                });
+        }
 
         // Repositories
         services.AddScoped(typeof(IEntityRepository<>), typeof(EntityFrameworkEntityRepository<>));

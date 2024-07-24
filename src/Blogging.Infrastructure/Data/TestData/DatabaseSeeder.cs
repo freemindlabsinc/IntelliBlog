@@ -91,7 +91,8 @@ public static class DatabaseSeeder
             .RuleFor<int>(x => x.Id, f => sourceId++)
 
             .RuleFor(x => x.Url, f => f.Internet.Url())
-            .RuleFor(x => x.Description, f => f.Lorem.Paragraph());
+            .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
+            .Ignore(x => x.Tags);
 
         return faker.Generate(amount);
     }
@@ -127,8 +128,9 @@ public static class DatabaseSeeder
             .RuleFor(x => x.Text, f => f.Lorem.Paragraphs(5))
             .RuleFor(x => x.IsPublished, f => f.Random.Bool())
             .RuleFor(x => x.State, f => f.PickRandom<PostState>())
-            .RuleFor(x => x.Image, f => f.Image.PicsumUrl())            
-            ;
+            .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
+            .Ignore(x => x.Tags);
+        ;
 
         return faker.Generate(amount);
     }
