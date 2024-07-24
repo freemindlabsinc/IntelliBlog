@@ -1,4 +1,5 @@
-﻿bool IsAspireApp = true;
+﻿// SETS ASPIRE OR NOT
+bool IsAspireApp = true;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services
   .AddSorting()    
   .RegisterDbContext<BloggingDbContext>(DbContextKind.Resolver);
 
+// Aspire options
 if (IsAspireApp)
 {
     builder.AddSqlServerDbContext<BloggingDbContext>("IntelliBlogDb");

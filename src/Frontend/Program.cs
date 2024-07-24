@@ -1,8 +1,8 @@
 ﻿using Frontend.Components;
 using Microsoft.FluentUI.AspNetCore.Components;
-using Microsoft.Extensions.DependencyInjection;
 
-bool IsAspire = true;
+// SETS ASPIRE OR NOT
+bool IsAspireApp = true;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults(); // Aspire
@@ -14,7 +14,8 @@ builder.Services.AddFluentUIComponents();
 
 builder.Services.AddHttpClient();
 
-string url = IsAspire ? "http+https://api/graphql" : "https://localhost:5001/graphql";
+// Aspire options
+string url = IsAspireApp ? "http+https://api/graphql" : "https://localhost:6001/graphql";
 builder.Services
     .AddBloggingClient()        
     .ConfigureHttpClient(c => c.BaseAddress = new Uri(url));
