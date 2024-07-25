@@ -10,7 +10,7 @@ public static class PostsQueries
     [UseFiltering]
     [UseSorting]
     public static IQueryable<Post> GetPosts(
-        [Service] 
+        [Service(ServiceKind.Synchronized)]
         IEntityRepository<Post> repository)
 
         => repository.Source;

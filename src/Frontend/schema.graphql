@@ -9,7 +9,7 @@ type Blog {
   notes: String
   image: String
   isOnline: Boolean!
-  tags: [String!]
+  tags: [String!]!
   createdOn: DateTime!
   createdBy: String
   lastModifiedOn: DateTime

@@ -1,0 +1,47 @@
+query BlogsMain(
+  $first: Int = 5
+  $after: String
+  $searchText: String
+  $order: [BlogSortInput!] = [{ id: DESC }]
+  $maxLatestBlogPosts: Int = 3
+  $maxLatestPosts: Int = 5
+) {
+  blogs(
+    first: $first
+    after: $after
+    where: { or: { name: { contains: $searchText }, description: { contains: $searchText } } }    
+    order: $order
+  ) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      id
+      name
+      description
+      image
+      isOnline
+      tags
+      latestPosts: posts(last: $maxLatestBlogPosts, order: { id: ASC }) {
+        nodes {
+          id
+          title
+          image
+          tags
+          createdBy
+          createdOn
+        }
+      }
+    }
+  }
+  latestOverallPosts: posts(
+    first: $maxLatestPosts
+    order: { id: DESC }
+  ) {
+    nodes {
+      id
+      title
+    }
+  }  
+}

@@ -1,6 +1,6 @@
 ﻿namespace Blogging.Domain;
 
-public sealed class PostLike : Entity<int> 
+public sealed class PostLike : Entity<int>
 {
     internal PostLike(int postId, string likedBy)
     {
@@ -9,6 +9,6 @@ public sealed class PostLike : Entity<int>
     }
 
     public int PostId { get; private set; } = default!;
-    public string LikedBy { get; private set; } = default!; 
+    public string LikedBy { get; private set; } = default!;
     public DateTime LikedOn { get; private set; } = DateTime.UtcNow;
 }

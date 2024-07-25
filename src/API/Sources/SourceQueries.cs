@@ -10,7 +10,7 @@ public static class SourceQueries
     [UseFiltering]
     [UseSorting]
     public static IQueryable<Source> GetSources(
-        [Service] 
+        [Service(ServiceKind.Synchronized)]
         IEntityRepository<Source> repository)
         
         => repository.Source;

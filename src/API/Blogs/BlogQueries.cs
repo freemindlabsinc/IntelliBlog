@@ -10,7 +10,7 @@ public static class BlogQueries
     [UseFiltering]
     [UseSorting]
     public static IQueryable<Blog> GetBlogs(
-        [Service] 
+        [Service(ServiceKind.Synchronized)] 
         IEntityRepository<Blog> repository)
         
         => repository.Source;

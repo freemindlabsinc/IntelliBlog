@@ -4,7 +4,7 @@ public class Source : TrackedEntity<int>, IAggregateRoot
 {
     private readonly List<SourceLike> _likes = new List<SourceLike>();
     private string[] _tags = Array.Empty<string>();
-    
+
     internal Source() { /* For Entity Framework/HotChocolate */ }
 
     public Source(
@@ -15,19 +15,19 @@ public class Source : TrackedEntity<int>, IAggregateRoot
         string[]? tags = default)
     {
         BlogId = blogId; // Once-setter
-        this.Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        this.Url = url;
-        this.Description = description;
+        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        Url = url;
+        Description = description;
         _tags = tags?.ToArray() ?? _tags;
     }
 
     public int BlogId { get; private set; } = default!;
-    public string Name { get; private set; } = default!;    
+    public string Name { get; private set; } = default!;
     public SourceType Type { get; private set; } = SourceType.Unspecified;
     public string? Description { get; private set; } = default!;
     public string? Url { get; private set; } = default!;
     public string? Image { get; private set; }
-    
+
     public IReadOnlyCollection<SourceLike> Likes => _likes.AsReadOnly();
 
     public string[] Tags { get { return _tags.ToArray(); } private set { /* For EF8 */ } }
@@ -58,7 +58,7 @@ public class Source : TrackedEntity<int>, IAggregateRoot
         Image = image;
 
         RaiseEvent(new Events.SourceUpdated(this, nameof(Image)));
-    }  
+    }
 
     public void SetType(SourceType type)
     {
@@ -120,5 +120,5 @@ public class Source : TrackedEntity<int>, IAggregateRoot
         //RaiseEvent(new Events.SourceUnliked(this, likedBy));
     }
 
-    
+
 }

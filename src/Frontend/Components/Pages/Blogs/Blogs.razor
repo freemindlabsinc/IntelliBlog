@@ -1,6 +1,6 @@
 ﻿@page "/blogs"
 @rendermode InteractiveServer
-@inject Frontend.FetchBlogsQuery Query
+@inject Frontend.BlogsMainQuery Query
 
 <PageTitle>My Blogs</PageTitle>
 
@@ -106,15 +106,22 @@ else
         await FetchData();
     }
 
-    public async Task FetchData()
+    public async Task FetchData(CancellationToken cancellationToken = default)
     {
         var first = _max;
         string? after = null;
-        BlogSortInput[]? order = null;
-        BlogFilterInput? filter = null;
+        string searchText = string.Empty;
+        BlogSortInput[]? order = null;        
 
-        IOperationResult<IFetchBlogsResult> response = await Query.ExecuteAsync(
-            first, after, filter, order, default);
+        IOperationResult<IBlogsMainResult> response = await Query.ExecuteAsync(
+            first: first, 
+            after: after, 
+            searchText: searchText, 
+            order: order, 
+            maxLatestBlogPosts: 3,
+            maxLatestPosts: 3, 
+            cancellationToken: cancellationToken);
+        );
         response.EnsureNoErrors();
 
         var results = response.Data!.Blogs!;
