@@ -1,7 +1,7 @@
 query BlogsMain(
   $first: Int = 5
   $after: String
-  $searchText: String
+  $where: BlogFilterInput
   $order: [BlogSortInput!] = [{ id: DESC }]
   $maxLatestBlogPosts: Int = 3
   $maxLatestPosts: Int = 5
@@ -9,7 +9,7 @@ query BlogsMain(
   blogs(
     first: $first
     after: $after
-    where: { or: { name: { contains: $searchText }, description: { contains: $searchText } } }    
+    where: $where
     order: $order
   ) {
     pageInfo {
@@ -35,13 +35,10 @@ query BlogsMain(
       }
     }
   }
-  latestOverallPosts: posts(
-    first: $maxLatestPosts
-    order: { id: DESC }
-  ) {
+  latestOverallPosts: posts(first: $maxLatestPosts, order: { id: DESC }) {
     nodes {
       id
       title
     }
-  }  
+  }
 }

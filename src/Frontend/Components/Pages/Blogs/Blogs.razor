@@ -10,24 +10,20 @@
 }
 else
 {
-    <FluentStack Style="margin-bottom: 20px;">
-        <FluentNumberField @bind-Value="_max" Label="Max Blogs" />
+    <FluentStack Style="margin-bottom: 20px;">        
+        <FluentNumberField @bind-Value="First" Label="First" />
+        <FluentTextArea @bind-Value="After" Label="After" />
+        <FluentTextArea @bind-Value="SearchText" Label="Search Text" />
+        <FluentNumberField @bind-Value="MaxLatestBlogPosts" Label="Max Posts Per Blog" />
+        <FluentNumberField @bind-Value="MaxLatestPosts" Label="Max Latest" />
+
         <FluentButton OnClick="@FetchData" >Refresh</FluentButton>
     </FluentStack>
-   
-    <div>
-    <FluentSwitch Style="width: 150px;" @bind-Value="ShowHeader">Header</FluentSwitch>
-    <FluentSwitch Style="width: 150px;" @bind-Value="ShowNavMenu">NavMenu</FluentSwitch>
-    <FluentSwitch Style="width: 150px;" @bind-Value="ShowBodyContent">BodyContent</FluentSwitch>
-    <FluentSwitch Style="width: 150px;" @bind-Value="ShowFooter">Footer</FluentSwitch>
-    </div>
-
+ 
     @foreach (var blog in blogs!)
     {
         <FluentCard Height="Auto" Style="margin-top: 10px;">
             <FluentLayout>
-                @if (ShowHeader)
-                {
                     <FluentHeader>
                         <!-- Some Header Text -->
                         <FluentBadge Appearance="Appearance.Neutral">@blog.Name</FluentBadge>
@@ -39,12 +35,8 @@ else
                         <FluentBadge Appearance="Appearance.Lightweight" Style="color: gray">@blog.Id</FluentBadge>
 
                     </FluentHeader>
-                }
-
-                <FluentStack Orientation="Orientation.Horizontal" Width="100%">
-                @if (ShowNavMenu)
-               {                        
-
+                
+                <!--FluentStack Orientation="Orientation.Horizontal" Width="100%" -->
                     <FluentNavMenu Width="250">
                        <img src="@blog.Image" alt="Broken Link" height="160px" width="240px" />
 
@@ -58,69 +50,70 @@ else
                     </FluentNavMenu>
 
                         
-                }
-
-                @if (ShowBodyContent)
-                {
-                    <FluentBodyContent Style="max-height:200px">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quis lorem lacus.
-                        Ut id leo non enim feugiat ultrices. Proin vulputate volutpat urna nec iaculis.
-                        Integer dui lacus, fermentum sit amet aliquet in, scelerisque vitae dui.
-                        Nulla fringilla sagittis orci eu consectetur. Fusce eget dolor non lectus placerat
-                        tincidunt. Pellentesque aliquam non odio ac porttitor. Nam finibus mattis sagittis.
-                        Ut hendrerit porttitor massa in aliquam. Duis laoreet fringilla feugiat.
-                        Sed maximus, urna in fringilla posuere, enim urna bibendum justo, vel molestie nibh orci nec lectus.
-                        Etiam a varius justo. Aenean nisl ante, interdum eget vulputate eget, iaculis ut massa.
-                        Suspendisse maximus sed purus id molestie. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </FluentBodyContent>
-                }
-                </FluentStack>
-
-                @if (ShowFooter)
-                {
                     <FluentFooter Style="@("height: 40px; color: white; text-align: center")">
                         <FluentLabel>
                             This blog has [X] article(s) and some other data: [Y], [Z]
                         </FluentLabel>                        
                     </FluentFooter>
-                }
+                
             </FluentLayout>
         </FluentCard>
     }    
 }
 
-<p>This component demonstrates showing data.</p>
 
 @code {
+    int First = 2;
+    string? After { get; set; }
+    string? SearchText { get; set; }
+    int MaxLatestBlogPosts { get; set; }
+    int MaxLatestPosts{ get; set; }
+
+
     //string manual_url = "https://i.ytimg.com/vi/3H_-Mjq9OsA/maxresdefault.jpg";
     bool ShowHeader = true;
     bool ShowNavMenu = true;
     bool ShowBodyContent = true;
     bool ShowFooter = true;
 
-    IEnumerable<Frontend.IFetchBlogs_Blogs_Nodes> blogs = default!;
-    int _max = 3;
+    IEnumerable<Frontend.IBlogsMain_Blogs_Nodes> blogs = default!;    
 
     protected override async Task OnInitializedAsync()
     {
-        await FetchData();
+        if (blogs == null)
+        {
+            await FetchData();
+        }
     }
 
-    public async Task FetchData(CancellationToken cancellationToken = default)
+    static BlogSortInput byIdDesc = new BlogSortInput()
     {
-        var first = _max;
-        string? after = null;
-        string searchText = string.Empty;
-        BlogSortInput[]? order = null;        
+        Id = SortEnumType.Desc
+    };
+
+    public async Task FetchData()
+    {
+        BlogSortInput[]? thisOrder = new[] { byIdDesc };
+
+        BlogFilterInput? filterInput = null;
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            filterInput = new BlogFilterInput();
+            filterInput.Or = new BlogFilterInput[] 
+            { 
+                new BlogFilterInput() { Name = new StringOperationFilterInput() { Contains = SearchText } },
+                new BlogFilterInput() { Description = new StringOperationFilterInput() { Contains = SearchText } },
+            };
+        }
 
         IOperationResult<IBlogsMainResult> response = await Query.ExecuteAsync(
-            first: first, 
-            after: after, 
-            searchText: searchText, 
-            order: order, 
-            maxLatestBlogPosts: 3,
-            maxLatestPosts: 3, 
-            cancellationToken: cancellationToken);
+            first: First, 
+            after: After, 
+            where: filterInput,
+            order: thisOrder,
+            maxLatestBlogPosts: MaxLatestBlogPosts,
+            maxLatestPosts: MaxLatestPosts, 
+            cancellationToken: default
         );
         response.EnsureNoErrors();
 

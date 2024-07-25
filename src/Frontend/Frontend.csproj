@@ -5,12 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
-  <ItemGroup>
-    <GraphQL Remove="Components\Pages\Blogs\BlogsMain.graphql" />
-    <GraphQL Remove="GetPosts.graphql" />
-  </ItemGroup>
-
+  
   <ItemGroup>
 	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
     <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" />
