@@ -1,0 +1,45 @@
+﻿<h3>BlogSearch</h3>
+
+<EditForm FormName="Bubba" Model="this" OnSubmit="FetchData">
+    <FluentStack Style="margin-bottom: 20px;">        
+        <FluentNumberField @bind-Value="First" Label="First" />
+        <FluentTextArea @bind-Value="After" Label="After" />
+        <FluentTextArea @bind-Value="SearchText" Label="Search Text" />
+        <FluentNumberField @bind-Value="MaxLatestBlogPosts" Label="Max Posts Per Blog" />
+        <FluentNumberField @bind-Value="MaxLatestPosts" Label="Max Latest" />
+
+        <FluentButton Type="ButtonType.Submit">Refresh</FluentButton>
+    </FluentStack>
+</EditForm>
+
+
+
+@code {
+    [SupplyParameterFromForm]
+    public bool Initialized { get; set; }
+
+    [SupplyParameterFromForm]
+    public int First { get; set; } = 2;
+
+    [SupplyParameterFromForm]
+    public string? After { get; set; }
+
+    [SupplyParameterFromForm]
+    public string? SearchText { get; set; }
+
+    [SupplyParameterFromForm]
+    public int MaxLatestBlogPosts { get; set; }
+
+    [SupplyParameterFromForm]
+    public int MaxLatestPosts { get; set; }
+
+    public Func<Task>? OnSearch { get; set; }
+
+    public async Task FetchData()
+    {
+        if (OnSearch == null)
+            throw new InvalidOperationException("OnSearch is null");
+
+        await OnSearch!();
+    }
+}

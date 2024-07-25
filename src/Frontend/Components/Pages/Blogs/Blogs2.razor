@@ -1,0 +1,123 @@
+﻿@page "/blogs2"
+@rendermode InteractiveServer
+@inject Frontend.BlogsMainQuery MainQuery
+@using Frontend.Components
+
+<PageTitle>My Blogs VERSION TWO.2</PageTitle>
+
+    <FluentStack Style="margin-bottom: 20px;">        
+        <FluentNumberField @bind-Value="First" Label="First" />
+        <FluentTextArea @bind-Value="After" Label="After" />
+        <FluentTextArea @bind-Value="SearchText" Label="Search Text" />
+        <FluentNumberField @bind-Value="MaxLatestBlogPosts" Label="Max Posts Per Blog" />
+        <FluentNumberField @bind-Value="MaxLatestPosts" Label="Max Latest" />
+
+        <FluentButton OnClick="@FetchData" >Refresh</FluentButton>
+    </FluentStack>
+
+    <UseBlogsMain Context="blogResults" Strategy="ExecutionStrategy.NetworkOnly"     
+                  First="@First" After="After" MaxLatestBlogPosts="MaxLatestBlogPosts" MaxLatestPosts="MaxLatestPosts"
+                  Order="Order" Where="Where">
+        <ChildContent>
+            @if (@blogResults.Blogs != null)
+            {
+                foreach (var blog in blogResults.Blogs.Nodes!)
+                {
+                    <p>@blog.Name</p>
+
+                    <FluentHeader Style="background-color: cyan">
+                        <!-- Some Header Text -->
+                        <FluentBadge Appearance="Appearance.Neutral">@blog.Name</FluentBadge>
+
+                        <FluentBadge Appearance="Appearance.Lightweight">@(blog.Description ?? "this is a description")</FluentBadge>
+                        <FluentSpacer />
+
+                        <!--  Aligned to the end -->
+                        <FluentBadge Appearance="Appearance.Lightweight" Style="color: gray">@blog.Id</FluentBadge>
+
+                    </FluentHeader>
+                }
+            }
+
+            @if (blogResults.LatestOverallPosts != null)
+            {
+                foreach (var post in blogResults.LatestOverallPosts.Nodes!)
+                {
+                    <FluentHeader Style="background-color: gray">
+                        <!-- Some Header Text -->
+                        <FluentBadge Appearance="Appearance.Neutral">@post.Title</FluentBadge>
+
+                        @* <FluentBadge Appearance="Appearance.Lightweight">@(post ?? "this is a description")</FluentBadge> *@
+                        <FluentSpacer />
+
+                        <!--  Aligned to the end -->
+                        <FluentBadge Appearance="Appearance.Lightweight" Style="color: gray">@post.Id</FluentBadge>
+
+                    </FluentHeader>
+                }
+            }
+        </ChildContent>
+        <LoadingContent>
+            Loading...
+        </LoadingContent>                    
+</UseBlogsMain>     
+
+Count: [(@result?.Data?.Blogs?.Nodes?.Count ?? -1)]
+Order: [@Order]
+Filter: [@Where]
+
+
+@code {
+    public int First { get; set; }
+    string? After { get; set; }
+    string? SearchText { get; set; }
+    int MaxLatestBlogPosts { get; set; }
+    int MaxLatestPosts{ get; set; }    
+
+    IOperationResult<IBlogsMainResult>? result { get; set; }
+
+    static BlogSortInput byIdDesc = new BlogSortInput()
+    {
+        Id = SortEnumType.Desc
+    };
+
+    BlogSortInput[] Order => new[] { byIdDesc };
+
+    BlogFilterInput? Where => GetFilterInput();
+
+    BlogFilterInput? GetFilterInput()
+    {
+        if (string.IsNullOrWhiteSpace(SearchText))
+            return null;
+
+        var filterInput = new BlogFilterInput();
+        filterInput.Or = new BlogFilterInput[]
+        {
+            new BlogFilterInput() { Name = new StringOperationFilterInput() { Contains = SearchText } },
+            new BlogFilterInput() { Description = new StringOperationFilterInput() { Contains = SearchText } },
+        };
+
+        return filterInput;
+    }
+    
+
+    public async Task FetchData()
+    {        
+        result = await MainQuery.ExecuteAsync(
+            first: this.First, 
+            after: this.After, 
+            where: this.Where,
+            order: this.Order,
+            maxLatestBlogPosts: this.MaxLatestBlogPosts,
+            maxLatestPosts: this.MaxLatestPosts, 
+            cancellationToken: default
+        );
+        
+        result.EnsureNoErrors();
+
+        // var results = result.Data!.Blogs!;
+        // var nodes = results.Nodes!;
+                
+        // this.blogs = nodes;        
+    }
+}

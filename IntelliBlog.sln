@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "tests\I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{1DC7F5A0-DDF7-4975-84EB-05F4FC1B6AB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntelliBlog.AppHost", "src\IntelliBlog.AppHost\IntelliBlog.AppHost.csproj", "{7B5CA988-78CE-4ABC-9E5F-68E4132F908D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.AppHost", "src\IntelliBlog.AppHost\IntelliBlog.AppHost.csproj", "{7B5CA988-78CE-4ABC-9E5F-68E4132F908D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntelliBlog.ServiceDefaults", "src\IntelliBlog.ServiceDefaults\IntelliBlog.ServiceDefaults.csproj", "{A676C539-A606-4557-909D-4844891C7789}"
 EndProject
@@ -34,9 +34,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "aspire", "aspire", "{DFE86A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "src\API\API.csproj", "{473BFAFF-F334-4825-90F9-4575E9C48250}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogging", "src\Blogging\Blogging.csproj", "{A91F42AD-41EE-4950-A0AB-D91544EC2D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogging", "src\Blogging\Blogging.csproj", "{A91F42AD-41EE-4950-A0AB-D91544EC2D1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogging.Infrastructure", "src\Blogging.Infrastructure\Blogging.Infrastructure.csproj", "{89F820C7-B6C8-4AA6-87A2-4DBC1D95F8EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogging.Infrastructure", "src\Blogging.Infrastructure\Blogging.Infrastructure.csproj", "{89F820C7-B6C8-4AA6-87A2-4DBC1D95F8EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

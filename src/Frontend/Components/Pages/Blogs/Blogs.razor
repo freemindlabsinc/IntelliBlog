@@ -1,26 +1,36 @@
 ﻿@page "/blogs"
 @rendermode InteractiveServer
-@inject Frontend.BlogsMainQuery Query
+@inject Frontend.BlogsMainQuery MainQuery
 
-<PageTitle>My Blogs</PageTitle>
+<PageTitle>My GQL Blogs</PageTitle>
 
-@if (blogs == null)
-{
-    <p><em>Loading Blogs...</em></p>
-}
-else
-{
-    <FluentStack Style="margin-bottom: 20px;">        
+<EditForm FormName="Bubba" Model="this" OnSubmit="FetchData">
+    <FluentStack Style="margin-bottom: 20px;">
+        <FluentCheckbox @bind-Value="Initialized" Label="Initialized" hidden />
+
         <FluentNumberField @bind-Value="First" Label="First" />
         <FluentTextArea @bind-Value="After" Label="After" />
         <FluentTextArea @bind-Value="SearchText" Label="Search Text" />
         <FluentNumberField @bind-Value="MaxLatestBlogPosts" Label="Max Posts Per Blog" />
-        <FluentNumberField @bind-Value="MaxLatestPosts" Label="Max Latest" />
+        <FluentNumberField @bind-Value="MaxLatestPosts" Label="Max Latest" />        
 
-        <FluentButton OnClick="@FetchData" >Refresh</FluentButton>
+        <FluentButton Type="ButtonType.Submit">Refresh</FluentButton>
     </FluentStack>
- 
-    @foreach (var blog in blogs!)
+</EditForm>
+
+
+Count: [(@Response?.Data?.Blogs?.Nodes?.Count ?? -1)]
+Order: [@Order]
+Filter: [@Where]
+
+
+@if (this.Response == null)
+{
+    <p><em>Loading Blogs!!</em></p>
+}
+else
+{
+    @foreach (var blog in Response!.Data!.Blogs!.Nodes!)
     {
         <FluentCard Height="Auto" Style="margin-top: 10px;">
             <FluentLayout>
@@ -62,64 +72,83 @@ else
 }
 
 
+
 @code {
-    int First = 2;
-    string? After { get; set; }
-    string? SearchText { get; set; }
-    int MaxLatestBlogPosts { get; set; }
-    int MaxLatestPosts{ get; set; }
+    [SupplyParameterFromForm]
+    public bool Initialized { get; set; }
 
+    [SupplyParameterFromForm]
+    public int First { get; set; } = 2;
 
-    //string manual_url = "https://i.ytimg.com/vi/3H_-Mjq9OsA/maxresdefault.jpg";
-    bool ShowHeader = true;
-    bool ShowNavMenu = true;
-    bool ShowBodyContent = true;
-    bool ShowFooter = true;
+    [SupplyParameterFromForm]
+    public string? After { get; set; }
 
-    IEnumerable<Frontend.IBlogsMain_Blogs_Nodes> blogs = default!;    
+    [SupplyParameterFromForm]
+    public string? SearchText { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    [SupplyParameterFromForm]
+    public int MaxLatestBlogPosts { get; set; }
+
+    [SupplyParameterFromForm]
+    public int MaxLatestPosts { get; set; }
+
+    public IOperationResult<IBlogsMainResult>? Response { get; set; }
+    
+    protected override async Task OnParametersSetAsync()
     {
-        if (blogs == null)
-        {
-            await FetchData();
-        }
+        await base.OnParametersSetAsync();
+        
+        // HACK This gets executed twice... https://www.thinktecture.com/en/blazor/blazor-components-lifecycle-is-not-always-straightforward/
+        if (Response == null)
+            await FetchData();               
     }
 
+
     static BlogSortInput byIdDesc = new BlogSortInput()
+        {
+            Id = SortEnumType.Desc
+        };
+
+    BlogSortInput[] Order => new[] { byIdDesc };
+
+    BlogFilterInput? Where => GetFilterInput();
+
+    BlogFilterInput? GetFilterInput()
     {
-        Id = SortEnumType.Desc
-    };
+        if (string.IsNullOrWhiteSpace(SearchText))
+            return null;
+
+        var filterInput = new BlogFilterInput();
+        filterInput.Or = new BlogFilterInput[]
+        {
+            new BlogFilterInput() { Name = new StringOperationFilterInput() { Contains = SearchText } },
+            new BlogFilterInput() { Description = new StringOperationFilterInput() { Contains = SearchText } },
+        };
+
+        return filterInput;
+    }
+
 
     public async Task FetchData()
     {
-        BlogSortInput[]? thisOrder = new[] { byIdDesc };
+        if (Response != null)
+        { }
 
-        BlogFilterInput? filterInput = null;
-        if (!string.IsNullOrWhiteSpace(SearchText))
-        {
-            filterInput = new BlogFilterInput();
-            filterInput.Or = new BlogFilterInput[] 
-            { 
-                new BlogFilterInput() { Name = new StringOperationFilterInput() { Contains = SearchText } },
-                new BlogFilterInput() { Description = new StringOperationFilterInput() { Contains = SearchText } },
-            };
-        }
-
-        IOperationResult<IBlogsMainResult> response = await Query.ExecuteAsync(
-            first: First, 
-            after: After, 
-            where: filterInput,
-            order: thisOrder,
-            maxLatestBlogPosts: MaxLatestBlogPosts,
-            maxLatestPosts: MaxLatestPosts, 
+        Response = await MainQuery.ExecuteAsync(
+            first: this.First,
+            after: this.After,
+            where: this.Where,
+            order: this.Order,
+            maxLatestBlogPosts: this.MaxLatestBlogPosts,
+            maxLatestPosts: this.MaxLatestPosts,
             cancellationToken: default
         );
-        response.EnsureNoErrors();
 
-        var results = response.Data!.Blogs!;
-        var nodes = results.Nodes!;
-                
-        this.blogs = nodes;        
+        Response.EnsureNoErrors();
+
+        // var results = result.Data!.Blogs!;
+        // var nodes = results.Nodes!;
+
+        // this.blogs = nodes;
     }
 }
