@@ -23,7 +23,7 @@ else
     {
         @foreach (var blog in this.Blogs_)
         {
-            <FluentCard Height="Auto" Style="margin-top: 10px;">
+            <FluentCard Height="Auto">
                 <FluentLayout>
                     <FluentHeader>
                         <!-- Some Header Text -->
@@ -39,15 +39,7 @@ else
                 
                 <!--FluentStack Orientation="Orientation.Horizontal" Width="100%" -->
                     <FluentNavMenu Width="250">
-                       <img src="@blog.Image" alt="Broken Link" height="160px" width="240px" />
-
-                       <!--FluentNavLink Icon="@(new Icons.Regular.Size24.Home())">Item 1</!--FluentNavLink>
-                        <FluentNavLink Icon="@(new Icons.Regular.Size24.Cloud())">Item 2</FluentNavLink>
-                        <FluentNavGroup-- Title="Item 3">
-                            <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafOne())">Item 3.1</FluentNavLink>
-                            <FluentNavLink Icon="@(new Icons.Regular.Size24.LeafTwo())">Item 3.2</FluentNavLink>
-                        </FluentNavGroup-->
-                        @* <FluentNavLink Icon="@(new Icons.Regular.Size24.CalendarAgenda())" Disabled="false">Item 4</FluentNavLink> *@
+                       <img src="@blog.Image" alt="Broken Link" height="160px" width="240px" />                       
                     </FluentNavMenu>
 
                         

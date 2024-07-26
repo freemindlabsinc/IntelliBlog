@@ -1,17 +1,18 @@
 ﻿@inject Frontend.BlogsMainQuery MainQuery
 
+ <FluentCard Height="Auto">
 <EditForm FormName="PagedSearch" Model="this" OnSubmit="FetchData">
-    <FluentStack Style="margin-bottom: 20px;">        
+    <FluentStack Orientation="Orientation.Horizontal">        
         <FluentNumberField @bind-Value="First" Label="First" />
-        <FluentTextArea @bind-Value="After" Label="After" />
-        <FluentTextArea @bind-Value="SearchText" Label="Search Text" />
+        <FluentTextField @bind-Value="After" Label="After" />
+        <FluentTextField @bind-Value="SearchText" Label="Search Text" />
         <FluentNumberField @bind-Value="MaxLatestBlogPosts" Label="Max Posts Per Blog" />
         <FluentNumberField @bind-Value="MaxLatestPosts" Label="Max Latest" />
 
         <FluentButton Type="ButtonType.Submit">Refresh</FluentButton>
     </FluentStack>
 </EditForm>
-
+</FluentCard>
 
 @code {
     [SupplyParameterFromForm]
