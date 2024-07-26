@@ -98,9 +98,9 @@ public static class InfrastructureExtensions
         // Bogus
         var options = new DatabaseSeeder.GenerationOptions(
             DbContext: context,
-            BlogsCount: 10,
-            PostsCount: 10,
-            SourcesCount: 10);
+            BlogsCount: 35,
+            PostsCount: 120,
+            SourcesCount: 90);
 
         await DatabaseSeeder.GenerateAsync(options);
     }

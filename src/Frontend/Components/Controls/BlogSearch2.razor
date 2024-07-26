@@ -21,13 +21,13 @@
         <!-- Sort by -->
 
         <!-- Search button -->
-        <FluentButton Type="ButtonType.Submit">Search</FluentButton>
+        <FluentButton Type="ButtonType.Submit" OnClick="FetchData">Search</FluentButton>
     </EditForm>   
 </div>
 
 @code {
     [SupplyParameterFromForm]
-    public int First { get; set; } = 2;
+    public int First { get; set; } = 15;
 
     [SupplyParameterFromForm]
     public string? After { get; set; }
