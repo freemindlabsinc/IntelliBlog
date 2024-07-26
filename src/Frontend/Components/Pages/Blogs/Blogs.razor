@@ -1,27 +1,16 @@
 ﻿@page "/blogs"
+@using Frontend.Components.Controls
 @rendermode InteractiveServer
 @inject Frontend.BlogsMainQuery MainQuery
 
 <PageTitle>My GQL Blogs</PageTitle>
 
-<EditForm FormName="Bubba" Model="this" OnSubmit="FetchData">
-    <FluentStack Style="margin-bottom: 20px;">
-        <FluentCheckbox @bind-Value="Initialized" Label="Initialized" hidden />
-
-        <FluentNumberField @bind-Value="First" Label="First" />
-        <FluentTextArea @bind-Value="After" Label="After" />
-        <FluentTextArea @bind-Value="SearchText" Label="Search Text" />
-        <FluentNumberField @bind-Value="MaxLatestBlogPosts" Label="Max Posts Per Blog" />
-        <FluentNumberField @bind-Value="MaxLatestPosts" Label="Max Latest" />        
-
-        <FluentButton Type="ButtonType.Submit">Refresh</FluentButton>
-    </FluentStack>
-</EditForm>
+<BlogSearch @ref="SearchBar" ResultsChanged="OnNewResults" />
 
 
-Count: [(@Response?.Data?.Blogs?.Nodes?.Count ?? -1)]
-Order: [@Order]
-Filter: [@Where]
+Count: [(@Response?.Blogs?.Nodes?.Count ?? -1)]
+Order: [Order]
+Filter: [Where]
 
 
 @if (this.Response == null)
@@ -30,10 +19,12 @@ Filter: [@Where]
 }
 else
 {
-    @foreach (var blog in Response!.Data!.Blogs!.Nodes!)
+    if (this.Blogs_ != null)
     {
-        <FluentCard Height="Auto" Style="margin-top: 10px;">
-            <FluentLayout>
+        @foreach (var blog in this.Blogs_)
+        {
+            <FluentCard Height="Auto" Style="margin-top: 10px;">
+                <FluentLayout>
                     <FluentHeader>
                         <!-- Some Header Text -->
                         <FluentBadge Appearance="Appearance.Neutral">@blog.Name</FluentBadge>
@@ -68,87 +59,29 @@ else
                 
             </FluentLayout>
         </FluentCard>
-    }    
+    }
+    } 
 }
 
 
 
 @code {
-    [SupplyParameterFromForm]
-    public bool Initialized { get; set; }
+    public IBlogsMainResult? Response { get; set; }
 
-    [SupplyParameterFromForm]
-    public int First { get; set; } = 2;
+    public BlogSearch SearchBar { get; set; } = default!;    
 
-    [SupplyParameterFromForm]
-    public string? After { get; set; }
+    public IEnumerable<IBlogsMain_Blogs_Nodes>? Blogs_ 
+        => Response?.Blogs?.Nodes ?? Enumerable.Empty<IBlogsMain_Blogs_Nodes>();
 
-    [SupplyParameterFromForm]
-    public string? SearchText { get; set; }
+    public IEnumerable<IBlogsMain_LatestOverallPosts_Nodes>? Posts 
+        => Response?.LatestOverallPosts?.Nodes ?? Enumerable.Empty<IBlogsMain_LatestOverallPosts_Nodes>();
 
-    [SupplyParameterFromForm]
-    public int MaxLatestBlogPosts { get; set; }
-
-    [SupplyParameterFromForm]
-    public int MaxLatestPosts { get; set; }
-
-    public IOperationResult<IBlogsMainResult>? Response { get; set; }
-    
-    protected override async Task OnParametersSetAsync()
+    public Task OnNewResults(IBlogsMainResult response)
     {
-        await base.OnParametersSetAsync();
+        Response = response;
         
-        // HACK This gets executed twice... https://www.thinktecture.com/en/blazor/blazor-components-lifecycle-is-not-always-straightforward/
-        if (Response == null)
-            await FetchData();               
-    }
+        StateHasChanged();
 
-
-    static BlogSortInput byIdDesc = new BlogSortInput()
-        {
-            Id = SortEnumType.Desc
-        };
-
-    BlogSortInput[] Order => new[] { byIdDesc };
-
-    BlogFilterInput? Where => GetFilterInput();
-
-    BlogFilterInput? GetFilterInput()
-    {
-        if (string.IsNullOrWhiteSpace(SearchText))
-            return null;
-
-        var filterInput = new BlogFilterInput();
-        filterInput.Or = new BlogFilterInput[]
-        {
-            new BlogFilterInput() { Name = new StringOperationFilterInput() { Contains = SearchText } },
-            new BlogFilterInput() { Description = new StringOperationFilterInput() { Contains = SearchText } },
-        };
-
-        return filterInput;
-    }
-
-
-    public async Task FetchData()
-    {
-        if (Response != null)
-        { }
-
-        Response = await MainQuery.ExecuteAsync(
-            first: this.First,
-            after: this.After,
-            where: this.Where,
-            order: this.Order,
-            maxLatestBlogPosts: this.MaxLatestBlogPosts,
-            maxLatestPosts: this.MaxLatestPosts,
-            cancellationToken: default
-        );
-
-        Response.EnsureNoErrors();
-
-        // var results = result.Data!.Blogs!;
-        // var nodes = results.Nodes!;
-
-        // this.blogs = nodes;
+        return Task.CompletedTask;
     }
 }

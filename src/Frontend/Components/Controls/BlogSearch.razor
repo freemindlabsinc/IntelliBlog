@@ -1,6 +1,6 @@
-﻿<h3>BlogSearch</h3>
+﻿@inject Frontend.BlogsMainQuery MainQuery
 
-<EditForm FormName="Bubba" Model="this" OnSubmit="FetchData">
+<EditForm FormName="PagedSearch" Model="this" OnSubmit="FetchData">
     <FluentStack Style="margin-bottom: 20px;">        
         <FluentNumberField @bind-Value="First" Label="First" />
         <FluentTextArea @bind-Value="After" Label="After" />
@@ -13,11 +13,7 @@
 </EditForm>
 
 
-
 @code {
-    [SupplyParameterFromForm]
-    public bool Initialized { get; set; }
-
     [SupplyParameterFromForm]
     public int First { get; set; } = 2;
 
@@ -33,13 +29,66 @@
     [SupplyParameterFromForm]
     public int MaxLatestPosts { get; set; }
 
-    public Func<Task>? OnSearch { get; set; }
+    [Parameter]
+    public Func<IBlogsMainResult, Task>? ResultsChanged { get; set; }
+
+    bool fetchedOnce = false;
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (!fetchedOnce)
+        {
+            await FetchData();
+            fetchedOnce = true;
+        }        
+    }
 
     public async Task FetchData()
     {
-        if (OnSearch == null)
-            throw new InvalidOperationException("OnSearch is null");
+        IOperationResult<IBlogsMainResult>? response = await MainQuery.ExecuteAsync(
+            first: this.First,
+            after: this.After,
+            where: this.Where,
+            order: this.Order,
+            maxLatestBlogPosts: this.MaxLatestBlogPosts,
+            maxLatestPosts: this.MaxLatestPosts,
+            cancellationToken: default
+        );
 
-        await OnSearch!();
+        response.EnsureNoErrors();
+
+        if (ResultsChanged != null)
+        {
+            await ResultsChanged!.Invoke(response!.Data!);
+        }
     }
+    
+    // ----------------------------
+
+    static BlogSortInput byIdDesc = new BlogSortInput()
+        {
+            Id = SortEnumType.Desc
+        };
+
+    BlogSortInput[] Order => new[] { byIdDesc };
+
+    BlogFilterInput? Where => GetFilterInput();
+
+    BlogFilterInput? GetFilterInput()
+    {
+        if (string.IsNullOrWhiteSpace(SearchText))
+            return null;
+
+        var filterInput = new BlogFilterInput();
+        filterInput.Or = new BlogFilterInput[]
+        {
+            new BlogFilterInput() { Name = new StringOperationFilterInput() { Contains = SearchText } },
+            new BlogFilterInput() { Description = new StringOperationFilterInput() { Contains = SearchText } },
+        };
+
+        return filterInput;
+    }
+
+    
 }
