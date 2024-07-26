@@ -23,14 +23,20 @@ query BlogsMain(
       image
       isOnline
       tags
+          createdOn
+          createdBy
+          lastModifiedOn
+          lastModifiedBy
       latestPosts: posts(last: $maxLatestBlogPosts, order: { id: ASC }) {
         nodes {
           id
           title
           image
           tags
-          createdBy
           createdOn
+          createdBy
+          lastModifiedOn
+          lastModifiedBy          
         }
       }
     }
@@ -39,6 +45,9 @@ query BlogsMain(
     nodes {
       id
       title
-    }
+          createdOn
+          createdBy
+          lastModifiedOn
+          lastModifiedBy    }
   }
 }

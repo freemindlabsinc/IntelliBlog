@@ -1,21 +1,29 @@
 ﻿@inject Frontend.BlogsMainQuery MainQuery
 
-<EditForm FormName="PagedSearch" Model="this" OnSubmit="FetchData">
-     <FluentStack Wrap="false"
-                  Style="border: 1px dotted var(--accent-fill-rest)"
-                  HorizontalAlignment="HorizontalAlignment.Center"
-                  VerticalAlignment="VerticalAlignment.Top"  >    
-            <FluentStack Orientation="Orientation.Horizontal">        
-                <FluentNumberField @bind-Value="First" Label="First"  />
-                <FluentTextField @bind-Value="After" Label="After" />
-                <FluentTextField @bind-Value="SearchText" Label="Search Text" />
-                <FluentNumberField @bind-Value="MaxLatestBlogPosts" Label="Max Posts Per Blog" />
-                <FluentNumberField @bind-Value="MaxLatestPosts" Label="Max Latest" />
-    
-                <FluentButton Type="ButtonType.Submit">Refresh</FluentButton>
-            </FluentStack>
-    </FluentStack>
-</EditForm>
+<div Style="border: 0px solid; color: red">
+    <EditForm FormName="UserSearch" Model="this" Style="border: 2px solid">
+        <!-- Search bar -->
+        <FluentTextField Appearance="FluentInputAppearance.Outline"
+                         Placeholder="Enter your search here..."
+                         AriaLabel="No label"
+                         Style="width: 60%">
+            <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="@Color.Neutral" Slot="start" />                                    
+        </FluentTextField>
+
+        <!-- Mic button -->
+        <FluentButton>
+            <FluentIcon Value="@(new Icons.Regular.Size16.Mic())" Color="@Color.Neutral" />
+        </FluentButton>
+
+        <!-- Order by -->
+
+
+        <!-- Sort by -->
+
+        <!-- Search button -->
+        <FluentButton Type="ButtonType.Submit">Search</FluentButton>
+    </EditForm>   
+</div>
 
 @code {
     [SupplyParameterFromForm]
@@ -36,6 +44,7 @@
     [Parameter]
     public Func<IBlogsMainResult, Task>? ResultsChanged { get; set; }
 
+    
     bool fetchedOnce = false;
     protected override async Task OnParametersSetAsync()
     {
@@ -70,12 +79,10 @@
     
     // ----------------------------
 
-    static BlogSortInput byIdDesc = new BlogSortInput()
-        {
-            Id = SortEnumType.Desc
-        };
-
-    BlogSortInput[] Order => new[] { byIdDesc };
+    BlogSortInput[] Order => new[] { new BlogSortInput()
+    {
+        Id = SortEnumType.Desc
+    }};
 
     BlogFilterInput? Where => GetFilterInput();
 

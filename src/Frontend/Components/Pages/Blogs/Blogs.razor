@@ -3,9 +3,9 @@
 @rendermode InteractiveServer
 @inject Frontend.BlogsMainQuery MainQuery
 
-<PageTitle>My GQL Blogs</PageTitle>
+<PageTitle>Blogs</PageTitle>
 
-<BlogSearch @ref="SearchBar" ResultsChanged="OnNewResults" />
+<BlogSearch2 ResultsChanged="OnNewResults" />
 
 
 Count: [(@Response?.Blogs?.Nodes?.Count ?? -1)]
@@ -21,37 +21,20 @@ else
 {
     if (this.Blogs_ != null)
     {
-        @foreach (var blog in this.Blogs_)
-        {
-            <FluentCard Height="Auto">
-                <FluentLayout>
-                    <FluentHeader>
-                        <!-- Some Header Text -->
-                        <FluentBadge Appearance="Appearance.Neutral">@blog.Name</FluentBadge>
-                    
-                        <FluentBadge Appearance="Appearance.Lightweight">@(blog.Description ?? "this is a description")</FluentBadge>
-                        <FluentSpacer />
-
-                        <!--  Aligned to the end -->
-                        <FluentBadge Appearance="Appearance.Lightweight" Style="color: gray">@blog.Id</FluentBadge>
-
-                    </FluentHeader>
-                
-                <!--FluentStack Orientation="Orientation.Horizontal" Width="100%" -->
-                    <FluentNavMenu Width="250">
-                       <img src="@blog.Image" alt="Broken Link" height="160px" width="240px" />                       
-                    </FluentNavMenu>
-
-                        
-                    <FluentFooter Style="@("height: 40px; color: white; text-align: center")">
-                        <FluentLabel>
-                            This blog has [X] article(s) and some other data: [Y], [Z]
-                        </FluentLabel>                        
-                    </FluentFooter>
-                
-            </FluentLayout>
-        </FluentCard>
-    }
+        <div style="height: 434px; overflow:auto;" tabindex="-1">
+        <FluentDataGrid Items="@this.Blogs_">
+            <PropertyColumn Property="@(b => b.Id)" Sortable="true" />
+            <TemplateColumn Title="Name" Sortable="true" SortBy="@sortByName">
+                <div>
+                    <img src="@context.Image" alt="Broken Link" width="60px" />
+                    <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
+                </div>
+            </TemplateColumn>
+            <PropertyColumn Property="@(b => b.Description)" Sortable="true" />
+            <PropertyColumn Property="@(b => b.CreatedBy)" Sortable="true" />
+            <PropertyColumn Property="@(b => b.CreatedOn)" Format="yyyy-MM-dd hh:mm:ss" Sortable="true" />
+        </FluentDataGrid>
+        </div>        
     } 
 }
 
@@ -60,13 +43,14 @@ else
 @code {
     public IBlogsMainResult? Response { get; set; }
 
-    public BlogSearch SearchBar { get; set; } = default!;    
+    public IQueryable<IBlogsMain_Blogs_Nodes>? Blogs_ 
+        => Response?.Blogs?.Nodes?.AsQueryable();
 
-    public IEnumerable<IBlogsMain_Blogs_Nodes>? Blogs_ 
-        => Response?.Blogs?.Nodes ?? Enumerable.Empty<IBlogsMain_Blogs_Nodes>();
+    public IQueryable<IBlogsMain_LatestOverallPosts_Nodes>? Posts 
+        => Response?.LatestOverallPosts?.Nodes?.AsQueryable();
 
-    public IEnumerable<IBlogsMain_LatestOverallPosts_Nodes>? Posts 
-        => Response?.LatestOverallPosts?.Nodes ?? Enumerable.Empty<IBlogsMain_LatestOverallPosts_Nodes>();
+    GridSort<IBlogsMain_Blogs_Nodes> sortByName = GridSort<IBlogsMain_Blogs_Nodes>
+       .ByAscending(blog => blog.Name);
 
     public Task OnNewResults(IBlogsMainResult response)
     {
