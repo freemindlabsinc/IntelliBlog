@@ -10,6 +10,11 @@
             <div class="content">
                 @Body
             </div>
+
+            <FluentDialogProvider @rendermode="RenderMode.InteractiveServer" />
+            <FluentToastProvider />
+            <FluentTooltipProvider />
+            <FluentMessageBarProvider />
         </FluentBodyContent>
     </FluentStack>
     <FluentFooter>
@@ -17,6 +22,8 @@
         <FluentSpacer />
         <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
     </FluentFooter>
+
+            
 </FluentLayout>
 
 <div id="blazor-error-ui">

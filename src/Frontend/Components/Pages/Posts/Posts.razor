@@ -14,12 +14,14 @@ else
         <FluentButton OnClick="@FetchData">Refresh</FluentButton>
     </FluentStack>
     
-
+   <FluentStack Wrap="true">
+ 
    @foreach (var post in posts!)
    {                
         <PostCard Post="post" />
        
    }
+    </FluentStack>
 }
 
 <p>This component demonstrates showing data.</p>

@@ -1,22 +1,56 @@
-﻿<style>
+﻿@inject IDialogService DS
+
+<style>
     img {
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        width: 100%;
+        height:100%;
     }
 </style>
 
+<FluentCard MinimalStyle="true">
+    <FluentGrid>
+        <FluentGridItem xs="3">
+            <img src="@Post.Image" alt="@Post.Title" />
+        </FluentGridItem>
 
+        <FluentGridItem xs="9">            
+            <FluentStack Orientation="Orientation.Vertical">
+               <FluentStack Orientation="Orientation.Horizontal">
+                   <FluentBadge Appearance="Appearance.Neutral">@Post.Id</FluentBadge>
+                   <FluentLabel Typo="Typography.H5">@Post.Title</FluentLabel>                   
+                </FluentStack>
 
-<FluentCard Height="170">
-    <img src="@Post.Image" height="130px" style="test" />    
-    <FluentBadge Appearance="Appearance.Accent">@Post.Id</FluentBadge>
-    <FluentLabel Typo="Typography.H4" >@Post.Title</FluentLabel>
-    <FluentLabel Typo="Typography.Subject" >@Post.Description</FluentLabel>
+               <FluentStack>
+                  <FluentLabel Typo="Typography.Subject">@Post.Description</FluentLabel>
+               </FluentStack>
+            </FluentStack>
+            &nbsp;            
+            <FluentStack>
+                <FluentBadge Appearance="Appearance.Neutral">@Post.CreatedOn.ToString("yyyy-MM-dd@hh:mm")</FluentBadge>
+                <FluentBadge Appearance="Appearance.Neutral">By @Post.CreatedBy</FluentBadge>
+            </FluentStack>
+            
+            &nbsp;
+            <FluentStack>
+                <FluentButton Appearance="Appearance.Accent" OnClick="HandleClick">Edit</FluentButton>
+                <FluentButton Appearance="Appearance.Accent" OnClick="HandleClick">Like</FluentButton>
+            </FluentStack>
+        </FluentGridItem>
+
+        
+    </FluentGrid>
 </FluentCard>
 
 @code {
+    private async Task HandleClick() 
+    { 
+        var res = await DS.ShowConfirmationAsync("Anchor clicked");        
+    }
+
     [Parameter]
     public IPostCardData Post { get; set; } = default!;
     
