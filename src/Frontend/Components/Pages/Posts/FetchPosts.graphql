@@ -1,25 +1,20 @@
 ﻿query FetchPosts($maxRows: Int=10) {
-  posts(first: $maxRows) {
+  posts:posts(first: $maxRows) {
     nodes {
-      id      
-      title
-      description
-      text
-      image
-      createdOn
-      createdBy
-      lastModifiedOn
-      lastModifiedBy
+      ... PostCardData    
       
-      sources {
+      sources: sources {
         nodes {         
-            id      
-            name
-            url
-            type
+            ... SourceCardData
         }
-      }      
-      text
+      }            
     }
   }
+}
+
+fragment SourceCardData on Source {
+    id      
+    name
+    url
+    type
 }

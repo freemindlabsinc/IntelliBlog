@@ -121,7 +121,7 @@ public static class DatabaseSeeder
                 title: $"{f.PickRandom(TitleStarters)} {f.Random.Words(3).ToLower()}"))
             .RuleFor(x => x.Id, f => postId++)
             
-            .RuleFor(x => x.Description, f => $"{f.PickRandom(DescStarters)} {f.Random.Words(3).ToLower()}")
+            .RuleFor(x => x.Description, f => $"{f.PickRandom(DescStarters)} {f.Random.Words(10).ToLower()}")
             .Ignore(x => x.BlogId)
             .Ignore(x => x.Title)
 

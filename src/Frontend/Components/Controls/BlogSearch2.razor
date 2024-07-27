@@ -36,13 +36,13 @@
     public string? SearchText { get; set; }
 
     [SupplyParameterFromForm]
-    public int MaxLatestBlogPosts { get; set; }
+    public int MaxLatestBlogPosts { get; set; } = 3;
 
     [SupplyParameterFromForm]
-    public int MaxLatestPosts { get; set; }
+    public int MaxLatestPosts { get; set; } = 5;
 
     [Parameter]
-    public Func<IBlogsMainResult, Task>? ResultsChanged { get; set; }
+    public Func<IBlogsMainResult, Task>? ResultsChanged2 { get; set; }
 
     
     bool fetchedOnce = false;
@@ -71,9 +71,9 @@
 
         response.EnsureNoErrors();
 
-        if (ResultsChanged != null)
+        if (ResultsChanged2 != null)
         {
-            await ResultsChanged!.Invoke(response!.Data!);
+            await ResultsChanged2!.Invoke(response!.Data!);
         }
     }
     

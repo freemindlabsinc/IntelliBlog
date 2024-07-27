@@ -1,53 +1,52 @@
 ﻿@page "/blogs"
-@using Frontend.Components.Controls
 @rendermode InteractiveServer
-@inject Frontend.BlogsMainQuery MainQuery
+@inject BlogsMainQuery MainQuery
 
-<PageTitle>Blogs</PageTitle>
+<PageTitle>BlogsXX</PageTitle>
 
-<BlogSearch2 ResultsChanged="OnNewResults" />
-
-
-Count: [(@Response?.Blogs?.Nodes?.Count ?? -1)]
-Order: [Order]
-Filter: [Where]
-
-
-@if (this.Response == null)
-{
-    <p><em>Loading Blogs!!</em></p>
-}
-else
-{
-    if (this.Blogs_ != null)
-    {
-        <div style="height: 434px; overflow:auto;" tabindex="-1">
-        <FluentDataGrid Items="@this.Blogs_">
-            <PropertyColumn Property="@(b => b.Id)" Sortable="true" />
-            <TemplateColumn Title="Name" Sortable="true" SortBy="@sortByName">
-                <div>
-                    <img src="@context.Image" alt="Broken Link" width="60px" />
-                    <FluentBadge Appearance="Appearance.Neutral">@context.Name</FluentBadge>
-                </div>
-            </TemplateColumn>
-            <PropertyColumn Property="@(b => b.Description)" Sortable="true" />
-            <PropertyColumn Property="@(b => b.CreatedBy)" Sortable="true" />
-            <PropertyColumn Property="@(b => b.CreatedOn)" Format="yyyy-MM-dd hh:mm:ss" Sortable="true" />
-        </FluentDataGrid>
+<FluentLayout>
+    <FluentHeader>
+        <div>
+            <BlogSearch2 ResultsChanged2="OnNewResults" />
         </div>        
-    } 
-}
+    </FluentHeader>
 
+    <div>
+        Count: [(@Response?.Blogs?.Nodes?.Count ?? -1)]
+        Order: [Order]
+        Filter: [Where]
+    </div>
+    @if (this.Response == null)
+    {
+        <p><em>Loading Blogs!!</em></p>
+    }
+    else
+    {
+        <div style="overflow:auto;" tabindex="-1">
+        @foreach (var blog in this.Blogs_)
+        {
+            <BlogCard Blog="@blog" />            
+        }
+    
+        @foreach (var post in this.LatestOverallPosts)
+        {
+            <PostCard Post="@post" />
+        })
+            
+        </div>        
+    }    
+
+</FluentLayout>
 
 
 @code {
     public IBlogsMainResult? Response { get; set; }
 
-    public IQueryable<IBlogsMain_Blogs_Nodes>? Blogs_ 
-        => Response?.Blogs?.Nodes?.AsQueryable();
+    public IQueryable<IBlogsMain_Blogs_Nodes> Blogs_ 
+        => Response?.Blogs?.Nodes?.AsQueryable() ?? Array.Empty<IBlogsMain_Blogs_Nodes>().AsQueryable();
 
-    public IQueryable<IBlogsMain_LatestOverallPosts_Nodes>? Posts 
-        => Response?.LatestOverallPosts?.Nodes?.AsQueryable();
+    public IQueryable<IBlogsMain_LatestOverallPosts_Nodes> LatestOverallPosts 
+        => Response?.LatestOverallPosts?.Nodes?.AsQueryable() ?? Array.Empty<IBlogsMain_LatestOverallPosts_Nodes>().AsQueryable();
 
     GridSort<IBlogsMain_Blogs_Nodes> sortByName = GridSort<IBlogsMain_Blogs_Nodes>
        .ByAscending(blog => blog.Name);
