@@ -1,8 +1,21 @@
 ﻿@inherits LayoutComponentBase
 
+<style>
+    img {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        height: 100%;
+    }
+</style>
+
+<FluentDesignTheme StorageName="theme" 
+    Mode="DesignThemeModes.Dark"
+    OfficeColor="OfficeColor.Yammer" />
 <FluentLayout>
     <FluentHeader>
-        Frontend
+        <img src="./images/FMLLogo.png" style="width: 42px; height: 42px" />&nbsp;&nbsp;<div style="color: green">Intelli</div><div style="color: blue">Blog</div>
     </FluentHeader>
     <FluentStack Class="main" Orientation="Orientation.Horizontal" Width="100%">
         <NavMenu />
@@ -21,9 +34,7 @@
         <a href="https://www.fluentui-blazor.net" target="_blank">Documentation and demos</a>
         <FluentSpacer />
         <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor" target="_blank">About Blazor</a>
-    </FluentFooter>
-
-            
+    </FluentFooter>            
 </FluentLayout>
 
 <div id="blazor-error-ui">

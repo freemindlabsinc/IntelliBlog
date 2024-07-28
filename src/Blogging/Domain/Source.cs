@@ -3,8 +3,7 @@
 public class Source : TrackedEntity<int>, IAggregateRoot
 {
     private readonly List<SourceLike> _likes = new List<SourceLike>();
-    private string[] _tags = Array.Empty<string>();
-
+    
     internal Source() { /* For Entity Framework/HotChocolate */ }
 
     public Source(
@@ -14,11 +13,11 @@ public class Source : TrackedEntity<int>, IAggregateRoot
         string? description = default,
         string[]? tags = default)
     {
-        BlogId = blogId; // Once-setter
-        Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        Url = url;
-        Description = description;
-        _tags = tags?.ToArray() ?? _tags;
+        this.BlogId = blogId; // Once-setter
+        this.Name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+        this.Url = url;
+        this.Description = description;
+        this.Tags = tags?.ToArray() ?? Tags;
     }
 
     public int BlogId { get; private set; } = default!;
@@ -30,22 +29,22 @@ public class Source : TrackedEntity<int>, IAggregateRoot
 
     public IReadOnlyCollection<SourceLike> Likes => _likes.AsReadOnly();
 
-    public string[] Tags { get { return _tags.ToArray(); } private set { /* For EF8 */ } }
+    public string[] Tags { get; private set; } = Array.Empty<string>();
 
     public void AddTags(params string[] tags)
     {
         var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
-        _tags = _tags.Intersect(goodTags, StringComparer.OrdinalIgnoreCase)
-                     .ToArray();
+        Tags = Tags.Intersect(goodTags, StringComparer.OrdinalIgnoreCase)
+                   .ToArray();
 
         RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
     }
 
     public void RemoveTags(params string[] tags)
     {
-        _tags = _tags.Except(tags, StringComparer.OrdinalIgnoreCase)
-                     .ToArray();
+        Tags = Tags.Except(tags, StringComparer.OrdinalIgnoreCase)
+                   .ToArray();
 
         RaiseEvent(new Events.SourceUpdated(this, nameof(Tags)));
     }

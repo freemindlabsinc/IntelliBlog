@@ -65,8 +65,11 @@ public static class DatabaseSeeder
             .RuleFor(x => x.Notes, f => f.Lorem.Paragraph())
             .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
             .RuleFor(x => x.IsOnline, f => f.Random.Bool())
-            .Ignore(x => x.Tags)
-            ;
+            .RuleFor(x => x.Tags, (f,x) => {
+                x.AddTags(f.Random.WordsArray(0, 12));
+                return x.Tags;
+            });
+        ;
 
         var blogs = faker.Generate(amount);
         return blogs;
@@ -92,7 +95,10 @@ public static class DatabaseSeeder
 
             .RuleFor(x => x.Url, f => f.Internet.Url())
             .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
-            .Ignore(x => x.Tags);
+            .RuleFor(x => x.Tags, (f, x) => {
+                 x.AddTags(f.Random.WordsArray(0, 12));
+                 return x.Tags;
+             });
 
         return faker.Generate(amount);
     }
@@ -129,7 +135,10 @@ public static class DatabaseSeeder
             .RuleFor(x => x.IsPublished, f => f.Random.Bool())
             .RuleFor(x => x.State, f => f.PickRandom<PostState>())
             .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
-            .Ignore(x => x.Tags);
+            .RuleFor(x => x.Tags, (f, x) => {
+                x.AddTags(f.Random.WordsArray(0, 12));
+                return x.Tags;
+            });
         ;
 
         return faker.Generate(amount);

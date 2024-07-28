@@ -1,29 +1,44 @@
 ﻿@inject Frontend.BlogsMainQuery MainQuery
 
-<div Style="border: 0px solid; color: red">
-    <EditForm FormName="UserSearch" Model="this" Style="border: 2px solid">
-        <!-- Search bar -->
-        <FluentTextField Appearance="FluentInputAppearance.Outline"
-                         Placeholder="Enter your search here..."
-                         AriaLabel="No label"
-                         Style="width: 60%">
-            <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="@Color.Neutral" Slot="start" />                                    
-        </FluentTextField>
+<EditForm FormName="UserSearch" Model="this" Style="border: 2px solid; color: blue">
+    
+    <FluentGrid Justify="JustifyContent.FlexEnd">
+        <FluentGridItem xs="11">
+            <div style="background-color:red">
+            <FluentStack>                
+                    
+                <!-- Search bar -->
+                <FluentTextField Appearance="FluentInputAppearance.Outline"
+                                 Placeholder="Enter your search here..."
+                                 AriaLabel="No label"
+                                 notStyle="min-width:400px">
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="@Color.Neutral" Slot="start" />
+                </FluentTextField>
+                
+                <!-- Mic button -->
+                <FluentButton>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Mic())" Color="@Color.Neutral" />
+                </FluentButton>                
+            </FluentStack>
+            </div>
+        </FluentGridItem>
 
-        <!-- Mic button -->
-        <FluentButton>
-            <FluentIcon Value="@(new Icons.Regular.Size16.Mic())" Color="@Color.Neutral" />
-        </FluentButton>
+        <FluentGridItem xs="1">
+            <FluentButton Type="ButtonType.Submit" OnClick="FetchData">Search</FluentButton>
+        </FluentGridItem>
 
-        <!-- Order by -->
+    </FluentGrid> 
+
+    
+
+    <!-- Order by -->
 
 
-        <!-- Sort by -->
+    <!-- Sort by -->
 
-        <!-- Search button -->
-        <FluentButton Type="ButtonType.Submit" OnClick="FetchData">Search</FluentButton>
-    </EditForm>   
-</div>
+    <!-- Search button -->
+    
+</EditForm>   
 
 @code {
     [SupplyParameterFromForm]

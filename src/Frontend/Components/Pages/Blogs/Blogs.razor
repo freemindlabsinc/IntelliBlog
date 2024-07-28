@@ -2,13 +2,11 @@
 @rendermode InteractiveServer
 @inject BlogsMainQuery MainQuery
 
-<PageTitle>BlogsXX</PageTitle>
+<PageTitle>Blogs</PageTitle>
 
 <FluentLayout>
-    <FluentHeader>
-        <div>
-            <BlogSearch2 ResultsChanged2="OnNewResults" />
-        </div>        
+    <FluentHeader Style="background-color: white">
+        <BlogSearch2 ResultsChanged2="OnNewResults" />        
     </FluentHeader>
 
     <div>
@@ -16,25 +14,21 @@
         Order: [Order]
         Filter: [Where]
     </div>
-    @if (this.Response == null)
-    {
-        <p><em>Loading Blogs!!</em></p>
-    }
-    else
-    {
-        <div style="overflow:auto;" tabindex="-1">
-        @foreach (var blog in this.Blogs_)
+
+
+    <FluentGrid Justify="JustifyContent.FlexStart"
+                AdaptiveRendering="true"
+                Style="overflow: auto; width:100%"
+                Spacing="0">
+
+        @foreach (var blog in Items!)
         {
-            <BlogCard Blog="@blog" />            
+            <FluentGridItem xs="12" md="12" lg="6" xl="4" xxl="3">
+                <BlogCard Blog="blog" />
+            </FluentGridItem>
         }
-    
-        @foreach (var post in this.LatestOverallPosts)
-        {
-            <PostCard Post="@post" />
-        })
-            
-        </div>        
-    }    
+    </FluentGrid>
+
 
 </FluentLayout>
 
@@ -42,7 +36,7 @@
 @code {
     public IBlogsMainResult? Response { get; set; }
 
-    public IQueryable<IBlogsMain_Blogs_Nodes> Blogs_ 
+    public IQueryable<IBlogsMain_Blogs_Nodes> Items 
         => Response?.Blogs?.Nodes?.AsQueryable() ?? Array.Empty<IBlogsMain_Blogs_Nodes>().AsQueryable();
 
     public IQueryable<IBlogsMain_LatestOverallPosts_Nodes> LatestOverallPosts 
