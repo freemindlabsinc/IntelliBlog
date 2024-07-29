@@ -2,19 +2,14 @@
 @rendermode InteractiveServer
 @inject BlogsMainQuery MainQuery
 
-<PageTitle>Blogs</PageTitle>
+<PageTitle>Blog xs</PageTitle>
 
 <FluentLayout>
     <FluentHeader Style="background-color: white">
         <BlogSearch ResultsChanged2="OnNewResults" />        
     </FluentHeader>
-
     
-
-    <FluentGrid Justify="JustifyContent.FlexStart"
-                AdaptiveRendering="true"
-                Style="overflow: auto; width:100%"
-                Spacing="0">
+    <FluentGrid Style="overflow: hidden; overflow-y: auto; width:100%">
 
         @foreach (var blog in Items!)
         {

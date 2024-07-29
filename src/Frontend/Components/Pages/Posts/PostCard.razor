@@ -1,4 +1,5 @@
 ﻿@inject IDialogService DS
+@inject NavigationManager NavigationManager
 
 <FluentCard MinimalStyle="true">
     <FluentGrid>
@@ -31,8 +32,8 @@
             
             &nbsp;
             <FluentStack>
-                <FluentButton Appearance="Appearance.Accent" OnClick="HandleClick">Edit</FluentButton>
-                <FluentButton Appearance="Appearance.Accent" OnClick="HandleClick">Like</FluentButton>
+                <FluentButton Appearance="Appearance.Accent" OnClick="EditPost">Edit</FluentButton>
+                <FluentButton Appearance="Appearance.Accent" OnClick="LikePost">Like</FluentButton>
             </FluentStack>
         </FluentGridItem>
 
@@ -44,9 +45,14 @@
 </FluentCard>
 
 @code {
-    private async Task HandleClick() 
+    private void EditPost() 
     { 
-        var res = await DS.ShowConfirmationAsync("Anchor clicked");        
+        NavigationManager.NavigateTo($"/posts/edit/{Post.Id}"); 
+    }
+
+    private async Task LikePost()
+    {
+        var res = await DS.ShowInfoAsync($"You liked/unliked post {Post.Id}");
     }
 
     [Parameter]

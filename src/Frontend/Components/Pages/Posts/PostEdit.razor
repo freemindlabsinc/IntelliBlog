@@ -1,0 +1,10 @@
+﻿@page "/posts/edit/{id}"
+
+<h3>Blog Edit</h3>
+
+<p>This is the editor of Post @Id</p>
+
+@code {
+    [Parameter]
+    public string Id { get; set; } = default!;
+}
