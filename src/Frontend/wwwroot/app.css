@@ -1,5 +1,37 @@
 @import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
+/* New */
+
+img {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;    
+}
+
+.wrapper {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: inline-block;
+    height: 150px;
+    width: 250px;
+    background: green;    
+}
+
+.wrapper img {    
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+}
+
+/* 
+    Pre-existing Blazor ones
+        - I think I might have changed body a little following FluentUI instructions. 
+
+*/
+
 body {
     margin: 0;
     padding: 0;

@@ -1,0 +1,38 @@
+﻿<FluentCard MinimalStyle="true">
+    <FluentGrid>
+
+        <FluentGridItem xs="9">
+            <FluentStack Orientation="Orientation.Vertical">
+                <FluentStack Orientation="Orientation.Horizontal">
+                    <FluentBadge Appearance="Appearance.Neutral">@Blog.Id</FluentBadge>
+                    <FluentLabel Typo="Typography.H5">@Blog.Name</FluentLabel>
+                </FluentStack>
+
+                <FluentStack>
+                    <FluentLabel Typo="Typography.Subject">@Blog.Description</FluentLabel>
+                </FluentStack>
+            </FluentStack>
+
+            &nbsp;
+            <FluentStack Wrap="true">
+                @foreach (var tag in Blog.Tags)
+                {
+                    <FluentBadge Fill="highlight" Color="white" BackgroundColor="blue">@tag</FluentBadge>
+                }
+            </FluentStack>
+            
+        </FluentGridItem>
+
+        <FluentGridItem Class="wrapper" xs="3">
+            <img  src="@Blog.Image" alt="@Blog.Name" />
+        </FluentGridItem>
+
+    </FluentGrid>
+</FluentCard>
+
+
+@code {
+    [Parameter]
+    public IBlogCardData Blog { get; set; } = default!;
+    
+}

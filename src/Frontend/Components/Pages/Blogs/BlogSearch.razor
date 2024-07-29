@@ -2,11 +2,10 @@
 
 <EditForm FormName="UserSearch" Model="this" Style="border: 2px solid; color: blue">
     
-    <FluentGrid Justify="JustifyContent.FlexEnd">
-        <FluentGridItem xs="11">
-            <div style="background-color:red">
-            <FluentStack>                
-                    
+    <FluentGrid Justify="JustifyContent.FlexEnd"
+                Style="background-color: var(--neutral-layer-3); overflow: hidden; resize: horizontal; padding: 4px;">
+        <FluentGridItem Style="min-width: 200px;">
+            <FluentStack>
                 <!-- Search bar -->
                 <FluentTextField Appearance="FluentInputAppearance.Outline"
                                  Placeholder="Enter your search here..."
@@ -14,22 +13,41 @@
                                  notStyle="min-width:400px">
                     <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="@Color.Neutral" Slot="start" />
                 </FluentTextField>
-                
+
                 <!-- Mic button -->
                 <FluentButton>
                     <FluentIcon Value="@(new Icons.Regular.Size16.Mic())" Color="@Color.Neutral" />
-                </FluentButton>                
+                </FluentButton>
             </FluentStack>
+        </FluentGridItem>
+        <FluentGridItem Justify="JustifyContent.FlexEnd" Gap="10px">
+            <!--FluentButton Appearance="Appearance.Neutral">Setup</!--FluentButton-->            
+            <FluentButton Appearance="Appearance.Neutral" 
+                          Type="ButtonType.Submit" 
+                          OnClick="FetchData">Search</FluentButton>
+        </FluentGridItem>
+    </FluentGrid>
+
+    <FluentGrid Justify="JustifyContent.FlexEnd">
+        <FluentGridItem xs="11">
+            <div style="background-color:red">
+            
             </div>
         </FluentGridItem>
 
         <FluentGridItem xs="1">
-            <FluentButton Type="ButtonType.Submit" OnClick="FetchData">Search</FluentButton>
+            
         </FluentGridItem>
 
     </FluentGrid> 
 
-    
+<!-- Debug
+    <div>
+        Count: [(@Response?.Blogs?.Nodes?.Count ?? -1)]
+        Order: [Order]
+        Filter: [Where]
+    </div> -->    
+
 
     <!-- Order by -->
 
@@ -58,8 +76,7 @@
 
     [Parameter]
     public Func<IBlogsMainResult, Task>? ResultsChanged2 { get; set; }
-
-    
+   
     bool fetchedOnce = false;
     protected override async Task OnParametersSetAsync()
     {

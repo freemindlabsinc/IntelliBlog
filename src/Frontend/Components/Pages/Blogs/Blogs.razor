@@ -6,15 +6,10 @@
 
 <FluentLayout>
     <FluentHeader Style="background-color: white">
-        <BlogSearch2 ResultsChanged2="OnNewResults" />        
+        <BlogSearch ResultsChanged2="OnNewResults" />        
     </FluentHeader>
 
-    <div>
-        Count: [(@Response?.Blogs?.Nodes?.Count ?? -1)]
-        Order: [Order]
-        Filter: [Where]
-    </div>
-
+    
 
     <FluentGrid Justify="JustifyContent.FlexStart"
                 AdaptiveRendering="true"

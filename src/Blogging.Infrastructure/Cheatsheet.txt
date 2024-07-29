@@ -3,3 +3,5 @@ dotnet ef database drop --startup-project ../IntelliBlog.Web --force --context A
 dotnet ef database update --startup-project ../IntelliBlog.Web --context AppDbContext 
 
 dotnet ef migrations add CreateDatabase --startup-project ../IntelliBlog.Web --context AppDbContext --verbose --output-dir Data/Migrations 
+
+docker run -e "MSSQL_SA_PASSWORD=G7i5z5mo" -e "ACCEPT_EULA=Y" -p 1433:1433 --name mssql_dev --restart unless-stopped --hostname mssql_dev -v sql-data:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2022-latest

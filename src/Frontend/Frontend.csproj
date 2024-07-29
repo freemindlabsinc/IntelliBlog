@@ -5,6 +5,16 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Components\Pages\_later\BlogSearch_old_filter.razor" />
+    <Content Remove="Components\Pages\_later\Blogs_Frontend.Components.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Components\Pages\_later\BlogSearch_old_filter.razor" />
+    <None Include="Components\Pages\_later\Blogs_Frontend.Components.razor" />
+  </ItemGroup>
   
   <ItemGroup>
 	  <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" />
