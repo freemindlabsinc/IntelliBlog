@@ -51,4 +51,6 @@ fragment BlogCardData on Blog {
   id
   description
   tags
+  createdOn
+  createdBy
 }

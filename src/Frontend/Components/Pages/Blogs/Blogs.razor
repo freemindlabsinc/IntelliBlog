@@ -1,15 +1,17 @@
 ﻿@page "/blogs"
 @rendermode InteractiveServer
+
+@inject NavigationManager NavigationManager
 @inject BlogsMainQuery MainQuery
 
-<PageTitle>Blog xs</PageTitle>
+<PageTitle>Blog</PageTitle>
 
 <FluentLayout>
     <FluentHeader Style="background-color: white">
         <BlogSearch ResultsChanged2="OnNewResults" />        
     </FluentHeader>
     
-    <FluentGrid Style="overflow: hidden; overflow-y: auto; width:100%">
+    @* <FluentGrid Style="overflow: hidden; overflow-y: auto; width:100%">
 
         @foreach (var blog in Items!)
         {
@@ -17,7 +19,17 @@
                 <BlogCard Blog="blog" />
             </FluentGridItem>
         }
-    </FluentGrid>
+    </FluentGrid> *@
+
+    <FluentDataGrid Items="@Items">
+        <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+        <PropertyColumn Property="@(p => p.CreatedOn)" Format="yyyy-MM-dd" Sortable="false" />
+        <PropertyColumn Property="@(p => p.CreatedBy)" Sortable="true" />
+        <TemplateColumn Title="Bonus">
+            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Edit(context))">Edit</FluentButton>            
+        </TemplateColumn>
+    </FluentDataGrid>
 
 
 </FluentLayout>
@@ -34,6 +46,11 @@
 
     GridSort<IBlogsMain_Blogs_Nodes> sortByName = GridSort<IBlogsMain_Blogs_Nodes>
        .ByAscending(blog => blog.Name);
+
+    public void Edit(IBlogsMain_Blogs_Nodes blog)
+    {
+        NavigationManager.NavigateTo($"/blogs/edit/{blog.Id}");
+    }
 
     public Task OnNewResults(IBlogsMainResult response)
     {
