@@ -6,7 +6,7 @@ public class SourceType : ObjectType<Source>
 {
     protected override void Configure(IObjectTypeDescriptor<Source> descriptor)
     {
-        descriptor.Field(t => t.BlogId).Ignore();        
+        descriptor.Field(t => t.BlogId).IsProjected(true);        
     }    
 }
 

@@ -22,7 +22,9 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
         this.Tags = tags?.ToArray() ?? Tags;
     }
 
-    public int BlogId { get; private set; } = default!;
+    public int BlogId { 
+        get; 
+        private set; } = default!;
     public string Title { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Text { get; private set; }

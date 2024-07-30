@@ -3,7 +3,12 @@
 namespace API.Types;
 
 public class BlogType : ObjectType<Blog>
-{ }
+{
+    protected override void Configure(IObjectTypeDescriptor<Blog> descriptor)
+    {
+        
+    }
+}
 
 [ExtendObjectType<Blog>]
 public static class BlogTypeExtensions 
