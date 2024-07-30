@@ -1,3 +1,17 @@
+### 7/29/2024
+
+- I have been on the front end for a few days now and I am really pleased with the results
+    - I can embed .graphql files straight into the solution and ChillCream's tools (straberry shake) generate the view model code for me. It is really nice.
+    - I have been thinking a lot about the similarities between the approach to things of
+    ChillCream and RemObjects and it's like this guy is a modern version of me back then?
+
+- The main point and biggest lesson is probably about how Chillcream's code generetors make the promise of GraphQL a reality and fit PERFECTLY with both Domain Driven Design and Clean Architecture. 
+- It's what I have been wanting for COBRA for a very long time (e.g. open API and how to have a flexible query model)
+- GQL and CQRS are a match made in heaven.
+    - In Intellblog I made an executive decision that is very important: 
+        - We don't need to lower our standards for the API to REST because is more well known.
+        - GQL is REST, opinionated.
+
 ### 7/21/2024
 
 - GQL: Lots of thoughts after learning how Data Loaders work and after

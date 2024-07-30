@@ -6,7 +6,7 @@ public class PostType : ObjectType<Post>
 {
     protected override void Configure(IObjectTypeDescriptor<Post> descriptor)
     {
-        descriptor.Field(t => t.BlogId).Ignore();
+        descriptor.Field(t => t.BlogId).IsProjected(true);
     }
 }
 

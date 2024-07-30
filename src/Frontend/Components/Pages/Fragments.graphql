@@ -1,0 +1,34 @@
+
+fragment PostCardData on Post {
+  id
+  title
+  image
+  tags
+  createdBy
+  createdOn
+  description
+  text
+}
+
+fragment BlogCardData on Blog {
+  id
+  name
+  image
+  isOnline
+  id
+  description
+  tags
+  createdOn
+  createdBy
+}
+
+
+fragment SourceCardData on Source {
+    id      
+    name
+    description
+    url
+    type
+    image
+    tags
+}

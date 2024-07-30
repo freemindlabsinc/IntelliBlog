@@ -4,10 +4,9 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
 {
     private readonly List<PostSource> _sources = new List<PostSource>();
     private readonly List<PostLike> _likes = new List<PostLike>();
-    private string[] _tags = Array.Empty<string>();
-
+    
     internal Post() { /* For Entity Framework/HotChocolate */ }
-                                
+
     public Post(
         int blogId,
         string title,
@@ -19,11 +18,13 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
         this.State = PostState.Draft;
         this.Title = Guard.Against.NullOrWhiteSpace(title, nameof(title));
         this.Description = description;
-        this.Text = text;    
-        this._tags = tags?.ToArray() ?? _tags;
+        this.Text = text;
+        this.Tags = tags?.ToArray() ?? Tags;
     }
 
-    public int BlogId { get; private set; } = default!;
+    public int BlogId { 
+        get; 
+        private set; } = default!;
     public string Title { get; private set; } = default!;
     public string? Description { get; private set; }
     public string? Text { get; private set; }
@@ -31,7 +32,7 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
     public PostState State { get; private set; }
     public string? Image { get; private set; }
 
-    public string[] Tags { get { return _tags.ToArray(); } private set { /* For EF8 */ } }
+    public string[] Tags { get; private set; } = Array.Empty<string>();
 
     public IReadOnlyCollection<PostSource> Sources => _sources.AsReadOnly();    
     public IReadOnlyCollection<PostLike> Likes => _likes.AsReadOnly();
@@ -101,7 +102,7 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
     {
         var goodTags = tags.Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)));
 
-        _tags = _tags.Union(goodTags)
+        Tags = Tags.Union(goodTags)
                      .Distinct(StringComparer.OrdinalIgnoreCase)
                      .ToArray();
 
@@ -110,7 +111,7 @@ public sealed class Post : TrackedEntity<int>, IAggregateRoot
 
     public void RemoveTags(params string[] tags)
     {
-        _tags = _tags.Except(tags, StringComparer.OrdinalIgnoreCase)
+        Tags = Tags.Except(tags, StringComparer.OrdinalIgnoreCase)
                      .ToArray();
 
         RaiseEvent(new Events.PostUpdated(this, nameof(Tags)));

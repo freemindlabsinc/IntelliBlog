@@ -1,0 +1,61 @@
+﻿@inject IDialogService DS
+@inject NavigationManager NavigationManager
+
+<FluentCard MinimalStyle="true">
+    <FluentGrid>
+        
+        <FluentGridItem xs="9">            
+            <FluentStack Orientation="Orientation.Vertical">
+               <FluentStack Orientation="Orientation.Horizontal">
+                   <FluentBadge Appearance="Appearance.Neutral">@Post.Id</FluentBadge>
+                   <FluentLabel Typo="Typography.H5">@Post.Title</FluentLabel>                   
+                </FluentStack>
+
+               <FluentStack>
+                  <FluentLabel Typo="Typography.Subject">@Post.Description</FluentLabel>
+               </FluentStack>
+            </FluentStack>
+            
+            &nbsp;
+            <FluentStack Wrap="true">
+            @foreach (var tag in Post.Tags)
+            {
+                <FluentBadge Fill="highlight" Color="yellow" BackgroundColor="green">@tag</FluentBadge>                 
+            }
+            </FluentStack>
+
+            &nbsp;            
+            <FluentStack>
+                <FluentBadge Appearance="Appearance.Neutral">@Post.CreatedOn.ToString("yyyy-MM-dd@hh:mm")</FluentBadge>
+                <FluentBadge Appearance="Appearance.Neutral">By @Post.CreatedBy</FluentBadge>
+            </FluentStack>
+            
+            &nbsp;
+            <FluentStack>
+                <FluentButton Appearance="Appearance.Accent" OnClick="EditPost">Edit</FluentButton>
+                <FluentButton Appearance="Appearance.Accent" OnClick="LikePost">Like</FluentButton>
+            </FluentStack>
+        </FluentGridItem>
+
+        <FluentGridItem Class="wrapper" xs="3">
+            <img src="@Post.Image" alt="@Post.Title" />
+        </FluentGridItem>
+
+    </FluentGrid>
+</FluentCard>
+
+@code {
+    private void EditPost() 
+    { 
+        NavigationManager.NavigateTo($"/posts/edit/{Post.Id}"); 
+    }
+
+    private async Task LikePost()
+    {
+        var res = await DS.ShowInfoAsync($"You liked/unliked post {Post.Id}");
+    }
+
+    [Parameter]
+    public IPostCardData Post { get; set; } = default!;
+    
+}

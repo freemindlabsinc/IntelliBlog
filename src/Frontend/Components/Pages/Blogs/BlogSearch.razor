@@ -1,0 +1,138 @@
+﻿<EditForm FormName="UserSearch" Model="this" Style="border: 2px solid; color: blue">
+    
+    <FluentGrid Justify="JustifyContent.FlexEnd"
+                Style="background-color: var(--neutral-layer-3); overflow: hidden; resize: horizontal; padding: 4px;">
+        <FluentGridItem Style="min-width: 200px;">
+            <FluentStack>
+                <!-- Search bar -->
+                <FluentTextField Appearance="FluentInputAppearance.Outline"
+                                 Placeholder="Enter your search here..."
+                                 AriaLabel="No label"
+                                 notStyle="min-width:400px">
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Search())" Color="@Color.Neutral" Slot="start" />
+                </FluentTextField>
+
+                <!-- Mic button -->
+                <FluentButton>
+                    <FluentIcon Value="@(new Icons.Regular.Size16.Mic())" Color="@Color.Neutral" />
+                </FluentButton>
+            </FluentStack>
+        </FluentGridItem>
+        <FluentGridItem Justify="JustifyContent.FlexEnd" Gap="10px">
+            <!--FluentButton Appearance="Appearance.Neutral">Setup</!--FluentButton-->            
+            <FluentButton Appearance="Appearance.Neutral" 
+                          Type="ButtonType.Submit" 
+                          OnClick="FetchData">Search</FluentButton>
+        </FluentGridItem>
+    </FluentGrid>
+
+    <FluentGrid Justify="JustifyContent.FlexEnd">
+        <FluentGridItem xs="11">
+            <div style="background-color:red">
+            
+            </div>
+        </FluentGridItem>
+
+        <FluentGridItem xs="1">
+            
+        </FluentGridItem>
+
+    </FluentGrid> 
+
+<!-- Debug
+    <div>
+        Count: [(@Response?.Blogs?.Nodes?.Count ?? -1)]
+        Order: [Order]
+        Filter: [Where]
+    </div> -->    
+
+
+    <!-- Order by -->
+
+
+    <!-- Sort by -->
+
+    <!-- Search button -->
+    
+</EditForm>   
+
+@code {
+    [Inject]
+    public Frontend.BlogsModelQuery MainQuery { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    public int First { get; set; } = 15;
+
+    [SupplyParameterFromForm]
+    public string? After { get; set; }
+
+    [SupplyParameterFromForm]
+    public string? SearchText { get; set; }
+
+    [SupplyParameterFromForm]
+    public int MaxLatestBlogPosts { get; set; } = 3;
+
+    [SupplyParameterFromForm]
+    public int MaxLatestPosts { get; set; } = 5;
+
+    [Parameter]
+    public Func<IBlogsModelResult, Task>? SearchCompleted { get; set; }
+   
+    bool fetchedOnce = false;
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (!fetchedOnce)
+        {
+            await FetchData();
+            fetchedOnce = true;
+        }        
+    }
+
+    public async Task FetchData()
+    {
+        IOperationResult<IBlogsModelResult>? response = await MainQuery.ExecuteAsync(
+            first: this.First,
+            after: this.After,
+            where: this.Where,
+            order: this.Order,
+            maxLatestBlogPosts: this.MaxLatestBlogPosts,
+            maxLatestPosts: this.MaxLatestPosts,
+            cancellationToken: default
+        );
+
+        response.EnsureNoErrors();
+
+        if (SearchCompleted != null)
+        {
+            await SearchCompleted!.Invoke(response!.Data!);
+        }
+    }
+    
+    // ----------------------------
+
+    BlogSortInput[] Order => new[] { new BlogSortInput()
+    {
+        Id = SortEnumType.Desc
+    }};
+
+    BlogFilterInput? Where => GetFilterInput();
+
+    BlogFilterInput? GetFilterInput()
+    {
+        if (string.IsNullOrWhiteSpace(SearchText))
+            return null;
+
+        var filterInput = new BlogFilterInput();
+        filterInput.Or = new BlogFilterInput[]
+        {
+            new BlogFilterInput() { Name = new StringOperationFilterInput() { Contains = SearchText } },
+            new BlogFilterInput() { Description = new StringOperationFilterInput() { Contains = SearchText } },
+        };
+
+        return filterInput;
+    }
+
+    
+}

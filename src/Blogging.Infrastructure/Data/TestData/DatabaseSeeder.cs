@@ -24,7 +24,7 @@ public static class DatabaseSeeder
         await options.DbContext.AddRangeAsync(sources);
         await options.DbContext.SaveChangesAsync();
 
-        var posts = GeneratePosts(blogs, options.PostsCount);
+        var posts = GeneratePosts(blogs, sources, options.PostsCount);
         await options.DbContext.AddRangeAsync(posts);        
 
         await options.DbContext.SaveChangesAsync();
@@ -65,8 +65,11 @@ public static class DatabaseSeeder
             .RuleFor(x => x.Notes, f => f.Lorem.Paragraph())
             .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
             .RuleFor(x => x.IsOnline, f => f.Random.Bool())
-            .Ignore(x => x.Tags)
-            ;
+            .RuleFor(x => x.Tags, (f,x) => {
+                x.AddTags(f.Random.WordsArray(0, 12));
+                return x.Tags;
+            });
+        ;
 
         var blogs = faker.Generate(amount);
         return blogs;
@@ -92,12 +95,18 @@ public static class DatabaseSeeder
 
             .RuleFor(x => x.Url, f => f.Internet.Url())
             .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
-            .Ignore(x => x.Tags);
+            .RuleFor(x => x.Tags, (f, x) => {
+                 x.AddTags(f.Random.WordsArray(0, 12));
+                 return x.Tags;
+             });
 
         return faker.Generate(amount);
     }
 
-    static IEnumerable<Post> GeneratePosts(IEnumerable<Blog> blogs, int amount)
+    static IEnumerable<Post> GeneratePosts(
+        IEnumerable<Blog> blogs, 
+        IEnumerable<Source> sources,
+        int amount)
     {
         string[] TitleStarters = {
             "Some thoughts about",
@@ -120,7 +129,7 @@ public static class DatabaseSeeder
                 blogId: f.PickRandom(blogs).Id,
                 title: $"{f.PickRandom(TitleStarters)} {f.Random.Words(3).ToLower()}"))
             .RuleFor(x => x.Id, f => postId++)
-            
+
             .RuleFor(x => x.Description, f => $"{f.PickRandom(DescStarters)} {f.Random.Words(10).ToLower()}")
             .Ignore(x => x.BlogId)
             .Ignore(x => x.Title)
@@ -129,7 +138,19 @@ public static class DatabaseSeeder
             .RuleFor(x => x.IsPublished, f => f.Random.Bool())
             .RuleFor(x => x.State, f => f.PickRandom<PostState>())
             .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
-            .Ignore(x => x.Tags);
+            .RuleFor(x => x.Tags, (f, x) =>
+            {
+                x.AddTags(f.Random.WordsArray(0, 12));
+                return x.Tags;
+            })
+            .RuleFor(x => x.Sources, (f, x) => 
+            {
+                var randomSources = f.PickRandom(sources, f.Random.Int(1, 3))
+                                     .Select(s => s.Id);
+
+                x.AddSources(randomSources.ToArray());
+                return x.Sources; 
+            });
         ;
 
         return faker.Generate(amount);

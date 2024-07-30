@@ -1,4 +1,4 @@
-﻿query FetchPosts($maxRows: Int=10) {
+﻿query PostsMain($maxRows: Int=10) {
   posts:posts(first: $maxRows) {
     nodes {
       ... PostCardData    
@@ -10,11 +10,4 @@
       }            
     }
   }
-}
-
-fragment SourceCardData on Source {
-    id      
-    name
-    url
-    type
 }

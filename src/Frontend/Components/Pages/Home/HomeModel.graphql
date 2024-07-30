@@ -1,0 +1,25 @@
+query HomeModel {
+  latestPosts:posts(first:5, order: { createdOn: DESC}) {
+    nodes {
+      ... PostCardData
+      blog {
+       ... BlogName
+        
+      }
+    }
+  }
+
+  latestSources:sources(first: 4, order: { createdOn: DESC}) {
+    nodes {
+      ...SourceCardData
+      blog {
+        ... BlogName
+      }
+    }
+  }
+}
+
+fragment BlogName on Blog {
+  id
+  name
+}
