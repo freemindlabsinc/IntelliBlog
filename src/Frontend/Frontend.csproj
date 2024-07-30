@@ -16,6 +16,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Components\Pages\Home\HomeData.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Components\Pages\_later\BlogSearch_old_filter.razor" />
     <None Include="Components\Pages\_later\Blogs_Frontend.Components.razor" />
   </ItemGroup>

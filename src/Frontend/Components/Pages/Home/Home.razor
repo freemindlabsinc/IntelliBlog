@@ -1,40 +1,66 @@
 ﻿@page "/"
-@inject ILogger<Home> logger;
 
 <PageTitle>Home</PageTitle>
 
 <h1>Welcome to IntelliBlog!</h1>
+<p>IntelliBlog is a blog platform that allows you to create and manage your own blog. 
+    You can create posts, manage sources, and much more!</p>
 
-<FluentHorizontalScroll Speed="600" Easing=ScrollEasing.EaseInOut @onscrollstart=OnHorizontalScrollStart @onscrollend=OnHorizontalScrollEnd>
-    <FluentCard>
-        Card number 1
-        <FluentButton Appearance="Appearance.Neutral">A button</FluentButton>
-    </FluentCard>
-    <FluentCard>Card number 2</FluentCard>
-    <FluentCard>Card number 3</FluentCard>
-    <FluentCard>Card number 4</FluentCard>
-    <FluentCard>Card number 5</FluentCard>
-    <FluentCard>Card number 6</FluentCard>
-    <FluentCard>Card number 7</FluentCard>
-    <FluentCard>Card number 8</FluentCard>
-    <FluentCard>Card number 9</FluentCard>
-    <FluentCard>Card number 10</FluentCard>
-    <FluentCard>Card number 11</FluentCard>
-    <FluentCard>Card number 12</FluentCard>
-    <FluentCard>Card number 13</FluentCard>
-    <FluentCard>Card number 14</FluentCard>
-    <FluentCard>Card number 15</FluentCard>
-    <FluentCard>Card number 16</FluentCard>
-</FluentHorizontalScroll>
+<p>[More and better information goes here]</p>
+
+@if (Model is null)
+{
+    // Loading data
+}
+else
+{
+    <!-- The latest posts -->
+    <FluentLabel Typo="Typography.H3">Latest Posts</FluentLabel>
+    <FluentHorizontalScroll class="full-width" Speed="600" Easing=ScrollEasing.EaseInOut>
+
+        @foreach (var post in Model.LatestPosts!.Nodes!)
+        {
+            <div style="height:300px;">
+                <PostCard Post="post" />
+            </div>
+        }
+
+    </FluentHorizontalScroll>
+
+    <FluentDivider />
+
+    <!-- The latest sources -->    
+    <FluentLabel Typo="Typography.H3">Latest Sources</FluentLabel>
+    <FluentHorizontalScroll class="full-width" Speed="600" Easing=ScrollEasing.EaseInOut>
+        
+        @foreach (var source in Model.LatestSources!.Nodes!)
+        {
+            <div style="height:250px;">
+                <SourceCard Source="source" />
+            </div>
+        }
+
+    </FluentHorizontalScroll>
+}
 
 @code {
-    private void OnHorizontalScrollStart(HorizontalScrollEventArgs args)
+    [Inject]
+    HomeModelQuery MainQuery { get; set; } = default!;
+    
+    IHomeModelResult? Model;
+
+    protected override async Task OnInitializedAsync()
     {
-        logger.LogInformation($"{args.Scroll}");
+        await FetchData();
     }
 
-    private void OnHorizontalScrollEnd(HorizontalScrollEventArgs args)
+    public async Task FetchData()
     {
-        logger.LogInformation($"{args.Scroll}");
+        IOperationResult<IHomeModelResult> response = await MainQuery.ExecuteAsync();
+        response.EnsureNoErrors();
+
+        Model = response.Data!;
+
+        StateHasChanged();
     }
 }

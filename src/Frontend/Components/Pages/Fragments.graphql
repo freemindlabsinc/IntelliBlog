@@ -26,6 +26,9 @@ fragment BlogCardData on Blog {
 fragment SourceCardData on Source {
     id      
     name
+    description
     url
     type
+    image
+    tags
 }
