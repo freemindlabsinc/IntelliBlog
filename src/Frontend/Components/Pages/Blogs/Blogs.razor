@@ -7,20 +7,12 @@
 <PageTitle>Blog</PageTitle>
 
 <FluentLayout>
+    <!-- Header -->
     <FluentHeader Style="background-color: white">
         <BlogSearch ResultsChanged2="OnNewResults" />        
-    </FluentHeader>
-    
-    @* <FluentGrid Style="overflow: hidden; overflow-y: auto; width:100%">
+    </FluentHeader>      
 
-        @foreach (var blog in Items!)
-        {
-            <FluentGridItem xs="12" md="12" lg="6" xl="4" xxl="3">
-                <BlogCard Blog="blog" />
-            </FluentGridItem>
-        }
-    </FluentGrid> *@
-
+    <!-- Grid -->
     <FluentDataGrid Items="@Items">
         <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
         <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
@@ -30,7 +22,6 @@
             <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Edit(context))">Edit</FluentButton>            
         </TemplateColumn>
     </FluentDataGrid>
-
 
 </FluentLayout>
 
@@ -44,8 +35,8 @@
     public IQueryable<IBlogsMain_LatestOverallPosts_Nodes> LatestOverallPosts 
         => Response?.LatestOverallPosts?.Nodes?.AsQueryable() ?? Array.Empty<IBlogsMain_LatestOverallPosts_Nodes>().AsQueryable();
 
-    GridSort<IBlogsMain_Blogs_Nodes> sortByName = GridSort<IBlogsMain_Blogs_Nodes>
-       .ByAscending(blog => blog.Name);
+    //GridSort<IBlogsMain_Blogs_Nodes> sortByName = GridSort<IBlogsMain_Blogs_Nodes>
+    //   .ByAscending(blog => blog.Name);
 
     public void Edit(IBlogsMain_Blogs_Nodes blog)
     {

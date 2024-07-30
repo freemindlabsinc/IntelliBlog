@@ -12,6 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <GraphQL Remove="Fragments.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Components\Pages\_later\BlogSearch_old_filter.razor" />
     <None Include="Components\Pages\_later\Blogs_Frontend.Components.razor" />
   </ItemGroup>

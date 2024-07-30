@@ -31,12 +31,12 @@
 
 @code {
     [Inject]
-    public FetchPostsQuery Query { get; set; } = default!;
+    public PostsMainQuery Query { get; set; } = default!;
 
-    IEnumerable<Frontend.IFetchPosts_Posts_Nodes> Items 
-        => Data?.Posts?.Nodes ?? Array.Empty<Frontend.IFetchPosts_Posts_Nodes>();
+    IEnumerable<Frontend.IPostsMain_Posts_Nodes> Items 
+        => Data?.Posts?.Nodes ?? Array.Empty<Frontend.IPostsMain_Posts_Nodes>();
 
-    IFetchPostsResult? Data;
+    IPostsMainResult? Data;
 
     int _maxArticles = 30;
 
