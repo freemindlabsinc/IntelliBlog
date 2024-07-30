@@ -3,16 +3,13 @@
 <PageTitle>Home</PageTitle>
 
 <h1>Welcome to IntelliBlog!</h1>
-<p>IntelliBlog is a blog platform that allows you to create and manage your own blog. 
-    You can create posts, manage sources, and much more!</p>
+
+<p>IntelliBlog is a blog platform that allows you to create and manage your own blog with the help of your private AI assistant.
+    You can create posts, manage content sources, and much more!</p>
 
 <p>[More and better information goes here]</p>
 
-@if (Model is null)
-{
-    // Loading data
-}
-else
+@if (Model is not null)
 {
     <!-- The latest posts -->
     <FluentLabel Typo="Typography.H3">Latest Posts</FluentLabel>
@@ -56,7 +53,7 @@ else
 
     public async Task FetchData()
     {
-        IOperationResult<IHomeModelResult> response = await MainQuery.ExecuteAsync();
+        var response = await MainQuery.ExecuteAsync();
         response.EnsureNoErrors();
 
         Model = response.Data!;

@@ -1,6 +1,4 @@
-﻿@inject Frontend.BlogsMainQuery MainQuery
-
-<EditForm FormName="UserSearch" Model="this" Style="border: 2px solid; color: blue">
+﻿<EditForm FormName="UserSearch" Model="this" Style="border: 2px solid; color: blue">
     
     <FluentGrid Justify="JustifyContent.FlexEnd"
                 Style="background-color: var(--neutral-layer-3); overflow: hidden; resize: horizontal; padding: 4px;">
@@ -59,6 +57,9 @@
 </EditForm>   
 
 @code {
+    [Inject]
+    public Frontend.BlogsModelQuery MainQuery { get; set; } = default!;
+
     [SupplyParameterFromForm]
     public int First { get; set; } = 15;
 
@@ -75,7 +76,7 @@
     public int MaxLatestPosts { get; set; } = 5;
 
     [Parameter]
-    public Func<IBlogsMainResult, Task>? ResultsChanged2 { get; set; }
+    public Func<IBlogsModelResult, Task>? SearchCompleted { get; set; }
    
     bool fetchedOnce = false;
     protected override async Task OnParametersSetAsync()
@@ -91,7 +92,7 @@
 
     public async Task FetchData()
     {
-        IOperationResult<IBlogsMainResult>? response = await MainQuery.ExecuteAsync(
+        IOperationResult<IBlogsModelResult>? response = await MainQuery.ExecuteAsync(
             first: this.First,
             after: this.After,
             where: this.Where,
@@ -103,9 +104,9 @@
 
         response.EnsureNoErrors();
 
-        if (ResultsChanged2 != null)
+        if (SearchCompleted != null)
         {
-            await ResultsChanged2!.Invoke(response!.Data!);
+            await SearchCompleted!.Invoke(response!.Data!);
         }
     }
     

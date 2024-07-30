@@ -1,54 +1,55 @@
 ﻿@page "/blogs"
 @rendermode InteractiveServer
 
-@inject NavigationManager NavigationManager
-@inject BlogsMainQuery MainQuery
+<PageTitle>Blogxxx</PageTitle>
 
-<PageTitle>Blog</PageTitle>
-
-<FluentLayout>
+    <FluentLayout>
     <!-- Header -->
     <FluentHeader Style="background-color: white">
-        <BlogSearch ResultsChanged2="OnNewResults" />        
-    </FluentHeader>      
-
-    <!-- Grid -->
-    <FluentDataGrid Items="@Items">
-        <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
-        <PropertyColumn Property="@(p => p.CreatedOn)" Format="yyyy-MM-dd" Sortable="false" />
-        <PropertyColumn Property="@(p => p.CreatedBy)" Sortable="true" />
-        <TemplateColumn Title="Bonus">
-            <FluentButton Appearance="Appearance.Accent" @onclick="@(() => Edit(context))">Edit</FluentButton>            
-        </TemplateColumn>
-    </FluentDataGrid>
-
+        <BlogSearch SearchCompleted="OnSearchCompleted" />        
+    </FluentHeader>
+    @if (Model is not null)
+    {
+        <!-- Grid -->
+            <FluentDataGrid Items="@BlobsAsQueriable" TGridItem="IBlogsModel_Blogs_Nodes">
+            <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
+            <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+            <PropertyColumn Property="@(p => p.CreatedOn)" Format="yyyy-MM-dd" Sortable="false" />
+            <PropertyColumn Property="@(p => p.CreatedBy)" Sortable="true" />
+            <TemplateColumn Title="Bonus">
+                <FluentButton Appearance="Appearance.Accent" @onclick="@(() => EditBlog(context))">Edit</FluentButton>            
+            </TemplateColumn>
+        </FluentDataGrid>
+    }
 </FluentLayout>
 
-
 @code {
-    public IBlogsMainResult? Response { get; set; }
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
 
-    public IQueryable<IBlogsMain_Blogs_Nodes> Items 
-        => Response?.Blogs?.Nodes?.AsQueryable() ?? Array.Empty<IBlogsMain_Blogs_Nodes>().AsQueryable();
+    [Inject]
+    public BlogsModelQuery MainQuery { get; set; } = default!;
 
-    public IQueryable<IBlogsMain_LatestOverallPosts_Nodes> LatestOverallPosts 
-        => Response?.LatestOverallPosts?.Nodes?.AsQueryable() ?? Array.Empty<IBlogsMain_LatestOverallPosts_Nodes>().AsQueryable();
+    public IBlogsModelResult? Model { get; set; }
 
-    //GridSort<IBlogsMain_Blogs_Nodes> sortByName = GridSort<IBlogsMain_Blogs_Nodes>
-    //   .ByAscending(blog => blog.Name);
+    public IQueryable<IBlogsModel_Blogs_Nodes> BlobsAsQueriable
+        => Model?.Blogs?.Nodes?.AsQueryable() ?? Array.Empty<IBlogsModel_Blogs_Nodes>().AsQueryable();
 
-    public void Edit(IBlogsMain_Blogs_Nodes blog)
+    public IQueryable<IBlogsModel_LatestOverallPosts_Nodes> LatestOverallPostsAsQueriable
+        => Model?.LatestOverallPosts?.Nodes?.AsQueryable() ?? Array.Empty<IBlogsModel_LatestOverallPosts_Nodes>().AsQueryable(); 
+
+    public Task OnSearchCompleted(IBlogsModelResult response)
     {
-        NavigationManager.NavigateTo($"/blogs/edit/{blog.Id}");
-    }
-
-    public Task OnNewResults(IBlogsMainResult response)
-    {
-        Response = response;
+        Model = response;
         
         StateHasChanged();
 
         return Task.CompletedTask;
     }
+
+    public void EditBlog(IBlogsModel_Blogs_Nodes blog)
+    {
+        NavigationManager.NavigateTo($"/blogs/edit/{blog.Id}");
+    }
+
 }

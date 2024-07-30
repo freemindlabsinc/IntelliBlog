@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Components\Pages\Home\HomeData.graphql" />
+    <None Remove="Components\Pages\Home\HomeModel.graphql" />
   </ItemGroup>
 
   <ItemGroup>
