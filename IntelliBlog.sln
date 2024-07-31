@@ -11,14 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
-		AF-LOG.md = AF-LOG.md
 		Directory.Build.props = Directory.Build.props
-		BIG_PICTURE.md = BIG_PICTURE.md
-		CONFIGURATION.md = CONFIGURATION.md
 		Directory.Packages.props = Directory.Packages.props
 		.config\dotnet-tools.json = .config\dotnet-tools.json
-		README.md = README.md
-		SOLUTION_STRUCTURE.md = SOLUTION_STRUCTURE.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalTests", "tests\FunctionalTests\FunctionalTests.csproj", "{7D84EFEE-A7D9-44AD-A0A3-38EC7882D94C}"
@@ -40,6 +35,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogging", "src\Blogging\Blogging.csproj", "{A91F42AD-41EE-4950-A0AB-D91544EC2D1B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Blogging.Infrastructure", "src\Blogging.Infrastructure\Blogging.Infrastructure.csproj", "{89F820C7-B6C8-4AA6-87A2-4DBC1D95F8EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{28638224-AAA3-4CAB-8516-9E2AB3037892}"
+	ProjectSection(SolutionItems) = preProject
+		docs\AF-LOG.md = docs\AF-LOG.md
+		docs\BIG_PICTURE.md = docs\BIG_PICTURE.md
+		docs\CONFIGURATION.md = docs\CONFIGURATION.md
+		LICENSE = LICENSE
+		README.md = README.md
+		docs\SOLUTION_STRUCTURE.md = docs\SOLUTION_STRUCTURE.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -170,6 +175,7 @@ Global
 		{7B5CA988-78CE-4ABC-9E5F-68E4132F908D} = {DFE86AB0-C876-4C1C-AE22-3632188A3FCC}
 		{A676C539-A606-4557-909D-4844891C7789} = {DFE86AB0-C876-4C1C-AE22-3632188A3FCC}
 		{D0F03A09-12DE-4BF6-A498-299388E5918B} = {106AE906-5075-410A-B941-912F811848EE}
+		{DFE86AB0-C876-4C1C-AE22-3632188A3FCC} = {106AE906-5075-410A-B941-912F811848EE}
 		{473BFAFF-F334-4825-90F9-4575E9C48250} = {106AE906-5075-410A-B941-912F811848EE}
 		{A91F42AD-41EE-4950-A0AB-D91544EC2D1B} = {106AE906-5075-410A-B941-912F811848EE}
 		{89F820C7-B6C8-4AA6-87A2-4DBC1D95F8EB} = {106AE906-5075-410A-B941-912F811848EE}
