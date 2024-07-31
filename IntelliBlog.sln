@@ -13,9 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		AF-LOG.md = AF-LOG.md
 		Directory.Build.props = Directory.Build.props
+		BIG_PICTURE.md = BIG_PICTURE.md
+		CONFIGURATION.md = CONFIGURATION.md
 		Directory.Packages.props = Directory.Packages.props
 		.config\dotnet-tools.json = .config\dotnet-tools.json
 		README.md = README.md
+		SOLUTION_STRUCTURE.md = SOLUTION_STRUCTURE.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FunctionalTests", "tests\FunctionalTests\FunctionalTests.csproj", "{7D84EFEE-A7D9-44AD-A0A3-38EC7882D94C}"
