@@ -25,7 +25,7 @@ We reccomend you read the rest of the sections in this document to get a better 
 
 ## What ~~does~~ will it do?
 
-I-Blog allows users to create and manage one or more online blogs.
+I-Blog allows users to create and manage one or more online blogs that come with an integrated AI Assistant that ready to interact with the readers and is trained and grounded on your blog content.
 
 In addition to normal Create, Read, Update and Delete (CRUD) operations on posts, sources, comments, etc., I-Blog includes a number of advanced features that make it unique.
 
@@ -33,27 +33,24 @@ I-Blog uses AI to:
 
 1. Automate the creation of new posts.
     - Users can create a full post by simply pasting a URL to a web page or a YouTube video.
-    - This process will be template driver and user-configurable.
+    - This process will be template driven and user-configurable.
 
 2. Simplify the editing and proof-reading of posts.
     - Users can use the AI Assistant to help them spell check or correct grammar, or even rewrite parts of the post.
 
-3. Peform Semantic Search on the entire blogging content.
-    - Users can search for posts based on the meaning of the content, not just on the words used in the content.
-    For instance, a search for "How do I create a blog?" would return posts with titles such as "How to create a blog", "Creating a blog in 2022", "The best way to create a blog", etc.
+3. Perform Semantic Search on the entire content of the blog and its posts.
+    - Users can search for posts using natural language (English) instead of keywords and limited drop down filters.
+    - A search for "How do I create a blog?" would return posts with titles such as "How to create a blog", "Creating a blog in 2022", "The best way to start a blog", etc.
 
-4. Interact with an AI Assistant to ask questions to the I-Blog itself.
+4. Interact with an AI Assistant and ask questions to the I-Blog itself.
 
 ### The Posts are the memory
 
-By using I-Blog, each post becomes instantly part of the memory that is available to the AI Assistant. 
-Readers of the blog would use the AI assistant to answer questions on the contents of the blog, or even to find more information elsewhere.
+In I-Blog, each post becomes instantly part of the memory that is available to the AI Assistant. 
 
-After a new post is created or an existing post is updated, a background process will chunk the post and store it in a vector database which will then be made accessible to the AI Assistant, built using Microsoft Semantic Kernel.
- 
+After a new post is created or an existing post is updated, a background process will chunk the post and store it in a vector database which is accessible to the AI Assistant. 
 
-
-Some of the main features of IntelliBlog:
+## The main features
 
 1) A minimalist interface that only does what it needs to do, and nothing more.
 > At the core of I-Blog there's a simple and intuitive interface that allows users to create, edit and manage posts, sources and other entities in the system.  
@@ -76,51 +73,24 @@ Some of the main features of IntelliBlog:
 
 6) [ :warning: TBC]
 
-### Entities
 
-Each blog contains:
-
-- **Posts**: Articles, tutorials, thoughts etc. written in Markdown. 
-    - The user-experience of writing posts is similar to Facebook.
-    - Each post comes with a title, a body, a list of tags, and a number of other properties.
-    - A post can have a comment section where users can leave feedback.
-    - A post can be Liked/Unliked
-    - A post can be shared to social media.
-    - *more*
-    - A post can link to one or multiple Sources    
-    
-- **Sources**: URLs that point to web pages or YouTube videos that might have also been used to draft posts.
-    - Sources can be used to initiate posts, by using I-Blog's "Smart Link" features backed by AI.
-    - When users smart-link a YouTube video, I-Blog will download the transcript of the video and use generative AI to create a draft post complete of title, TL;DR and much more.
-    - There can be multiple sources for a single post.
-    - There will be a way to browse all Sources of a blog in a dedicated page.
-    - Sources have comments and likes.
-    - *more*
 
 ## Who is I-Blog for?
 
 I-Blog targets two user groups:
-1) Anybody who wants to have a blog that can run either on local hardware or on the cloud, with the minimum effort and neither the complexity nor the price tag of other OSS or commercial blogging systems.
+1) Anybody who wants to run a blog on local hardware (maybe without an Internet connection) or in the cloud, but with minimum effort and neither the complexity nor the price tag of other OSS or commercial blogging systems.
+
 > If you are not a developer interested in the architecture and patterns used in the solution, jump directly to the [Getting Started](#getting-started) section to get I-Blog running on your system.
 
-2) .NET developers who want to learn how to apply architectural patterns and concepts such as Clean Architecture, Domain Driven Design, CQRS, Event-Driven Architecture, etc. to a real-world solution. :clap: Developers who would like to contribute to the project and help make it better are welcome!. :clap:
+2) .NET developers who want to see how to apply architectural patterns and concepts such as Clean Architecture, Domain Driven Design, CQRS, Event-Driven Architecture, GraphQL, etc. to a real-world product. 
 
-
-I-Blog will provide people with a simple and easy-to-use blogging system that:
-1) Is easy to install
-> The user should be able to install I-Blog locally or on a server with minimal effort.
-> Everything in I-Blog should be able to run on a completely disconnected computer, without any internet connection.
-
-2) Easy to manage
-2) includes generative AI features that help creators write better content, quicker.
-
-
+> If you are here for software architecture, please continue reading.
 
 ### Patterns and Concepts
 
 The IntelliBlog project is a playground for a number of architectural patterns and concepts. 
 
-The architecture we adopted is heavily inspired by the Clean Architecture (CA) and Domain Driver Design (DDD) work of experts like [Jason Taylor](https://github.com/jasontaylordev/CleanArchitecture), [Steve "Ardalis" Smith"](https://github.com/ardalis/CleanArchitecture), [Vaughn Vernon](https://github.com/VaughnVernon/IDDD_Samples_NET) and more, but it adds a few twists of its own, such as:
+The architecture we adopted is heavily inspired by the Clean Architecture (CA) and Domain Driven Design (DDD) work of experts like [Jason Taylor](https://github.com/jasontaylordev/CleanArchitecture), [Steve "Ardalis" Smith"](https://github.com/ardalis/CleanArchitecture), [Vaughn Vernon](https://github.com/VaughnVernon/IDDD_Samples_NET) and more, but it adds a few twists of its own, such as:
 
 1) A more straighforward way to deal with the never-ending work on the query-side of CQRS: Can we generalize how we search better?
 > Frontend developers using REST interfaces are often required to ask for new endpoints, or to ask for changes in existing endpoints very time a new piece of data comes up. 
@@ -150,11 +120,11 @@ The architecture we adopted is heavily inspired by the Clean Architecture (CA) a
 > The Blazor project shows how to use Blazor to build a client-side application that consumes the GraphQL API just like Angular or React would, without any shared assemblies that only work in .NET 
 We wanted to make sure Blazor development has the same experience as Angular or React development, and that it is easy to build responsive and accessible UIs based on GraphQL.
 
-8). :warning: More here...
+8) :warning: More...
 
 ## Big tech
 
-1. The following list gives an idea of what else you can find in the IntelliBlog source code:
+1. The following list gives an idea of what you can expect to find in the source code:
 
 - Architecture/methodologies
     - [x] Clean Architecture
@@ -175,7 +145,7 @@ We wanted to make sure Blazor development has the same experience as Angular or 
         
 The items with a checkmark are already present in the source code in one way or the other. The remaining items indicate upcoming functionality.
 
-In addition, we intend to make each of the bullet points above link to an article that explains how the concept is applied in the IntelliBlog project. Those articles would include screenshots and other visual aids to help you understand the concepts better.
+*We intend to make each of the bullet points above link to an article that explains how the concept is applied in the IntelliBlog project. Those articles would include screenshots and other visual aids to help you understand the concepts better.**
     
 ## Technolgy Stack
 
@@ -232,6 +202,8 @@ Please take a read at the [Big Picture](./docs/BIG_PICTURE.md) document to under
 
 To get started, you need to clone this repository and configure a few user secrets as explained 
 in the [Configuration Instructions](./docs/CONFIGURATION.md).
+
+[ :warning: TBC]
 
 ## The solution structure
 
