@@ -1,34 +1,43 @@
 ﻿@page "/posts"
 @rendermode InteractiveServer
 
-<PageTitle>My Posts Now</PageTitle>
+<PageTitle>Posts</PageTitle>
 
-@if (posts == null)
-{
-    <p><em>Loading Posts...</em></p>
-}
-else
-{
-    <FluentStack Style="margin-bottom: 20px;">
-        <FluentNumberField @bind-Value="_maxArticles" Label="Max Posts" />
-        <FluentButton OnClick="@FetchData">Refresh</FluentButton>
-    </FluentStack>
+
+<FluentLayout>
+    <FluentHeader>        
+        <FluentStack>
+            <FluentNumberField @bind-Value="_maxArticles" Label="Max Posts" />
+            <FluentButton OnClick="@FetchData">Refresh</FluentButton>
+        </FluentStack>        
+    </FluentHeader>
+
+    <FluentGrid Justify="JustifyContent.FlexStart" 
+                AdaptiveRendering="true"                
+                Style="overflow: auto; width:100%"
+                Spacing="0">
+
+        @foreach (var post in Items!)
+        {
+           <FluentGridItem xs="12" md="12" lg="6" xl="4" xxl="3">
+                <PostCard Post="post" />
+           </FluentGridItem>
+        }
+    </FluentGrid>
+
     
+</FluentLayout>
+   
 
-   @foreach (var post in posts!)
-   {                
-        <PostCard Post="post" />
-       
-   }
-}
-
-<p>This component demonstrates showing data.</p>
-
-@code {    
+@code {
     [Inject]
-    public FetchPostsQuery Query { get; set; } = default!;
+    public PostsMainQuery Query { get; set; } = default!;
 
-    IEnumerable<Frontend.IFetchPosts_Posts_Nodes> posts = default!;
+    IEnumerable<Frontend.IPostsMain_Posts_Nodes> Items 
+        => Data?.Posts?.Nodes ?? Array.Empty<Frontend.IPostsMain_Posts_Nodes>();
+
+    IPostsMainResult? Data;
+
     int _maxArticles = 30;
 
     protected override async Task OnInitializedAsync()
@@ -38,8 +47,11 @@ else
 
     public async Task FetchData()
     {
-        var res = await Query.ExecuteAsync(_maxArticles);
+        var response = await Query.ExecuteAsync(_maxArticles);
+        response.EnsureNoErrors();
 
-        this.posts = res!.Data!.Posts!.Nodes!;    
+        Data = response.Data;
+        
+        StateHasChanged();
     }
 }

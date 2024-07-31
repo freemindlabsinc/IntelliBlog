@@ -1,0 +1,63 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Welcome to IntelliBlog!</h1>
+
+<p>IntelliBlog is a blog platform that allows you to create and manage your own blog with the help of your private AI assistant.
+    You can create posts, manage content sources, and much more!</p>
+
+<p>[More and better information goes here]</p>
+
+@if (Model is not null)
+{
+    <!-- The latest posts -->
+    <FluentLabel Typo="Typography.H3">Latest Posts</FluentLabel>
+    <FluentHorizontalScroll class="full-width" Speed="1200" Easing=ScrollEasing.EaseInOut>
+
+        @foreach (var post in Model.LatestPosts!.Nodes!)
+        {
+            <div style="height:300px;">
+                <PostCard Post="post" />
+            </div>
+        }
+
+    </FluentHorizontalScroll>
+
+    <FluentDivider />
+
+    <!-- The latest sources -->    
+    <FluentLabel Typo="Typography.H3">Latest Sources</FluentLabel>
+    <FluentHorizontalScroll class="full-width" Speed="600" Easing=ScrollEasing.EaseInOut>
+        
+        @foreach (var source in Model.LatestSources!.Nodes!)
+        {
+            <div style="height:250px;">
+                <SourceCard Source="source" />
+            </div>
+        }
+
+    </FluentHorizontalScroll>
+}
+
+@code {
+    [Inject]
+    HomeModelQuery MainQuery { get; set; } = default!;
+    
+    IHomeModelResult? Model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await FetchData();
+    }
+
+    public async Task FetchData()
+    {
+        var response = await MainQuery.ExecuteAsync();
+        response.EnsureNoErrors();
+
+        Model = response.Data!;
+
+        StateHasChanged();
+    }
+}

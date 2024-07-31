@@ -22,8 +22,7 @@ namespace Blogging.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.HasSequence<int>("General_seq")
-                .StartsAt(0L);
+            modelBuilder.HasSequence<int>("General_seq");
 
             modelBuilder.Entity("Blogging.Domain.Blog", b =>
                 {

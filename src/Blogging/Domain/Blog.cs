@@ -2,8 +2,6 @@
 
 public sealed class Blog : TrackedEntity<int>, IAggregateRoot
 {
-    private string[] _tags = Array.Empty<string>();
-
     internal Blog() { /* For Entity Framework/HotChocolate */ } 
 
     public Blog(
@@ -17,7 +15,7 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
         this.Description = description;
         this.Notes = notes;
         this.Image = image;
-        this._tags = tags?.ToArray() ?? _tags;
+        this.Tags = tags?.ToArray() ?? Tags;
     }
 
     public string Name { get; private set; } = default!;
@@ -25,25 +23,25 @@ public sealed class Blog : TrackedEntity<int>, IAggregateRoot
     public string? Notes { get; private set; }
     public string? Image { get; private set; }
     public bool IsOnline { get; private set; }
-    public string[] Tags { get { return _tags.ToArray(); } private set { /* For EF8 */ } }
+    public string[] Tags { get; private set; } = Array.Empty<string>();
 
-    StringComparer TagComparer = StringComparer.OrdinalIgnoreCase;
+    static StringComparer _tagComparer = StringComparer.OrdinalIgnoreCase;
 
-    public void AddTags(params string[] tags)
+    public void AddTags(params string[] tagsToAdd)
     {        
-        _tags = tags
+        Tags = tagsToAdd
             .Select(tag => Guard.Against.NullOrWhiteSpace(tag, nameof(tag)))
-            .Union(_tags)
-            .Distinct(TagComparer)
+            .Union(Tags)
+            .Distinct(_tagComparer)
             .ToArray();
 
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));
     }
 
-    public void RemoveTags(params string[] tags)
+    public void RemoveTags(params string[] tagsToRemove)
     {
-        _tags = _tags
-            .Except(tags)
+        Tags = Tags
+            .Except(tagsToRemove)
             .ToArray();
         
         RaiseEvent(new Events.BlogUpdated(this, nameof(Tags)));

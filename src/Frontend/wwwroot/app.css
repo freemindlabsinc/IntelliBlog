@@ -1,11 +1,47 @@
 @import '/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css';
 
+/* New */
+
+img {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;    
+}
+
+.wrapper {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: inline-block;
+    height: 150px;
+    width: 250px;
+    background: green;    
+}
+
+.wrapper img {    
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+}
+
+/* 
+    Pre-existing Blazor ones
+        - I think I might have changed body a little following FluentUI instructions. 
+
+*/
+
 body {
-    --body-font: "Segoe UI Variable", "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
     font-family: var(--body-font);
     font-size: var(--type-ramp-base-font-size);
     line-height: var(--type-ramp-base-line-height);
-    margin: 0;
+    font-weight: var(--font-weight);
+    color: var(--neutral-foreground-rest);
+    background: var(--neutral-fill-layer-rest);
 }
 
 .navmenu-icon {

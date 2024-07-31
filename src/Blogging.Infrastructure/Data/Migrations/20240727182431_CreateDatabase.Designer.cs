@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blogging.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(BloggingDbContext))]
-    [Migration("20240724185821_CreateDatabase")]
+    [Migration("20240727182431_CreateDatabase")]
     partial class CreateDatabase
     {
         /// <inheritdoc />
@@ -25,8 +25,7 @@ namespace Blogging.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.HasSequence<int>("General_seq")
-                .StartsAt(0L);
+            modelBuilder.HasSequence<int>("General_seq");
 
             modelBuilder.Entity("Blogging.Domain.Blog", b =>
                 {

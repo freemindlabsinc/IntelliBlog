@@ -12,8 +12,7 @@ namespace Blogging.Infrastructure.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateSequence<int>(
-                name: "General_seq",
-                startValue: 0L);
+                name: "General_seq");
 
             migrationBuilder.CreateTable(
                 name: "Blogs",

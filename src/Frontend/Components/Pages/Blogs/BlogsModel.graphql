@@ -1,4 +1,4 @@
-query BlogsMain(
+query BlogsModel(
   $first: Int = 5
   $after: String
   $where: BlogFilterInput
@@ -30,25 +30,4 @@ query BlogsMain(
       ... PostCardData
     }
   }
-}
-
-fragment PostCardData on Post {
-  id
-  title
-  image
-  tags
-  createdBy
-  createdOn
-  description
-  text
-}
-
-fragment BlogCardData on Blog {
-  id
-  name
-  image
-  isOnline
-  id
-  description
-  tags
 }
