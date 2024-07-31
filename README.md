@@ -113,19 +113,19 @@ Other:
 
 ## The Big Picture
 
-Please take a read at the [Big Picture](/BIG_PICTURE.md) document to understand the main concepts.
+Please take a read at the [Big Picture](./docs/BIG_PICTURE.md) document to understand the main concepts.
 
 [ :warning: TBC]
 
 ## Getting Started
 
 To get started, you need to clone this repository and configure a few user secrets as explained 
-in the [Configuration Instructions](/CONFIGURATION.md).
+in the [Configuration Instructions](./docs/CONFIGURATION.md).
 
 ## The solution structure
 
 The solution is structured in a way that makes it easy to navigate and understand.
 
-[Solution Structure](/SOLUTION_STRUCTURE.md).
+[Solution Structure](./docs/SOLUTION_STRUCTURE.md).
 
 [ :warning: TBC]
