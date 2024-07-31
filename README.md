@@ -16,7 +16,7 @@ IntelliBlog (I-Blog) is a minimalist blogging system that focuses on simplicity 
 of features, integration with AI and an enteprise-ready architecture that is easy to use and to manage.
 
 We think of IntelliBlog as the *most over-engineered blogging system in the world*, but the concepts and 
-patterns we use in the solution are applicable to many other domains.
+patterns we use in the solution are applicable to more complex domains.
 
 > :ok_hand: **IB is ultimately meant to be downloaded and used by anybody, but at the same time it is also an ever-evolving 
 reference for .NET and C# developers who are looking for a real-world example of how to apply certain architectral patterns and concepts to their solutions.**
@@ -25,11 +25,11 @@ We reccomend you read the rest of the sections in this document to get a better 
 
 ## What ~~does~~ will it do?
 
-I-Blog allows users to create and manage one or multiple online blogs.
+I-Blog allows users to create and manage one or more online blogs.
 
 In addition to normal Create, Read, Update and Delete (CRUD) operations on posts, sources, comments, etc., I-Blog includes a number of advanced features that make it unique.
 
-I-Blog uses AI to help users:
+I-Blog uses AI to:
 
 1. Automate the creation of new posts.
     - Users can create a full post by simply pasting a URL to a web page or a YouTube video.
@@ -42,14 +42,14 @@ I-Blog uses AI to help users:
     - Users can search for posts based on the meaning of the content, not just on the words used in the content.
     For instance, a search for "How do I create a blog?" would return posts with titles such as "How to create a blog", "Creating a blog in 2022", "The best way to create a blog", etc.
 
-4. Use the AI Assistant to ask questions and interact with the blog itself.
+4. Interact with an AI Assistant to ask questions to the I-Blog itself.
 
 ### The Posts are the memory
 
 By using I-Blog, each post becomes instantly part of the memory that is available to the AI Assistant. 
 Readers of the blog would use the AI assistant to answer questions on the contents of the blog, or even to find more information elsewhere.
 
-After a new post is created or an existing post is updated, a background process will vectorize the post and store it in a vector database which will then be made accessible to the AI Assistant, built using Microsoft Semantic Kernel.
+After a new post is created or an existing post is updated, a background process will chunk the post and store it in a vector database which will then be made accessible to the AI Assistant, built using Microsoft Semantic Kernel.
  
 
 
@@ -63,7 +63,7 @@ Some of the main features of IntelliBlog:
 2) Users can create a full post by simply pasting a URL to a web page or a YouTube video.
 > IntelliBlog will download the content of the page or the transcript of the video, and use generative AI to create a draft post complete of title, text, TL;DR and much more. The generated content can then be edited and shared.
 
-3) Each post will be stored in I-Blog's vectorized memory system (based on LlamaIndex/Python) and thus made accessible to I-Blog's AI Assistant, which can be used to search for posts, or to answer any question on the contents of the entire blog.
+3) Each post will be stored in I-Blog's vectorized memory system and will be immediately available to I-Blog's AI Assistant. The assistant can be used to search for posts, or to answer any question on the contents of the entire blog.
 > The I-Blog assistant will offer chat and voice interfaces.
 > The I-Blog assistant can also be used to ask for more information on a topic, find related posts, etc.
 
@@ -71,10 +71,12 @@ Some of the main features of IntelliBlog:
 > Sources are an essential part of the IntelliBlog system, and they can be used to initiate posts, to provide additional information, to give credit to the original authors, and to help users find more information on the topics discussed in the post.  
 > Sources are a first class citizen in I-Blog.
 
-5) Comes a complete management console based on Microsoft Aspire that allows administrators to trace and manage all the activities in the system and have full control and visibility of the multi-container solution.
+5) A complete management console based on Microsoft Aspire
+> Allows administrators to trace and manage all the activities in the system and have full control and visibility of the multi-container solution.
 
 6) [ :warning: TBC]
 
+### Entities
 
 Each blog contains:
 
