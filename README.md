@@ -7,7 +7,7 @@
 
 Our target date for the first usable release is **Aug 16th**, but don't be surprised by delays :smiley:.
 
-<img alt="IntelliBlog" src="x./docs/images/IntelliBlog.webp" />
+<img alt="IntelliBlog" src="./docs/images/IntelliBlog.webp" />
 
 ## Overview
 [License: MIT]
