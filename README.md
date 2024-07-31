@@ -1,6 +1,6 @@
 # IntelliBlog
 
-![zz.](./docs/images/rabbit.jpg)
+![zz.](./docs/images/IntelliBlog.webp)
 
 ### Status
 
