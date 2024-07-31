@@ -86,7 +86,7 @@ I-Blog targets two user groups:
 
 > If you are here for software architecture, please continue reading.
 
-### Patterns and Concepts
+## Patterns and Concepts
 
 The IntelliBlog project is a playground for a number of architectural patterns and concepts. 
 
