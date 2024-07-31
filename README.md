@@ -1,5 +1,7 @@
 # IntelliBlog
 
+![zz.](./docs/images/rabbit.jpg)
+
 ### Status
 
 - :warning: This repo has just made public and it's still under **heavy** development. Consider it a work in progress.
