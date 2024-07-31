@@ -1,11 +1,11 @@
 # IntelliBlog
 
-![zz.](./docs/images/IntelliBlog.webp)
-
 ### Status
 
 - :warning: This repo has just made public and it's still under **heavy** development. Consider it a work in progress.
 - :white_flag: This and other documentation is still being written and updated: do not expect perfection nor completeness, yet.
+
+<img alt="IntelliBlog" src="./docs/images/IntelliBlog.webp" />
 
 ## Overview
 [License: MIT]
