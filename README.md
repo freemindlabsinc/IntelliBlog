@@ -5,47 +5,156 @@
 - :warning: This repo has just made public and it's still under **heavy** development. Consider it a work in progress.
 - :white_flag: This and other documentation is still being written and updated: do not expect perfection nor completeness, yet.
 
-<img alt="IntelliBlog" src="./docs/images/IntelliBlog.webp" />
+Our target date for the first usable release is **Aug 16th**, but don't be surprised by delays :smiley:.
+
+<img alt="IntelliBlog" src="x./docs/images/IntelliBlog.webp" />
 
 ## Overview
 [License: MIT]
 
-IntelliBlog (IB) is a minimalist blogging system that focuses on simplicity while providing a rich set 
+IntelliBlog (I-Blog) is a minimalist blogging system that focuses on simplicity while providing a rich set 
 of features, integration with AI and an enteprise-ready architecture that is easy to use and to manage.
 
 We think of IntelliBlog as the *most over-engineered blogging system in the world*, but the concepts and 
 patterns we use in the solution are applicable to many other domains.
 
-> :ok_hand: **IB is ultimately meant to be downloaded and used, but at the same time it is also an ever-evolving 
+> :ok_hand: **IB is ultimately meant to be downloaded and used by anybody, but at the same time it is also an ever-evolving 
 reference for .NET and C# developers who are looking for a real-world example of how to apply certain architectral patterns and concepts to their solutions.**
 
-We reccomend you read the rest of the sections in this document to get a
-better understanding of what IntelliBlog is and the architectural goals we set for it, but if you want to quickly get IntelliBlog on your system, you can skip to the [Getting Started](#getting-started) section.
+We reccomend you read the rest of the sections in this document to get a better understanding of what IntelliBlog is and the architectural goals we set for it, but when you feel ready to get IntelliBlog running on your system, you can go to the [Getting Started](#getting-started) section.
+
+## What ~~does~~ will it do?
+
+I-Blog allows users to create and manage one or multiple online blogs.
+
+In addition to normal Create, Read, Update and Delete (CRUD) operations on posts, sources, comments, etc., I-Blog includes a number of advanced features that make it unique.
+
+I-Blog uses AI to help users:
+
+1. Automate the creation of new posts.
+    - Users can create a full post by simply pasting a URL to a web page or a YouTube video.
+    - This process will be template driver and user-configurable.
+
+2. Simplify the editing and proof-reading of posts.
+    - Users can use the AI Assistant to help them spell check or correct grammar, or even rewrite parts of the post.
+
+3. Peform Semantic Search on the entire blogging content.
+    - Users can search for posts based on the meaning of the content, not just on the words used in the content.
+    For instance, a search for "How do I create a blog?" would return posts with titles such as "How to create a blog", "Creating a blog in 2022", "The best way to create a blog", etc.
+
+4. Use the AI Assistant to ask questions and interact with the blog itself.
+
+### The Posts are the memory
+
+By using I-Blog, each post becomes instantly part of the memory that is available to the AI Assistant. 
+Readers of the blog would use the AI assistant to answer questions on the contents of the blog, or even to find more information elsewhere.
+
+After a new post is created or an existing post is updated, a background process will vectorize the post and store it in a vector database which will then be made accessible to the AI Assistant, built using Microsoft Semantic Kernel.
+ 
+
+
+Some of the main features of IntelliBlog:
+
+1) A minimalist interface that only does what it needs to do, and nothing more.
+> At the core of I-Blog there's a simple and intuitive interface that allows users to create, edit and manage posts, sources and other entities in the system.  
+> The interface is designed to be easy to use and it will be developed using Blazor and FluentUI.
+> Intelligent search features based on the integration with Elasticsearch for full-text search, or with vector databases for semantic search, are included.
+
+2) Users can create a full post by simply pasting a URL to a web page or a YouTube video.
+> IntelliBlog will download the content of the page or the transcript of the video, and use generative AI to create a draft post complete of title, text, TL;DR and much more. The generated content can then be edited and shared.
+
+3) Each post will be stored in I-Blog's vectorized memory system (based on LlamaIndex/Python) and thus made accessible to I-Blog's AI Assistant, which can be used to search for posts, or to answer any question on the contents of the entire blog.
+> The I-Blog assistant will offer chat and voice interfaces.
+> The I-Blog assistant can also be used to ask for more information on a topic, find related posts, etc.
+
+4) Each post can be linked to one or more sources.
+> Sources are an essential part of the IntelliBlog system, and they can be used to initiate posts, to provide additional information, to give credit to the original authors, and to help users find more information on the topics discussed in the post.  
+> Sources are a first class citizen in I-Blog.
+
+5) Comes a complete management console based on Microsoft Aspire that allows administrators to trace and manage all the activities in the system and have full control and visibility of the multi-container solution.
+
+6) [ :warning: TBC]
+
+
+Each blog contains:
+
+- **Posts**: Articles, tutorials, thoughts etc. written in Markdown. 
+    - The user-experience of writing posts is similar to Facebook.
+    - Each post comes with a title, a body, a list of tags, and a number of other properties.
+    - A post can have a comment section where users can leave feedback.
+    - A post can be Liked/Unliked
+    - A post can be shared to social media.
+    - *more*
+    - A post can link to one or multiple Sources    
+    
+- **Sources**: URLs that point to web pages or YouTube videos that might have also been used to draft posts.
+    - Sources can be used to initiate posts, by using I-Blog's "Smart Link" features backed by AI.
+    - When users smart-link a YouTube video, I-Blog will download the transcript of the video and use generative AI to create a draft post complete of title, TL;DR and much more.
+    - There can be multiple sources for a single post.
+    - There will be a way to browse all Sources of a blog in a dedicated page.
+    - Sources have comments and likes.
+    - *more*
+
+## Who is I-Blog for?
+
+I-Blog targets two user groups:
+1) Anybody who wants to have a blog that can run either on local hardware or on the cloud, with the minimum effort and neither the complexity nor the price tag of other OSS or commercial blogging systems.
+> If you are not a developer interested in the architecture and patterns used in the solution, jump directly to the [Getting Started](#getting-started) section to get I-Blog running on your system.
+
+2) .NET developers who want to learn how to apply architectural patterns and concepts such as Clean Architecture, Domain Driven Design, CQRS, Event-Driven Architecture, etc. to a real-world solution. :clap: Developers who would like to contribute to the project and help make it better are welcome!. :clap:
+
+
+I-Blog will provide people with a simple and easy-to-use blogging system that:
+1) Is easy to install
+> The user should be able to install I-Blog locally or on a server with minimal effort.
+> Everything in I-Blog should be able to run on a completely disconnected computer, without any internet connection.
+
+2) Easy to manage
+2) includes generative AI features that help creators write better content, quicker.
+
+
 
 ### Patterns and Concepts
 
 The IntelliBlog project is a playground for a number of architectural patterns and concepts. 
 
-The architecture we adopted is heavily inspired by the Clean Architecture (CA) and Domain Driver Design (DDD) examples written by [Jason Taylor](https://github.com/jasontaylordev/CleanArchitecture), [Steve "Ardalis" Smith"](https://github.com/ardalis/CleanArchitecture) and [Vaughn Vernon](https://github.com/VaughnVernon/IDDD_Samples_NET), but it adds a few twists of its own, such as:
+The architecture we adopted is heavily inspired by the Clean Architecture (CA) and Domain Driver Design (DDD) work of experts like [Jason Taylor](https://github.com/jasontaylordev/CleanArchitecture), [Steve "Ardalis" Smith"](https://github.com/ardalis/CleanArchitecture), [Vaughn Vernon](https://github.com/VaughnVernon/IDDD_Samples_NET) and more, but it adds a few twists of its own, such as:
 
-1) A more straighforward way to deal with the query side of CQRS:
-    - Frontend developers are often required to ask for new endpoints every time they need a new piece of data. These endpoints often end up over-fetching or under-fetching data, and the backend developers are often asked to create new endpoints to satisfy the frontend developers' needs. **This is cumbersome and inefficient. We believe that GraphQL and Relay patterns provide a better way to deal with this problem.**
-    - [ :warning: Complete]
+1) A more straighforward way to deal with the never-ending work on the query-side of CQRS: Can we generalize how we search better?
+> Frontend developers using REST interfaces are often required to ask for new endpoints, or to ask for changes in existing endpoints very time a new piece of data comes up. 
+  The final endpoints often end up over-fetching or under-fetching data, and a lot of back-and-forth between frontend developers and ackend developers is required to get the data right.
+  We believe **the combination of GraphQL and the Relay patterns solve this problem** and make frontend development a lot easier than without, even when comparing to using OData or similar technologies.
 
-2) A simpler way to think of Domain and Application layers:
-      - Do we really need 2 projects for the Domain and Application layers? We think not. We believe that the Domain and Application layers can be combined into a single project, and that this makes it easier to navigate the solution and to understand the relationships between the different parts of the system. 
-        [ :warning: Rework or expand]
+2) A simpler way to think of Domain and Application layers: Unite but keep divided.
+> Do we really need 2 projects for the Domain and Application layers? We think not. We believe that the Domain and Application layers can be combined into a single project, and that this makes it easier to navigate the solution and to understand the relationships between the different parts of the system.
 
-3) Pipelines:
-    - In the Blogging project we use MediatR pipelines to handle cross-cutting concerns such as validation, and transaction management (Unit of Work pattern). 
-    - In the Infrastructure project we use Entity Framework Interceptors to dispatch domain events, create CRUD events and handle other cross-cutting concerns such as setting properties like CreatedBy, LastModifiedOn, etc.
-    - Pipelines are a powerful way to keep the code clean and to separate concerns.
+3) Cross-cutting concerns: Pipelines and Interceptors.
+> In the Blogging project containing Domain and Application, we use MediatR pipelines to handle cross-cutting concerns such as validation and transaction management (i.e. Unit of Work pattern).  
+> In the Infrastructure project we use Entity Framework Interceptors to dispatch domain events, raise CRUD events and handle other cross-cutting concerns such as setting properties like CreatedBy, LastModifiedOn, etc.  
+> Pipelines and interceptors are a powerful way to keep the code clean and to separate concerns.
 
-4) :warning: More    
+4) Self-documenting and self-descriptive code.
+> We put a lot of effort in avoiding anemic domain models.  
+> We believe our domain entities and aggregate roots are self-descriptive and self-documenting, and that it is easy to understand what each class does and how it relates to other classes.  
 
-The following list gives an idea of what else you can find in the IntelliBlog source code:
+5) Aggregate Roots, relationships and bounded contexts.
+> It is often hard to decide what should be an aggregate root and what should be included in an aggregate. Is a Blog an aggregate root or not, and if so, should it contain Posts or should Posts be a separate aggregate root? 
 
-- Architecture
+6) From Domain and Application layers to the API: The power of GraphQL.
+> The extensibility of the HotChocolate type system shows how we can wrap and transform our Application layer into a full graph API without violating the canons of DDD and Onion Architecture.  
+> The code shows how it is possible to extend the domain and application models with  HotChocolate's GraphQL types and resolvers, and how we use the GraphQL schema to document the domain model and the API.
+
+7) Client-side development: Blazor and FluentUI, no shared assemblies.
+> The Blazor project shows how to use Blazor to build a client-side application that consumes the GraphQL API just like Angular or React would, without any shared assemblies that only work in .NET 
+We wanted to make sure Blazor development has the same experience as Angular or React development, and that it is easy to build responsive and accessible UIs based on GraphQL.
+
+8). :warning: More here...
+
+## Big tech
+
+1. The following list gives an idea of what else you can find in the IntelliBlog source code:
+
+- Architecture/methodologies
     - [x] Clean Architecture
     - [x] Domain Driven Design
     - [x] Event-Driven Architecture 
