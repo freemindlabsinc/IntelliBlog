@@ -1,6 +1,6 @@
 # IntelliBlog
 
-<img src="./docs/images/IntelliBlog.webp" style="display: block; margin: 0 auto; max-width: 400px; height: auto; border-radius: 10px;" />
+<img src="./docs/images/IntelliBlog.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 ### Status
 
@@ -12,7 +12,7 @@ Our target date for the first usable release is **Aug 16th**, but don't be surpr
 ## Overview
 [License: MIT]
 
-<img src="./docs/images/home/Overview.webp" style="display: block; margin: 0 auto; max-width: 400px; height: auto; border-radius: 10px;" />
+<img src="./docs/images/home/Overview.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 IntelliBlog (I-Blog) is a minimalist blogging system that focuses on simplicity while providing a rich set 
 of features, integration with AI and an enteprise-ready architecture that is easy to use and to manage.
@@ -54,7 +54,7 @@ After a new post is created or an existing post is updated, a background process
 
 ## The main features
 
-<img src="./docs/images/home/Features.webp" style="display: block; margin: 0 auto; max-width: 400px; height: auto; border-radius: 10px;" />
+<img src="./docs/images/home/Features.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 1) A minimalist interface that only does what it needs to do, and nothing more.
 > At the core of I-Blog there's a simple and intuitive interface that allows users to create, edit and manage posts, sources and other entities in the system.  
@@ -81,7 +81,7 @@ After a new post is created or an existing post is updated, a background process
 
 ## Who is I-Blog for?
 
-<img src="./docs/images/home/UserGroups.webp" style="display: block; margin: 0 auto; max-width: 400px; height: auto; border-radius: 10px;" />
+<img src="./docs/images/home/UserGroups.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 I-Blog targets two user groups:
 1) Anybody who wants to run a blog on local hardware (maybe without an Internet connection) or in the cloud, but with minimum effort and neither the complexity nor the price tag of other OSS or commercial blogging systems.
@@ -94,7 +94,7 @@ I-Blog targets two user groups:
 
 ## Patterns and Concepts
 
-<img src="./docs/images/home/PatternsAndConcepts.webp" style="display: block; margin: 0 auto; max-width: 400px; height: auto; border-radius: 10px;" />
+<img src="./docs/images/home/PatternsAndConcepts.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 The IntelliBlog project is a playground for a number of architectural patterns and concepts. 
 
@@ -157,7 +157,7 @@ The items with a checkmark are already present in the source code in one way or 
     
 ## Technolgy Stack
 
-<img alt="IntelliBlog" src="./docs/images/home/TechnologyStack.webp" style="display: block; margin: 0 auto; max-width: 400px; height: auto; border-radius: 10px;" />
+<img alt="IntelliBlog" src="./docs/images/home/TechnologyStack.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 Major frameworks & libraries:
 
