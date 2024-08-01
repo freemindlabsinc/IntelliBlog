@@ -4,8 +4,8 @@
 
 ### Status
 
-- :warning: This repo has just been made public and it's still under **heavy** development. Consider it a work in progress.
-- :white_flag: This and other documentation is still being written and updated: do not expect perfection nor completeness, yet.
+- :warning: This repo has just been made public and it's still **under development**. Consider it a work in progress for now.
+- :white_flag: This and other documentation is still being written and updated: do not expect perfection nor completeness yet.
 
 Our target date for the first usable release is **Aug 16th**, but don't be surprised by delays :smiley:.
 
