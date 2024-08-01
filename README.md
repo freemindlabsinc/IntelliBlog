@@ -1,6 +1,16 @@
+<style>
+img {
+  display: block;
+  margin: 0 auto;
+  max-width: 400px;
+  height: auto;
+  border-radius: 10px;
+}
+</style>
+
 # IntelliBlog
 
-<img alt="IntelliBlog" src="./docs/images/IntelliBlog.webp" />
+<img src="./docs/images/IntelliBlog.webp" />
 
 ### Status
 
@@ -12,13 +22,15 @@ Our target date for the first usable release is **Aug 16th**, but don't be surpr
 ## Overview
 [License: MIT]
 
+<img src="./docs/images/home/Overview.webp" />
+
 IntelliBlog (I-Blog) is a minimalist blogging system that focuses on simplicity while providing a rich set 
 of features, integration with AI and an enteprise-ready architecture that is easy to use and to manage.
 
 We think of IntelliBlog as the *most over-engineered blogging system in the world*, but the concepts and 
 patterns we use in the solution are applicable to more complex domains.
 
-> :ok_hand: **IB is ultimately meant to be downloaded and used by anybody, but at the same time it is also an ever-evolving 
+> :ok_hand: **I-Blog is ultimately meant to be downloaded and used by anybody, but at the same time it is also an ever-evolving 
 reference for .NET and C# developers who are looking for a real-world example of how to apply certain architectral patterns and concepts to their solutions.**
 
 We reccomend you read the rest of the sections in this document to get a better understanding of what IntelliBlog is and the architectural goals we set for it, but when you feel ready to get IntelliBlog running on your system, you can go to the [Getting Started](#getting-started) section.
@@ -52,6 +64,8 @@ After a new post is created or an existing post is updated, a background process
 
 ## The main features
 
+<img src="./docs/images/home/Features.webp" />
+
 1) A minimalist interface that only does what it needs to do, and nothing more.
 > At the core of I-Blog there's a simple and intuitive interface that allows users to create, edit and manage posts, sources and other entities in the system.  
 > The interface is designed to be easy to use and it will be developed using Blazor and FluentUI.
@@ -77,6 +91,8 @@ After a new post is created or an existing post is updated, a background process
 
 ## Who is I-Blog for?
 
+<img src="./docs/images/home/UserGroups.webp" />
+
 I-Blog targets two user groups:
 1) Anybody who wants to run a blog on local hardware (maybe without an Internet connection) or in the cloud, but with minimum effort and neither the complexity nor the price tag of other OSS or commercial blogging systems.
 
@@ -87,6 +103,8 @@ I-Blog targets two user groups:
 > If you are here for software architecture, please continue reading.
 
 ## Patterns and Concepts
+
+<img src="./docs/images/home/PatternsAndConcepts.webp" />
 
 The IntelliBlog project is a playground for a number of architectural patterns and concepts. 
 
@@ -148,6 +166,8 @@ The items with a checkmark are already present in the source code in one way or 
 *We intend to make each of the bullet points above link to an article that explains how the concept is applied in the IntelliBlog project. Those articles would include screenshots and other visual aids to help you understand the concepts better.**
     
 ## Technolgy Stack
+
+<img alt="IntelliBlog" src="./docs/images/home/TechnologyStack.webp" />
 
 Major frameworks & libraries:
 
