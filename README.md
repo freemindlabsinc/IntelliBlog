@@ -1,16 +1,17 @@
 # IntelliBlog
 
-<img alt="IntelliBlog" src="./docs/images/IntelliBlog.webp" />
+<img src="./docs/images/IntelliBlog.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 ### Status
 
-- :warning: This repo has just been made public and it's still **under development**. Consider it a work in progress for now.
-- :white_flag: This and other documentation is still being written and updated: do not expect perfection nor completeness yet.
+:warning: This repo has just been made public and it's still under **heavy** development. Consider it a work in progress.
 
-Our target date for the first usable release is **Aug 16th**, but don't be surprised by delays :smiley:.
+:calendar: Our target date for the first usable release is **Aug 16th**, but don't be surprised by delays. 
 
 ## Overview
 [License: MIT]
+
+<img src="./docs/images/home/Overview.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 IntelliBlog (I-Blog) is a minimalist blogging system that focuses on simplicity while providing a rich set 
 of features, integration with AI and an enteprise-ready architecture that is easy to use and to manage.
@@ -18,10 +19,23 @@ of features, integration with AI and an enteprise-ready architecture that is eas
 We think of IntelliBlog as the *most over-engineered blogging system in the world*, but the concepts and 
 patterns we use in the solution are applicable to more complex domains.
 
-> :ok_hand: **IB is ultimately meant to be downloaded and used by anybody, but at the same time it is also an ever-evolving 
+> :ok_hand: **I-Blog is ultimately meant to be downloaded and used by anybody, but at the same time it is also an ever-evolving 
 reference for .NET and C# developers who are looking for a real-world example of how to apply certain architectral patterns and concepts to their solutions.**
 
 We reccomend you read the rest of the sections in this document to get a better understanding of what IntelliBlog is and the architectural goals we set for it, but when you feel ready to get IntelliBlog running on your system, you can go to the [Getting Started](#getting-started) section.
+
+## Who is I-Blog for?
+
+<img src="./docs/images/home/UserGroups.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
+
+I-Blog targets two user groups:
+1) Anybody who wants to run a blog on local hardware (maybe without an Internet connection) or in the cloud, but with minimum effort and neither the complexity nor the price tag of other OSS or commercial blogging systems.
+
+> If you are not a developer interested in the architecture and patterns used in the solution, jump directly to the [Getting Started](#getting-started) section to get I-Blog running on your system.
+
+2) .NET developers who want to see how to apply architectural patterns and concepts such as Clean Architecture, Domain Driven Design, CQRS, Event-Driven Architecture, GraphQL, etc. to a real-world product. 
+
+> If you are here for software architecture, please continue reading.
 
 ## What ~~does~~ will it do?
 
@@ -52,6 +66,8 @@ After a new post is created or an existing post is updated, a background process
 
 ## The main features
 
+<img src="./docs/images/home/Features.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
+
 1) A minimalist interface that only does what it needs to do, and nothing more.
 > At the core of I-Blog there's a simple and intuitive interface that allows users to create, edit and manage posts, sources and other entities in the system.  
 > The interface is designed to be easy to use and it will be developed using Blazor and FluentUI.
@@ -74,19 +90,9 @@ After a new post is created or an existing post is updated, a background process
 6) [ :warning: TBC]
 
 
-
-## Who is I-Blog for?
-
-I-Blog targets two user groups:
-1) Anybody who wants to run a blog on local hardware (maybe without an Internet connection) or in the cloud, but with minimum effort and neither the complexity nor the price tag of other OSS or commercial blogging systems.
-
-> If you are not a developer interested in the architecture and patterns used in the solution, jump directly to the [Getting Started](#getting-started) section to get I-Blog running on your system.
-
-2) .NET developers who want to see how to apply architectural patterns and concepts such as Clean Architecture, Domain Driven Design, CQRS, Event-Driven Architecture, GraphQL, etc. to a real-world product. 
-
-> If you are here for software architecture, please continue reading.
-
 ## Patterns and Concepts
+
+<img src="./docs/images/home/PatternsAndConcepts.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 The IntelliBlog project is a playground for a number of architectural patterns and concepts. 
 
@@ -122,9 +128,7 @@ We wanted to make sure Blazor development has the same experience as Angular or 
 
 8) :warning: More...
 
-## Big tech
-
-1. The following list gives an idea of what you can expect to find in the source code:
+## The technology
 
 - Architecture/methodologies
     - [x] Clean Architecture
@@ -145,9 +149,11 @@ We wanted to make sure Blazor development has the same experience as Angular or 
         
 The items with a checkmark are already present in the source code in one way or the other. The remaining items indicate upcoming functionality.
 
-*We intend to make each of the bullet points above link to an article that explains how the concept is applied in the IntelliBlog project. Those articles would include screenshots and other visual aids to help you understand the concepts better.**
+* :memo: We intend to make each of the bullet points above link to an article that explains how the concept is applied in the IntelliBlog project. Those articles would include screenshots and other visual aids to help you understand the concepts better.*
     
 ## Technolgy Stack
+
+<img alt="IntelliBlog" src="./docs/images/home/TechnologyStack.webp" style="display: block; margin: 0 auto; width: 400px; height: auto; border-radius: 10px;" />
 
 Major frameworks & libraries:
 
@@ -185,13 +191,6 @@ Other:
 - [x] MediatR
 - [x] xUnit
   
-
-## Prerequisites
-
-- .NET 8
-- Docker
-- Visual Studio 2022 or equivalent IDE.
-
 ## The Big Picture
 
 Please take a read at the [Big Picture](./docs/BIG_PICTURE.md) document to understand the main concepts.
@@ -202,8 +201,6 @@ Please take a read at the [Big Picture](./docs/BIG_PICTURE.md) document to under
 
 To get started, you need to clone this repository and configure a few user secrets as explained 
 in the [Configuration Instructions](./docs/CONFIGURATION.md).
-
-[ :warning: TBC]
 
 ## The solution structure
 
