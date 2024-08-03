@@ -1,3 +1,7 @@
+### 8/3/2024
+
+- Made repo public after adding some minimal documentation in the markdown files.
+
 ### 7/29/2024
 
 - I have been on the front end for a few days now and I am really pleased with the results
