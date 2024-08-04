@@ -8,7 +8,7 @@
     <FluentHeader>     
         <!-- TODO: PostSearch control goes here -->
         <FluentStack>
-            <FluentNumberField @bind-Value="_maxArticles" @bind-Value:after="FetchData" Label="Max" />
+            <FluentNumberField @bind-Value="MaxArticles" @bind-Value:after="FetchData" Label="Max" />
             <!--FluentButton OnClick="@FetchData">Refresh</!--FluentButton-->
         </FluentStack>        
     </FluentHeader>
@@ -18,13 +18,19 @@
                 AdaptiveRendering="true"                
                 Style="overflow: auto; width:100%"
                 Spacing="0">
-
-        <!-- Post cards -->
-        @foreach (var post in Items!)
+        @if (Model is null)
         {
-           <FluentGridItem xs="12" md="12" lg="6" xl="4" xxl="3">
-                <PostCard Post="post" />
-           </FluentGridItem>
+            <div>Loading...</div>
+        }
+        else
+        {
+            <!-- Post cards -->
+            @foreach (var post in Model!.Posts!.Nodes!)
+            {
+                <FluentGridItem xs="12" md="12" lg="6" xl="4" xxl="3">
+                    <PostCard Post="post" />
+                </FluentGridItem>
+            }
         }
     </FluentGrid>
     
@@ -33,14 +39,11 @@
 
 @code {
     [Inject]
-    public PostsMainQuery Query { get; set; } = default!;
-
-    IEnumerable<Frontend.IPostsMain_Posts_Nodes> Items 
-        => Data?.Posts?.Nodes ?? Array.Empty<Frontend.IPostsMain_Posts_Nodes>();
-
-    IPostsMainResult? Data;
-
-    int _maxArticles = 30;
+    public BloggingClient Client { get; set; } = default!;
+    
+    IPostsModelResult Model { get; set; } = default!;
+    
+    int MaxArticles = 30;
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,10 +52,11 @@
 
     public async Task FetchData()
     {
-        var response = await Query.ExecuteAsync(_maxArticles);
+        var response = await Client.PostsModel.ExecuteAsync(
+            maxRows: MaxArticles);
         response.EnsureNoErrors();
 
-        Data = response.Data;
+        Model = response.Data!;
         
         StateHasChanged();
     }

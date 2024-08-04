@@ -1,4 +1,4 @@
-﻿query PostsMain($maxRows: Int=10) {
+﻿query PostsModel($maxRows: Int=10) {
   posts:posts(first: $maxRows) {
     nodes {
       ... PostCardData    
@@ -7,7 +7,9 @@
         nodes {         
             ... SourceCardData
         }
+        totalCount
       }            
     }
+    totalCount
   }
 }
