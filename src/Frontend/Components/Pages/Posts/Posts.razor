@@ -8,9 +8,19 @@
     <FluentHeader>     
         <!-- TODO: PostSearch control goes here -->
         <FluentStack>
-            <FluentNumberField @bind-Value="MaxArticles" @bind-Value:after="FetchData" Label="Max" />
+            <FluentNumberField Label="Max" @bind-Value="MaxArticles" @bind-Value:after="FetchData" />
             <!--FluentButton OnClick="@FetchData">Refresh</!--FluentButton-->
-        </FluentStack>        
+            <FluentCombobox Label="Sort By"
+                            Items=@SortOptions
+                            TOption="Option<PostSortInput>"
+                            OptionText="@(i => i.Text)"
+                            OptionValue="@(i => i.Value?.Id.ToString())"
+                            @bind-SelectedOption="@SelectedSortOption"
+                            @bind-Value="@SortBy"
+                            @bind-Value:after="FetchData"
+                            />
+
+        </FluentStack>               
     </FluentHeader>
 
     <!-- Posts flex grid -->
@@ -40,11 +50,16 @@
 @code {
     [Inject]
     public BloggingClient Client { get; set; } = default!;
-    
-    IPostsModelResult Model { get; set; } = default!;
-    
-    int MaxArticles = 30;
 
+    IPostsModelResult Model { get; set; } = default!;
+
+    // Filters, sorting, etc.
+    int MaxArticles = 2;
+    string? After = null;
+    string? SortBy = null;
+    Option<PostSortInput> SelectedSortOption = default!;
+
+    // Methods
     protected override async Task OnInitializedAsync()
     {
         await FetchData();
@@ -52,12 +67,31 @@
 
     public async Task FetchData()
     {
+        Option<PostSortInput>? selectedSortOption = SortOptions.FirstOrDefault(x => x.Text == this.SortBy);
+
         var response = await Client.PostsModel.ExecuteAsync(
-            maxRows: MaxArticles);
+            maxRows: this.MaxArticles,
+            order: new PostSortInput[] { selectedSortOption?.Value ?? SortById },
+            after: this.After);
+
         response.EnsureNoErrors();
 
         Model = response.Data!;
         
         StateHasChanged();
     }
+
+    static PostSortInput SortById = new PostSortInput { Id = SortEnumType.Asc };    
+    static PostSortInput SortByIdDesc = new PostSortInput { Id = SortEnumType.Desc };
+    static PostSortInput SortByTitle = new PostSortInput { Title = SortEnumType.Asc };
+    static PostSortInput SortByTitleDesc = new PostSortInput { Title = SortEnumType.Desc };
+
+    List<Option<PostSortInput>> SortOptions = new()
+        {
+            { new Option<PostSortInput> { Value = SortById, Text = "Id" } },
+            { new Option<PostSortInput> { Value = SortByIdDesc, Text = "Id Desc" } },
+            { new Option<PostSortInput> { Value = SortByTitle, Text = "Title" } },
+            { new Option<PostSortInput> { Value = SortByTitleDesc, Text = "Title Desc" } }
+        };
+    
 }
