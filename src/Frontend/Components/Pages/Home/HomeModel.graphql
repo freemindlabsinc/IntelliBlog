@@ -1,5 +1,5 @@
-query HomeModel {
-  latestPosts:posts(first:5, order: { createdOn: DESC}) {
+query HomeModel($maxPosts: Int = 1, $maxSources: Int = 1) {
+  latestPosts:posts(first:$maxPosts, order: { createdOn: DESC}) {
     nodes {
       ... PostCardData
       blog {
@@ -7,15 +7,17 @@ query HomeModel {
         
       }
     }
+    totalCount
   }
 
-  latestSources:sources(first: 4, order: { createdOn: DESC}) {
+  latestSources:sources(first: $maxSources, order: { createdOn: DESC}) {
     nodes {
       ...SourceCardData
       blog {
         ... BlogName
-      }
+      }      
     }
+    totalCount
   }
 }
 

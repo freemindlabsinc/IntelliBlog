@@ -20,6 +20,7 @@ type Blog {
 }
 
 type Post {
+  blogId: Int!
   title: String!
   description: String
   text: String
@@ -38,6 +39,7 @@ type Post {
 }
 
 type Source {
+  blogId: Int!
   name: String!
   type: SourceType!
   description: String
@@ -140,6 +142,8 @@ type BlogsConnection {
   edges: [BlogsEdge!]
   "A flattened list of the nodes."
   nodes: [Blog!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
 }
 
 input PostFilterInput {
@@ -185,6 +189,8 @@ type PostsConnection {
   edges: [PostsEdge!]
   "A flattened list of the nodes."
   nodes: [Post!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
 }
 
 input SourceFilterInput {
@@ -227,6 +233,8 @@ type SourcesConnection {
   edges: [SourcesEdge!]
   "A flattened list of the nodes."
   nodes: [Source!]
+  "Identifies the total count of items in the connection."
+  totalCount: Int!
 }
 
 input StringOperationFilterInput {

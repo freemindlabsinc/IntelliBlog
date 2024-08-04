@@ -5,18 +5,21 @@
 
 
 <FluentLayout>
-    <FluentHeader>        
+    <FluentHeader>     
+        <!-- TODO: PostSearch control goes here -->
         <FluentStack>
-            <FluentNumberField @bind-Value="_maxArticles" Label="Max Posts" />
-            <FluentButton OnClick="@FetchData">Refresh</FluentButton>
+            <FluentNumberField @bind-Value="_maxArticles" @bind-Value:after="FetchData" Label="Max" />
+            <!--FluentButton OnClick="@FetchData">Refresh</!--FluentButton-->
         </FluentStack>        
     </FluentHeader>
 
+    <!-- Posts flex grid -->
     <FluentGrid Justify="JustifyContent.FlexStart" 
                 AdaptiveRendering="true"                
                 Style="overflow: auto; width:100%"
                 Spacing="0">
 
+        <!-- Post cards -->
         @foreach (var post in Items!)
         {
            <FluentGridItem xs="12" md="12" lg="6" xl="4" xxl="3">
@@ -24,7 +27,6 @@
            </FluentGridItem>
         }
     </FluentGrid>
-
     
 </FluentLayout>
    

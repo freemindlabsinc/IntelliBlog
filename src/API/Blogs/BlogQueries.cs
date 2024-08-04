@@ -5,7 +5,7 @@ namespace API.Blogs;
 [QueryType]
 public static class BlogQueries
 {
-    [UsePaging]
+    [UsePaging(IncludeTotalCount = true)]
     [UseProjection]
     [UseFiltering]
     [UseSorting]

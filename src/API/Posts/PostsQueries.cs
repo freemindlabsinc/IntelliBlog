@@ -5,7 +5,7 @@ namespace API.Posts;
 [QueryType]
 public static class PostsQueries
 {
-    [UsePaging]
+    [UsePaging(IncludeTotalCount = true)]
     [UseProjection]
     [UseFiltering]
     [UseSorting]

@@ -5,7 +5,7 @@ namespace API.Sources;
 [QueryType]
 public static class SourceQueries
 {
-    [UsePaging]
+    [UsePaging(IncludeTotalCount = true)]
     [UseProjection]
     [UseFiltering]
     [UseSorting]

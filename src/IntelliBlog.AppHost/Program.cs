@@ -3,8 +3,9 @@
 // SQL Server
 var pwd = builder.AddParameter("blogging-db-password", secret: true);
 
-var sql = builder.AddSqlServer("sql", pwd, port: 12000)    
-                 .WithDataVolume("sql-data");
+var sql = builder.AddSqlServer("sql", pwd, port: 12000)
+    //.WithImage("mcr.microsoft.com/mssql/server:2022-latest")
+    .WithDataVolume();
 
 var sqldb = sql.AddDatabase("IntelliBlogDb");
 
