@@ -8,16 +8,22 @@
     <FluentHeader>     
         <!-- TODO: PostSearch control goes here -->
         <FluentStack>
-            <FluentNumberField Label="Max" @bind-Value="MaxArticles" @bind-Value:after="FetchData" />
+            
+            <FluentNumberField Label="Max" 
+                               @bind-Value="MaxPosts" 
+                               @bind-Value:after="FetchData" />
+
             <FluentCombobox Label="Sort By"
+                            @bind-Value="@SortBy"
                             Items=@SortOptions
                             TOption="Option<PostSortInput>"
                             OptionText="@(i => i.Text)"
-                            OptionValue="@(i => i.Value?.Id.ToString())"                            
-                            @bind-Value="@SortBy"
+                            OptionValue="@(i => i.Value?.Id.ToString())"                                                        
                             SelectedOptionChanged="@SelectedSortChanged"
                             />
+
             <FluentButton OnClick="@FetchData">Next Page</FluentButton>
+
             <FluentBadge Appearance="Appearance.Neutral">@After</FluentBadge>
         </FluentStack>               
     </FluentHeader>
@@ -38,22 +44,23 @@
                 </FluentGridItem>
             }
         }
-    </FluentGrid>
+    </FluentGrid> 
     
+
 </FluentLayout>
    
 
 @code {
+
     [Inject]
     public BloggingClient Client { get; set; } = default!;
     IPostsModelResult Model { get; set; } = default!;
 
     // Filters, sorting, etc.
-    int MaxArticles = 2;
+    int MaxPosts = 2;
     string? After = null;
     string? SortBy = "Id Desc";
-    //Option<PostSortInput> SelectedSortOption = default!;
-
+    
     async Task SelectedSortChanged(Option<PostSortInput> option)
     {
         SortBy = option.Text;
@@ -73,7 +80,7 @@
         Option<PostSortInput>? selectedSortOption = SortOptions.FirstOrDefault(x => x.Text == this.SortBy);
 
         var response = await Client.PostsModel.ExecuteAsync(
-            maxRows: this.MaxArticles,
+            maxRows: this.MaxPosts,
             order: new PostSortInput[] { selectedSortOption?.Value ?? SortById },
             after: this.After);
 
