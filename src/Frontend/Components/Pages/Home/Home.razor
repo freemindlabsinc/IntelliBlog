@@ -1,18 +1,26 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
 
 <h1>Welcome to IntelliBlog!</h1>
 
-<p>IntelliBlog is a blog platform that allows you to create and manage your own blog with the help of your private AI assistant.
-    You can create posts, manage content sources, and much more!</p>
+<p>
+    IntelliBlog is a blog platform that allows you to create and manage your own blog with the help of your private AI assistant.
+</p>
 
-<p>[More and better information goes here]</p>
+<p>
+    You can create posts, manage content sources, and much more!
+</p>
+
 
 @if (Model is not null)
 {
     <!-- The latest posts -->
-    <FluentLabel Typo="Typography.H3">Latest Posts</FluentLabel>
+    <FluentStack> 
+        <FluentLabel Typo="Typography.H3">Latest Posts</FluentLabel>
+        <FluentNumberField Label="Max" @bind-Value="MaxPosts" @bind-Value:after="FetchData" />        
+    </FluentStack>
     <FluentHorizontalScroll class="full-width" Speed="1200" Easing=ScrollEasing.EaseInOut>
 
         @foreach (var post in Model.LatestPosts!.Nodes!)
@@ -27,7 +35,10 @@
     <FluentDivider />
 
     <!-- The latest sources -->    
-    <FluentLabel Typo="Typography.H3">Latest Sources</FluentLabel>
+    <div>
+        <FluentLabel Typo="Typography.H3">Latest Sources</FluentLabel>
+        <FluentNumberField Label="Max" @bind-Value="@MaxSources" @bind-Value:after="FetchData" />
+    </div>
     <FluentHorizontalScroll class="full-width" Speed="600" Easing=ScrollEasing.EaseInOut>
         
         @foreach (var source in Model.LatestSources!.Nodes!)
@@ -42,18 +53,24 @@
 
 @code {
     [Inject]
-    HomeModelQuery MainQuery { get; set; } = default!;
-    
-    IHomeModelResult? Model;
+    BloggingClient BloggingClient { get; set; } = default!;
+
+    IHomeModelResult Model { get; set; } = default!;
+
+    int MaxPosts { get; set; } = 5;
+    int MaxSources { get; set; } = 5;
 
     protected override async Task OnInitializedAsync()
     {
         await FetchData();
     }
 
-    public async Task FetchData()
-    {
-        var response = await MainQuery.ExecuteAsync();
+    async Task FetchData()
+    { 
+        var response = await BloggingClient.HomeModel.ExecuteAsync(
+            maxPosts: MaxPosts,
+            maxSources: MaxSources
+        );
         response.EnsureNoErrors();
 
         Model = response.Data!;

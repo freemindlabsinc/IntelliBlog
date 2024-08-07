@@ -1,3 +1,20 @@
+### 8/4/2024
+
+### 8/2/2024
+
+- Did more cleanup on the repo and added minimal Configuration information
+- I really enjoy the GraphQL stuff on the client side. The development experience on the client seems to:
+    - Start from the GQL query like I do in HomeModel.graphql and try to see the UI coming out of it
+    - Alternatively, when we have mocks available, we model our GQL queries based on the mocks
+    - In the end it seems we're building the View Models mostly by virtue:
+        - Creating and using fragments
+        - Having a powerful and overall complete query API thanks to HotChocolate
+        - Having the strongly typed client , auto generated infra, thanks to Strawbettyshake
+        - Having Banana Pop Cake or any GraphQL tool of the same kind, to try and work the queries out
+- I am really happy with the results. I think I am going to be able to build a very nice front end with this stuff.
+- QUESTIONS:
+    - Am I pusing the auto gen code too far by labeling Models?
+
 ### 8/3/2024
 
 - Made repo public after adding some minimal documentation in the markdown files.

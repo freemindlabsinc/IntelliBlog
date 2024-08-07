@@ -1,0 +1,25 @@
+﻿query PostsModel(
+  $maxRows: Int = 10,
+  $order: [PostSortInput!], 
+  $after: String
+) {
+  posts: posts(first: $maxRows, after: $after, order: $order) {
+    pageInfo {
+       endCursor
+    }
+    totalCount
+    nodes {
+      ...PostCardData
+
+      sources: sources {
+        pageInfo {
+          endCursor
+        }
+        totalCount
+        nodes {
+          ...SourceCardData
+        }        
+      }
+    }    
+  }
+}
