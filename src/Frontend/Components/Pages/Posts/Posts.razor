@@ -25,9 +25,14 @@
             <FluentButton @onclick="@(() => NextPage())" Disabled="@(!HasNextPage)">Next Page</FluentButton>
 
             <FluentBadge Appearance="Appearance.Neutral">@PageNumber/@TotalPages</FluentBadge>
-        </FluentStack>               
+            
+            <FluentProgress Min="0" Max="@TotalPages" Value="@PageNumber"></FluentProgress>            
+            <FluentProgress Min="0" Max="100" Value="25"></FluentProgress>
+        </FluentStack>                       
     </FluentHeader>
 
+    <FluentProgress Min="1" Max="@TotalPages" Value="@PageNumber" BackgroundColor="Blue" Color="Yellow"></FluentProgress>
+    
     <!-- Posts flex grid -->
     <FluentGrid Justify="JustifyContent.FlexStart" AdaptiveRendering="true" Style="overflow: auto; width:100%" Spacing="0">
         @if (Model is null)
@@ -69,7 +74,7 @@
     public async Task PageSizeChanged()
     {
         Model = null;
-        PageNumber = -1;
+        PageNumber = 0;
         await NextPage();
     }
 
@@ -91,7 +96,7 @@
         return order_value;
     }
 
-    int PageNumber = -1;
+    int PageNumber = 0;
     int? TotalPages => Model?.Posts?.TotalCount / MaxPosts;
 
     bool HasNextPage => Model?.Posts?.PageInfo?.HasNextPage == true;        
