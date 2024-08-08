@@ -11,7 +11,7 @@
             
             <FluentNumberField Label="Max" 
                                @bind-Value="MaxPosts" 
-                               @bind-Value:after="FetchData" />
+                               @bind-Value:after="@PageSizeChanged" />
 
             <FluentCombobox Label="Sort By"
                             @bind-Value="@SortBy"
@@ -19,12 +19,12 @@
                             TOption="Option<PostSortInput>"
                             OptionText="@(i => i.Text)"
                             OptionValue="@(i => i.Value?.Id.ToString())"                                                        
-                            SelectedOptionChanged="@SelectedSortChanged"
-                            />
+                            SelectedOptionChanged="@OrderByChanged" />
 
-            <FluentButton OnClick="@FetchData">Next Page</FluentButton>
+            <FluentButton @onclick="@(() => PriorPage())" Disabled="@(!HasPriorPage)">Prior Page</FluentButton>
+            <FluentButton @onclick="@(() => NextPage())" Disabled="@(!HasNextPage)">Next Page</FluentButton>
 
-            <FluentBadge Appearance="Appearance.Neutral">@After</FluentBadge>
+            <FluentBadge Appearance="Appearance.Neutral">@PageNumber/@TotalPages</FluentBadge>
         </FluentStack>               
     </FluentHeader>
 
@@ -53,43 +53,73 @@
 @code {
 
     [Inject]
-    public BloggingClient Client { get; set; } = default!;
-    IPostsModelResult Model { get; set; } = default!;
+    public BloggingClient Client { get; private set; } = default!;
+
+    IPostsQueryResult? Model { get; set; } = default!;
 
     // Filters, sorting, etc.
     int MaxPosts = 2;
-    string? After = null;
-    string? SortBy = "Id Desc";
-    
-    async Task SelectedSortChanged(Option<PostSortInput> option)
-    {
-        SortBy = option.Text;
-        After = null;
+    string? SortBy = "Id Desc";    
 
-        await FetchData();
-    }
-
-    // Methods
     protected override async Task OnInitializedAsync()
     {
-        await FetchData();
+        await NextPage();
     }
 
-    public async Task FetchData()
+    public async Task PageSizeChanged()
+    {
+        Model = null;
+        PageNumber = -1;
+        await NextPage();
+    }
+
+    async Task OrderByChanged(Option<PostSortInput> option)
+    {
+        SortBy = option.Text;
+        
+        await PageSizeChanged();
+    }
+
+    public Task NextPage() => QueryData(nextPage: true);
+
+    public Task PriorPage() => QueryData(nextPage: false);
+
+    PostSortInput[] GetOrder()
     {
         Option<PostSortInput>? selectedSortOption = SortOptions.FirstOrDefault(x => x.Text == this.SortBy);
+        var order_value = new PostSortInput[] { selectedSortOption?.Value ?? SortById };
+        return order_value;
+    }
 
-        var response = await Client.PostsModel.ExecuteAsync(
-            maxRows: this.MaxPosts,
-            order: new PostSortInput[] { selectedSortOption?.Value ?? SortById },
-            after: this.After);
+    int PageNumber = -1;
+    int? TotalPages => Model?.Posts?.TotalCount / MaxPosts;
+
+    bool HasNextPage => Model?.Posts?.PageInfo?.HasNextPage == true;        
+    bool HasPriorPage => Model?.Posts?.PageInfo?.HasPreviousPage ?? true;
+
+    async Task QueryData(bool nextPage)
+    {
+        var pageInfo = this.Model?.Posts?.PageInfo;
+
+        var response = await Client.PostsQuery.ExecuteAsync(
+                first: nextPage ? this.MaxPosts : null,
+                after: nextPage ? pageInfo?.EndCursor : null,
+                last: nextPage ? null : this.MaxPosts,
+                before: nextPage ? null : pageInfo?.StartCursor,
+                order: GetOrder());
 
         response.EnsureNoErrors();
+        if (nextPage)
+        {
+            PageNumber++;
+        }
+        else
+        {
+            PageNumber--;
+        }
 
         Model = response.Data!;
         
-        After = Model.Posts!.PageInfo.EndCursor;
-
         StateHasChanged();
     }
 
@@ -105,5 +135,5 @@
             { new Option<PostSortInput> { Value = SortByTitle, Text = "Title" } },
             { new Option<PostSortInput> { Value = SortByTitleDesc, Text = "Title Desc" } }
         };
-    
+
 }
