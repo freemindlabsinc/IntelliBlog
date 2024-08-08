@@ -55,7 +55,7 @@
     [Inject]
     BloggingClient BloggingClient { get; set; } = default!;
 
-    IHomeModelResult Model { get; set; } = default!;
+    IHomeQueryResult Model { get; set; } = default!;
 
     int MaxPosts { get; set; } = 5;
     int MaxSources { get; set; } = 5;
@@ -67,7 +67,7 @@
 
     async Task FetchData()
     { 
-        var response = await BloggingClient.HomeModel.ExecuteAsync(
+        var response = await BloggingClient.HomeQuery.ExecuteAsync(
             maxPosts: MaxPosts,
             maxSources: MaxSources
         );

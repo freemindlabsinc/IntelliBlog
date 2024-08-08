@@ -1,4 +1,4 @@
-﻿query SourcesMain(
+﻿query SourcesQuery(
   $first: Int = 5
   $after: String
   $where: SourceFilterInput

@@ -1,4 +1,4 @@
-query HomeModel($maxPosts: Int = 1, $maxSources: Int = 1) {
+query HomeQuery($maxPosts: Int = 1, $maxSources: Int = 1) {
 
   latestPosts:posts(first:$maxPosts, order: { createdOn: DESC}) {
     nodes {
