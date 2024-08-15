@@ -31,4 +31,6 @@ fragment SourceCardData on Source {
     type
     image
     tags
+    createdBy
+    createdOn
 }

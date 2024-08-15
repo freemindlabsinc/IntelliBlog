@@ -1,7 +1,7 @@
 ﻿@inject IDialogService DS
 @inject NavigationManager NavigationManager
 
-<FluentCard MinimalStyle="true" Style="min-width: 400px">
+<FluentCard MinimalStyle="true" Style="max-width: 600px">
     <FluentGrid>
         
         <FluentGridItem xs="8">            
@@ -32,7 +32,7 @@
         </FluentGridItem>
 
         <FluentGridItem Class="wrapper" xs="4">
-            <img src="@Post.Image" alt="@Post.Title" />
+            <img src="@Post.Image" alt="@Post.Title" style="max-height: 150px" />
             <FluentStack>
                 <FluentButton Appearance="Appearance.Accent" OnClick="EditPost">Edit</FluentButton>
                 <FluentButton Appearance="Appearance.Accent" OnClick="LikePost">Like</FluentButton>
