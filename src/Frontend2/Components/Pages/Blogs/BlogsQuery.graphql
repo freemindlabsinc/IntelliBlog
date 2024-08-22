@@ -1,0 +1,33 @@
+query BlogsModel(
+  $first: Int = 5
+  $after: String
+  $where: BlogFilterInput
+  $order: [BlogSortInput!] = [{ id: DESC }]
+  $maxLatestBlogPosts: Int = 3
+  $maxLatestPosts: Int = 5
+) {
+  blogs: blogs(
+    first: $first
+    after: $after
+    where: $where
+    order: $order
+  ) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      ... BlogCardData
+      latestPosts: posts(last: $maxLatestBlogPosts, order: { id: ASC }) {
+        nodes {
+          ... PostCardData
+        }
+      }
+    }
+  }
+  latestOverallPosts: posts(first: $maxLatestPosts, order: { id: DESC }) {
+    nodes {
+      ... PostCardData
+    }
+  }
+}

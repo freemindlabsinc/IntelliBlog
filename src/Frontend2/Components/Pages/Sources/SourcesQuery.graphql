@@ -1,0 +1,25 @@
+﻿query SourcesQuery(
+  $first: Int = 5
+  $after: String
+  $where: SourceFilterInput
+  $order: [SourceSortInput!] = [{ id: DESC }]
+  $maxLatestSourcePosts: Int = 3
+) {
+  sources(
+    first: $first
+    after: $after
+    where: $where
+    order: $order
+  ) {
+    
+    nodes {
+      ...SourceCardData
+      latestPosts: posts(last: $maxLatestSourcePosts, order: { id: ASC }) {
+        nodes {
+          ...PostCardData
+        }
+      }
+    }
+  }
+  
+}

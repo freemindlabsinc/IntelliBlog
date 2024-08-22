@@ -1,0 +1,33 @@
+﻿query PostsQuery(
+  $first: Int = 3
+  $after: String = null,
+  $last: Int = null,
+  $before: String = null
+  $order: [PostSortInput!] = [{ id: DESC }]  
+) {
+  posts: posts(first: $first, last: $last, before: $before, after: $after, order: $order) {
+    pageInfo {
+      ...PageInfoData
+    }
+    totalCount
+    nodes {
+      ...PostCardData
+      sources: sources {
+        totalCount
+        nodes {
+          id
+          name
+        }
+      }
+    }    
+  }
+}
+
+
+
+fragment PageInfoData on PageInfo {
+  hasNextPage
+  hasPreviousPage
+  startCursor
+  endCursor
+}
