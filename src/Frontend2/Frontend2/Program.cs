@@ -1,11 +1,11 @@
-using Frontend2.Components;
+﻿using Frontend2.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
 // Add services to the container.
-builder.Services.AddRazorComponents()
+builder.Services.AddRazorComponents()    
     .AddInteractiveServerComponents();
 
 var app = builder.Build();
