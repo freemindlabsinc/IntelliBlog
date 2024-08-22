@@ -1,92 +1,102 @@
 ﻿@page "/posts"
+@using StrawberryShake
 @rendermode InteractiveServer
 
 <PageTitle>Posts</PageTitle>
 
 <h1>Posts</h1>
-<div class="container">
 
+<div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4">
+        @{
+             @foreach (var post in Model?.Posts?.Nodes ?? Array.Empty<IPostsQuery_Posts_Nodes>())
+             {
+                 <div class="col">                    
+                     <PostCard Item="post" />
+                 </div>
+             }            
+        }
 </div>
 
+
 @code {
-    // [Inject]
-    //public BloggingClient Client { get; private set; } = default!;
+    [Inject]
+    public BloggingClient Client { get; private set; } = default!;
 
-    // IPostsQueryResult? Model { get; set; }
+    IPostsQueryResult? Model { get; set; }
 
-    // // Filters, sorting, etc.
-    // int MaxPosts = 2;
-    // Option<PostSortInput>? SortByItem = SortOptions[1];
+    // Filters, sorting, etc.
+    int MaxPosts = 20;
+    //PostSortInput? SortByItem = SortOptions[1];
 
-    // int PageNumber = 0;
-    // int? TotalPages => Model?.Posts?.TotalCount / MaxPosts;
+    int PageNumber = 0;
+    int? TotalPages => Model?.Posts?.TotalCount / MaxPosts;
 
-    // bool HasNextPage => Model?.Posts?.PageInfo?.HasNextPage == true;
-    // bool HasPriorPage => Model?.Posts?.PageInfo?.HasPreviousPage == true;
+    bool HasNextPage => Model?.Posts?.PageInfo?.HasNextPage == true;
+    bool HasPriorPage => Model?.Posts?.PageInfo?.HasPreviousPage == true;
 
-    // protected override async Task OnInitializedAsync()
-    // {
-    //     Reset();
-    //     await QueryData(PagingDirection.Next);
-    // }
+    protected override async Task OnInitializedAsync()
+    {
+        Reset();
+        await QueryData(PagingDirection.Next);
+    }
 
-    // void Reset()
-    // {
-    //     Model = null;
-    //     PageNumber = 0;
-    // }
+    void Reset()
+    {
+        Model = null;
+        PageNumber = 0;
+    }
 
-    // public async Task SearchOptionChanged()
-    // {
-    //     Reset();
-    //     await QueryData(PagingDirection.Next);
-    // }
+    public async Task SearchOptionChanged()
+    {
+        Reset();
+        await QueryData(PagingDirection.Next);
+    }
 
-    // enum PagingDirection
-    // {
-    //     Previous,
-    //     Next
-    // }
+    enum PagingDirection
+    {
+        Previous,
+        Next
+    }
 
-    // async Task QueryData(PagingDirection? pagingDirection)
-    // {
-    //     var pageInfo = this.Model?.Posts?.PageInfo;
+    async Task QueryData(PagingDirection? pagingDirection)
+    {
+        var pageInfo = this.Model?.Posts?.PageInfo;
 
-    //     var nextPage = pagingDirection == PagingDirection.Next;
+        var nextPage = pagingDirection == PagingDirection.Next;
 
-    //     var response = await Client.PostsQuery.ExecuteAsync(
-    //             first: nextPage ? this.MaxPosts : null,
-    //             after: nextPage ? pageInfo?.EndCursor : null,
-    //             last: nextPage ? null : this.MaxPosts,
-    //             before: nextPage ? null : pageInfo?.StartCursor,
-    //             order: new PostSortInput[] { SortByItem?.Value ?? SortById });
+        var response = await Client.PostsQuery.ExecuteAsync(
+                first: nextPage ? this.MaxPosts : null,
+                after: nextPage ? pageInfo?.EndCursor : null,
+                last: nextPage ? null : this.MaxPosts,
+                before: nextPage ? null : pageInfo?.StartCursor,
+                order: new PostSortInput[] { /* SortByItem?.Value ?? */ SortById });
 
-    //     response.EnsureNoErrors();
+        response.EnsureNoErrors();
 
-    //     if (nextPage)
-    //     {
-    //         PageNumber++;
-    //     }
-    //     else
-    //     {
-    //         PageNumber--;
-    //     }
+        if (nextPage)
+        {
+            PageNumber++;
+        }
+        else
+        {
+            PageNumber--;
+        }
 
-    //     Model = response.Data!;
+        Model = response.Data!;
 
-    //     StateHasChanged();
-    // }
+        StateHasChanged();
+    }
 
-    // static PostSortInput SortById = new PostSortInput { Id = SortEnumType.Asc };
-    // static PostSortInput SortByIdDesc = new PostSortInput { Id = SortEnumType.Desc };
-    // static PostSortInput SortByTitle = new PostSortInput { Title = SortEnumType.Asc };
-    // static PostSortInput SortByTitleDesc = new PostSortInput { Title = SortEnumType.Desc };
+    static PostSortInput SortById = new PostSortInput { Id = SortEnumType.Asc };
+    static PostSortInput SortByIdDesc = new PostSortInput { Id = SortEnumType.Desc };
+    static PostSortInput SortByTitle = new PostSortInput { Title = SortEnumType.Asc };
+    static PostSortInput SortByTitleDesc = new PostSortInput { Title = SortEnumType.Desc };
 
-    // static List<Option<PostSortInput>> SortOptions = new()
-    //     {
-    //         { new Option<PostSortInput> { Value = SortById, Text = "Id" } },
-    //         { new Option<PostSortInput> { Value = SortByIdDesc, Text = "Id Desc" } },
-    //         { new Option<PostSortInput> { Value = SortByTitle, Text = "Title" } },
-    //         { new Option<PostSortInput> { Value = SortByTitleDesc, Text = "Title Desc" } }
-    //     };
+    //static List<PostSortInput>> SortOptions = new()
+    //    {
+    //        { new Option<PostSortInput> { Value = SortById, Text = "Id" } },
+    //        { new Option<PostSortInput> { Value = SortByIdDesc, Text = "Id Desc" } },
+    //        { new Option<PostSortInput> { Value = SortByTitle, Text = "Title" } },
+    //        { new Option<PostSortInput> { Value = SortByTitleDesc, Text = "Title Desc" } }
+    //    };
 }

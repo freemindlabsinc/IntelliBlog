@@ -13,10 +13,10 @@ builder.Services.AddHttpClient();
 
 // Aspire options
 //string url = IsAspireApp ? "http+https://api/graphql" : "https://localhost:6001/graphql";
-//string url = "https://localhost:6001/graphql";
-//builder.Services    
-//    .AddBloggingClient()
-//    .ConfigureHttpClient(c => c.BaseAddress = new Uri(url));
+string url = "https://localhost:6001/graphql";
+builder.Services    
+    .AddBloggingClient()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(url));
 
 
 var app = builder.Build();

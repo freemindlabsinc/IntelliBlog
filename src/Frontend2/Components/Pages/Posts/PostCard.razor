@@ -1,5 +1,19 @@
-﻿<h3>PostCard</h3>
+﻿<div class="card">
+    <img class="card-img-top" src="@Item?.Image"
+         alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">@Item?.Title</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Item?.Description</h6>
+        <p class="card-text">[text here]</p>
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+    </div>
+    <div class="card-footer">
+        Featured
+    </div>
+</div>
 
 @code {
-
+    [Parameter]
+    public IPostCardData? Item { get; set; }
 }

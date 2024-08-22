@@ -1,4 +1,4 @@
-query BlogsModel(
+query BlogsQuery(
   $first: Int = 5
   $after: String
   $where: BlogFilterInput
