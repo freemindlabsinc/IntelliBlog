@@ -1,0 +1,5 @@
+dotnet new tool-manifest
+
+dotnet tool install StrawberryShake.Tools
+
+dotnet graphql init https://localhost:6001/graphql/ -n BloggingClient 
