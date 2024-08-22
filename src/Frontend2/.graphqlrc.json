@@ -4,8 +4,8 @@
   "extensions": {
     "strawberryShake": {
       "name": "BloggingClient",
-      "url": "https://localhost:6001/graphql/",
-      "namespace": "BloggingClient",
+      "namespace": "Frontend2",
+      "url": "https://localhost:6001/graphql",
       "records": {
         "inputs": false,
         "entities": false
