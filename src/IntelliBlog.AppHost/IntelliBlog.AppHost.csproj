@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\API\API.csproj" />
+    <ProjectReference Include="..\Frontend2\Frontend2.csproj" />
     <ProjectReference Include="..\Frontend\Frontend.csproj" />
   </ItemGroup>
 
