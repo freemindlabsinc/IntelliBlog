@@ -2,39 +2,85 @@
     <!-- Top image -->
     <img class="card-img-top" src="@Item.Image" alt="Card image cap">
 
+    @if (IsFeatured())
+    {
+        <span class="badge rounded-pill text-bg-danger">Featured</span>
+    }
+
     <!-- Card body -->
     <div class="card-body">
+        <!-- Tags -->
+        <div>
+            @foreach (var tag in Item.Tags)
+            {
+                <span class="badge rounded-pill text-bg-primary">@tag</span>
+            }
+            <a href="#" class="card-link">@GetTagCountLabel()</a>
+        </div>
+
+        <!-- Comments & Shares -->
+        <div>
+            <a href="#" class="card-link">@GetCommentsLabel()</a>
+            <a href="#" class="card-link">@GetSharesLabel()</a>
+        </div>
+
         <!-- Title -->
         <h5 class="card-title">@Item.Title</h5>
+
         <!-- Description -->
-        <h6 class="card-subtitle mb-2 text-muted">@Item.Description</h6>
-        <!-- Card text -->
-        <p class="card-text">@GetContent(maxChars: 100)</p>
-
-        <!-- More.... -->
-        <h5 class="card-header-pills">@GetTags()</h5>
-
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
+        <h6 class="card-subtitle mb-2 text-muted">@GetCardText(maxChars: 100)</h6>
+        
+        <div>
+            <a href="#" class="card-link">Like</a>
+            <a href="#" class="card-link">@GetCreatedOnText()</a>
+        </div>
+        
     </div>
 
     <!-- Footer -->
-    <div class="card-footer">
+    <!--div class="card-footer">
         Featured
-    </div>
+    </div-->
 </div>
 
 @code {
     [Parameter]
     public IPostCardData Item { get; set; } = default!;
 
-    public string GetContent(int maxChars)
+    public bool IsFeatured()
     {
-        return Item.Text?.Substring(0, maxChars) ?? string.Empty;
+        var featured = Item.Title?.Contains("epiphany") ?? false;
+        return featured;        
     }
 
-    public string GetTags()
+    public string GetTagCountLabel()
     {
-        return string.Join(", ", Item.Tags);
+        if (Item.Tags.Count == 0)
+            return "No Tags";
+
+        var value = Item.Tags.Count;
+        return $"{value} Tags";
     }
+
+    public string GetCommentsLabel()
+    {
+        var value = Random.Shared.Next(12);
+        return $"{value} Comments";
+    }
+
+    public string GetSharesLabel()
+    {
+        var value = Random.Shared.Next(6);
+        return $"{value} Shares";
+    }
+
+    public string GetCardText(int maxChars)
+    {
+        return Item.Description ?? Item.Text?.Substring(0, maxChars) ?? "[No content]";
+    }
+
+    public string GetCreatedOnText()
+    {
+        return $"By {Item.CreatedBy} on {Item.CreatedOn.ToString("MM/dd/yyyy")}";
+    }    
 }
