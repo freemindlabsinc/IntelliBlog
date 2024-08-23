@@ -1,17 +1,19 @@
 ﻿<div class="card">
     <!-- Top image -->
-    <img class="card-img-top" src="@Item?.Image" alt="Card image cap">
+    <img class="card-img-top" src="@Item.Image" alt="Card image cap">
 
     <!-- Card body -->
     <div class="card-body">
         <!-- Title -->
-        <h5 class="card-title">@Item?.Title</h5>
+        <h5 class="card-title">@Item.Title</h5>
         <!-- Description -->
-        <h6 class="card-subtitle mb-2 text-muted">@Item?.Description</h6>
+        <h6 class="card-subtitle mb-2 text-muted">@Item.Description</h6>
         <!-- Card text -->
-        <p class="card-text">@GetContent()</p>
+        <p class="card-text">@GetContent(maxChars: 100)</p>
 
         <!-- More.... -->
+        <h5 class="card-header-pills">@GetTags()</h5>
+
         <a href="#" class="card-link">Card link</a>
         <a href="#" class="card-link">Another link</a>
     </div>
@@ -24,10 +26,15 @@
 
 @code {
     [Parameter]
-    public IPostCardData? Item { get; set; }
+    public IPostCardData Item { get; set; } = default!;
 
-    public string GetContent()
+    public string GetContent(int maxChars)
     {
-        return Item?.Text?.Substring(0, 100) ?? string.Empty;
+        return Item.Text?.Substring(0, maxChars) ?? string.Empty;
+    }
+
+    public string GetTags()
+    {
+        return string.Join(", ", Item.Tags);
     }
 }
