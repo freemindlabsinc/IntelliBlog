@@ -1,14 +1,28 @@
-﻿@page "/Sources"
+﻿@page "/sources"
+@using static Frontend2.Components.Controls.Pager
 
 @rendermode InteractiveServer
 
 <PageTitle>Sources</PageTitle>
 
+<Pager ScrollAsync="@QueryData">
+    <div class="d-flex ms-auto">
+        <input type="text" />
+        <button class="btn btn-primary" type="submit">Search</button>
+        <select class="form-select me-auto" aria-label="Default select example">
+            <option value="1">Keyword</option>
+            <option value="2">Full-text</option>
+            <option value="2">Semantic</option>
+            <option value="3">AI</option>
+        </select>
+    </div>
+</Pager>
+
 <div class="hstack gap-3">
     <div class="badge p-2 bg-primary">@PageNumber/@TotalPages</div>
 
-    <button @onclick="@(() => QueryData(PagingDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</button>
-    <button @onclick="@(() => QueryData(PagingDirection.Next))" Disabled="@(!HasNextPage)">Next Page</button>
+    <button @onclick="@(() => QueryData(ScrollDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</button>
+    <button @onclick="@(() => QueryData(ScrollDirection.Next))" Disabled="@(!HasNextPage)">Next Page</button>
 
 
 
@@ -29,7 +43,7 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4">
+<ResponsiveRow>
     @{
         @foreach (var post in Model?.Sources?.Nodes ?? Array.Empty<ISourcesQuery_Sources_Nodes>())
         {
@@ -38,7 +52,7 @@
             </div>
         }
     }
-</div>
+</ResponsiveRow>
 
 
 @code {
@@ -48,19 +62,17 @@
     ISourcesQueryResult? Model { get; set; }
 
     // Filters, sorting, etc.
-    int MaxPosts = 20;
-    //PostSortInput? SortByItem = SortOptions[1];
-
+    int MaxSources = 20;
     int PageNumber = 0;
-    int? TotalPages => Model?.Sources?.TotalCount / MaxPosts;
 
+    int? TotalPages => Model?.Sources?.TotalCount / MaxSources;
     bool HasNextPage => Model?.Sources?.PageInfo?.HasNextPage == true;
     bool HasPriorPage => Model?.Sources?.PageInfo?.HasPreviousPage == true;
 
     protected override async Task OnInitializedAsync()
     {
         Reset();
-        await QueryData(PagingDirection.Next);
+        await QueryData(ScrollDirection.Next);
     }
 
     void Reset()
@@ -72,7 +84,7 @@
     public async Task SearchOptionChanged()
     {
         Reset();
-        await QueryData(PagingDirection.Next);
+        await QueryData(ScrollDirection.Next);
     }
 
     enum PagingDirection
@@ -81,16 +93,16 @@
         Next
     }
 
-    async Task QueryData(PagingDirection? pagingDirection)
+    async Task<ScrollCursor> QueryData(ScrollDirection pagingDirection)
     {
         var pageInfo = this.Model?.Sources?.PageInfo;
 
-        var nextPage = pagingDirection == PagingDirection.Next;
+        var nextPage = pagingDirection == ScrollDirection.Next;
 
         var response = await Client.SourcesQuery.ExecuteAsync(
-                first: nextPage ? this.MaxPosts : null,
+                first: nextPage ? this.MaxSources : null,
                 after: nextPage ? pageInfo?.EndCursor : null,
-                last: nextPage ? null : this.MaxPosts,
+                last: nextPage ? null : this.MaxSources,
                 before: nextPage ? null : pageInfo?.StartCursor,
                 where: null,
                 order: new SourceSortInput[] { /* SortByItem?.Value ?? */ SortById });
@@ -109,6 +121,8 @@
         Model = response.Data!;
 
         StateHasChanged();
+
+        return new ScrollCursor(Model.Sources!.TotalCount!, Model.Sources.PageInfo.HasNextPage, Model.Sources.PageInfo.HasPreviousPage);
     }
 
     static SourceSortInput SortById = new SourceSortInput { Id = SortEnumType.Asc };

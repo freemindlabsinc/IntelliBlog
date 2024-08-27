@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4">
+<ResponsiveRow>
         @{
              @foreach (var post in Model?.Posts?.Nodes ?? Array.Empty<IPostsQuery_Posts_Nodes>())
              {
@@ -38,7 +38,7 @@
                  </div>
              }            
         }
-</div>
+</ResponsiveRow>
 
 
 @code {
