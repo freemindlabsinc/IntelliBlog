@@ -1,11 +1,126 @@
-﻿@page "/sources"
+﻿@page "/Sources"
+
 @rendermode InteractiveServer
 
 <PageTitle>Sources</PageTitle>
 
-<h1>Sources</h1>
+<div class="hstack gap-3">
+    <div class="badge p-2 bg-primary">@PageNumber/@TotalPages</div>
+
+    <button @onclick="@(() => QueryData(PagingDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</button>
+    <button @onclick="@(() => QueryData(PagingDirection.Next))" Disabled="@(!HasNextPage)">Next Page</button>
+
+
+
+    <!-- Search form (temporary) -->
+    <!--form class="d-flex ms-auto">
+        <input class="form-control me-2" type="text" placeholder="Enter your search...">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form-->
+    <div class="d-flex ms-auto">
+        <input type="text" />
+        <button class="btn btn-primary" type="submit">Search</button>
+        <select class="form-select me-auto" aria-label="Default select example">
+            <option value="1">Keyword</option>
+            <option value="2">Full-text</option>
+            <option value="2">Semantic</option>
+            <option value="3">AI</option>
+        </select>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4">
+    @{
+        @foreach (var post in Model?.Sources?.Nodes ?? Array.Empty<ISourcesQuery_Sources_Nodes>())
+        {
+            <div class="col">
+                <SourceCard Item="post" />
+            </div>
+        }
+    }
+</div>
 
 
 @code {
+    [Inject]
+    public BloggingClient Client { get; private set; } = default!;
 
+    ISourcesQueryResult? Model { get; set; }
+
+    // Filters, sorting, etc.
+    int MaxPosts = 20;
+    //PostSortInput? SortByItem = SortOptions[1];
+
+    int PageNumber = 0;
+    int? TotalPages => Model?.Sources?.TotalCount / MaxPosts;
+
+    bool HasNextPage => Model?.Sources?.PageInfo?.HasNextPage == true;
+    bool HasPriorPage => Model?.Sources?.PageInfo?.HasPreviousPage == true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Reset();
+        await QueryData(PagingDirection.Next);
+    }
+
+    void Reset()
+    {
+        Model = null;
+        PageNumber = 0;
+    }
+
+    public async Task SearchOptionChanged()
+    {
+        Reset();
+        await QueryData(PagingDirection.Next);
+    }
+
+    enum PagingDirection
+    {
+        Previous,
+        Next
+    }
+
+    async Task QueryData(PagingDirection? pagingDirection)
+    {
+        var pageInfo = this.Model?.Sources?.PageInfo;
+
+        var nextPage = pagingDirection == PagingDirection.Next;
+
+        var response = await Client.SourcesQuery.ExecuteAsync(
+                first: nextPage ? this.MaxPosts : null,
+                after: nextPage ? pageInfo?.EndCursor : null,
+                last: nextPage ? null : this.MaxPosts,
+                before: nextPage ? null : pageInfo?.StartCursor,
+                where: null,
+                order: new SourceSortInput[] { /* SortByItem?.Value ?? */ SortById });
+
+        response.EnsureNoErrors();
+
+        if (nextPage)
+        {
+            PageNumber++;
+        }
+        else
+        {
+            PageNumber--;
+        }
+
+        Model = response.Data!;
+
+        StateHasChanged();
+    }
+
+    static SourceSortInput SortById = new SourceSortInput { Id = SortEnumType.Asc };
+    static SourceSortInput SortByIdDesc = new SourceSortInput { Id = SortEnumType.Desc };
+    static SourceSortInput SortByName = new SourceSortInput { Name = SortEnumType.Asc };
+    static SourceSortInput SortByNameDesc = new SourceSortInput { Name = SortEnumType.Desc };
+
+    //static List<PostSortInput>> SortOptions = new()
+    //    {
+    //        { new Option<PostSortInput> { Value = SortById, Text = "Id" } },
+    //        { new Option<PostSortInput> { Value = SortByIdDesc, Text = "Id Desc" } },
+    //        { new Option<PostSortInput> { Value = SortByTitle, Text = "Title" } },
+    //        { new Option<PostSortInput> { Value = SortByTitleDesc, Text = "Title Desc" } }
+    //    };
 }

@@ -1,25 +1,25 @@
 ﻿query SourcesQuery(
-  $first: Int = 5
-  $after: String
-  $where: SourceFilterInput
-  $order: [SourceSortInput!] = [{ id: DESC }]
-  $maxLatestSourcePosts: Int = 3
+  $first: Int = 3
+  $after: String = null,
+  $last: Int = null,
+  $before: String = null,
+  $where: SourceFilterInput = null,
+  $order: [SourceSortInput!] = [{ id: DESC }]  
 ) {
-  sources(
-    first: $first
-    after: $after
-    where: $where
-    order: $order
-  ) {
-    
+  sources: sources(first: $first, last: $last, before: $before, after: $after, where: $where, order: $order) {    
+    pageInfo {
+      ...PageInfoData
+    }
+    totalCount
     nodes {
       ...SourceCardData
-      latestPosts: posts(last: $maxLatestSourcePosts, order: { id: ASC }) {
+      posts: posts {
+        totalCount
         nodes {
-          ...PostCardData
+          id
+          title
         }
       }
-    }
+    }    
   }
-  
 }

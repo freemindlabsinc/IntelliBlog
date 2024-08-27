@@ -4,7 +4,30 @@
 
 <PageTitle>Posts</PageTitle>
 
-<h1>Posts</h1>
+<div class="hstack gap-3">
+    <div class="badge p-2 bg-primary">@PageNumber/@TotalPages</div>
+
+    <button @onclick="@(() => QueryData(PagingDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</button>
+    <button @onclick="@(() => QueryData(PagingDirection.Next))" Disabled="@(!HasNextPage)">Next Page</button>
+
+    
+
+    <!-- Search form (temporary) -->
+    <!--form class="d-flex ms-auto">
+        <input class="form-control me-2" type="text" placeholder="Enter your search...">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form-->   
+    <div class="d-flex ms-auto">
+        <input type="text" />
+        <button class="btn btn-primary" type="submit">Search</button>
+        <select class="form-select me-auto" aria-label="Default select example">
+            <option value="1">Keyword</option>
+            <option value="2">Full-text</option>
+            <option value="2">Semantic</option>
+            <option value="3">AI</option>
+        </select>
+    </div>
+</div>
 
 <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4">
         @{
