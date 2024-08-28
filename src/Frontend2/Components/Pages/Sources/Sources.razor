@@ -18,31 +18,6 @@
     </div>
 </Pager>
 
-<div class="hstack gap-3">
-    <div class="badge p-2 bg-primary">@PageNumber/@TotalPages</div>
-
-    <button @onclick="@(() => QueryData(ScrollDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</button>
-    <button @onclick="@(() => QueryData(ScrollDirection.Next))" Disabled="@(!HasNextPage)">Next Page</button>
-
-
-
-    <!-- Search form (temporary) -->
-    <!--form class="d-flex ms-auto">
-        <input class="form-control me-2" type="text" placeholder="Enter your search...">
-        <button class="btn btn-primary" type="submit">Search</button>
-    </form-->
-    <div class="d-flex ms-auto">
-        <input type="text" />
-        <button class="btn btn-primary" type="submit">Search</button>
-        <select class="form-select me-auto" aria-label="Default select example">
-            <option value="1">Keyword</option>
-            <option value="2">Full-text</option>
-            <option value="2">Semantic</option>
-            <option value="3">AI</option>
-        </select>
-    </div>
-</div>
-
 <ResponsiveRow>
     @{
         @foreach (var post in Model?.Sources?.Nodes ?? Array.Empty<ISourcesQuery_Sources_Nodes>())
@@ -63,36 +38,7 @@
 
     // Filters, sorting, etc.
     int MaxSources = 20;
-    int PageNumber = 0;
-
-    int? TotalPages => Model?.Sources?.TotalCount / MaxSources;
-    bool HasNextPage => Model?.Sources?.PageInfo?.HasNextPage == true;
-    bool HasPriorPage => Model?.Sources?.PageInfo?.HasPreviousPage == true;
-
-    protected override async Task OnInitializedAsync()
-    {
-        Reset();
-        await QueryData(ScrollDirection.Next);
-    }
-
-    void Reset()
-    {
-        Model = null;
-        PageNumber = 0;
-    }
-
-    public async Task SearchOptionChanged()
-    {
-        Reset();
-        await QueryData(ScrollDirection.Next);
-    }
-
-    enum PagingDirection
-    {
-        Previous,
-        Next
-    }
-
+    
     async Task<ScrollCursor> QueryData(ScrollDirection pagingDirection)
     {
         var pageInfo = this.Model?.Sources?.PageInfo;
@@ -108,16 +54,7 @@
                 order: new SourceSortInput[] { /* SortByItem?.Value ?? */ SortById });
 
         response.EnsureNoErrors();
-
-        if (nextPage)
-        {
-            PageNumber++;
-        }
-        else
-        {
-            PageNumber--;
-        }
-
+      
         Model = response.Data!;
 
         StateHasChanged();

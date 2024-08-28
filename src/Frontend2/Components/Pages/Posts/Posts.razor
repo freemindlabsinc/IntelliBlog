@@ -9,14 +9,7 @@
 
     <button @onclick="@(() => QueryData(PagingDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</button>
     <button @onclick="@(() => QueryData(PagingDirection.Next))" Disabled="@(!HasNextPage)">Next Page</button>
-
-    
-
-    <!-- Search form (temporary) -->
-    <!--form class="d-flex ms-auto">
-        <input class="form-control me-2" type="text" placeholder="Enter your search...">
-        <button class="btn btn-primary" type="submit">Search</button>
-    </form-->   
+ 
     <div class="d-flex ms-auto">
         <input type="text" />
         <button class="btn btn-primary" type="submit">Search</button>
