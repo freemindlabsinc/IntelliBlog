@@ -1,22 +1,21 @@
 ﻿@inject IDialogService DS
 @inject NavigationManager NavigationManager
 
-<FluentCard MinimalStyle="true">
+<FluentCard MinimalStyle="true" Style="max-width: 600px">
     <FluentGrid>
         
-        <FluentGridItem xs="9">            
+        <FluentGridItem xs="8">            
             <FluentStack Orientation="Orientation.Vertical">
                <FluentStack Orientation="Orientation.Horizontal">
                    <FluentBadge Appearance="Appearance.Neutral">@Post.Id</FluentBadge>
-                   <FluentLabel Typo="Typography.H5">@Post.Title</FluentLabel>                   
+                   <FluentLabel Typo="Typography.Header" >@Post.Title</FluentLabel>                   
                 </FluentStack>
 
                <FluentStack>
-                  <FluentLabel Typo="Typography.Subject">@Post.Description</FluentLabel>
+                  <FluentLabel Typo="Typography.Body">@Post.Description</FluentLabel>
                </FluentStack>
             </FluentStack>
             
-            &nbsp;
             <FluentStack Wrap="true">
             @foreach (var tag in Post.Tags)
             {
@@ -24,21 +23,20 @@
             }
             </FluentStack>
 
-            &nbsp;            
             <FluentStack>
                 <FluentBadge Appearance="Appearance.Neutral">@Post.CreatedOn.ToString("yyyy-MM-dd@hh:mm")</FluentBadge>
                 <FluentBadge Appearance="Appearance.Neutral">By @Post.CreatedBy</FluentBadge>
             </FluentStack>
             
-            &nbsp;
+            
+        </FluentGridItem>
+
+        <FluentGridItem Class="wrapper" xs="4">
+            <img src="@Post.Image" alt="@Post.Title" style="max-height: 150px" />
             <FluentStack>
                 <FluentButton Appearance="Appearance.Accent" OnClick="EditPost">Edit</FluentButton>
                 <FluentButton Appearance="Appearance.Accent" OnClick="LikePost">Like</FluentButton>
             </FluentStack>
-        </FluentGridItem>
-
-        <FluentGridItem Class="wrapper" xs="3">
-            <img src="@Post.Image" alt="@Post.Title" />
         </FluentGridItem>
 
     </FluentGrid>

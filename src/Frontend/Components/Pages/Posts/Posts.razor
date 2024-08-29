@@ -3,38 +3,42 @@
 
 <PageTitle>Posts</PageTitle>
 
-
 <FluentLayout>
     <FluentHeader>     
         <!-- TODO: PostSearch control goes here -->
-        <FluentStack>
-            
-            <FluentNumberField Label="Max" 
+        <FluentStack>            
+            <FluentNumberField Style="width: 70px" 
+                               Label="Max"
+                               Min="1"
+                               Max="50"
                                @bind-Value="MaxPosts" 
-                               @bind-Value:after="@PageSizeChanged" />
+                               @bind-Value:after="@SearchOptionChanged" />
 
             <FluentCombobox Label="Sort By"
-                            @bind-Value="@SortBy"
+                            @bind-SelectedOption="SortByItem"
+                            @bind-SelectedOption:after="@SearchOptionChanged"
                             Items=@SortOptions
                             TOption="Option<PostSortInput>"
                             OptionText="@(i => i.Text)"
-                            OptionValue="@(i => i.Value?.Id.ToString())"                                                        
-                            SelectedOptionChanged="@OrderByChanged" />
+                            OptionValue="@(i => i.Value?.Id.ToString())" />
 
-            <FluentButton @onclick="@(() => PriorPage())" Disabled="@(!HasPriorPage)">Prior Page</FluentButton>
-            <FluentButton @onclick="@(() => NextPage())" Disabled="@(!HasNextPage)">Next Page</FluentButton>
+            <FluentButton @onclick="@(() => QueryData(PagingDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</FluentButton>
+            <FluentButton @onclick="@(() => QueryData(PagingDirection.Next))" Disabled="@(!HasNextPage)">Next Page</FluentButton>
 
-            <FluentBadge Appearance="Appearance.Neutral">@PageNumber/@TotalPages</FluentBadge>
+            <FluentBadge Appearance="Appearance.Neutral">@PageNumber/@TotalPages</FluentBadge>                        
             
-            <FluentProgress Min="0" Max="@TotalPages" Value="@PageNumber"></FluentProgress>            
-            <FluentProgress Min="0" Max="100" Value="25"></FluentProgress>
-        </FluentStack>                       
+        </FluentStack>            
     </FluentHeader>
 
-    <FluentProgress Min="1" Max="@TotalPages" Value="@PageNumber" BackgroundColor="Blue" Color="Yellow"></FluentProgress>
-    
+    <div style="display: grid; grid-gap: 12px; grid-auto-flow: column;">
+        <FluentProgress Min="0" Max="@TotalPages" Value="@PageNumber" BackgroundColor="DarkGray" Color="Gray"></FluentProgress>
+    </div>
+
     <!-- Posts flex grid -->
-    <FluentGrid Justify="JustifyContent.FlexStart" AdaptiveRendering="true" Style="overflow: auto; width:100%" Spacing="0">
+    <FluentGrid Justify="JustifyContent.FlexStart" 
+                AdaptiveRendering="true" 
+                xStyle="overflow: auto; width:100%" 
+                Spacing="1">
         @if (Model is null)
         {
             <div>Loading...</div>
@@ -50,8 +54,11 @@
             }
         }
     </FluentGrid> 
-    
 
+        <div style="display: grid; grid-gap: 12px; grid-auto-flow: column;">
+        <FluentProgress Min="0" Max="@TotalPages" Value="@PageNumber" BackgroundColor="DarkGray" Color="Gray"></FluentProgress>
+        </div>
+    
 </FluentLayout>
    
 
@@ -60,60 +67,57 @@
     [Inject]
     public BloggingClient Client { get; private set; } = default!;
 
-    IPostsQueryResult? Model { get; set; } = default!;
+    IPostsQueryResult? Model { get; set; }
 
     // Filters, sorting, etc.
     int MaxPosts = 2;
-    string? SortBy = "Id Desc";    
-
-    protected override async Task OnInitializedAsync()
-    {
-        await NextPage();
-    }
-
-    public async Task PageSizeChanged()
-    {
-        Model = null;
-        PageNumber = 0;
-        await NextPage();
-    }
-
-    async Task OrderByChanged(Option<PostSortInput> option)
-    {
-        SortBy = option.Text;
-        
-        await PageSizeChanged();
-    }
-
-    public Task NextPage() => QueryData(nextPage: true);
-
-    public Task PriorPage() => QueryData(nextPage: false);
-
-    PostSortInput[] GetOrder()
-    {
-        Option<PostSortInput>? selectedSortOption = SortOptions.FirstOrDefault(x => x.Text == this.SortBy);
-        var order_value = new PostSortInput[] { selectedSortOption?.Value ?? SortById };
-        return order_value;
-    }
+    Option<PostSortInput>? SortByItem = SortOptions[1];
 
     int PageNumber = 0;
     int? TotalPages => Model?.Posts?.TotalCount / MaxPosts;
 
-    bool HasNextPage => Model?.Posts?.PageInfo?.HasNextPage == true;        
-    bool HasPriorPage => Model?.Posts?.PageInfo?.HasPreviousPage ?? true;
+    bool HasNextPage => Model?.Posts?.PageInfo?.HasNextPage == true;
+    bool HasPriorPage => Model?.Posts?.PageInfo?.HasPreviousPage == true;
 
-    async Task QueryData(bool nextPage)
+    protected override async Task OnInitializedAsync()
+    {
+        Reset();
+        await QueryData(PagingDirection.Next);
+    }
+
+    void Reset()
+    {
+        Model = null;
+        PageNumber = 0;
+    }
+
+    public async Task SearchOptionChanged()
+    {
+        Reset();
+        await QueryData(PagingDirection.Next);
+    }
+
+    enum PagingDirection
+    {
+        Previous,
+        Next
+    }
+
+    async Task QueryData(PagingDirection? pagingDirection)
     {
         var pageInfo = this.Model?.Posts?.PageInfo;
+
+        var nextPage = pagingDirection == PagingDirection.Next;
 
         var response = await Client.PostsQuery.ExecuteAsync(
                 first: nextPage ? this.MaxPosts : null,
                 after: nextPage ? pageInfo?.EndCursor : null,
                 last: nextPage ? null : this.MaxPosts,
                 before: nextPage ? null : pageInfo?.StartCursor,
-                order: GetOrder());
+                order: new PostSortInput[] { SortByItem?.Value ?? SortById });
 
         response.EnsureNoErrors();
+        
         if (nextPage)
         {
             PageNumber++;

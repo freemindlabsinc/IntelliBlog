@@ -1,0 +1,25 @@
+﻿query SourcesQuery(
+  $first: Int = 3
+  $after: String = null,
+  $last: Int = null,
+  $before: String = null,
+  $where: SourceFilterInput = null,
+  $order: [SourceSortInput!] = [{ id: DESC }]  
+) {
+  sources: sources(first: $first, last: $last, before: $before, after: $after, where: $where, order: $order) {    
+    pageInfo {
+      ...PageInfoData
+    }
+    totalCount
+    nodes {
+      ...SourceCardData
+      posts: posts {
+        totalCount
+        nodes {
+          id
+          title
+        }
+      }
+    }    
+  }
+}

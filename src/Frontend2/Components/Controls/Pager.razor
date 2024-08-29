@@ -1,0 +1,70 @@
+﻿<div class="hstack gap-3">
+    <div class="badge p-2 bg-primary">@PageNumber/@TotalPages</div>
+
+    <button @onclick="@(() => Scroll(ScrollDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</button>
+    <button @onclick="@(() => Scroll(ScrollDirection.Next))" Disabled="@(!HasNextPage)">Next Page</button>
+    @ChildContent
+</div>
+
+
+
+@code {
+    void Reset()
+    {
+        Cursor = null;
+        PageNumber = 0;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Reset();
+        await Scroll(ScrollDirection.Next);        
+    }
+
+    int MaxSources = 20;
+    int PageNumber = 0;
+
+    public enum ScrollDirection
+    {
+        Previous,
+        Next
+    }
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public Func<ScrollDirection, Task<ScrollCursor>> ScrollAsync { get; set; } = default!;
+
+    public record ScrollCursor(int TotalCount, bool HasNextPage, bool HasPriorPage);
+
+    public ScrollCursor? Cursor { get; set; }
+
+    //int? TotalPages => (Cursor?.TotalCount ?? 0) / MaxSources;
+    int? TotalPages => (Cursor?.TotalCount + MaxSources - 1) / MaxSources;
+
+    bool HasNextPage => Cursor?.HasNextPage ?? false;
+    bool HasPriorPage => Cursor?.HasPriorPage ?? false;
+
+    async Task Scroll(ScrollDirection direction)
+    {
+        if (ScrollAsync is null)
+        {
+            this.Cursor = new ScrollCursor(0, false, false);
+            return;
+        }
+        
+        this.Cursor = await ScrollAsync(direction);
+
+        if (direction == ScrollDirection.Next)
+        {
+            PageNumber++;
+        }
+        else
+        {
+            PageNumber--;
+        }
+        
+        StateHasChanged();
+    }
+}

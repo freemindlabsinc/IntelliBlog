@@ -17,7 +17,12 @@ var api = builder.AddProject<Projects.API>("api")
        .WithReference(cache)
        .WithReference(sqldb);
 
-builder.AddProject<Projects.Frontend>("frontend")
+//builder.AddProject<Projects.Frontend>("frontend")
+//    .WithExternalHttpEndpoints()
+//    .WithReference(cache)
+//    .WithReference(api);
+
+builder.AddProject<Projects.Frontend2>("frontend2")
     .WithExternalHttpEndpoints()
     .WithReference(cache)
     .WithReference(api);

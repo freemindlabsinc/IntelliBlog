@@ -1,0 +1,66 @@
+﻿@page "/sources"
+@using static Frontend2.Components.Controls.Pager
+
+@rendermode InteractiveServer
+
+<PageTitle>Sources</PageTitle>
+
+<Pager ScrollAsync="@QueryData" />   
+
+<ResponsiveRow>
+@{
+    @foreach (var post in Model?.Sources?.Nodes ?? Array.Empty<ISourcesQuery_Sources_Nodes>())
+    {
+        <div class="col">
+            <SourceCard Item="post" />
+        </div>
+    }
+}
+</ResponsiveRow>
+
+
+@code {
+    [Inject]
+    public BloggingClient Client { get; private set; } = default!;
+
+    ISourcesQueryResult? Model { get; set; }
+
+    // Filters, sorting, etc.
+    int MaxSources = 20;
+    
+    async Task<ScrollCursor> QueryData(ScrollDirection pagingDirection)
+    {
+        var pageInfo = this.Model?.Sources?.PageInfo;
+
+        var nextPage = pagingDirection == ScrollDirection.Next;
+
+        var response = await Client.SourcesQuery.ExecuteAsync(
+                first: nextPage ? this.MaxSources : null,
+                after: nextPage ? pageInfo?.EndCursor : null,
+                last: nextPage ? null : this.MaxSources,
+                before: nextPage ? null : pageInfo?.StartCursor,
+                where: null,
+                order: new SourceSortInput[] { /* SortByItem?.Value ?? */ SortById });
+
+        response.EnsureNoErrors();
+      
+        Model = response.Data!;
+
+        StateHasChanged();
+
+        return new ScrollCursor(Model.Sources!.TotalCount!, Model.Sources.PageInfo.HasNextPage, Model.Sources.PageInfo.HasPreviousPage);
+    }
+
+    static SourceSortInput SortById = new SourceSortInput { Id = SortEnumType.Asc };
+    static SourceSortInput SortByIdDesc = new SourceSortInput { Id = SortEnumType.Desc };
+    static SourceSortInput SortByName = new SourceSortInput { Name = SortEnumType.Asc };
+    static SourceSortInput SortByNameDesc = new SourceSortInput { Name = SortEnumType.Desc };
+
+    //static List<PostSortInput>> SortOptions = new()
+    //    {
+    //        { new Option<PostSortInput> { Value = SortById, Text = "Id" } },
+    //        { new Option<PostSortInput> { Value = SortByIdDesc, Text = "Id Desc" } },
+    //        { new Option<PostSortInput> { Value = SortByTitle, Text = "Title" } },
+    //        { new Option<PostSortInput> { Value = SortByTitleDesc, Text = "Title Desc" } }
+    //    };
+}

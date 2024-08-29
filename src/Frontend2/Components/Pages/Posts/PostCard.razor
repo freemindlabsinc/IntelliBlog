@@ -1,0 +1,111 @@
+﻿<div class="card">
+    <!-- Featured indicator -->
+    @if (IsFeatured())
+    {
+        <span class="badge rounded-pill text-bg-danger">Featured</span>
+    }
+
+    <!-- Top image -->
+    <img class="card-img-top" src="@Item.Image" alt="Card image cap" onerror="this.onerror=null;this.src='/images/ImageNotFound.png';">    
+    
+    <!-- Card body -->
+    <div class="card-body">
+        <!-- Tags -->
+        @if (Item.Tags.Any())
+        {
+            <div class="d-flex">
+                <div>
+                @foreach (var tag in Item.Tags)
+                {
+                    <span class="badge p-2 rounded-pill" style="background: @GetColorForTag(tag)">@tag</span>
+                }
+                </div>
+                <a href="#" class="@GetAnchorClass() ms-auto p-1"><em>@GetTagCountLabel()</em></a>
+            </div>
+        }
+
+        <!-- Comments & Shares -->
+        <div class="d-flex">
+            <a href="#" class="@GetAnchorClass() me-auto"><em>@GetCommentsLabel()</em></a>
+            <a href="#" class="@GetAnchorClass() ms-auto"><em>@GetSharesLabel()</em></a>
+        </div>
+
+        <!-- Title -->
+        <h5 class="card-title">@Item.Title</h5>
+
+        <!-- Description -->
+        <h6 class="card-subtitle mb-2 text-muted">@GetCardText(maxChars: 100)</h6>
+        
+        <div class="d-flex">
+            <a href="#" class="@GetAnchorClass() me-auto"><em>Like</em></a>
+            <a href="#" class="@GetAnchorClass() ms-auto"><em>@GetCreatedOnText()</em></a>
+        </div>
+        
+    </div>
+
+    <!-- Footer -->
+    <!--div class="card-footer">
+        Featured
+    </div-->
+</div>
+
+@code {
+    [Parameter]
+    public IPostCardData Item { get; set; } = default!;
+
+    string GetColorForTag(string tag)
+    {
+        int hash = tag.GetHashCode();
+        int r = (hash & 0xFF0000) >> 16;
+        int g = (hash & 0x00FF00) >> 8;
+        int b = hash & 0x0000FF;
+        return $"rgb({r},{g},{b})";
+    }
+
+    string GetAnchorClass()
+    {
+        return "link-primary link-underline-opacity-0 link-underline-opacity-100-hover";
+    }
+
+    public bool IsFeatured()
+    {
+        var featured = Item.Title?.Contains("epiphany") ?? false;
+        return featured;        
+    }
+
+    public string GetImageUrl()
+    {
+        return string.IsNullOrWhiteSpace(Item.Image) ? "images/ImageNotFound.png" : Item.Image;     
+    }
+
+    public string GetTagCountLabel()
+    {
+        if (Item.Tags.Count == 0)
+            return "No Tags";
+
+        var value = Item.Tags.Count;
+        return $"{value} Tags";
+    }
+
+    public string GetCommentsLabel()
+    {
+        var value = Random.Shared.Next(12);
+        return $"{value} Comments";
+    }
+
+    public string GetSharesLabel()
+    {
+        var value = Random.Shared.Next(6);
+        return $"{value} Shares";
+    }
+
+    public string GetCardText(int maxChars)
+    {
+        return Item.Description ?? Item.Text?.Substring(0, maxChars) ?? "[No content]";
+    }
+
+    public string GetCreatedOnText()
+    {
+        return $"By {Item.CreatedBy} on {Item.CreatedOn.ToString("MM/dd/yyyy")}";
+    }    
+}
