@@ -6,7 +6,7 @@
 
 :warning: This repo has just been made public and it's still under **heavy** development. Consider it a work in progress.
 
-:calendar: Our target date for the first usable release is **Aug 16th**, but don't be surprised by delays. 
+:calendar: Our target date for the first usable release is **August/September**, but don't be surprised by delays. 
 
 ## Overview
 [License: MIT]
