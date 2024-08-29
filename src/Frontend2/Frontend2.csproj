@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <GraphQL Remove="components\pages\home\HomeQuery.graphql" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Components\Pages\Blogs\BlogsQuery.graphql" />
     <None Remove="Components\Pages\Fragments.graphql" />
     <None Remove="Components\Pages\Posts\PostsQuery.graphql" />

@@ -1,0 +1,27 @@
+query HomeQuery($maxPosts: Int = 1, $maxSources: Int = 1) {
+
+  latestPosts:posts(first:$maxPosts, order: { createdOn: DESC}) {
+    nodes {
+      ... PostCardData     
+      blog {
+       ... BlogName      
+      }      
+    }
+    totalCount
+  }
+
+  latestSources:sources(first: $maxSources, order: { createdOn: DESC}) {
+    nodes {
+      ...SourceCardData
+      blog {
+        ... BlogName
+      }      
+    }
+    totalCount
+  }
+}
+
+fragment BlogName on Blog {
+  id
+  name
+}

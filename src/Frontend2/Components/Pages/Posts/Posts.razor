@@ -1,12 +1,28 @@
 ﻿@page "/posts"
-@using StrawberryShake
+
 @rendermode InteractiveServer
 
 <PageTitle>Posts</PageTitle>
 
-<h1>Posts</h1>
+<div class="hstack gap-3">
+    <div class="badge p-2 bg-primary">@PageNumber/@TotalPages</div>
 
-<div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 row-cols-xl-3 row-cols-xxl-4 g-4">
+    <button @onclick="@(() => QueryData(PagingDirection.Previous))" Disabled="@(!HasPriorPage)">Prior Page</button>
+    <button @onclick="@(() => QueryData(PagingDirection.Next))" Disabled="@(!HasNextPage)">Next Page</button>
+ 
+    <div class="d-flex ms-auto">
+        <input type="text" />
+        <button class="btn btn-primary" type="submit">Search</button>
+        <select class="form-select me-auto" aria-label="Default select example">
+            <option value="1">Keyword</option>
+            <option value="2">Full-text</option>
+            <option value="2">Semantic</option>
+            <option value="3">AI</option>
+        </select>
+    </div>
+</div>
+
+<ResponsiveRow>
         @{
              @foreach (var post in Model?.Posts?.Nodes ?? Array.Empty<IPostsQuery_Posts_Nodes>())
              {
@@ -15,7 +31,7 @@
                  </div>
              }            
         }
-</div>
+</ResponsiveRow>
 
 
 @code {

@@ -6,8 +6,8 @@
     }
 
     <!-- Top image -->
-    <img class="card-img-top" src="@Item.Image" alt="Card image cap" onerror="this.onerror=null;this.src='/images/ImageNotFound.png';">    
-    
+    <img class="card-img-top" src="@Item.Image" alt="Card image cap" onerror="this.onerror=null;this.src='/images/ImageNotFound.png';">
+
     <!-- Card body -->
     <div class="card-body">
         <!-- Tags -->
@@ -15,10 +15,10 @@
         {
             <div class="d-flex">
                 <div>
-                @foreach (var tag in Item.Tags)
-                {
-                    <span class="badge p-2 rounded-pill" style="background: @GetColorForTag(tag)">@tag</span>
-                }
+                    @foreach (var tag in Item.Tags)
+                    {
+                        <span class="badge p-2 rounded-pill" style="background: @GetColorForTag(tag)">@tag</span>
+                    }
                 </div>
                 <a href="#" class="@GetAnchorClass() ms-auto p-1"><em>@GetTagCountLabel()</em></a>
             </div>
@@ -30,17 +30,17 @@
             <a href="#" class="@GetAnchorClass() ms-auto"><em>@GetSharesLabel()</em></a>
         </div>
 
-        <!-- Title -->
-        <h5 class="card-title">@Item.Title</h5>
+        <!-- Name -->
+        <h5 class="card-title">@Item.Name</h5>
 
         <!-- Description -->
         <h6 class="card-subtitle mb-2 text-muted">@GetCardText(maxChars: 100)</h6>
-        
+
         <div class="d-flex">
             <a href="#" class="@GetAnchorClass() me-auto"><em>Like</em></a>
             <a href="#" class="@GetAnchorClass() ms-auto"><em>@GetCreatedOnText()</em></a>
         </div>
-        
+
     </div>
 
     <!-- Footer -->
@@ -51,7 +51,7 @@
 
 @code {
     [Parameter]
-    public IPostCardData Item { get; set; } = default!;
+    public ISourceCardData Item { get; set; } = default!;
 
     string GetColorForTag(string tag)
     {
@@ -69,13 +69,13 @@
 
     public bool IsFeatured()
     {
-        var featured = Item.Title?.Contains("epiphany") ?? false;
-        return featured;        
+        var featured = Item.Name?.Contains("idea") ?? false;
+        return featured;
     }
 
     public string GetImageUrl()
     {
-        return string.IsNullOrWhiteSpace(Item.Image) ? "images/ImageNotFound.png" : Item.Image;     
+        return string.IsNullOrWhiteSpace(Item.Image) ? "images/ImageNotFound.png" : Item.Image;
     }
 
     public string GetTagCountLabel()
@@ -101,11 +101,11 @@
 
     public string GetCardText(int maxChars)
     {
-        return Item.Description ?? Item.Text?.Substring(0, maxChars) ?? "[No content]";
+        return Item.Description ?? Item.Name?.Substring(0, maxChars) ?? "[No content]";
     }
 
     public string GetCreatedOnText()
     {
         return $"By {Item.CreatedBy} on {Item.CreatedOn.ToString("MM/dd/yyyy")}";
-    }    
+    }
 }

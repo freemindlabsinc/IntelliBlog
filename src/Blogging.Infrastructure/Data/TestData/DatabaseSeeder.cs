@@ -75,8 +75,11 @@ public static class DatabaseSeeder
         return blogs;
     }
 
+    
     static IEnumerable<Source> GenerateSources(IEnumerable<Blog> blogs, int amount)
     {
+        string[] SourceTags = { "video", "news site", "reputable", "garbage" };
+
         var sourceId = 3000;
         var faker = new Faker<Source>()
             .CommonInitialization()
@@ -96,7 +99,7 @@ public static class DatabaseSeeder
             .RuleFor(x => x.Url, f => f.Internet.Url())
             .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
             .RuleFor(x => x.Tags, (f, x) => {
-                 x.AddTags(f.Random.WordsArray(0, 12));
+                 x.AddTags(f.Random.ArrayElements(SourceTags));
                  return x.Tags;
              });
 
@@ -108,6 +111,8 @@ public static class DatabaseSeeder
         IEnumerable<Source> sources,
         int amount)
     {
+        string[] PostTags = { "news", "technology", "science", "politics", "economy", "sports" };        
+
         string[] TitleStarters = {
             "Some thoughts about",
             "My ideas for",
@@ -140,7 +145,7 @@ public static class DatabaseSeeder
             .RuleFor(x => x.Image, f => f.Image.PicsumUrl())
             .RuleFor(x => x.Tags, (f, x) =>
             {
-                x.AddTags(f.Random.WordsArray(0, 12));
+                x.AddTags(f.Random.ArrayElements(PostTags));
                 return x.Tags;
             })
             .RuleFor(x => x.Sources, (f, x) => 
