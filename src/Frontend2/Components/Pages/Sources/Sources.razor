@@ -5,28 +5,17 @@
 
 <PageTitle>Sources</PageTitle>
 
-<Pager ScrollAsync="@QueryData">
-    <div class="d-flex ms-auto">
-        <input type="text" />
-        <button class="btn btn-primary" type="submit">Search</button>
-        <select class="form-select me-auto" aria-label="Default select example">
-            <option value="1">Keyword</option>
-            <option value="2">Full-text</option>
-            <option value="2">Semantic</option>
-            <option value="3">AI</option>
-        </select>
-    </div>
-</Pager>
+<Pager ScrollAsync="@QueryData" />   
 
 <ResponsiveRow>
-    @{
-        @foreach (var post in Model?.Sources?.Nodes ?? Array.Empty<ISourcesQuery_Sources_Nodes>())
-        {
-            <div class="col">
-                <SourceCard Item="post" />
-            </div>
-        }
+@{
+    @foreach (var post in Model?.Sources?.Nodes ?? Array.Empty<ISourcesQuery_Sources_Nodes>())
+    {
+        <div class="col">
+            <SourceCard Item="post" />
+        </div>
     }
+}
 </ResponsiveRow>
 
 
