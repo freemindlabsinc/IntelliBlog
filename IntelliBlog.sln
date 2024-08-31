@@ -39,6 +39,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{28638224-A
 		docs\AF-LOG.md = docs\AF-LOG.md
 		docs\BIG_PICTURE.md = docs\BIG_PICTURE.md
 		docs\CONFIGURATION.md = docs\CONFIGURATION.md
+		docs\Final MD Intelliblog.md = docs\Final MD Intelliblog.md
 		LICENSE = LICENSE
 		README.md = README.md
 		docs\SOLUTION_STRUCTURE.md = docs\SOLUTION_STRUCTURE.md
